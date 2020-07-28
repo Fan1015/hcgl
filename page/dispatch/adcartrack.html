@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=WDnO4ZB2V7e3SU8wGepgAQ97g3tvHe4N"></script>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>行政车辆轨迹</title>
+    <style>
+    	#allmap{
+    		width:100%;
+    		height:100%;
+    	}
+    	#search_track{
+    		position:absolute;
+    		top:30px;
+    		left:0;
+    		right:0;
+    		margin: auto;
+    		z-index:2;
+    	}
+    	.hcbig{
+    		margin:0;float:left
+    	}
+    	.hcbig .layui-input{
+    		width:200px;
+    	}
+    	#playback{
+    		background:#fff;
+    		border-radius: 4px;
+    		padding:10px;
+    		vertical-align: top;
+    		/*display: none;*/
+    	}
+    	.layui-btn+.layui-btn{
+    		margin:0;
+    	}
+    </style>
+</head>
+<body>
+	<div id="search_track" style="margin-top:0.5em;text-align: center">
+        <div class="layui-form-item">
+            <div class="layui-inline" style="padding:10px;background:rgba(0,0,0,.3);border-radius:4px">
+                <div class="layui-inline hcbig" style="margin:0;float:left">
+                    <input type="text" name="car_name" autocomplete="off" class="layui-input" placeholder="内部车号" id="car_num" style="border-radius:4px 0 0 4px">
+                </div>
+                <div class="layui-inline hcbig" style="margin:0;float:left">
+                    <input type="text" name="start_time" id="starttime" lay-verify="datetime" placeholder="起始日期" autocomplete="off" class="layui-input" style="border-radius:0;border-left:none;border-right:none">
+                    <span class="selcetsearch" style="top:3px">
+		            	<i class="layui-icon layui-icon-date"></i>
+		            </span>
+                </div>
+                <div class="layui-inline hcbig" style="margin:0;float:left">
+                    <input type="text" name="end_time" id="endtime" class="layui-input" autocomplete="off" placeholder="结束日期" style="border-radius:0 4px 4px 0">
+            		<span class="selcetsearch" style="top:3px">
+		            	<i class="layui-icon layui-icon-date"></i>
+		            </span>
+                </div>
+                <div class="layui-inline" style="margin:0 0 0 8px;float:left">
+                	<button class="hcbtn search"><i class="layui-icon layui-icon-search"></i></button>
+                    <button class="hcbtn" id="reset" style="display: none;">
+                        <i class="layui-icon">&#xe9aa;</i>
+                    </button>
+                </div>
+			</div>
+            <div class="layui-inline" id="playback" style="margin-left:20px;display: none">
+                <button class="layui-btn layui-btn-sm" id="slow">
+                    <i class="layui-icon">&#xe603;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm" id="start">
+                    <i class="layui-icon">&#xe652;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm" id="stop" style="display: none;">
+                    <i class="layui-icon">&#xe651;</i>
+                </button>
+                <button class="layui-btn layui-btn-sm" id="fast">
+                    <i class="layui-icon">&#xe602;</i>
+                </button>
+                <div style="text-align: left;padding-top:10px;line-height: 16px">
+                    播放状态：
+                    <span id="zhuangtai"></span>
+                </div>
+                <div style="text-align: left;padding-top:10px;line-height: 16px">
+                    总里程：
+                    <span id="distance"></span>
+                </div>
+            </div>
+        </div>
+	</div>
+    <div id="allmap"></div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+	<script src="../../assets/js/common.js"></script>
+    <script type="text/javascript">
+        var obj = getArgument()
+        console.log(obj)
+        obj.url = obj.url ? obj.url : '/hcms/location/show_track'
+    // var map = new BMap.Map("allmap");
+    // //可使用鼠标滚轮操作缩放
+    // map.enableScrollWheelZoom(true);
+    // var point = new BMap.Point(113.054408, 34.761712);
+    // map.centerAndZoom(point, 13);
+     var map = new BMap.Map("allmap");
+    map.centerAndZoom("巩义",12);
+    map.setCurrentCity("巩义"); //设置为衡阳
+    // map.addControl(new BMap.MapTypeControl()); //可拖拽
+    map.enableScrollWheelZoom(true); //滚轮实现方法缩小
+
+    window.onload = function(){
+
+        //当前日期
+        var day2 = new Date();
+        day2.setTime(day2.getTime());
+        var year1= day2.getFullYear(),month1=(day2.getMonth()+1).toString(),day1=day2.getDate().toString();
+        if (month1.length == 1) {
+            month1='0' + month1;
+        }
+        if (day1.length == 1) {
+            day1= '0'+ day1;
+        }
+        time1=(year1+ '-' + month1+ '-' + day1+" 00:00:00");
+
+        //前一天时间
+        var now = new Date();
+        now = new Date(now.getTime() - 86400000);
+        var year= now.getFullYear(), 
+            month= (now.getMonth() + 1).toString(), 
+            day = now.getDate().toString();
+
+        if (month.length == 1) {
+            month= '0' + month;
+        }
+        if (day .length == 1) {
+            day = '0' + day ;
+        }
+        time=(year+ '-' + month+ '-' + day+" 00:00:00");
+        $('#endtime').val(time1);
+        $('#starttime').val(time);
+    }
+
+    // layui.use(['form', 'layedit', 'laydate'], function() {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#starttime'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#endtime'
+            ,type: 'datetime'
+        });
+
+        //添加全局变量
+        // 车辆运行轨迹速度
+        times = 500;
+        bPoints = [];
+        points = [];
+        //
+        times = 500;
+        stopS = '';
+        n = 0;
+        var maker = '';
+        // var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+        //     scale: 0.6,//图标缩放大小
+        //     strokeColor:'#18c7b9',//设置矢量图标的线填充颜色
+        //     strokeWeight: '2',//设置线宽
+        //     rotation:120
+        // });
+        // var icons = new BMap.IconSequence(sy, '10', '10');
+
+        $('.search').click(function(){
+            // console.log(999)
+            
+            var data = {
+                car_num: $('#car_num').val(),
+                start_time: $('#starttime').val(),
+                end_time: $('#endtime').val()
+            }
+            var url = obj.url;
+            if(!data.car_num || !data.start_time || !data.end_time){
+                layer.msg('搜索项不能为空');
+                return false
+            }
+            checkData(data.start_time,data.end_time)
+            var carIndex = layer.load({shade:0.5});
+            promiseSovl(url,'get', data).then(function(res){
+                // console.log(res);
+                map.clearOverlays();
+                n = 0
+                $('#reset').hide();
+                $('#stop').hide();
+                $('#start').show();
+                clearInterval(stopS);
+                if (res.data.points.length == 0){
+                    layer.msg('没有查询信息');
+                    return false;
+                }
+                points = res.data.points;
+                distance = (res.data.distance/1000).toFixed(2);
+                $('#playback').show();
+                $('#distance').html(distance+'km');
+                $('#zhuangtai').html('停止');
+                var j = 0;
+                var arr = [];
+                var log_time = 0;
+                for (var i =0; i< res.data.size;i++) {
+                    var pointe = new BMap.Point(points[i].longitude, points[i].latitude)
+                    bPoints.push(pointe);
+                    if (log_time == 0){
+                        arr["bPoints"+j] = [];
+                    } else{
+                        if((points[i].loc_time - log_time) >300) {
+                            j++;
+                            arr["bPoints"+j] = [];
+                        } else{
+                            arr["bPoints"+j].push(pointe);
+                        }
+                    }
+                    log_time = res.data.points[i].loc_time;
+                }
+                //开始标记图标
+                startIcon = new BMap.Icon('../../assets/image/qd0271.png',new BMap.Size(32, 39),{
+                });
+                //结束标记图标
+                endIcon = new BMap.Icon('../../assets/image/zd0291.png',new BMap.Size(32, 39),{
+                });
+                //结束标记
+                endoffset = new BMap.Size(0, -19);
+                startoffset = new BMap.Size(0, -19);
+                startlong = res.data.start_point.longitude;
+                startlat = res.data.start_point.latitude;
+                endmaker=addMark(res.data.end_point.longitude,res.data.end_point.latitude,endoffset,endIcon);
+                //开始标记
+                addMark(res.data.start_point.longitude,res.data.start_point.latitude,startoffset,startIcon);
+                //生成折线
+                for (var i=0; i<=j;i++) {
+                    // polyline = new BMap.Polyline(bPoints, {
+                    //     icons:[icons],
+                    //     strokeWeight:'10',//折线的宽度，以像素为单位
+                    //     strokeOpacity: 0,//折线的透明度，取值范围0 - 1
+                    //     //strokeColor : 'rgba(255,255,255,0)', //设置矢量图标的线填充颜色,支持颜色常量字符串、十六进制、RGB、RGBA等格式
+                    // });   //创建折线
+                    // map.addOverlay(polyline);
+                    polyline = new BMap.Polyline(arr["bPoints" + i], {
+                        strokeColor: randColor(),
+                        strokeWeight: 5,
+                        strokeOpacity: 1
+                    });
+                    map.addOverlay(polyline);
+                }
+                setZoom(bPoints);
+                layer.close(carIndex)
+            });
+        })
+
+    //获取两个数之间的数字
+    function randNum(starNum,endNum) {
+        var tnum = endNum-starNum+1;
+        return Math.floor(Math.random()*tnum+starNum);
+    }
+
+    //获取随机16进制颜色代码
+    function randColor() {
+        var str = [1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
+        var one = randNum(0,12);
+        var two = randNum(0,12);
+        var three = randNum(0,12);
+        var four = randNum(0,12);
+        var five = randNum(0,12);
+        var six = randNum(0,12);
+        return '#' +str[one]+str[two]+str[three]+str[four]+str[five]+str[six];
+    }
+
+    //添加标注点
+    function addMark(location_x,location_y,offset='',icon=''){
+        var point = new BMap.Point(location_x,location_y);
+        // console.log(point)
+        marker = new BMap.Marker(point,{icon:icon,offset:offset});
+        map.addOverlay(marker);
+    }
+
+    
+    // startmaker = '';
+    // endmaker = '';
+    //减缓轨迹播放
+    $('#slow').click(function(){
+        $('#stop').show();
+        $('#start').hide();
+        map.removeOverlay(maker);
+        times +=100;
+        clearInterval(stopS)
+        if (times > 1000){
+            layer.msg('已经是最慢了', {icon:5});
+            times = 1000;
+        }
+        $('#zhuangtai').html(-(times-500)/100 + ' 倍');
+        stopS = setInterval(yunxing,times)
+    })
+    //开始轨迹播放
+    $('#start').click(function(){
+        $('#stop').show();
+        $('#start').hide();
+        if (times>500){
+            $('#zhuangtai').html(-(times-500)/100 + ' 倍');
+        } else{
+            $('#zhuangtai').html((500-times)/100 + ' 倍');
+        }
+        clearInterval(stopS);
+        stopS = setInterval(yunxing,times)
+    })
+    //加快轨迹播放
+    $('#fast').click(function(){
+        $('#stop').show();
+        $('#start').hide();
+        times -=100;
+        clearInterval(stopS)
+        if (times < 0){
+            layer.msg('已经是最快了', {icon:5});
+            times = 0;
+        }
+        $('#zhuangtai').html((500-times)/100 + ' 倍');
+        stopS = setInterval(yunxing,times)
+    })
+    //暂停轨迹播放
+    $('#stop').click(function(){
+        $('#stop').hide();
+        $('#start').show();
+        $('#zhuangtai').html('暂停');
+        clearInterval(stopS);
+    })
+
+    //重放轨迹播放
+    $('#reset').click(function(){
+        times = 500;
+        n=0;
+        $('#zhuangtai').html('停止');
+        $('#reset').hide();
+        $('#playback').show();
+        $('#stop').hide();
+        $('#start').show();
+    })
+    //运行轨迹函数
+    function yunxing(){
+        if(n>=points.length){
+            map.removeOverlay(marker);
+            $('#playback').hide();
+            $('#reset').show();
+            clearInterval(stopS);
+            addMark(startlong,startlat,startoffset,startIcon);
+            return false;
+        }
+        var caroffset = new BMap.Size(15,8);
+        map.removeOverlay(marker);
+        carIcon = new BMap.Icon(carImageUrl(points[n].direction),new BMap.Size(50, 50),{
+        });
+        var content = '车速:'+ Math.round(points[n].speed*100)/100+'km/h<br>时间:'+points[n].create_time.substring(5);
+        maker = addMark(points[n].longitude,points[n].latitude,caroffset,carIcon)
+        var label = new BMap.Label(content, { offset: new BMap.Size(20, -40) });
+        label.setStyle({
+            border: 'none',
+            border: '1px solid #126FCB',
+            color: '#126FCB',
+        });
+        marker.setLabel(label);
+        n++;
+
+    }
+    //根据点信息实时更新地图显示范围，让轨迹完整显示。设置新的中心点和显示级别
+    function setZoom(bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint, mapZoom);
+    }
+
+    //验证时间是否超过一天
+    function checkData(date1,date2){
+        var start = Date.parse(date1);
+        var end = Date.parse(date2);
+        if((end - start)/60000/60 > 24) {
+            layer.msg('时间格式不正确，请检查是否在一天之内')
+            return false;
+        }
+    }
+    //获取轨迹图标图片
+    function carImageUrl(value){
+        var url = '';
+        if(value>=350||value<12){
+            url = '../../assets/image/icon/car/1.png';
+        }else if(value>=12 && value<35){
+            url = '../../assets/image/icon/car/2.png';
+        }else if(value>=35 && value<57){
+            url = '../../assets/image/icon/car/3.png';
+        }else if(value>=57 && value<80){
+            url = '../../assets/image/icon/car/4.png';
+        }else if(value>=80 && value<102){
+            url = '../../assets/image/icon/car/5.png';
+        }else if(value>=102 && value<125){
+            url = '../../assets/image/icon/car/6.png';
+        }else if(value>=125 && value<147){
+            url = '../../assets/image/icon/car/7.png';
+        }else if(value>=147 && value<170){
+            url = '../../assets/image/icon/car/8.png';
+        }else if(value>=170 && value<192){
+            url = '../../assets/image/icon/car/9.png';
+        }else if(value>=192 && value<215){
+            url = '../../assets/image/icon/car/10.png';
+        }else if(value>=215 && value<237){
+            url = '../../assets/image/icon/car/11.png';
+        }else if(value>=237 && value<260){
+            url = '../../assets/image/icon/car/12.png';
+        }else if(value>=260 && value<282){
+            url = '../../assets/image/icon/car/13.png';
+        }else if(value>=282 && value<305){
+            url = '../../assets/image/icon/car/14.png';
+        }else if(value>=305 && value<327){
+            url = '../../assets/image/icon/car/15.png';
+        }else {
+            url = '../../assets/image/icon/car/16.png';
+        }
+        return url;
+    }
+    
+    // map.centerAndZoom("巩义");
+    // map.setCurrentCity("巩义"); //设置为衡阳
+    // // map.addControl(new BMap.MapTypeControl()); //可拖拽
+    // map.enableScrollWheelZoom(true); //滚轮实现方法缩小
+
+ //    var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+	//     scale: 0.6,//图标缩放大小
+	//     strokeColor:'#18c7b9',//设置矢量图标的线填充颜色
+	//     strokeWeight: '2',//设置线宽
+	//     rotation:120
+	// });
+	// var point1 = new BMap.Point(113.054408, 34.761712);
+	// var point2 = new BMap.Point(113.231129, 34.761447)
+	// var icons = new BMap.IconSequence(sy, '10', '10');
+	// var pois = [point1,point2]
+
+ //    var polyline = new BMap.Polyline(pois, {
+	// 	icons:[icons],
+	// 	strokeWeight:'10',//折线的宽度，以像素为单位
+	// 	strokeOpacity: 0,//折线的透明度，取值范围0 - 1
+	// 	strokeColor : 'rgba(255,255,255,0)', //设置矢量图标的线填充颜色,支持颜色常量字符串、十六进制、RGB、RGBA等格式
+	// });   //创建折线
+	// map.addOverlay(polyline);
+
+ //    var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: false}});  
+ //    driving.search(point1, point2);//waypoints表示途经点
+ //    var startIcon=new BMap.Icon("../../assets/image/qd0271.png", new BMap.Size(32,39));
+ //    var endIcon = new BMap.Icon("../../assets/image/zd0291.png", new BMap.Size(32,39));
+ //    driving.setMarkersSetCallback(function(result){
+ //        result[0].marker.setIcon(startIcon);
+ //        result[1].marker.setIcon(endIcon);
+ //    })
+
+
+
+
+	// // 添加覆盖物start
+	// function ComplexCustomOverlay(point, text, mouseoverText){
+ //      this._point = point;
+ //      this._text = text;
+ //      this._overText = mouseoverText;
+ //    }
+ //    ComplexCustomOverlay.prototype = new BMap.Overlay();
+ //    ComplexCustomOverlay.prototype.initialize = function(map){
+	// 	this._map = map;
+	// 	console.log(this)
+	// 	var div = this._div = document.createElement("div");
+	// 	div.style.position = "absolute";
+	// 	div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+	// 	div.style.backgroundColor = "";
+	// 	div.style.height = "50px";
+	// 	div.style.padding = "52px";     
+	// 	var that = this;
+
+	// 	var arrow = this._arrow = document.createElement("div");
+	// 	arrow.style.background = "url(../../assets/image/qd0271.png) no-repeat";
+	// 	arrow.style.position = "absolute";
+	// 	arrow.style.width = "32px";
+	// 	arrow.style.height = "39px";
+	// 	arrow.style.top = "-10px";
+	// 	arrow.style.left = "-18px";
+	// 	arrow.style.overflow = "hidden";
+	// 	div.appendChild(arrow);
+	// 	map.getPanes().labelPane.appendChild(div);
+
+	// 	return div;
+ //      }
+ //    ComplexCustomOverlay.prototype.draw = function(){
+	// 	var map = this._map;
+	// 	var pixel = map.pointToOverlayPixel(this._point);
+	// 	this._div.style.left = pixel.x  + "px";
+	// 	this._div.style.top  = pixel.y - 30 + "px";
+	// }
+	// var myCompOverlay = new ComplexCustomOverlay(point1);
+	// var myCompOverlay = new ComplexCustomOverlay(point2);
+ //    map.addOverlay(myCompOverlay); 
+    </script>
+</body>
+</html>

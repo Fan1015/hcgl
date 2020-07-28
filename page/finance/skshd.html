@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>收款审核单</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">收款审核单</p>
+            <ul class="jlul layui-form clearfix">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">单据日期</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="create_time" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">收款对象</p>
+                        <div class="dd-value">
+                            <select class="form-control input-sm" name="skdx" id="skdx">
+                                <option value="D">客户</option>
+                                <option value="K">供应商</option>
+                                <option value="S">一般总帐</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">对象编号 <button class="listAdd">搜索</button></p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="create_time" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">特别总账</p>
+                        <div class="dd-value">
+                            <input type="radio" name="radio" value="1" title="选择" checked>
+                            <input type="radio" name="radio" value="0" title="取消">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">OA流水号</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off"  name="create_time" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">申请人 <button class="listAdd">搜索</button></p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="money_l" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">记账科目</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="serial_num" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">特别总账描述</p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="purpose" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">公司代码</p>
+                        <div class="dd-value">
+                            <select class="" name="com_code">
+                                <option value="请选择" selected="selected">请选择</option>
+                                <option value="1000">河南省恒昌建材科技有限公司</option>
+                                <option value="1010">巩义市伟治建筑材料有限公司</option>
+                                <option value="1020">河南省恒昌建材科技有限公司松大站</option>
+                                <option value="2000">河南省山立建材科技有限公司</option>
+                                <option value="3000">郑州银河建筑工程有限公司工程服务分公司</option>
+                                <option value="5000">巩义市万昌运输有限公司</option>
+                                <option value="6000">河南省恒昌商砼技术服务有限公司</option>
+                                <option value="7000">恒昌集团资金事业部</option>
+                                <option value="8000">恒昌集团行政事业部</option>
+                                <option value="9000">河南元博软件有限公司</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">收款金额</p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="initiatorr" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">科目描述</p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="create_time" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">辅助对象类型</p>
+                        <div class="dd-value">
+                            <select class="form-control sel input-sm" name="fzdxlx" readonly="readonly">
+                                <option value=""></option>
+                                <option value="1">成本中心</option>
+                                <option value="2">内部订单</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">收据编号</p>
+                        <div class="dd-value">
+                            <input type="text" id="" autocomplete="off" name="create_time" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">收款方式</p>
+                        <div class="dd-value">
+                            <select class="form-control input-sm" name="data5" style="width: 176px" id="zffs">
+                                <option value="" selected="selected">请选择</option>
+                            <option value="X01">恒昌建材-公户-竹林农行(1746)</option><option value="X02">恒昌建材-公户-小关农行(6701)</option><option value="X03">恒昌建材-公户-中国银行(8153)</option><option value="X04">恒昌建材-公户-平顶山银行(3012)</option><option value="X05">恒昌建材-公户-小关信用社(1012)</option><option value="X06">恒昌建材-公户-浦发村镇(1838)</option><option value="X07">恒昌建材-公户-中原银行(0019)</option><option value="X08">恒昌建材-公户-浙商银行(5660)</option><option value="X09">恒昌建材-公户-工商银行(0602)</option><option value="X10">恒昌建材-公户-郑州银行(0282)</option><option value="X11">山立建材-公户-中国银行(9893)</option><option value="X12">山立建材-公户-小关信用社(0188)</option><option value="X13">山立建材-公户-浦发村镇银行(4949)</option><option value="X14">银河建筑-公户-竹林农行(1639)</option><option value="X15">伟治建材-公户-小关信用社(0202)</option><option value="X16">技术服务-公户-浦发村镇(0905)</option><option value="X17">万昌运输-公户-竹林农行(2314)</option><option value="X18">万昌运输-公户-郑州银行(0267)</option><option value="X19">万昌运输-公户-工商银行(1826)</option><option value="X20">万昌运输-公户-中原银行(6201)</option><option value="X21">李虎威-个卡-小关农行(3518)</option><option value="X22">李虎威-个卡-小关信用社(5781)</option><option value="X23">李山华-个卡-竹林农行(1573)</option><option value="X24">邵秀贞-个卡-竹林农行(7314)</option><option value="X25">闫朝霞-个卡-竹林农行(9278)</option><option value="X26">李皓琰-个卡-平顶山银行(7746)</option><option value="X27">李首龙-个卡-工商银行(8514)</option><option value="X28">李首龙-个卡-中国银行(2519)</option><option value="X29">李中央-个卡-平顶山银行(7423)</option><option value="X30">李中央-个卡-工商银行(8498)</option><option value="X31">李志刚-个卡-浦发村镇银行(5423)</option><option value="X32">孙二燕-个卡-浦发村镇银行(9896)</option><option value="X33">李元博-个卡-浦发村镇(5241)</option><option value="X34">李利涓-个卡-竹林农行(2317)</option><option value="X35">白育萍-个卡还款-建设银行(3756)</option><option value="X36">李昊玉-个卡还款-建设银行(0002)</option><option value="X37">李元博-个卡还款-建设银行(5975)</option><option value="X38">孙春平-个卡还款-建设银行(8691)</option><option value="X39">孙二燕-个卡还款-建设银行(8709)</option><option value="X40">李利涓-个卡还款-小关信用社(8209)</option><option value="X41">李晓峰-个卡还款-小关信用社(2076)</option><option value="X42">李元博-个卡还款-小关信用社(2840)</option><option value="X43">孙二燕-个卡还款-小关信用社(4073)</option><option value="X44">丹尼斯卡-购物卡类-(10001)</option><option value="X45">服装卡-购物卡类-(10002)</option><option value="X46">李中央-证券账号-民生证券(7129)</option><option value="A01">现金</option><option value="A02">现金-LLJ-微信</option><option value="A03">现金-SEY-微信</option><option value="B01">票据</option><option value="X47">恒昌建材-公户-中信银行(6271)</option><option value="X48">李中央信用社卡</option><option value="X49">李元博郑州银行</option><option value="X50">张荣亮郑州银行</option><option value="X51">王云彩郑州银行</option><option value="X52">张峰郑州银行</option><option value="X53">刘建敏郑州银行</option><option value="X54">吕金伟郑州银行</option><option value="X55">李中央郑州银行</option><option value="X56"></option><option value="X57">李亚飞郑州银行</option><option value="X58">张帅郑州银行</option><option value="X59">赵普阳郑州银行</option><option value="X60">赵志勇郑州银行</option><option value="X61">赵学峰郑州银行</option><option value="X62">李虎威珠江村镇银行</option><option value="X63"></option></select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">备选科目 <button class="listAdd">搜索</button></p>
+                        <div class="dd-value"> <input type="text" autocomplete="off" name="serial_num" value=""> </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">辅助对象</p>
+                        <div class="dd-value"> <input type="text" autocomplete="off" name="purpose" value=""> </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">备选描述</p>
+                        <div class="dd-value"> <input type="text" autocomplete="off" name="money_l" value=""> </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">用途</p>
+                        <div class="dd-value"> <input type="text" autocomplete="off" name="serial_num" value=""> </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">总账标识</p>
+                        <div class="dd-value"> <input type="text" autocomplete="off" name="purpose" value=""> </div>
+                    </div>
+                </li>
+
+                
+            </ul>
+            <ul class="jlul layui-form clearfix">
+                <li>
+                    <div class="hcbig">
+                        <label class="layui-form-label" style="width:40px">行数</label>
+                        <div class="layui-input-inline">
+                            <input type="number" autocomplete="off" class="layui-input bigInput" style="width:60px;border:1px solid #C9C9C9;margin-left:10px;text-align:center;" readonly="">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="hcbtn add">添加一行</button> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dd-value task-btnbox hcbig clearfix" style="margin-top:0">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn reload">刷新</button> 
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label" style="width:100px">OA流水号：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" placeholder="" name="serial_num" id="oa_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">公司代码：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="com_code" id="gs_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出全部</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var allData = {};
+    // 点击保存
+    $('body').on('click', '.save', function() {
+        var data = formData();
+        console.log(data);
+    });
+    $('.export').click(function(){
+        // $.ajax({
+        //     url:baseUrl + '/hcms/oa_form/skshs_data',
+        //     data:{
+        //         page:1,
+        //         limit:allData.count
+        //     },
+        //     success:function(res){
+        //         console.log(res)
+        //         table.exportFile(tableIns.config.id,res.data,'xls')
+        //     }
+        // })
+        table.exportFile(tableIns.config.id,allData.data,'xls')
+    })
+    //开始时间选择
+    laydate.render({
+        elem: "#djdate",
+        done: function (value, date) {
+            console.log(112, value);
+            console.log(113, date);
+        },
+    });
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+    listReisze()
+
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: baseUrl + '/hcms/oa_form/skshs_data',
+        where:{
+            token:takeOpen
+        },
+        id:'skshd',
+        cols: [
+            [
+				{field: 'serial_num', title: 'OA流水号', fixed: 'left', width: 110},
+                {field: 'sap_status', title: '传输状态', width: 100},
+                {field: 'sap_back', title: '返回数据', width: 100},
+                {field: 'create_time', title: '单据日期', width: 100},
+                {field: 'com_code', title: '公司代码', width: 100},
+                //{field: 'payment_obj', title: '付款对象', align:'center',width:100},
+                {field: 'initiatorr', title: '申请人', width: 100},
+                {field: 'initiatorr_c', title: '申请人代码', width: 120},
+                {field: 'money_l', title: '收款金额', width: 120},
+                {field: 'mode_payment', title: '收款方式', width: 100},
+                {field: 'zf_type', title: '收款描述', width: 110},
+                {field: 'voucher_num', title: '收据编号', width: 130},
+                {field: 'client_num', title: '客户编号', width: 120},
+                {field: 'client_desc', title: '客户描述', width: 120},
+                {field: 'money_category', title: '款项类别', width: 100},
+                {field: 'ac_money_way1_l', title: '实际金额1', width: 150},
+                {field: 'ac_money_way1', title: '实际收款1', width: 110},
+                {field: 'ac_money_way1_c', title: '实际收款1c', width: 120},
+                {field: 'ac_money_way2_l', title: '实际金额2', width: 150},
+                {field: 'ac_money_way2', title: '实际收款2', align: 'center', width: 110},
+                {field: 'ac_money_way2_c', title: '实际收款2c', width: 120},
+                {field: 'promise_num', title: '票号信息', width: 120},
+                {title: '操作', width: 65, toolbar: '#barDemo', fixed: "right", align: "center"}
+            ]
+        ],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function(res) {
+            allData = res
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            dataRender(obj.data)
+            form.render()
+        }
+    });
+</script>
+</body>
+</html>

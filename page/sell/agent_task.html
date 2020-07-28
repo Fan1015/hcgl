@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>代理商销售任务考核</title>
+    <style>
+        table td, table th {
+            text-align: center !important;
+        }
+    </style>
+</head>
+<body>
+<div class="hcbox layui-form">
+    <div class="hclit">
+        <p class="hctitle">代理商销售任务考核</p>
+    </div>
+    <div class="clearfix" style="margin-top:40px;padding-right:24px">
+        <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+            <label class="layui-form-label">时间查询：</label>
+            <div class="layui-input-inline" style="margin-right:5px">
+                <input type="text" id="start" placeholder="" autocomplete="off" class="layui-input bigInput">
+            </div>
+            <span>-</span>
+            <div class="layui-input-inline" style="margin-left:5px">
+                <input type="text" id="end" placeholder="" autocomplete="off" class="layui-input bigInput">
+            </div>
+        </div>
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px;float:left">
+            <div class="layui-inline" style="float:left">
+                <button class="hcbtn search" type="button">查询</button>
+            </div>
+			 <div class="layui-inline" style="float:left">
+                <button class="hcbtn reloads" type="button">刷新</button>
+            </div>
+            <div class="layui-inline" style="float:left">
+                <button class="hcbtn doExcel" type="button">导出</button>
+            </div>
+        </div>
+    </div>
+    <div id="view"></div>
+</div>
+<script id="demo" type="text/html">
+    <div>
+        <table class="layui-table" id="table_ele">
+            <colgroup>
+
+
+            </colgroup>
+            <thead>
+            <tr>
+                <th rowspan="2">项目</th>
+                <th colspan="5">目标任务</th>
+                <th colspan="6">实际完成</th>
+                <th colspan="2">截至昨日累计</th>
+                <th rowspan="3">完成率</th>
+            </tr>
+            <tr>
+                <th colspan="3">混凝土</th>
+                <th colspan="2">砂浆</th>
+                <th colspan="4">混凝土</th>
+                <th colspan="2">砂浆</th>
+                <th rowspan="2">混凝土</th>
+                <th rowspan="2">砂浆</th>
+            </tr>
+            <tr>
+                <th>姓名</th>
+                <th>全年</th>
+                <th>每月</th>
+                <th>每日</th>
+                <th>全年</th>
+                <th>每月</th>
+                <th>本日实际</th>
+                <th>本日差额</th>
+                <th>本月累计</th>
+                <th>本月差额</th>
+                <th>本日实际</th>
+                <th>本月累计</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{# layui.each(d, function(index, item){ }}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.htn_y_plan_task }}</td>
+                <td>{{ item.htn_m_plan_task }}</td>
+                <td>{{ item.htn_d_plan_task }}</td>
+                <td></td>
+                <td></td>
+                <td>{{ item.htn_d_real_num }}</td>
+                <td>{{ item.htn_d_differ }}</td>
+                <td>{{ item.htn_m_real_num }}</td>
+                <td>{{ item.htn_m_differ }}</td>
+                <td>{{ item.sj_d_real_num }}</td>
+                <td>{{ item.sj_m_real_num }}</td>
+                <td>{{ item.htn_yd_real_num }}</td>
+                <td>{{ item.sj_yd_real_num }}</td>
+                <td>{{ item.complate_percent }}%</td>
+            </tr>
+            {{# }); }}
+            </tbody>
+        </table>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a lay-event="edit" style="color:#5a8fff;cursor:pointer">编辑</a>
+</script>
+<script src="../../assets/layui/layui.all.js"></script>
+<script src="../../assets/jquery/jquery.min.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/table2excel.js" charset="utf-8"></script>
+<script>
+    var table = layui.table;
+    var form = layui.form;
+    var laytpl = layui.laytpl;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+
+    // 点击查询
+    $(".search").click(function () {
+
+    });
+    $('.reloads').click(function () {
+        location.reload();
+    });
+    var dd = new Date();
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time2 = y + '-' + m + '-' + d + ' 06:00:00'; // 日期选择
+    dd.setDate(dd.getDate() - 1);
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time1 = y + '-' + m + '-' + d + ' 06:00:00'; // 日期选择
+    laydate.render({
+        elem: '#start',
+        type: 'datetime',
+        value: time1,
+        done: function (value, date) {
+
+        }
+    });
+    laydate.render({
+        elem: '#end',
+        type: 'datetime',
+        value: time2,
+        // value: ,
+    });
+    window.onload = function () {
+        getData();
+    };
+    function getData() {
+        var getTpl = $('#demo').html()
+            , view = document.getElementById('view');
+        var url = '/hcms/sale/agent_task';
+        var data = {};
+        var start_time = $('#start').val();
+        var end_time = $('#end').val();
+        var oDate1 = new Date(start_time);
+        var oDate2 = new Date(end_time);
+        if((oDate2.getTime()-oDate1.getTime()) > 24*60*60*1000){
+            layer.msg('查询时间不能超过一天');
+            return false;
+        }
+        if (start_time) data.start_time = start_time;
+        if (end_time) data.end_time = end_time;
+        promiseSovl(url, 'get', data).then(function (res) {
+            if (res.code == 0) {
+                laytpl(getTpl).render(res.data, function (html) {
+                    view.innerHTML = html;
+                });
+            } else {
+                layer.msg(res.msg)
+            }
+        });
+    }
+
+    $('.search').click(function () {
+        getData();
+    });
+    $('.doExcel').click(function () {
+        var start_time = $('#start').val();
+        var end_time = $('#end').val();
+        var table2excel = new Table2Excel();
+        var ele = document.getElementById('table_ele');
+        table2excel.export(ele, '代理商销售任务考核' + start_time + '至' + end_time);
+    });
+</script>
+</body>
+</html>

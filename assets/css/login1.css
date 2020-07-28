@@ -1,0 +1,163 @@
+@charset "UTF-8";
+a:active,a:hover{outline:0}
+button,input,optgroup,select,textarea{color:inherit;font:inherit;margin:0}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+input,select,button{outline:none;border:none;}
+table{border-collapse:collapse;border-spacing:0}
+td,th{padding:0}
+img{vertical-align:middle;border:0}
+@-ms-viewport{width:device-width}
+button,input,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit}
+a{color:inherit;text-decoration:none;outline:0}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+a.react,label.react{display:block;color:inherit;height:100%}
+a.react.react-active,a.react:active,label.react:active{background:rgba(0,0,0,.1)}
+ul{margin:0;padding:0;list-style-type:none}
+hr{margin-top:.28rem;margin-bottom:.28rem;border:0;border-top:1px solid #DDD8CE}
+::-webkit-input-placeholder {color:#999;line-height:inherit;} 
+:-moz-placeholder {color:#999;line-height:inherit;} 
+::-moz-placeholder {color:#999;line-height:inherit;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+.clearfix:after {
+    content: "";
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+    overflow:hidden;
+}
+html,body{
+    width:100%;
+    height:100%;
+    font-size:16px;
+}
+body{
+    overflow: auto;
+    font: 16px '微软雅黑',sans-serif;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+/*登录界面start*/
+/*other public*/
+
+.loginbox{
+	width: 23%;
+	height:45%;
+	position: absolute;
+    top:0;
+    bottom:0;
+    /*left:0;*/
+    right:20%;
+    margin:auto;
+}
+.logos{
+	width:100%;
+}
+.logos img{
+	width:100%;
+	display: block;
+	margin:0 auto 30px;
+}
+.admin_login {
+    overflow: hidden;
+    padding: 20px 40px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.admin_login dt {
+	width:5em;
+	text-align: center;
+    font-size: 20px;
+    font-weight: bold;    color: #2c8cf0;
+	border-bottom:3px solid #2c8cf0;
+    margin-bottom: 30px;
+}
+.admin_login dt p{
+	text-align: center;
+	/*line-height: 40px*/
+}
+
+.admin_login dd {
+    margin: 30px 0;
+    overflow: hidden;
+    position: relative;
+}
+.user_icon{
+
+}
+
+.admin_login dd .login_txtbx {
+    font-size: 20px;
+    width: 100%;
+    height: 60px;
+    /*line-height: 26px;*/
+    /*padding: 8px 5%;*/
+    text-indent: 3em;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #3c98f7;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+.admin_login dd{
+    position:relative;
+}
+.admin_login dd:before {
+    font-family: 'adminthemesregular';
+    position: absolute;
+    top: 0;
+    left: 26px;
+    height: 27px;
+    line-height: 37px;
+    font-size: 20px;
+    color: #265c95;
+    content:"";
+}
+
+.admin_login dd.user_icon:before {
+    /*content: "u";*/
+}
+
+.admin_login dd.pwd_icon:before {
+    /*content: "p";*/
+}
+
+.admin_login dd.ver_icon:before {
+    content: "n";
+}
+.login-icons{
+    position:absolute;
+    left:19px;
+    top:17px;
+}
+.admin_login dd .ver_btn {
+    text-align: right;
+    border: none;
+    color: #f4f4f4;
+    height: 42px;
+    line-height: 42px;
+    margin: 0;
+    z-index: 1;
+    position: relative;
+    float: right;
+    background: #48bca5;
+}
+.admin_login dd .submit_btn {
+    width: 100%;
+    height: 62px;
+    border: none;
+    font-size: 16px;
+    /*background-image: linear-gradient(to right,#3f35db,#5280f9);*/
+    background:#338de5;
+    color: #f8f8f8;
+    letter-spacing: 10px;
+    font-size:18px;
+    border-radius: 30px;
+}

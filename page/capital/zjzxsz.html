@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>资金中心账户收支明细</title>
+    <style>
+      .hcbig-top {
+        margin-bottom: 32px;
+        float: left;
+      }
+      .hcbig-foot {
+        float: left;
+        margin-right: 30px;
+        margin-top: 6px;
+      }
+      .layui-form-radio {
+        padding: 0;
+        margin: 0;
+      }
+      #qcwh {
+        background: none;
+      }
+      .layui-btn:hover {
+        opacity:1;
+        color: #3e66f4;
+      }
+      .layui-table-box{
+          margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        资金中心账户收支明细
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="zjzxStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="zjzxEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+      </div>
+      <!-- 单选框 -->
+      <div class="clearfix" style="padding-right: 24px; line-height: 37px;">
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="1" checked="checked" />
+          <label for="">按库存资金</label>
+        </div>
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="2" />
+          <label for="">按公司代码</label>
+        </div>
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin: 6px 0 20px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="submit">导出</button>
+          </div>
+        </div>
+        <!--end 搜索导出按钮 -->
+      </div>
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="opera" lay-filter="ddtest"></table>
+        <p style="color:#333333;font-size: 14px;">备注：默认显示当月数据</p>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script type="text/html" id="barDemo">
+      <a class="layui-btn" lay-event="edit" style="line-height: 20px" id="qcwh" onclick="qcwh(this)">期初维护</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      var judge = 1;
+      var active = {
+        reload: function () {
+          if (judge == "1") {
+            var obj = {
+              url: "../assets/api/zjzxszKcTable.json",
+              col: [
+                {
+                  field: "account_type",
+                  title: "银行账户",
+                  sort: true,
+                },
+                {
+                  field: "account_type_d",
+                  title: "账户描述",
+                },
+                {
+                  field: "weihu_month",
+                  title: "期初月份",
+                },
+                {
+                  field: "balance",
+                  title: "期初金额",
+                },
+                {
+                  field: "sksh",
+                  title: "本期借方",
+                  width: 150,
+                },
+                {
+                  field: "qkjz",
+                  title: "本期贷方",
+                  width: 150,
+                },
+                {
+                  field: "qmje",
+                  title: "期末金额",
+                  width: 150,
+                },
+                {
+                  title: "操作",
+                  toolbar: "#barDemo",
+                  width: 120,
+                  align: "center",
+                },
+              ],
+            };
+            return obj;
+          }
+          if (judge == "2") {
+            var obj = {
+              url: "../assets/api/zjzxszGsCodeTable.json",
+              col: [
+                {
+                  field: "num",
+                  title: "公司代码",
+                },
+                {
+                  field: "detail",
+                  title: "科目名称",
+                },
+                {
+                  field: "weihu_month",
+                  title: "期初月份",
+                },
+                {
+                  field: "balance",
+                  title: "期初金额",
+                },
+                {
+                  field: "jf_num",
+                  width: 150,
+                  title: "本期借方",
+                },
+                {
+                  field: "bqdf",
+                  title: "本期贷方",
+                  width: 150,
+                },
+                {
+                  field: "qmye",
+                  title: "期末金额",
+                  width: 150,
+                },
+                {
+                  title: "操作",
+                  toolbar: "#barDemo",
+                  width: 120,
+                  align: "center",
+                },
+              ],
+            };
+            return obj;
+          }
+        },
+      };
+
+      //开始时间选择
+      laydate.render({
+        elem: "#zjzxStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#zjzxEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+
+      //查询按钮绑定事件
+      $(".search").on("click", function () {
+        judge = $('input[name="radio_1"]:checked').val();
+        tableRender(
+          active.reload().col,
+          active.reload().url,
+          active.reload().flag,
+          function () {}
+        );
+      });
+
+      var cols = active.reload().col;
+      var url = active.reload().url;
+      tableRender(cols, url, function (data) {
+        if (!data) return;
+        if (!url) return;
+      });
+
+      function tableRender(col, url,callback) {
+        table.render({
+          elem: "#opera",
+          url: url,
+          cols: [col],
+          page: false,
+          table: "sm",
+          id: "testReload",
+          limit: 6,
+          where: {
+            starttime: $("#slxhStart").val(),
+            endtime: $("#slxhEnd").val(),
+          },
+          done: function (res) {
+            // callback(res.data);
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "count": 15,
+    "data": [
+        {
+            "cailiaochengben": 1735,
+            "cailiaojine": 22069.2,
+            "danfanglirun": 190,
+            "fang": 12.72,
+            "fang_count": "6.86",
+            "goods_name": "减水剂",
+            "guanlifeiyong": 508.8,
+            "ht_num": "00068",
+            "jz_time": "2020-07-02 10:53:43",
+            "lirun": 2416.8,
+            "price": 2000,
+            "shouru": 25440,
+            "station_name": "山立",
+            "yunfei": 445.2,
+            "yunfeibiaozhun": 35
+        }
+    ]
+}

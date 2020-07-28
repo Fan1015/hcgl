@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/menuicon/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>销售订单评价</title>
+    <style>
+    	.icon-xingxing{
+    		color:#fea400;
+    		margin-right:5px;
+    	}
+    	.icon-xing{
+    		color:#d0d0d5;
+    		margin-right:5px;
+    	}
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">销售订单评价</p>
+        </div>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <label class="layui-form-label">任务单号：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="ht_num" id="ht_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom: 24px;">
+                <label class="layui-form-label">查询时间：</label>
+                <div class="layui-input-inline" style="margin-right:5px">
+                    <input type="text" id="starttime" placeholder="开始时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="1">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+                <span>-</span>
+                <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+                    <input type="text" id="endtime" placeholder="结束时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="2">
+                    <span class="dateiconb" style="top:3px">
+                      <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="detail" style="">详情</a>
+    </script>
+    <script type="text/html" id="detailTpl">
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">序号：</label>
+    	    <div class="layui-input-inline" id="grade_id" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">评论人：</label>
+    	    <div class="layui-input-inline" id="c_username" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">任务单号：</label>
+    	    <div class="layui-input-inline" id="task_num" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">评论时间：</label>
+    	    <div class="layui-input-inline" id="create_time" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">服务态度：</label>
+    	    <div class="layui-input-inline" id="fwtd" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">货物品质：</label>
+    	    <div class="layui-input-inline" id="hwpz" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">调度评价：</label>
+    	    <div class="layui-input-inline" id="ddpf" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">泵送评价：</label>
+    	    <div class="layui-input-inline" id="bspf" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">运输评价：</label>
+    	    <div class="layui-input-inline" id="fhsd" style="float:left;line-height: 38px">
+    	      	
+    	    </div>
+    	</div>
+    	<div class="hcbig clearfix">
+    	    <label class="layui-form-label">意见反馈：</label>
+    	    <div class="layui-input-inline" id="yjfk" style="float:left;width:300px;height:150px;padding:0 10px;line-height: 38px;background:#f5f5f5;">
+    	      	
+    	    </div>
+    	</div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    // 点击搜索
+    $('.search').click(function(){
+    	tableIns.reload({
+    		where:{
+    			ht_num:$('#ht_num').val(),
+    			start_time: $('#starttime').val(),
+    			end_time: $('#endtime').val()
+    		},
+    		page:{
+    			curr:1
+    		}
+    	})
+    });
+
+    // 点击刷新
+    $('.reload').click(function(){
+    	location.reload();
+    })
+
+    // 点击导出
+    $('.export').click(function(){
+    	table.exportFile("texport","tableIns","xls");
+    })
+    
+    laydate.render({
+        elem:'#starttime',
+        type:'datetime',
+        done: function (value, date) {
+        },
+    })
+    laydate.render({
+        elem:'#endtime',
+        type:'datetime',
+        done: function (value, date) {
+        },
+    })
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+    listReisze()
+
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: baseUrl + '/hcms/order/grade_list',
+        where:{
+        	ht_num:$('#ht_num').val(),
+        	start_time: $('#starttime').val(),
+        	end_time: $('#endtime').val()
+        },
+        id:'texport',
+        cols: [
+            [
+				{ field: 'grade_id', title: '序号', sort:true, fixed: "left", width: 80},
+                { field: 'c_username', title: '评论人', width: 100},
+                { field: 'ht_num', title: '任务单号', width: 100},
+                { field: 'fwtd', title: '服务态度', width: 160,templet:function(obj){
+                	return renderStar(obj.fwtd)
+                }},
+                { field: 'hwpz', title: '货物品质', width: 200,templet:function(obj){
+                	return renderStar(obj.hwpz)
+                }},
+                { field: 'ddpf', title: '调度评价', width: 200,templet:function(obj){
+                	return renderStar(obj.ddpf)
+                }},
+                { field: 'bspf', title: '泵送评价', width: 200,templet:function(obj){
+                	return renderStar(obj.bspf)
+                }},
+                { field: 'fhsd', title: '运输评价', width: 160,templet:function(obj){
+                	return renderStar(obj.fhsd)
+                }},
+                { field: 'yjfk', title: '意见反馈', width: 150},
+                { field: 'create_time', title: '评论时间', width: 170},
+                { title: '用户类型', width: 100, templet:function(obj){
+                	console.log(obj)
+                	var type = '';
+                	if(obj.user_type == 1) {
+                		type = '<span class="redfont">客户</span>'
+                	}else if(obj.user_type == 2) {
+                		type = '<span class="purplefont">代理商</span>'
+                	}
+                	return type
+                }},
+                {title: '操作', width:65, toolbar:'#barDemo',fixed:"right",align:"center"}
+            ]
+        ],
+        // even: true,
+        page: true,
+        // skin:'row',
+        done: function() {
+            
+        }
+    });
+    // console.log(tableIns)
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'detail') {
+            //详情
+            layer.open({
+            	title:'订单评价详情',
+            	area:['470px','680px'],
+            	content: $('#detailTpl').html(),
+            	success:function(index,layero){
+            		$('#grade_id').html(obj.data.grade_id);
+            		$('#c_username').html(obj.data.c_username);
+            		$('#task_num').html(obj.data.ht_num);
+            		$('#create_time').html(obj.data.create_time);
+            		$('#fwtd').html(renderStar(obj.data.fwtd));
+            		$('#hwpz').html(renderStar(obj.data.hwpz));
+            		$('#ddpf').html(renderStar(obj.data.ddpf));
+            		$('#bspf').html(renderStar(obj.data.bspf));
+            		$('#fhsd').html(renderStar(obj.data.fhsd));
+            		$('#yjfk').html(obj.data.yjfk);
+            	}
+            });
+        }
+    });
+    function renderStar(int){
+    	var stars = '';
+		for(var i = 0;i < int;i++){
+			stars += '<i class="icon iconfont icon-xingxing"></i>';
+		}
+    	for (var i = 0; i < 5 - int;i++){
+    		stars += '<i class="icon iconfont icon-xing"></i>';
+    	}
+    	return stars;
+    }
+</script>
+</body>
+</html>

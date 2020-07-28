@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>按库存生产入库</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">按库存生产入库</p>
+            <ul class="jlul layui-form clearfix">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">生产编号</p>
+                        <div class="dd-value"> 
+                        	<input type="text" name="sc_num" autocomplete="off" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">物料</p>
+                        <div class="dd-value">
+                            <input type="text" name="wuliao" autocomplete="off" readonly="" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">数量</p>
+                        <div class="dd-value"> 
+                        	<input type="text" name="count" autocomplete="off" readonly="" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">生产日期</p>
+                        <div class="dd-value"> 
+                        	<input type="text" name="sc_time" autocomplete="off" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">生产工厂</p>
+                        <div class="dd-value"> 
+                        	<select class="form-control input-sm" name="sc_gc" style="width: 160px">
+                                <option value="请选择" selected="selected">请选择</option>
+                                <option value="1000">恒昌建材工厂</option> 
+                                <option value="1010">伟治建材工厂</option>
+                                <option value="1020">松大建材工厂</option>
+                                <option value="2000">山立建材工厂</option>
+                                <option value="3000">建筑工程工厂</option>
+                                <option value="5000">万昌运输工厂</option>
+                                <option value="6000">恒昌复配工厂</option>
+                                <option value="7000">恒昌资金工厂</option>
+                                <option value="8000">恒昌行政工厂</option>
+                            </select> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">销售单位</p>
+                        <div class="dd-value"> 
+                        	<select class="form-control input-sm" name="danwei" style="width: 150px">
+                                <option value="请选择" selected="selected">请选择</option>
+                                <option value="TO">吨</option>
+                                <option value="KG">千克</option>
+                                <option value="G">克</option>
+                                <option value="M3">立方米</option>
+                                <option value="ML">毫升</option>
+                                <option value="L">升</option>
+                                <option value="M2">平方米</option>
+                                <option value="M">米</option>
+                                <option value="PC">片、件、个、只、支、把、根、张、块</option>
+                                <option value="BAG">袋 </option>
+                                <option value="BOT">瓶 </option>
+                                <option value="CS">箱 </option>
+                                <option value="DR">金属桶 </option>
+                                <option value="DZ">条 </option>
+                                <option value="KAN">罐 </option>
+                                <option value="KAR">纸板箱 </option>
+                                <option value="LA">辆 </option>
+                                <option value="PAA">对 </option>
+                                <option value="PAK">包 </option>
+                                <option value="PAL">托盘</option>
+                                <option value="TA">台 </option>
+                                <option value="TAO">套 </option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dd-value task-btnbox hcbig clearfix">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn reload">刷新</button> 
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">生产编号：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="sc_num" id="taskNum" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="start" id="start" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">结束时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="end" id="end" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+        
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    // 点击保存
+    $('body').on('click', '.save', function() {
+        var data = formData();
+        console.log(data);
+    });
+
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+
+    listReisze()
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: 'http://10.0.0.9:8008/admin/pptest/getakcsc_data',
+        cols: [[
+			{field: 'id', title: '序号', minWidth:80},
+            {field: 'sc_num', title: '生产编号', minWidth:110},
+            {field: 'sap_status', title: 'SAP状态', minWidth:"left", minWidth:110},
+            {field: 'sap_back', title: 'SAP返回',  minWidth:110},
+            {field: 'wuliao', title: '物料编号', minWidth:100},
+            {field: 'count', title: '数量', minWidth:100},
+            {field: 'danwei', title: '单位', minWidth:100},
+            {field: 'sc_time', title: '生产时间', minWidth:100},
+            {field: 'sc_gc', title: '生产工厂', minWidth:100},
+            {title: '操作', width:65, toolbar:'#barDemo',align:"center"}
+        ]],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            dataRender(obj.data)
+            form.render()
+        }
+    });
+</script>
+</body>
+</html>

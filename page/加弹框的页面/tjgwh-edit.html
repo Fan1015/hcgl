@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>特殊品种价格维护</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <div class="clearfix">
+        <!-- start 品种 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 50px;">品种：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              value="10120"
+              id="pingz"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 品种 -->
+        <!-- start 品种额外单价 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 120px;">品种额外单价：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="price"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 品种额外单价 -->
+      </div>
+      <div class="layui-inline hcbig clearfix"  style="float: right;margin-right: 15px;">
+        <div class="layui-inline">
+          <button class="hcbtn edit">编辑</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var form = layui.form;
+      var layer = layui.layer;
+      var editDate=JSON.parse(localStorage.getItem("tjgwhEdit"))
+    //   console.log(editDate,22222)
+      $("#pingz").val(editDate.pinzhong)
+      $("#pingz").attr("readonly",true);
+      $("#price").val(editDate.price)
+    </script>
+  </body>
+</html>

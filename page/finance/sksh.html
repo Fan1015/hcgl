@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>收款审核</title>
+   
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">收款审核</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!--start SAP传输状态选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 113px;"
+            >SAP传输状态：</label
+          >
+          <div class="layui-input-inline">
+            <select name="sapStatus" id="sapStatus">
+              <option value=""></option>
+              <option value="S">S</option>
+              <option value="E">E</option>
+            </select>
+          </div>
+        </div>
+        <!-- end SAP传输状态选择 -->
+        <!-- start 公司代码 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">公司代码：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入公司代码"
+              name="commCode"
+              id="commCode"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 公司代码 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="skshStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="skshEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn update">刷新</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="skshTable" lay-filter="skshtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#skshStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#skshEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#skshTable",
+        // url: "../assets/api/skshTable.json",
+        url: baseUrl + '/hcms/oa_form/skshs_data',
+        cols: [[
+                {field: 'serial_num', title: '流水号', width: 120,fixed:'left',sort:true}
+                , {field: 'sap_status', title: 'SAP状态', width: 100}
+                , {field: 'sap_back', title: 'SAP返回', width: 180}
+                , {field: 'sap_time', title: 'SAP上传时间', width: 180}
+                , {field: 'sap_user', title: 'SAP上传用户', width: 160}
+                , {field: 'sap_msg', title: 'SAP返回信息', width: 200}
+                , {field: 'com_code', title: '公司代码', width: 120}
+                , {field: 'com_code_short', title: '公司代码简称', width: 160}
+                , {field: 'initiatorr', title: '发起人', width: 100}
+                , {field: 'initiatorr_c', title: '申请人代码', width: 180}
+                , {field: 'money_l', title: '金额小写', width: 150}
+                , {field: 'money_b', title: '金额大写', width: 200}
+                , {field: 'mode_payment', title: '支付方式', width: 120}
+                , {field: 'zf_type', title: '支付方式描述', width: 180}
+                , {field: 'money_category', title: '款项类别', width: 130}
+                , {field: 'voucher_num', title: '收据编号', width: 130}
+                , {field: 'client_num', title: '客户编码', width: 130}
+                , {field: 'client_desc', title: '客户描述', width: 120}
+                , {field: 'jiazhang_unit', title: '加章单位', width: 120}
+                , {field: 'invoice_unit', title: '开发票单位', width: 120}
+                , {field: 'invoice_unit_short', title: '开发票单位简称', width: 160}
+                , {field: 'ac_money_way1', title: '实际支付方式1', width: 160}
+                , {field: 'ac_money_way1_c', title: '实际支付方式1代码', width: 180}
+                , {field: 'ac_money_way1_l', title: '实际支付方式1小写', width: 180}
+                , {field: 'ac_money_way1_b', title: '实际支付方式1大写', width: 180}
+                , {field: 'ac_money_way2',   title: '实际支付方式2', width: 160}
+                , {field: 'ac_money_way2_c', title: '实际支付方式2代码', width: 180}
+                , {field: 'ac_money_way2_l', title: '实际支付方式2小写', width: 180}
+                , {field: 'ac_money_way2_b', title: '实际支付方式2大写', width: 180}
+                , {field: 'shoukuan_account', title: '收款账号', width: 130}
+                , {field: 'bank_num', title: '账号编码', width: 150}
+                , {field: 'bank_category', title: '账号类别', width: 130}
+                , {field: 'com_short', title: '公司简称', width: 160}
+                , {field: 'account_desc', title: '账户描述', width: 120}
+                , {field: 'promise_num', title: '承诺票号', width: 120}
+                , {field: 'comment', title: '备注', width: 100}
+                , {field: 'accoun', title: '主办会计', width: 120}
+                , {field: 'money_center', title: '资金中心', width: 130}
+                , {field: 'gs_code', title: '客户名称', width: 130}
+                , {field: 'kh_num', title: '编号', width: 100}
+                , {field: 'real_time', title: '表单创建时间', width: 180}
+                , {field: 'kh_name', title: '客户名称', width: 160}
+                , {field: 'sdf_num', title: '送达方编码', width: 160}
+                , {field: 'tally_code', title: '记账科目代码', width: 160}
+                , {field: 'tally_desc', title: '记账科目描述', width: 200}
+                , {field: 'altern_code', title: '备选科目代码', width: 160}
+                , {field: 'altern_desc', title: '备选科目描述', width: 200}
+                , {field: 'special_zz', title: '特别总账', width: 120}
+                , {field: 'special_zzms', title: '特别总账描述', width: 200}
+                , {field: 'zzbs', title: '总账标识', width: 120}
+                , {field: 'aux_obj_type', title: '辅助对象类型', width: 160}
+                , {field: 'aux_obj', title: '辅助对象', width: 150}
+                , {field: 'pay_obj_type', title: '收款对象类型', width: 160}
+                , {field: 'pay_obj', title: '收款对象', width: 200}
+                , {field: 'submitter', title: '提交人', width: 100}
+                , {field: 'create_time', title: '发起时间', width: 170}
+                , {field: 'exec_time', title: '执行时间', width: 180,fixed: 'right'}
+            ]],
+        id: "skshReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {}
+      });
+      $(".search").click(function () {
+        var sapStatus = $("#sapStatus").val();
+        var commCode = $("#commCode").val();
+        var beforeTime = $("skshStart").val();
+        var endTime = $("#skshEnd").val();
+        if (commCode == "") {
+          layer.msg("请输入公司代码！");
+          return false;
+        }
+        if (beforeTime > endTime) {
+          layer.msg("起始时间不能大于结束时间", { icon: 2, anim: 6 });
+          return;
+        }
+        table.reload("skshReload", {
+          where: {
+            sapStatus,
+            commCode,
+            beforeTime,
+            endTime,
+          },
+          page: {
+            curr: 1,
+          },
+        });
+      });
+      $(".update").on("click", function () {
+        $("#commCode").val("");
+        $("#sapStatus").val("");
+        $("#skshStart").val("");
+        $("#skshEnd").val("");
+        location.reload();
+      });
+    </script>
+  </body>
+</html>

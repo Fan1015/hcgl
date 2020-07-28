@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>车辆调度</title>
+    <style>
+    	
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+    	<div class="hclit">
+    		<p class="hctitle">
+    			<span class="titlerst">调度记录</span><span class="titlend">统计信息</span>
+    		</p>
+			<div class="clearfix">
+				<ul class="jlul clearfix ddmanage" style="width:60%;float:left">
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">生产站点</p>
+					        <div class="dd-value">
+					            <select class="form-control" name="station_name" id="station" data-type="reload">
+                                    <option value="">请选择</option>
+                                    <option value="山立">山立</option>
+                                    <option value="伟治">伟治</option>
+                                    <option value="太龙">太龙</option>
+                                </select>
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">生产主机</p>
+					        <div class="dd-value">
+					            <select class="form-control" name="prod_line" id="opp" data-type="reload">
+			                        <option value="1">1</option>
+			                        <option value="2">2</option>
+			                    </select>
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">调度编号</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="send_id" id="send_id" autocomplete="off" readonly="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">任务单号</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="ht_num" id="ht_num" autocomplete="off" readonly="">
+					            <span class="selcetsearch">
+					            	<i class="layui-icon layui-icon-search"></i>
+					            </span>
+					        </div>
+					    </div>
+					</li>
+					<li class="double">
+					    <div class="inlists">
+					        <p class="dd-name">收货单位</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="take_unit" id="take_unit" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="double">
+					    <div class="inlists">
+					        <p class="dd-name">工程名称</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="proj_name" id="proj_name" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">工程部位</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="proj_area" id="proj_area" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">交货地点</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="proj_addr" id="proj_addr" autocomplete="off" readonly="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">联系电话</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="prod_phone" id="prod_phone" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">备注</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="add" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">车辆编号</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="car_num" id="car_num" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">司机姓名</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="driver_name" id="driver_name" autocomplete="off" readonly="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">强度等级</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="strong_lv" id="strong_lv" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">品种</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="pinzhong" id="pinzhong" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">坍落度</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="tanluo_lv" id="tanluo_lv" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">抗渗等级</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="kangshen_lv" id="kangshen_lv" autocomplete="off" readonly="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">浇筑方式</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="jiaozhu_type" id="jiaozhu_type" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">运距</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="trans_dist" id="trans_dist" autocomplete="off" readonly="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">净重</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="send_weight" id="send_weight" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">生产方量</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="prod_count" id="prod_count" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">砂浆</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="shajiang" id="shajiang" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">砂浆配比</p>
+					        <div class="dd-value">
+					            <input type="text" placeholder="" name="rg_pord_info" id="rg_pord_info" autocomplete="off">
+					        </div>
+					    </div>
+					</li>
+				</ul>
+				<ul class="jlul clearfix tjmsg" style="width:40%;float:right">
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">计划数量</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">已派车数</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">已发车数</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">已发数量</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">剩余方量</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">首车时间</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li class="">
+					    <div class="inlists">
+					        <p class="dd-name">末车时间</p>
+					        <div class="dd-value">
+					            <input type="text" autocomplete="off" name="user" readonly="" value="">
+					        </div>
+					    </div>
+					</li>
+					<li>
+                    <div class="dd-value task-btnbox hcbig clearfix">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn reload">刷新</button> 
+                        </div>
+                    </div>
+                </li>
+				</ul>
+			</div>
+    	</div>
+        <div style="margin:0 0 30px;padding-right:24px">
+        	<div style="margin:0 0 24px">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="lt" title="楼梯灰">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="tl" title="坍落度变更">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="yl" title="预料调整">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="bf" title="异常补方">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="yfk" title="预付款">
+            	<input type="checkbox" name="sendCar" lay-filter="sendCar" lay-skin="primary" value="wg" title="完工">
+            </div>
+            <div class="hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn issue">发布调度</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn dispose">批量处理任务单</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+                <div class="layui-inline" style="float:left;line-height: 38px;">
+                	<input type="radio" name="autoreload" lay-filter="autoreload" value="0" title="手动刷新" checked>
+                    <input type="radio" name="autoreload" lay-filter="autoreload" value="1" title="自动刷新">
+                </div>
+            </div>
+        </div>
+        <div class="tablebb cleafix" style="padding-right:24px">
+        	<div style="width:50%;float:left;padding-right:10px">
+        		<h3>空闲车辆</h3>
+        		<table class="layui-hide" id="kxcar" lay-filter="kxcar"></table>
+        	</div>
+        	<div style="width:50%;float:left;padding-left:10px">
+        		<h3>调度信息</h3>
+            	<table class="layui-hide" id="ddmsg" lay-filter="ddmsg"></table>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+        <a lay-event="del" style="">删除</a>
+    </script>
+    <script type="text/html" id="barDemozf">
+        <a lay-event="cancel" style="">作废</a>
+    </script>
+
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+		var table = layui.table;
+	    var form = layui.form;
+	    var laytpl = layui.laytpl;
+	    var laydate = layui.laydate;
+
+	    var times = null;
+
+	 	var formDatas = {};
+        // 点击选择任务单
+        $('.selcetsearch').click(function(){
+        	var station = $('#station').val();
+        	if(station){
+	        	layer.open({
+	        		type:2,
+	        		title:'出货选择',
+	        		area:['80%','80%'],
+	        		content:'./selectask.html',
+	        		end:function(){
+	        			console.log(formDatas)
+	        			dataRender(formDatas,'.hclit');
+	        		}
+	        	});
+        	}else {
+        		layer.alert('请选择站点')
+        	}
+        });
+
+	    //批量处理任务单
+	    $('.dispose').click(function(){
+	    	layer.open({
+	    		type:2,
+	    		title:'批量处理任务单',
+	    		area:['1022px','90%'],
+	    		content:'../dispatch/dispose.html'
+	    	})
+	    });
+
+
+	    // 发布调度
+	    $('.issue').click(function(){
+
+	    });
+
+	    // 监听状态复选框
+        form.on('checkbox(sendCar)',function(obj){
+            console.log(obj);
+        });
+
+        //点击刷新
+        $('.reload').click(function(){
+            location.reload();
+        });
+
+        // 监听自动刷新
+        form.on('radio(autoreload)',function(obj){
+            if(obj.value == 0){
+                $('.reload').show()
+                clearInterval(times)
+            }else{
+                $('.reload').hide()
+                times = setInterval(function(){
+                    //location.reload()
+                },3000)
+            }
+        });
+
+
+	
+        // 窗口大小改变事件
+	    window.onresize = function() {
+	        listReisze('.ddmanage');
+	    	listReisze('.tjmsg');
+	    }
+	    listReisze('.ddmanage');
+	    listReisze('.tjmsg');
+
+        var tableIns = tableRender({
+            elem: '#kxcar',
+            height:'542px',
+            // url: '../assets/api/sendCarkx.json',
+            url: baseUrl +  '/hcms/dispatch/wait_car',
+            cols: [
+                [
+					{field: 'id', title: '序号', fixed:"left", width:80, sort: true},
+	                {field: 'send_id', title: '出货编号', fixed:"left", width:125},
+	                {field: 'car_num', title: '车号', width:65},
+	                {field: 'driver_name', title: '司机', width:80},
+	                {field: 'car_weight', title: '皮重',  width:80},
+	                {field: 'station_name', title: '站名', width:65},
+	                {field: 'car_rl', title: '容量',  width:65},
+	                {field: 'car_weight_time', title: '日期', width:170},
+	                // {field: 'use_status', title: '车次保持', width:100},
+					{title: '操作', width:120, toolbar:'#barDemo',fixed:"right",align:"center"}
+                ]
+            ],
+            even: true,
+            page: true,
+            skin:'row',
+            done: function() {
+                
+            }
+        });
+
+        var tableInd = tableRender({
+            elem: '#ddmsg',
+            height:'542px',
+            // url: '../assets/api/sendCardis.json',
+            url: baseUrl + '/hcms/dispatch/getdis_data',
+            cols: [
+                [
+					{field: 'id', title: '序号', fixed:"left", width:80, sort: true},
+	                {field: 'ht_num', title: '任务单号',fixed:"left", width:100},
+	                {field: 'proj_name', title: '工程名称', width:150},
+	                {field: 'strong_lv', title: '强度等级', width:100},
+	                {field: 'car_num', title: '车号', width:80},
+	                {field: 'prod_count', title: '生产方量', width:100},
+	                {field: 'shajiang', title: '砂浆', width:65},
+	                {field: 'driver_name', title: '司机', width:73},
+	                {field: 'send_status', title: '状态', width:80},
+	                {field: 'dispatch_time', title: '派车时间',  width:170},
+	                {field: 'update_status', title: '更新状态', width:100},
+	                {field: 'send_id', title: '调度编号',  width:130, align:"center"},
+	                {field: 'station_name', title: '站名', width:80},
+					{title: '操作', width:65, toolbar:'#barDemozf',fixed:"right",align:"center"}
+                ]
+            ],
+            even: true,
+            page: true,
+            skin:'row',
+            done: function(res) {
+                // console.log(res)
+            }
+        });
+
+        // 表格数据编辑
+        table.on('tool(kxcar)', function(obj) {
+            if (obj.event == 'edit') {
+                //编辑
+                dataRender(obj.data,'.hclit')
+                form.render()
+            }else if (obj.event == 'del') {
+            	var index = layer.confirm('确定要删除吗？',function(){
+            		obj.tr.remove();
+            		var url='/hcms/dispatch/del_tare'
+            		promiseSovl(url,'get',{send_id:obj.data.send_id}).then(function(res){
+            			if(res.code == 0){
+            				layer.msg(res.msg)
+            			}
+            		})
+            		layer.close(index);
+            	})
+            }
+        });
+
+        table.on('tool(ddmsg)', function(obj) {
+        	console.log(obj)
+        	if(obj.event == 'cancel'){
+        		var url = '/hcms/dispatch/del_dis_data';
+        		var index = layer.confirm('确定要作废吗？',function(){
+            		// obj.tr.remove();
+            		var data = {
+            			send_id:obj.data.send_id,
+            			ht_num:obj.data.send_id
+            		}
+            		promiseSovl(url, 'get', data).then(function(res){
+            			if(res.code == 0){
+            				layer.msg(res.msg)
+            			}
+            		})
+            		layer.close(index);
+            	})
+        	}
+        })
+
+    </script>
+</body>
+</html>

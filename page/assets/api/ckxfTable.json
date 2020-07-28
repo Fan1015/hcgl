@@ -1,0 +1,171 @@
+{
+    "code": 0,
+    "count": 9,
+    "data": [
+        {
+            "id": 288725,
+            "ROW_NUMBER": "1",
+            "user_pin": "000000551",
+            "user_name": "杨建光",
+            "DeptName": "8000行政部",
+            "money": "9.00",
+            "balance": "417.00",
+            "station_name": "总部",
+            "pos_time": "2020-06-17 13:18:02.000"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "2",
+            "balance": "304.00",
+            "id": "288724",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:18:01.000",
+            "station_name": "总部",
+            "user_name": "田爱枝",
+            "user_pin": "000000021"
+        },
+        {
+            "DeptName": "8000行政中心",
+            "ROW_NUMBER": "3",
+            "balance": ".00",
+            "id": "288723",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:57.000",
+            "station_name": "总部",
+            "user_name": "李志刚",
+            "user_pin": "000000001"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "4",
+            "balance": "391.00",
+            "id": "288722",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:55.000",
+            "station_name": "总部",
+            "user_name": "吴智涛",
+            "user_pin": "000000216"
+        },
+        {
+            "DeptName": "7000资金中心",
+            "ROW_NUMBER": "5",
+            "balance": "60.50",
+            "id": "288721",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:54.000",
+            "station_name": "总部",
+            "user_name": "孙二燕",
+            "user_pin": "000000026"
+        },
+        {
+            "DeptName": "7000资金中心",
+            "ROW_NUMBER": "6",
+            "balance": "69.50",
+            "id": "288720",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:52.000",
+            "station_name": "总部",
+            "user_name": "孙二燕",
+            "user_pin": "000000026"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "7",
+            "balance": "106.00",
+            "id": "288719",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:50.000",
+            "station_name": "总部",
+            "user_name": "张富豪",
+            "user_pin": "000000280"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "8",
+            "balance": "126.00",
+            "id": "288718",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:48.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "9",
+            "balance": "135.00",
+            "id": "288717",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:46.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "10",
+            "balance": "144.00",
+            "id": "288716",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:45.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "11",
+            "balance": "153.00",
+            "id": "288715",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:44.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "12",
+            "balance": "162.00",
+            "id": "288714",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:42.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "13",
+            "balance": "171.00",
+            "id": "288713",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:41.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "14",
+            "balance": "180.00",
+            "id": "288712",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:38.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        },
+        {
+            "DeptName": "8000行政部",
+            "ROW_NUMBER": "15",
+            "balance": "189.00",
+            "id": "288711",
+            "money": "9.00",
+            "pos_time": "2020-06-17 13:17:36.000",
+            "station_name": "总部",
+            "user_name": "招待卡公司",
+            "user_pin": "000000190"
+        }
+    ]
+}

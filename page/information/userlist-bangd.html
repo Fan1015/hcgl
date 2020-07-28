@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title></title>
+    <style>
+      .layui-btn {
+        background-color: #3e66f4;
+      }
+      .layui-layer-title {
+        background-color: #edeff8;
+      }
+      .layui-table-tool {
+        background-color: #edeff8;
+      }
+      /*.jlul li {
+        width: 25%;
+      }*/
+      .layui-table-tool {
+        padding: 15px;
+      }
+      .layui-btn-container .layui-btn {
+        margin-right: 24px;
+        border-radius: 4px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <div class="hclit">
+        <!-- <ul class="jlul clearfix"></ul> -->
+        <ul class="jlul clearfix">
+          <input type="hidden" name="id">
+          <li class="">
+            <div class="inlists">
+              <p class="dd-name">用户名</p>
+              <div class="dd-value">
+                <input type="text" name="username" value="" autocomplete="off">
+              </div>
+            </div>  
+          </li>  
+          <li class="">  
+            <div class="inlists"> 
+              <p class="dd-name">用户昵称</p>  
+              <div class="dd-value"> 
+                <input type="text" name="nickname" value="" autocomplete="off"> 
+              </div>  
+            </div>  
+          </li>  
+          <li class="">  
+            <div class="inlists"> 
+              <p class="dd-name">用户类型</p>  
+              <div class="dd-value"> 
+                <select name="type" lay-filter="usertype"> 
+                  <option value="1">客户</option>  
+                  <option value="2">代理商</option>  
+                </select>
+              </div>  
+            </div>  
+          </li> 
+          <li class="">  
+            <div class="inlists"> 
+              <p class="dd-name bhlabel">所属代理商</p>  
+              <div class="dd-value"> 
+                <select name="agent_code" id="sap_num" autocomplete="off">
+                  
+                </select>
+              </div>  
+            </div>  
+          </li>  
+          <li class="kebmbox">  
+            <div class="inlists"> 
+              <p class="dd-name">客户编码</p>  
+              <div class="dd-value"> 
+                <input type="text" name="cust_code" value="" readonly="" autocomplete="off"> 
+              </div>  
+            </div>  
+          </li>  
+          <li> 
+            <div class="dd-value task-btnbox hcbig clearfix"> 
+              <div class="layui-inline" style="float: left;"> 
+                <button class="hcbtn save">提交</button> 
+              </div> 
+            </div> 
+          </li> 
+        </ul>
+      </div>
+      <div class="searchbox" style="margin: 12px 0 24px; padding-right: 24px;display: none">
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+          <label class="layui-form-label">搜索类型：</label>
+          <div class="layui-input-inline" style="float: left;">
+            <select name="" id="seaty">
+              <option value="">请选择</option>
+              <option value="kh_name">客户名称</option>
+              <option value="proj_name">工程名称</option>
+              <option value="kh_num">客户编码</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+          <!-- <label class="layui-form-label">工程名称：</label> -->
+          <div class="layui-input-inline" style="float: left;">
+            <input
+              type="text"
+              placeholder="请输入搜索内容"
+              name=""
+              id="seaval"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+          <label class="layui-form-label">客户编码：</label>
+          <div class="layui-input-inline" style="float: left;">
+            <input
+              type="text"
+              placeholder=""
+              name="kh_num"
+              id="kh_num"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div> -->
+
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn reload">刷新</button>
+          </div>
+        </div>
+      </div>
+      <div class="tablebb" style="padding-right: 24px;;display: none">
+        <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+        <button class="layui-btn" lay-event="empty_data">清空客户编码</button>
+      </div>
+    </script>
+
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+
+      var nowData = [],
+        alldata = [],
+        num = 0;
+      // 获取父页面数据
+      var detailData = parent.detailObj
+      dataRender(detailData);
+      if(detailData.type == 2){
+        $('.kebmbox,.searchbox,.tablebb').hide();
+        $('.bhlabel').html('SAP代理商');
+        $('[name=cust_code]').val('')
+        $('#sap_num').attr('name','agent_code')
+      }else if(detailData.type == 1) {
+        $('.kebmbox,.searchbox,.tablebb').show();
+        $('.bhlabel').html('所属代理商');
+        $('#sap_num').attr('name','pid')
+      }
+      form.render();
+      // 
+      var dlsData = null
+      var url = '/hcms/minipro_user/agent';
+      promiseSovl(url).then(function(res){
+        dlsData = res.data
+        kehuopt(dlsData, detailData.type)
+      });
+      // 监听用户类型下拉狂
+      form.on('select(usertype)',function(obj){
+        kehuopt(dlsData, obj.value)
+      });
+
+      // 点击保存
+      $("body").on("click", ".save", function () {
+        var data = formData();
+        data.uid = data.id;
+        delete data.id;
+        if($('[name=type]').val() == 2){
+          data.agent = $('#sap_num').find('option:selected').html()
+        }
+        var url = '/hcms/minipro_user/bind_cust';
+        promiseSovl(url,'post',data).then(function(res){
+          if(res.code == 0) {
+            layer.msg('保存成功', {time:2000}, function(){
+              parent.layer.closeAll();
+            });
+          }else {
+            layer.msg(res.msg, {time:2000})
+          }
+        })
+      });
+
+      // 监听table复选框
+      table.on('checkbox(ddtest)', function(obj){
+        var oArr = $('[name=cust_code]').val();
+        oArr = oArr ? oArr.split(',') : []
+        if(obj.type == 'one') {
+          var ind = oArr.indexOf(obj.data.id+'')
+          if(ind != -1) {
+            oArr.splice(ind, 1)
+          }
+          if(obj.checked){
+            oArr.push(obj.data.id)
+          }
+
+        } else if (obj.type == 'all'){
+          for(var i = 0;i < alldata.length;i++){
+            var ind = oArr.indexOf(alldata[i].id+'');
+            if(ind != -1) {
+              oArr.splice(ind, 1)
+            }
+            if(obj.checked){
+              oArr.push(alldata[i].id)
+            }
+          }
+        }
+        $('[name=cust_code]').val(oArr.join(','));
+      });
+     
+      // // 窗口大小改变事件
+      window.onresize = function () {
+        listReisze();
+      };
+      listReisze();
+
+      // 监听搜索框
+      $(".search").on("click", function () {
+        table.reload('bangtable',{
+          where:{
+            search_key:$('#seaty').val(),
+            search_val: $('#seaval').val()
+          },
+          page:{
+            curr:1
+          }
+        })
+      });
+      // 监听刷新按钮
+      $(".reload").on("click", function () {
+        tableIns.reload();
+      });
+
+      // 监听清空按钮
+      table.on('toolbar(ddtest)',function(obj){
+        if(obj.event == 'empty_data'){
+          $('[name=cust_code]').val('')
+        }
+      })
+      var tableIns = tableRender({
+        elem: "#ddtest",
+        toolbar: "#toolbarDemo",
+        defaultToolbar: false,
+        // url: "../assets/api/userlist-bingdTable.json",
+        url: baseUrl + '/hcms/customer/m_user_cust',
+        id:'bangtable',
+        cols: [
+          [
+            //表头
+            { type: "checkbox", fixed: "left", width: 90 },
+            { field: "id", title: "序号", sort: true, fixed: "left",width:80 },
+            { field: "kh_name", title: "客户名称", minWidth: 200 },
+            { field: "proj_name", title: "工程名称", minWidth: 200, sort: true },
+            { field: "kh_num", title: "客户编码", width: 100 },
+            { field: "business_man_num", title: "代理商编码", width: 120 },
+            { field: "business_man", title: "业务员", width: 80 },
+            { field: "balance_type", title: "客户类型", width: 100 },
+          ]
+        ],
+        even: true,
+        page: true,
+        limit:10,
+        skin: "row",
+        done: function (res) {
+          alldata = res.data;
+        }
+      });
+      
+
+      function kehuopt(datas,type){
+        var option = '<option value="">请选择</option>';
+        if(type == 2){
+          $('.kebmbox,.searchbox,.tablebb').hide();
+          $('.bhlabel').html('SAP代理商');
+          $('[name=cust_code]').val('');
+          $('#sap_num').attr('name','agent_code');
+          var data = datas.s_agent;
+          for(var i = 0;i < data.length;i++){
+            if(data[i].agent_code == detailData.agent_code)
+              option += '<option value="'+ data[i].agent_code +'" selected>' + data[i].agent + '</option>'
+            else
+              option += '<option value="'+ data[i].agent_code +'">' + data[i].agent + '</option>'
+          }
+        }else if(type == 1){
+          $('.kebmbox,.searchbox,.tablebb').show();
+          $('.bhlabel').html('所属代理商');
+          $('#sap_num').attr('name','pid');
+          $('[name=cust_code]').val(detailData.cust_code);
+          var data = datas.d_agent;
+          for(var i = 0;i < data.length;i++){
+            if(data[i].id == detailData.pid)
+              option += '<option value="'+ data[i].id +'" selected>' + data[i].username + '</option>'
+            else
+              option += '<option value="'+ data[i].id +'">' + data[i].username + '</option>'
+          }
+        }
+        $('#sap_num').html(option);
+        form.render();
+      }
+    </script>
+  </body>
+</html>

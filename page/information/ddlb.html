@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>订单列表</title>
+    <style>
+      .layui-tab-content {
+        padding: 30px 10px 10px 0;
+      }
+      .layui-form-item {
+        width: 90%;
+      }
+      .layui-tab {
+        margin: 10px 0 0;
+      }
+      .layui-tab-title {
+        border-bottom: none;
+      }
+      .layui-tab-title li {
+        font-size: 16px;
+      }
+      .layui-tab-title li:last-child {
+        padding: 0 30px;
+      }
+      .layui-tab-brief > .layui-tab-title .layui-this {
+        color: #3e66f4;
+        font-weight: 700;
+      }
+      .layui-tab-brief > .layui-tab-more li.layui-this:after,
+      .layui-tab-brief > .layui-tab-title .layui-this:after {
+        border: none;
+        border-radius: 0;
+        border-bottom: 3px solid #3e66f4;
+        padding-left: 30px;
+      }
+      .layui-layer-title{
+       font-size: 20px !important;
+       font-weight: bold !important;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p class="staname" style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;">
+        订单列表
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 订单号 -->
+        <div class="layui-inline hcbig" style="margin-bottom: 24px; float: left;">
+          <label class="layui-form-label">订单号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="num"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+            <input type="hidden" id="type" name="type" value="0" />
+          </div>
+        </div>
+        <!-- end 订单号 -->
+        <!-- start 开始时间选择 -->
+        <div class="layui-inline hcbig" style="margin-bottom: 24px;float:left">
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline" style="margin-right:5px;">
+            <input type="text" name="start" id="starttime" placeholder="" autocomplete="off" class="layui-input bigInput">
+            <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+          <span>-</span>
+          <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+            <input type="text" name="end" id="endtime" placeholder="" autocomplete="off" class="layui-input bigInput">
+             <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!--start 搜索刷新按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" type="button">
+              搜索
+            </button>
+          </div>
+          <!-- <div class="layui-inline" style="float: left;">
+            <button class="hcbtn reload" data-type="reload" type="button">
+              刷新
+            </button>
+          </div> -->
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="button">
+              导出
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <div class="layui-tab layui-tab-brief" lay-filter="tabs">
+        <ul class="layui-tab-title">
+          <li class="layui-this" data-type="not_issue">未审核</li>
+          <li data-type="issu">已审核</li>
+          <li data-type="cancel">作废</li>
+          <li data-type="return_order">退回</li>
+          <li data-type="bind_order">已绑定</li>
+        </ul>
+        <div class="layui-tab-content">
+          <table id="ddtable" lay-filter="ddtable"></table>
+        </div>
+      </div>
+    </div>
+    <script type="text/html" id="barDemo1">
+      <a class="detail" lay-event="detail" style="color:#4986ff">详情</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      var element = layui.element;
+      var flage = false;
+
+      var tableIns = null;
+      var tableFocus = 'not_issue';
+      var activelist = {
+        issu: function() {
+          var obj = {
+            url: '/hcms/order/order_list',
+            type:1,
+            cols: [
+              { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+              { field: "num", title: "编号", width: 120, sort: true, fixed: "left" },
+              { field: "client_name", title: "客户名称", width: 120 },
+              { field: "pro_name", title: "工程名称", width: 120 },
+              { field: "goods_name", title: "商品名称", width: 120 },
+              { field: "strong_lv", title: "强度等级", width: 120 },
+              { field: "goods_num", title: "商品数量", width: 120 },
+              { field: "unit_price", title: "单价(元)", width: 120 },
+              { field: "sgbw", title: "施工部位", width: 120 },
+              { field: "pinzhong", title: "品种", width: 120 },
+              { field: "tld", title: "塌落度", width: 120 },
+              { field: "sg_type", title: "施工方式", width: 120 },
+              { field: "pro_site", title: "工程地点", width: 120 },
+              { field: "use_time", title: "使用时间", width: 200 },
+              { field: "legend", title: "里程(Km)", width: 120 },
+              { field: "yj_time", title: "单车时间(分钟)", width: 120 },
+              { field: "yanshou_bz", title: "验收标准", width: 120 },
+              { field: "gongdi_zl", title: "工地资料", width: 120 },
+              { field: "conn_man", title: "工地负责人", width: 120 },
+              { field: "cprod_phone", title: "工地电话", width: 120 },
+              { field: "fapiao", title: "开票", width: 120 },
+              { field: "hk_type", title: "回款方式", width: 120 },
+              { field: "signer", title: "现场签收人", width: 120 },
+              { field: "prof_cost", title: "业务费(元)", width: 120 },
+              { field: "pump_cost", title: "泵送费(元)", width: 120 },
+              { field: "more_yb", title: "超百方(元)", width: 120 },
+              { field: "ys_type", title: "运输方式", width: 120 },
+              { field: "weight_title", title: "磅单标题", width: 180 },
+              { field: "business_man", title: "业务员", width: 120 },
+              { field: "remark", title: "备注", width: 120 },
+              { field: "create_time", title: "添加时间", width: 200 },
+              { fixed: "right", title: "下单类型", width: 120, templet: function (d) {
+                  switch (d.user_type) {
+                    case "工地下单":
+                      return '<span style="color: red;">工地下单</span>';
+                      break;
+                    case "代理商下单":
+                      return '<span style="color: purple;">代理商下单</span>';
+                      break;
+                    default:
+                      return '<span style="color: green;">其他下单</span>';
+                      break;
+                  }
+                },
+              },
+              { fixed: "right", title: "操作", toolbar: "#barDemo1", width: 80 },
+            ]
+          }
+          return obj
+        },
+        not_issue: function () {
+          var obj = {
+            url: '/hcms/order/order_list',
+            type:0,
+            cols: [
+              { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+              { field: "num", title: "编号", width: 120, sort: true, fixed: "left" },
+              { field: "client_name", title: "客户名称", width: 120 },
+              { field: "pro_name", title: "工程名称", width: 120 },
+              { field: "goods_name", title: "商品名称", width: 120 },
+              { field: "strong_lv", title: "强度等级", width: 120 },
+              { field: "goods_num", title: "商品数量", width: 120 },
+              { field: "sgbw", title: "施工部位", width: 120 },
+              { field: "pinzhong", title: "品种", width: 120 },
+              { field: "tld", title: "塌落度", width: 120 },
+              { field: "sg_type", title: "施工方式", width: 120 },
+              { field: "pro_site", title: "工程地点", width: 120 },
+              { field: "use_time", title: "使用时间", width: 120 },
+              { field: "legend", title: "里程(Km)", width: 120 },
+              { field: "yj_time", title: "单车时间(分钟)", width: 120 },
+              { field: "yanshou_bz", title: "验收标准", width: 120 },
+              { field: "gongdi_zl", title: "工地资料", width: 120 },
+              { field: "conn_man", title: "工地负责人", width: 120 },
+              { field: "cprod_phone", title: "工地电话", width: 120 },
+              { field: "fapiao", title: "开票", width: 120 },
+              { field: "hk_type", title: "回款方式", width: 120 },
+              { field: "signer", title: "现场签收人", width: 120 },
+              { field: "ys_type", title: "运输方式", width: 120 },
+              { field: "remark", title: "备注", width: 120 },
+              { field: "create_time", title: "添加时间", width: 200 },
+              { fixed: "right", title: "下单类型", width: 120, templet: function (d) {
+                  switch (d.user_type) {
+                    case "工地下单":
+                      return '<span style="color: red;">工地下单</span>';
+                      break;
+                    case "代理商下单":
+                      return '<span style="color: purple;">代理商下单</span>';
+                      break;
+                    default:
+                      return '<span style="color: green;">其他下单</span>';
+                      break;
+                  }
+                }
+              },
+              { fixed: "right", title: "操作", toolbar: "#barDemo1", width: 80 },
+            ]
+          }
+          return obj
+        },
+        cancel: function () {
+          var obj = {
+            url: '/hcms/order/order_list',
+            type:2,
+            cols:[
+              { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+              { field: "num", title: "编号", width: 120, sort: true, fixed: "left" },
+              { field: "client_name", title: "客户名称", width: 120 },
+              { field: "pro_name", title: "工程名称", width: 120 },
+              { field: "goods_name", title: "商品名称", width: 120 },
+              { field: "strong_lv", title: "强度等级", width: 120 },
+              { field: "goods_num", title: "商品数量", width: 120 },
+              { field: "sgbw", title: "施工部位", width: 120 },
+              { field: "pinzhong", title: "品种", width: 120 },
+              { field: "tld", title: "塌落度", width: 120 },
+              { field: "sg_type", title: "施工方式", width: 120 },
+              { field: "pro_site", title: "工程地点", width: 120 },
+              { field: "use_time", title: "使用时间", width: 120 },
+              { field: "legend", title: "里程(Km)", width: 120 },
+              { field: "yj_time", title: "单车时间(分钟)", width: 120 },
+              { field: "yanshou_bz", title: "验收标准", width: 120 },
+              { field: "gongdi_zl", title: "工地资料", width: 120 },
+              { field: "conn_man", title: "工地负责人", width: 120 },
+              { field: "cprod_phone", title: "工地电话", width: 120 },
+              { field: "fapiao", title: "开票", width: 120 },
+              { field: "hk_type", title: "回款方式", width: 120 },
+              { field: "signer", title: "现场签收人", width: 120 },
+              { field: "ys_type", title: "运输方式", width: 120 },
+              { field: "remark", title: "备注", width: 120 },
+              { field: "cancel_remark", title: "作废备注", width: 120 },
+              { field: "create_time", title: "添加时间", width: 200 },
+              { fixed: "right", title: "下单类型", width: 120, templet: function (d) {
+                  switch (d.user_type) {
+                    case "工地下单":
+                      return '<span style="color: red;">工地下单</span>';
+                      break;
+                    case "代理商下单":
+                      return '<span style="color: purple;">代理商下单</span>';
+                      break;
+                    default:
+                      return '<span style="color: green;">其他下单</span>';
+                      break;
+                  }
+                }
+              },
+              { fixed: "right", title: "操作", toolbar: "#barDemo1", width: 80 },
+            ]
+          }
+          return obj
+        },
+        return_order: function () {
+          var obj = {
+            url: '/hcms/order/order_list',
+            type:4,
+            cols:[
+              { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+              { field: "num", title: "编号", width: 120, sort: true, fixed: "left" },
+              { field: "client_name", title: "客户名称", width: 120 },
+              { field: "pro_name", title: "工程名称", width: 120 },
+              { field: "goods_name", title: "商品名称", width: 120 },
+              { field: "strong_lv", title: "强度等级", width: 120 },
+              { field: "goods_num", title: "商品数量", width: 120 },
+              { field: "sgbw", title: "施工部位", width: 120 },
+              { field: "pinzhong", title: "品种", width: 120 },
+              { field: "tld", title: "塌落度", width: 120 },
+              { field: "sg_type", title: "施工方式", width: 120 },
+              { field: "pro_site", title: "工程地点", width: 120 },
+              { field: "use_time", title: "使用时间", width: 120 },
+              { field: "legend", title: "里程(Km)", width: 120 },
+              { field: "yj_time", title: "单车时间(分钟)", width: 120 },
+              { field: "yanshou_bz", title: "验收标准", width: 120 },
+              { field: "gongdi_zl", title: "工地资料", width: 120 },
+              { field: "conn_man", title: "工地负责人", width: 120 },
+              { field: "cprod_phone", title: "工地电话", width: 120 },
+              { field: "fapiao", title: "开票", width: 120 },
+              { field: "hk_type", title: "回款方式", width: 120 },
+              { field: "signer", title: "现场签收人", width: 120 },
+              { field: "ys_type", title: "运输方式", width: 120 },
+              { field: "remark", title: "备注", width: 120 },
+              { field: "re_remark", title: "退回备注", width: 120 },
+              { field: "create_time", title: "添加时间", width: 200 },
+              { fixed: "right", title: "下单类型", width: 120, templet: function (d) {
+                  switch (d.user_type) {
+                    case "工地下单":
+                      return '<span style="color: red;">工地下单</span>';
+                      break;
+                    case "代理商下单":
+                      return '<span style="color: purple;">代理商下单</span>';
+                      break;
+                    default:
+                      return '<span style="color: green;">其他下单</span>';
+                      break;
+                  }
+                }
+              },
+              { fixed: "right", title: "退单类型", width: 120, templet: function (d) {
+                  switch (d.return_type) {
+                    case 1:
+                      return '<span style="color:red;padding: 2px 3px;">调度退单</span>';
+                      break;
+                    case 2:
+                      return '<span style="color:purple;padding: 2px 3px;">代理商退单</span>';
+                      break;
+                    case 3:
+                      return '<span style="color:#1E9FFF;padding: 2px 3px;">质控中心退单</span>';
+                      break;
+                    default:
+                      return '<span style="color:red;padding: 2px 3px;">调度退单</span>';
+                      break;
+                  }
+                }
+              },
+              { fixed: "right", title: "操作", toolbar: "#barDemo1", width: 80 },
+            ]
+          }
+          return obj
+        },
+        bind_order: function () {
+          var obj = {
+            url:'/hcms/order/bind_list',
+            type:1,
+            cols:[
+              { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+              { field: "num", title: "编号", width: 120, sort: true, fixed: "left" },
+              { field: "client_name", title: "客户名称", width: 120 },
+              { field: "pro_name", title: "工程名称", width: 120 },
+              { field: "goods_name", title: "商品名称", width: 120 },
+              { field: "strong_lv", title: "强度等级", width: 120 },
+              { field: "goods_num", title: "商品数量", width: 120 },
+              { field: "sgbw", title: "施工部位", width: 120 },
+              { field: "pinzhong", title: "品种", width: 120 },
+              { field: "tld", title: "塌落度", width: 120 },
+              { field: "sg_type", title: "施工方式", width: 120 },
+              { field: "phb_num", title: "配比编号", width: 120 },
+              { field: "wuliao_num", title: "物料编码", width: 120 },
+              { field: "pord_info", title: "产品物料信息", width: 120 },
+              { field: "pro_site", title: "工程地点", width: 120 },
+              { field: "use_time", title: "使用时间", width: 120 },
+              { field: "legend", title: "里程(Km)", width: 120 },
+              { field: "yj_time", title: "单车时间(分钟)", width: 120 },
+              { field: "yanshou_bz", title: "验收标准", width: 120 },
+              { field: "gongdi_zl", title: "工地资料", width: 120 },
+              { field: "conn_man", title: "工地负责人", width: 120 },
+              { field: "cprod_phone", title: "工地电话", width: 120 },
+              { field: "fapiao", title: "开票", width: 120 },
+              { field: "hk_type", title: "回款方式", width: 120 },
+              { field: "signer", title: "现场签收人", width: 120 },
+              { field: "ys_type", title: "运输方式", width: 120 },
+              { field: "remark", title: "备注", width: 120 },
+              { field: "cancel_remark", title: "作废备注", width: 120 },
+              { field: "create_time", title: "添加时间", width: 200 },
+              { fixed: "right", title: "下单类型", width: 120, templet: function (d) {
+                  switch (d.user_type) {
+                    case "工地下单":
+                      return '<span style="color: red;">工地下单</span>';
+                      break;
+                    case "代理商下单":
+                      return '<span style="color: purple;">代理商下单</span>';
+                      break;
+                    default:
+                      return '<span style="color: green;">其他下单</span>';
+                      break;
+                  }
+                }
+              },
+              { fixed: "right", title: "操作", toolbar: "#barDemo1", width: 80 },
+            ]
+          }
+          return obj
+        }
+      }
+      var url = activelist[tableFocus]().url;
+      var type = activelist[tableFocus]().type;
+      var cols = activelist[tableFocus]().cols;
+      tablender(url,type,cols)
+
+      element.on("tab(tabs)", function (data) {
+        tableFocus = $(this).data('type');
+        var url = activelist[tableFocus]().url;
+        var type = activelist[tableFocus]().type;
+        var cols = activelist[tableFocus]().cols;
+        tablender(url,type,cols)
+      });
+      
+      
+      //监听行工具事件
+      var detailObj= null;
+      table.on("tool(ddtable)", function (obj) {
+        var data = obj.data;
+        if (obj.event === "detail") {
+          localStorage.setItem("ddlbDetail", JSON.stringify(data))
+          detailObj = data;
+          layer.open({
+            type: 2,
+            title: "详情",
+            area: ["50%", "64%"],
+            content: "./ddlb-detail.html",
+            success: (res) => {}
+          });
+        }
+      });
+
+
+      // 搜索
+      $(".search").on("click", function () {
+        table.reload('ddtable', {
+          where: {
+            num: $('#num').val(),
+            start_time: $('#starttime').val(),
+            end_time: $('#endtime').val()
+          },
+          page: {
+            curr: 1
+          }
+        })
+      });
+
+      //导出
+      $(".export").on("click", function () {
+        var ind = layer.load(0,{shade:0.5})
+        var url = activelist[tableFocus]().url;
+        var type = activelist[tableFocus]().type;
+        exportAllData({
+          url: url,
+          data:{
+            type: type,
+            num: '',
+            start_time: '',
+            end_time: ''
+          },
+          length: alldata.count,
+          export (res) {
+            layer.close(ind)
+            console.log(res)
+            table.exportFile('ddtable',res,'xls')
+          }
+        })
+      });
+      
+
+      //开始时间选择
+      laydate.render({
+        elem: "#starttime",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#endtime",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+
+
+      function tablender(url,type,col) {
+        tableRender({
+          elem: "#ddtable",
+          url: baseUrl + url,
+          where: {
+            type: type,
+            num: '',
+            start_time: '',
+            end_time: ''
+          },
+          page: true, //开启分页
+          even: true,
+          cols: [col],
+          id: "ddtable",
+          done: function (res) {
+            alldata = res;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

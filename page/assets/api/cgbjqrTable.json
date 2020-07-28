@@ -1,0 +1,84 @@
+{
+    "code":0,
+    "count":0,
+    "data":[
+        {
+            "people": "申请人",
+            "username":"赵彪",
+            "company_code":"公司代码",
+            "code":"1000",
+            "arrival_time":"要求到厂时间",
+            "arrivaltime":"2020-06-29 16:41:50",
+            "bj_endtime":"报价截止时间",
+            "endtime":"2020-06-29 16:41:56",
+            "station_name":"恒昌站",
+            "tableData":[{
+                "run_id":"624813",
+                "yl_id":"53",
+                "wz_name":"水泥",
+                "guige":"永安42.5",
+                "number":"200(吨)",
+                "lasttime_bj":"",
+                "end_time":"2019-01-01 00:00:00",
+                "ys_bz":"",
+                "beizhu":"",
+                "operation":""
+            },{
+                "run_id":"624813",
+                "yl_id":"52",
+                "wz_name":"水泥",
+                "guige":"新安42.5",
+                "number":"200(吨)",
+                "lasttime_bj":"",
+                "end_time":"2019-01-01 00:00:00",
+                "ys_bz":"",
+                "beizhu":"",
+                "operation":""
+            },{
+                "run_id":"624813",
+                "yl_id":"64",
+                "wz_name":"矿粉",
+                "guige":"矿粉",
+                "number":"180(吨)",
+                "lasttime_bj":"",
+                "end_time":"2019-01-01 00:00:00",
+                "ys_bz":"",
+                "beizhu":"",
+                "operation":""
+            },{
+                "run_id":"624813",
+                "yl_id":"56",
+                "wz_name":"煤灰",
+                "guige":"煤灰",
+                "number":"200(吨)",
+                "lasttime_bj":"",
+                "end_time":"2019-01-01 00:00:00",
+                "ys_bz":"",
+                "beizhu":"",
+                "operation":""
+            }]
+        },{
+            "people": "申请人",
+            "username":"李秀娟",
+            "company_code":"公司代码",
+            "code":"2000",
+            "arrival_time":"要求到厂时间",
+            "arrivaltime":"2020-06-29 18:00:00",
+            "bj_endtime":"报价截止时间",
+            "endtime":"2020-06-29 16:14:49",
+            "station_name":"山立站",
+            "tableData":[{
+                "run_id":"624799",
+                "yl_id":"55",
+                "wz_name":"河砂",
+                "guige":"河砂",
+                "number":"1000(方)",
+                "lasttime_bj":"",
+                "end_time":"2019-01-01 00:00:00",
+                "ys_bz":"",
+                "beizhu":"",
+                "operation":""
+            }]
+        }
+    ]
+}

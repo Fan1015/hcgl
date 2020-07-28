@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>先算后干原料车运距维护</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <p class="hctitle">先算后干原料车运距维护</p>
+
+      <div style="padding-right: 24px;">
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+          <label class="layui-form-label" style="width: 100px;"
+            >供应商名称：</label
+          >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="supplier"
+              id="supplier"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+        </div>
+        <div class="layui-inline" style="float:right;">
+            <button class="hcbtn add">添加</button>
+          </div>
+      </div>
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="barDemo">
+      <a lay-event="edit">编辑</a>
+      <a lay-event="del">删除</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+
+      // 点击保存
+      $("body").on("click", ".save", function () {
+        var data = formSubData();
+        console.log(data);
+        var url = "/hcms/Cost/costyunjuweihuinsert";
+        for (list in data) {
+          if (!data[list]) {
+            layer.msg("信息不能为空", { time: 2000 });
+            return false;
+          }
+        }
+        promiseSovl(url, "get", data).then(function (res) {
+          if (res.code == 0) {
+            layer.msg("保存成功", { time: 2000 }, function () {
+              location.reload();
+            });
+          } else {
+            layer.msg(res.msg, { time: 2000 });
+          }
+        });
+      });
+
+      //
+      $(".search").click(function () {
+        table.reload("ylctable", {
+          where: {
+            suppname: $("#supplier").val(),
+          },
+          page: {
+            curr: 1,
+          },
+        });
+      });
+      //开始时间选择
+      laydate.render({
+        elem: "#djdate",
+        done: function (value, date) {
+          console.log(112, value);
+          console.log(113, date);
+        },
+      });
+      // 窗口大小改变事件
+      window.onresize = function () {
+        listReisze();
+      };
+      listReisze();
+      var tableIns = tableRender({
+        elem: "#ddtest",
+        // url: '../assets/api/yclyj.json',
+        url: baseUrl + "/hcms/Cost/costyunjuweihudata",
+        id: "ylctable",
+        where: {
+          suppname: $("#supplier").val(),
+        },
+        cols: [
+          [
+            { field: "supplier", title: "供应商名称" },
+            { field: "id", title: "供应商ID" },
+            { field: "distl", title: "太龙运距" },
+            { field: "dissl", title: "山立运距" },
+            { field: "diswz", title: "伟治运距" },
+            { title: "操作", width: 120, toolbar: "#barDemo", align: "center" },
+          ],
+        ],
+        even: true,
+        page: false,
+        skin: "row",
+        done: function () {},
+      });
+      // 表格数据编辑
+      table.on("tool(ddtest)", function (obj) {
+        console.log(obj);
+        if (obj.event == "edit") {
+          //编辑
+          layer.open({
+            type: 1,
+            title: "编辑",
+            area: ["55%", "60%"],
+            btn: ["确定", "取消"],
+            content: $("#ylcwhAdd").html(),
+            success(layero, index) {
+              dataRender(obj.data);
+              form.render();
+            },
+          });
+        } else if (obj.event == "del") {
+          var url = "/hcms/Cost/costyunjuweihudel";
+          var data = {
+            suppid: obj.data.id,
+            suppname: obj.data.supplier,
+          };
+          layer.confirm("确定要删除吗？", function (index) {
+            promiseSovl(url, "get", data).then(function (res) {
+              if (res.code == 0) {
+                obj.tr.remove();
+                layer.msg("删除成功");
+              } else {
+                layer.msg(res.msg);
+              }
+            });
+          });
+        }
+      });
+      // 点击添加
+      $(".add").click(function () {
+        layer.open({
+          type: 1,
+          title: "编辑",
+          area: ["55%", "60%"],
+          btn: ["确定", "取消"],
+          content: $("#ylcwhAdd").html(),
+          success(layero, index) {
+            form.render();
+          },
+        });
+      });
+    </script>
+    <script type="text/html" id="ylcwhAdd">
+      <div class="hclit">
+              <ul class="jlul layui-form clearfix" style="padding:30px">
+                  <li class="">
+                      <div class="inlists">
+                          <p class="dd-name">供应商名称</p>
+                          <div class="dd-value">
+                              <input type="text" autocomplete="off" name="supplier" subname="suppname">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="">
+                      <div class="inlists">
+                          <p class="dd-name">供应商ID</p>
+                          <div class="dd-value">
+                              <input type="text" autocomplete="off" name="id" subname="suppid">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="">
+                      <div class="inlists">
+                          <p class="dd-name">太龙站</p>
+                          <div class="dd-value">
+                              <input type="text" autocomplete="off" name="distl" subname="distl">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="">
+                      <div class="inlists">
+                          <p class="dd-name">山立站</p>
+                          <div class="dd-value">
+                              <input type="text" autocomplete="off" name="dissl" subname="dissl">
+                          </div>
+                      </div>
+                  </li>
+                  <li class="">
+                      <div class="inlists">
+                          <p class="dd-name">伟治站</p>
+                          <div class="dd-value">
+                              <input type="text" autocomplete="off" name="diswz" subname="diswz">
+                          </div>
+                      </div>
+                  </li>
+
+              </ul>
+          </div>
+    </script>
+  </body>
+</html>

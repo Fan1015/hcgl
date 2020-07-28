@@ -1,0 +1,126 @@
+{
+	"code": 0,
+	"count": 10,
+	"data": [
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "白宪伟",
+			"empl_num": "000000292",
+			"id": 18,
+			"salary_base": "4500.00",
+			"sap_num": "210001",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "薄四海",
+			"empl_num": "000000055",
+			"id": 20,
+			"salary_base": "4000.00",
+			"sap_num": "210003",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "曹清奎",
+			"empl_num": "000000260",
+			"id": 21,
+			"salary_base": "4000.00",
+			"sap_num": "210007",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "张正军",
+			"empl_num": "000000031",
+			"id": 22,
+			"salary_base": "5500.00",
+			"sap_num": "210261",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "曹淑甫",
+			"empl_num": "000000101",
+			"id": 23,
+			"salary_base": "4500.00",
+			"sap_num": "210008",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "曹业巩",
+			"empl_num": "000000096",
+			"id": 24,
+			"salary_base": "6800.00",
+			"sap_num": "210009",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "连志伟",
+			"empl_num": "000000032",
+			"id": 25,
+			"salary_base": "5500.00",
+			"sap_num": "210262",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "常鹏辉",
+			"empl_num": "000000081",
+			"id": 26,
+			"salary_base": "4000.00",
+			"sap_num": "210011",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "崔杰",
+			"empl_num": "000000213",
+			"id": 27,
+			"salary_base": "4000.00",
+			"sap_num": "210015",
+			"status": 0
+		},
+		{
+			"canfei_type": 1,
+			"cq_days": 28,
+			"create_time": 1551094081,
+			"cyb": "0.00",
+			"empl_name": "崔绍鹏",
+			"empl_num": "000000092",
+			"id": 28,
+			"salary_base": "7500.00",
+			"sap_num": "210017",
+			"status": 0
+		}
+	]
+}

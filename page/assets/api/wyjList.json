@@ -1,0 +1,32 @@
+{
+	"code":0,
+	"data":[{
+		"key":"公司代码",
+		"name":"gs_code",
+		"type":0
+	},{
+		"key":"客户编码",
+		"name":"kh_num",
+		"type":0
+	},{
+		"key":"送达方编码",
+		"name":"sdf_num",
+		"type":0
+	},{
+		"key":"类型",
+		"name":"business_man",
+		"type":0
+	},{
+		"key":"现余额",
+		"name":"balance_type",
+		"type":0
+	},{
+		"key":"客户名称",
+		"name":"kh_name",
+		"type":1
+	},{
+		"key":"工程名称",
+		"name":"proj_name",
+		"type":1
+	}]
+}

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>今日看板</title>
+    <style>
+        .boardevery>li{
+            display: none;
+        }
+        .searchboxes{
+            width:100%;
+            position:fixed;
+            padding:20px 40px 10px;
+            top:0;
+            left:0;
+            background:#fff;
+            z-index:10;
+        }
+        .stamsg{
+            height:225px;
+        }
+        #remarkCont{
+            width:100%;
+            height:90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="hcbox jrkb layui-form" style="padding-top:90px">
+        <div class="searchboxes" style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-inline">
+                    <select name="use_status" id="use_status" lay-filter="use_status">
+                        <option value="use" selected="">-- 生产中 --</option>
+                        <option value="unused">-- 未使用 --</option>
+                        <option value="complete">-- 已完工 --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">合同号：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="ht_num" id="ht_nums" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="请输入关键词" name="search_val" id="search_val" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="float:right;">
+                <input type="radio" name="reload" lay-filter="reloads" value="0" title="手动刷新" checked>
+                <input type="radio" name="reload" lay-filter="reloads" value="1" title="自动刷新">
+
+            </div>
+        </div>
+        <div class="clearfix boardmsg" style="margin-top:0">
+            <div class="boardleft"  id="kbbox" style="">
+                
+            </div>
+            <div class="boardright">
+                <div class="boaevery">
+                    <ul class="stationame clearfix">
+                        <li class="focus" style="width:100%">空闲车辆</li>
+                    </ul>
+                    <div class="boardbox kx-boardbox" style="">
+                        <ul class="kx-stationbox clearfix">
+                            <li class="focus">太龙</li>
+                            <li class="">伟治</li>
+                            <li class="">山立</li>
+                        </ul>
+                        <!-- 空闲车辆 -->
+                        <div class="kx-box ">
+                            <ul class="kx-statlist clearfix" id="list-group">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="boaevery">
+                    <ul class="stationame kbCarMsf clearfix">
+                        <li class="focus">车辆消息</li>
+                        <li>工程名称</li>
+                    </ul>
+                    <div class="boardbox msgview">
+                        <div class="carmsgxr focus" style="padding-right:0">
+                            <ul class="ssMsg carMsgBox bjboxs"style="">
+                                
+                            </ul>
+                        </div>
+                        <div class="carmsgxr gcCarmsg">
+                            <div style="width:100%;height:40px;position:absolute;top:0;left:0;background:#fff;padding:5px 10px">
+                                <button id="checkAll" class="layui-btn layui-btn-normal layui-btn-sm">查看全部</button>
+                            </div>
+                            <ul class="ssMsg projNameBox">
+                            
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="kbListDome">
+        {{#  layui.each(d, function(index, list){ }}
+        <div class="boardevery" style="">
+            <div class="boardtile clearfix">
+                <div class="left">
+                    <div class="layui-inline" title="【{{list.ht_num}}】点击查看详情">
+                        <label class="layui-form-label">合同单号：</label>
+                        <div class="layui-input-inline">
+                            <span class="taskNum">{{list.ht_num}}</span>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">客户名称：</label>
+                        <div class="layui-input-inline lnht30">
+                            <span>{{list.kh_name}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="layui-inline" style="width:30px;height:30px;">
+                        <div class="fei-box clearfix">
+                            <div class="z-trigon"></div>
+                            <div class="right-fei">
+                                <div class="fei-kind">
+                                    <span>{{list.use_status}}</span>
+                                </div>
+                                <div class="b-trigon"></div>
+                            </div>
+                         </div>
+                    </div>
+                    <div class="layui-inline" style="margin-left:35px">
+                        <span class="layuiud">
+                            <i class="layui-icon layui-icon-down"></i>
+                        </span>
+                    </div>
+                    <div class="layui-inline" style="margin-left:10px">
+                        <button class="layui-btn layui-btn-primary layui-btn-sm finished">完工</button>
+                    </div>
+                    <div class="layui-inline" style="margin-left:10px" 
+                        beiz="{{# if(list.re_status==1){}}{{list.ht_remark}}{{# }}}">
+                        <button class="layui-btn layui-btn-primary layui-btn-sm htNumBz">备注
+                            <span class="redJb" style="{{# if(list.re_status!=1){}}display: none;{{# }}}"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="boardbody" style="{{# if(list.slide_status){}}display: none{{#}}}">
+                <div class="stationlit">
+                    <ul class="stationame clearfix">
+                        <li class="focus">太龙{{# if(list.tl_send_count){}}<span>*</span>{{# }}}</li>
+                        <li>伟治{{# if(list.wz_send_count){}}<span>*</span>{{# }}}</li>
+                        <li style="width:34%">山立{{# if(list.sl_send_count){}}<span>*</span>{{# }}}</li>
+                    </ul>
+                    <div class="statbo">
+                        <ul class="stamsg focus">
+                            <li>生产方量<span>{{list.tl_prod_count}}</span></li>
+                            <li>发货方量<span>{{list.tl_send_count}}</span></li>
+                            <li>剩余方量<span>{{list.residue_send_count}}</span></li>
+                        </ul>
+                        <ul class="stamsg">
+                            <li>生产方量<span>{{list.wz_prod_count}}</span></li>
+                            <li>发货方量<span>{{list.wz_send_count}}</span></li>
+                            <li>剩余方量<span>{{list.residue_send_count}}</span></li>
+                        </ul>
+                        <ul class="stamsg">
+                            <li>生产方量<span>{{list.sl_prod_count}}</span></li>
+                            <li>发货方量<span>{{list.sl_send_count}}</span></li>
+                            <li>剩余方量<span>{{list.residue_send_count}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="boamsgbdy">
+                    <div class="beiz">
+                        <label class="layui-form-label"><span class="beizh">备注：</span></label>
+                        <div class="layui-input-inline">
+                            <p class="bzneir ht-num-beiz">{{# if(list.re_status==1){}}
+                                                {{list.ht_remark}}
+                                            {{# }else{}}暂无{{# }}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="msglit">
+                        <div class="msgtitles">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">发货进度：</label>
+                                <div class="layui-input-inline" style="width:200px;padding:5px 0">
+                                    <div class="layui-progress layui-progress-big" lay-showpercent="true">
+                                        <div class="layui-progress-bar layui-bg-red" lay-percent="{{list.percentage}}" style="width:{{list.percentage}};max-width: 100%;"><span class="layui-progress-text">{{list.percentage}}</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">需发：</label>
+                                <div class="layui-input-inline">
+                                    <span class="shul">{{list.all_count}}</span>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">已发：</label>
+                                <div class="layui-input-inline">
+                                    <span class="shul">{{list.all_send_count}}</span>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">剩余：</label>
+                                <div class="layui-input-inline">
+                                    <span class="shul">{{list.residue_send_count}}</span>（方）
+                                </div>
+                            </div>
+                        </div>
+                        <div class="msglisted clearfix">
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">工程名称：</label>
+                                <div class="layui-input-inline" title="{{list.proj_name}}">
+                                    <p class="inlinelist">{{list.proj_name}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">浇筑位置：</label>
+                                <div class="layui-input-inline" title="{{list.proj_area}}">
+                                    <p class="inlinelist">{{list.proj_area}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">产品名称：</label>
+                                <div class="layui-input-inline" title="{{list.goods_name}}">
+                                    <p class="inlinelist">{{list.goods_name}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">工程地点：</label>
+                                <div class="layui-input-inline" title="{{list.proj_addr}}">
+                                    <p class="inlinelist">{{list.proj_addr}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">浇筑方式：</label>
+                                <div class="layui-input-inline" title="{{list.jiaozhu_type}}">
+                                    <p class="inlinelist">{{list.jiaozhu_type}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">强度等级：</label>
+                                <div class="layui-input-inline" title="{{list.strong_lv}}">
+                                    <p class="inlinelist">{{list.strong_lv}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">工程电话：</label>
+                                <div class="layui-input-inline" title="{{list.prod_phone}}">
+                                    <p class="inlinelist">{{list.prod_phone}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">开工时间：</label>
+                                <div class="layui-input-inline" title="{{list.proj_name}}">
+                                    <p class="inlinelist">{{list.start_time}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">塌落度：</label>
+                                <div class="layui-input-inline" title="{{list.tanluo_lv}}">
+                                    <p class="inlinelist">{{list.tanluo_lv}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">业务员：</label>
+                                <div class="layui-input-inline" title="{{list.business_man}}">
+                                    <p class="inlinelist">{{list.business_man}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">单车施工时间：</label>
+                                <div class="layui-input-inline" title="{{list.yj_time}}">
+                                    <p class="inlinelist">{{list.yj_time}}</p>
+                                </div>
+                            </div>
+                            <div class="layui-inline" style="">
+                                <label class="layui-form-label">回款方式：</label>
+                                <div class="layui-input-inline" title="{{list.ht_type}}">
+                                    <p class="inlinelist">{{list.ht_type}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="msgbtm clearfix">
+                        <ul class="layui-inline" style="width:15%">
+                            <li title="{{list.pd_car}}">
+                                <label class="layui-form-label">排队：</label>
+                                <div class="layui-input-inline" style="width:calc(100% - 48px);margin:0">
+                                    <p class="bzneir" style="width:100%;word-break:break-all;line-height: 16px;padding: 7px 0;font-size:12px">{{list.pd_car}}</p>
+                                </div>
+                            </li>
+                            <li title="{{list.hd_car}}">
+                                <label class="layui-form-label">回到：</label>
+                                <div class="layui-input-inline" style="width:calc(100% - 48px);margin:0">
+                                    <p class="bzneir" style="width:100%;word-break:break-all;line-height: 16px;padding: 7px 0;font-size:12px">{{list.hd_car}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="layui-inline chechg" style="width:65%">
+                            {{# if(list.cf_car.length>0){}}
+                            <li class="car-main cfMain">
+                                {{# for(var i=0;i<list.cf_car.length;i++){}}
+                                    <div class="layui-inline car-list">
+                                        <p>{{list.cf_car[i].car_num}}</p>
+                                        <img src="../assets/image/cf-2.png" alt="">
+                                    </div>
+                                {{# } }}
+                            </li>
+                            {{# } }}
+                            {{# if(list.fh_car.length>0){}}
+                            <li class="car-main fhMain">
+                                {{# for(var i=0;i<list.fh_car.length;i++){}}
+                                    <div class="layui-inline car-list">
+                                        <p>{{list.fh_car[i].car_num}}</p>
+                                        <img src="../assets/image/fh-1.png" alt="">
+                                    </div>
+                                {{# } }}
+                            </li>
+                            {{# } }}
+                            <li>
+                                <label class="layui-form-label">首车：</label>
+                                <div class="layui-input-inline">
+                                    <p class="bzneir">{{list.first_send_time}}</p>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <p class="bzneir lujineir">
+                                        <span>去程</span>
+                                        <img src="../assets/image/md0384.png" alt="">
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <label class="layui-form-label">末车：</label>
+                                <div class="layui-input-inline">
+                                    <p class="bzneir">{{list.last_send_time}}</p>
+                                </div>
+                                <div class="layui-input-inline">
+                                    <p class="bzneir lujineir huineir">
+                                        <span>去程</span>
+                                        <img src="../assets/image/md0385.png" alt="">
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="julinum">
+                                <p>距离：<span>{{list.trans_dist}}KM</span></p>
+                            </li>
+                        </ul>
+                        <div class="layui-inline daodac" style="width:20%;margin:0">
+                            <label class="layui-form-label">到达：</label>
+                            <div class="layui-input-inline " style="width:calc(100% - 48px);margin:0">
+                                {{# if(list.gc_carddnum.count !=0 ){}}
+                                {{# var arrs=list.gc_carddnum.car_str.split(',')}}{{# for(var i=0;i<arrs.length;i++){}}
+                                <div class="layui-inline">
+                                    <img src="../assets/image/md0386.png" alt="">
+                                    <span>{{arrs[i]}}</span>
+                                </div>
+                                {{# }}}
+                                {{# }else{}}
+                                    <span style="line-height: 30px">无</span>
+                                {{# }}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chelit">
+                    <ul class="stationame clearfix">
+                        <li class="focus" title="{{# if(list.gc_carnum.count){}}车号：{{list.gc_carnum.car_str}}{{# }}}">罐车<span>{{list.gc_carnum.count}}</span></li>
+                        <li>泵车<span>{{list.bc_carnum.count}}</span></li>
+                    </ul>
+                    <div class="statbo">
+                        <ul class="stamsg focus">
+                            <li>到达车辆<span>{{list.gc_carddnum.count}}</span></li>
+                            <li>误时车辆<span>{{list.gc_mistake_time.count}}</span></li>
+                            <li>运出车数<span>{{list.add_up_car}}</span></li>
+                        </ul>
+                        <ul class="stamsg">
+                            <li>车号：{{list.bc_carnum.car_str}}</li>
+                            <li>状态：{{list.bc_carnum.status}}</li>
+                            <li>司机：{{list.bc_carnum.driver}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tablebox">
+            <table class="layui-hide"></table>
+        </div>
+        {{#  })}}
+        
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/Sortable.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        var form = layui.form;
+        var laytpl = layui.laytpl;
+        var table = layui.table;
+        var layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0});
+
+        var slideStatus = {
+            use:{name:'使用'},
+            unused:{name:'未使用'},
+            complete:{name:'已完工'}
+        };
+        var domeList = $('#kbListDome').html();
+        var url = '/hcms/dispatch/scheduling_data';
+        var times = null;
+        var freeCarAgut = {
+            // page:1,
+            // limit:100,
+            station:'太龙'
+        };
+        loadList(url)
+        loadFreeCar(freeCarAgut)
+        // console.log(takeOpen)
+        // 监听状态下拉框
+        form.on('select(use_status)',function(obj){
+            var data = {
+                use_status: slideStatus[obj.value].name
+            };
+            layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0});
+            loadList(url,data)
+        })
+        $('body').on('mouseenter','.car-list',function(){
+            var text = $(this).find('p').text();
+            layer.tips('车号'+ text,$(this),{
+                 tips: [1, '#cc185d']
+            })
+        })
+        // layer.tips('Hi，我是tips', '.car-list');
+        //点击搜索
+        $('.search').click(function(){
+            var statusName = $('#use_status').val();
+            var data = {
+                use_status: slideStatus[statusName].name,
+                ht_num: $('#ht_nums').val(),
+                searchval: $('#search_val').val()
+            };
+            clearInterval(times)
+            if(!data.searchval || !data.ht_num)
+                var search = false;
+            else
+                var search = true;
+            layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0});
+            loadList(url,data,search)
+        });
+        // 收起展开
+        $('body').on('click','.layuiud',function(){
+            var statusName = $('#use_status').val();
+            var htNum = $(this).parents('.boardtile').find('.taskNum').html();
+            var bools = slideStatus[statusName][htNum]
+            bools = bools ? false : true;
+            slideStatus[statusName][htNum] = bools;
+            $(this).children().toggleClass('layui-icon-down').toggleClass('layui-icon-up');
+            $(this).parents('.boardtile').next().slideToggle();
+        });
+
+        // 点击任务单号
+        $('body').on('click','.taskNum',function(){
+            $(this).parents('.boardevery').siblings().hide();
+            $(this).parents('.boardevery').next().show();
+            var table = $(this).parents('.boardevery').next().find('table')[0]
+            var htNum = $(this).text();
+            layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0})
+            tableRender(table, htNum);
+            clearInterval(times)
+        })
+        // 空闲车辆的三个tab
+        $('.kx-stationbox li').click(function(){
+            $(this).addClass('focus').siblings().removeClass('focus');
+            var station = $(this).text();
+            freeCarAgut.station = station;
+            loadFreeCar(freeCarAgut);
+            clearInterval(times)
+        });
+
+        // tab标题carmsgxr
+        $('body').on('click','.stationame>li',function(){
+            $(this).addClass('focus').siblings().removeClass('focus');
+            var index = $(this).index();
+            $(this).parent().next().children('.stamsg,.carmsgxr').eq(index).addClass('focus').siblings().removeClass('focus');
+        });
+
+        //查看全部
+        $('#checkAll').click(function(){
+            layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0})
+            loadList(url)
+            times = setInterval(reloading(),3000);
+        })
+        // 监听自动刷新
+        form.on('radio(reloads)',function(obj){
+            if(obj.value == 0){
+                $('.reload').show()
+                clearInterval(times)
+            }else{
+                $('.reload').hide()
+                times = setInterval(reloading,5000);
+            }
+        });
+        function reloading(){
+            console.log(99);
+            loadList(url)
+            loadFreeCar(freeCarAgut)
+        }
+        //点击刷新
+        $('.reload').click(function(){
+            layindex = layer.msg('正在加载',{icon: 16, shade: 0.3, time:0})
+            reloading()
+        });
+
+        //任务单备注 bzneir
+        $('body').on('click','.htNumBz',function(){
+            var htNum = $(this).parents('.boardevery').find('.taskNum').text();
+            var value = $(this).parent().attr('beiz')
+            var _this = $(this);
+            clearInterval(times)
+            layer.prompt({
+                formType: 2,
+                value: value,
+                title: '合同单号：'+ htNum,
+                area: ['400px', '200px'] //自定义文本域宽高
+            }, function(value, index, elem){
+                var url = '/hcms/dispatch/add_ht_remark'
+                var datas = {
+                    ht_num: htNum,
+                    remark: value
+                }
+                promiseSovl(url,'get',datas).then(function(res){
+                    if(res.remark){
+                        _this.find('.redJb').show();
+                        _this.parent().attr('beiz',value)
+                        _this.parents('.boardevery').find('.ht-num-beiz').text(value);
+                    }
+                    layer.closeAll();
+                });
+            });
+        });
+
+        // 任务单完工  
+        $('body').on('click','.finished',function(){
+            var htNum = $(this).parents('.boardtile').find('.taskNum').text();
+            if(htNum){
+                var data = {
+                    ht_nums: htNum
+                };
+                finishWork(data)
+            }
+        });
+
+        // 车号备注
+        table.on('tool',function(obj){
+            var _this = $(this);
+            var htNum = $(this).parents('.tablebox').prev().find('.taskNum').text();
+            clearInterval(times)
+            if(obj.event == 'editRemark'){
+                layer.prompt({
+                    formType: 2,
+                    value: _this.children().text(),
+                    title: '车号：'+ obj.data.car_num,
+                    area: ['400px', '200px'] //自定义文本域宽高
+                }, function(value, index, elem){
+                    var url = '/hcms/dispatch/car_remark'
+                    var datas = {
+                        ht_num: htNum,
+                        car_num: obj.data.car_num,
+                        remark: value,
+                        send_id:obj.data.send_id
+                    }
+                    promiseSovl(url,'post',datas).then(function(res){
+                        if(res.code == 0){
+                            _this.children().text(value)
+                            layer.closeAll()
+                        }
+                    })
+                })
+            }
+        });
+
+        // 
+        $('body').on('click','.closed',function(){
+            var url = '/hcms/dispatch/del_kb_msg';
+            var _id = $(this).parents('.csbjlit').attr('_id');
+            $(this).parents('.csbjlit').remove();
+            promiseSovl(url,'get',{m_id:_id}).then(function(res){})
+
+        })
+        //车辆消息 carMsgBox 
+        setInterval(carMsgList,2000)
+        var carMsgTpl = '{{# layui.each(d,function(index,list){}}<li class="csbjlit" _id="{{list.id}}"><span class="redfont"><i class="layui-icon layui-icon-notice"></i></span><span>【{{list.ht_num}}】{{list.proj_name}}<span class="redfont">【{{# if(list.type==1){}}返回{{# }else if(list.type==2){}}到达超2小时{{# }}}】</span>{{list.create_time}}</span><span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span></li>{{# })}}'
+        function carMsgList(){
+            var url = '/hcms/dispatch/kb_msg';
+            promiseSovl(url).then(function(res){
+                // console.log(res)
+                if(res.data){
+                    laytpl(carMsgTpl).render(res.data,function(html){
+                        // console.log(html)
+                        $('.carMsgBox').html(html)
+                    })
+                }else{
+                    $('.carMsgBox').html('<p style="text-align:center;padding-top:20px;color:#999">暂无消息！</p>')
+                }
+                
+            })
+        }
+
+        var freeCarTpl = '{{# layui.each(d,function(index,list){}}<li class="sorItems"><div class="kc-car" sendId="{{list.send_id}}" driverName="{{list.driver_name}}"><span>{{list.car_rl}}</span><img src="../assets/image/ms4019.png" alt=""></div><p>{{list.car_num}}</p></li>{{# })}}'
+        function loadFreeCar(data){
+            var url = '/hcms/dispatch/wait_car';
+            promiseSovl(url,'get',data).then(function(res){
+                laytpl(freeCarTpl).render(res.data,function(html){
+                    $('#list-group').html(html)
+                });
+            });
+        }
+        function loadList(url,data,isSearch){
+            promiseSovl(url,'get',data).then(function(res){
+                var statusName = $('#use_status').val();
+                var statuses = slideStatus[statusName].name;
+                statuses = statuses == '使用' ? '生产中' : statuses
+                var len = res.data.list.length;
+                if(res.code == 0){
+                    var listse = '';
+                    if(len > 0){
+                        for(var i = 0; i < len; i++){
+                            var ht = res.data.list[i].ht_num;
+                            res.data.list[i].slide_status = slideStatus[statusName][ht];
+                            res.data.list[i].use_status = statuses;
+                            listse += '<li><i class="layui-icon layui-anim-scaleSpring"></i><span>【'+ ht + '】' + res.data.list[i].proj_name+'<span></li>'
+                        }
+                        $('.projNameBox').html(listse)
+                        laytpl(domeList).render(res.data.list,function(html){
+                            $('#kbbox').html(html);
+                            for(var i = 0; i < res.data.list.length;i++){
+                                var listGroups = document.getElementsByClassName('boardevery')[i]
+                                new Sortable(listGroups, {
+                                    group: 'shared',
+                                    animation: 150,
+                                    sort: false
+                                });
+                            }
+                        });
+                        if(isSearch){
+                            $('.tablebox').show();
+                            for(var i = 0; i < len; i++){
+                                var table = $('.boardevery').eq(i).next().find('table')[0];
+                                var htNum = $('.boardevery').eq(i).find('.taskNum').text();
+                                tableRender(table, htNum)
+                            }
+                        }
+                    }else{
+                        $('#kbbox').html('<p style="padding-top:100px;text-align:center;color:#999">暂无数据</p>');
+                    }
+                    layer.close(layindex)
+                }else{
+                    layer.msg(res.msg)
+                }
+            });
+        }
+        
+        function tableRender(elem, num){
+            table.render({
+                elem: elem,
+                url: baseUrl + '/hcms/dispatch/ht_num_info?ht_num=' + num,
+                where:{
+                    token:takeOpen
+                },
+                cols: [[
+                    // {field: 'send_id', title: '出货编号', width: 96},
+                    {field: 'car_num', title: '车号', width: 70},
+                    {field: 'driver_name', title: '司机', width: 80},
+                    {field: 'dispatch_time', title: '派车时间', width: 170},
+                    // {field: 'send_time', title: '出发时间', width: 200},
+                    {field: 'send_time', title: '发货时间', width: 170},
+                    {field: 'send_count', title: '发货方量', width: 96},
+                    {field: 'all_count', title: '累计方量', width: 96},
+                    {field: 'send_times', title: '派车车次', width: 96},
+                    {field: 'remark',event:'editRemark', title: '备注 -- 点击表格添加备注'}
+                ]],
+                even: true,
+                skin:'row',
+                done: function(res) {
+                    layer.close(layindex)
+                }
+            })
+        }
+        // 拖拽
+        var listGroup = document.getElementById('list-group');
+        new Sortable(listGroup, {
+            group: {
+                name: 'shared',
+                pull: 'clone',
+                put: false
+            },
+            animation: 150,
+            onEnd:function(obj){
+                console.log(obj)
+                var taskNum = $('#kbbox').find('.sorItems').parent().find('.taskNum').html();
+                var carNum = $(obj.item).find('p').html();
+                console.log(carNum)
+                var sendId =$(obj.item).find('.kc-car').attr('sendId');
+                var driverName =$(obj.item).find('.kc-car').attr('driverName')
+                var station =  $(obj.from).parent().prev().find('.focus').text();
+                console.log(station)
+                if(taskNum){
+                    layer.open({
+                        type:2,
+                        title:'派车',
+                        area:['80%','80%'],
+                        content:'./sendCar.html#ht_num=' + taskNum + '&send_id=' + sendId + '&station=' + station + '&car_num=' +carNum + '&driver_name=' + driverName,
+                        success:function(res) {
+                            $('#kbbox').find('.sorItems').remove();
+                        }
+                    });
+                }
+            },
+            sort: false // To disable sorting: set sort to false
+        });
+    </script>
+</body>
+</html>

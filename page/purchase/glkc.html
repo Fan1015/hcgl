@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>骨料库存日报表</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+        <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">骨料库存日报表</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+            type="text"
+            id="start"
+            placeholder=""
+            autocomplete="off"
+            class="layui-input bigInput"
+          />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 5px;">
+            <input
+              type="text"
+              id="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!--start 站点选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">站点：</label>
+          <div class="layui-input-inline">
+            <select name="" id="station">
+              <option value=""></option>
+              <option value="0">太龙</option>
+              <option value="1">山立</option>
+              <option value="2">伟治</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export">导出</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="tl" lay-filter="ddtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        var table = layui.table;
+        var form = layui.form;
+        var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+        var layer = layui.layer;
+		
+		var alldata = []
+        // 点击查询
+        $(".search").click(function () {
+        var obj = {
+          zd1: $("#station").val(),
+          date1: $("#start").val(), //开始时间字段，注意修改
+          date2: $("#end").val(), //结束时间字段，注意修改
+        };
+        console.log(obj);
+        // tableIns.reload({
+        //   where: obj,
+        //   page: {
+        //     curr: 1, //重新从第 1 页开始
+        //   },
+        // });
+        });
+        // 导出
+        $(".export").click(function(){
+            // console.log("导出按钮")
+            table.exportFile('glkctalbe',alldata,'xls')
+        })
+      //开始时间选择
+      laydate.render({
+        elem: "#start",
+        done: function (value, date) {
+            // console.log(112, value);
+            // console.log(113, date);
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end",
+        done: function (value, date) {
+            // console.log(222, value);
+            // console.log(223, date);
+        },
+      });
+      // 初始化表格数据
+      var tableIns = tableRender({
+        elem: "#tl",
+        url: "../assets/api/glkcTable.json",
+        cols: [
+          [
+            { field: "name", title: "站名", sort: true },
+            { field: "spec", title: "材料名称" },
+            { field: "stock_last", title: "昨天库存" },
+            { field: "weight", title: "当日购进/Kg" },
+            { field: "xiaohao", title: "当日消耗/Kg" },
+            { field: "zhengfu", title: "当日正负" },
+            { field: "stock_now", title: "库存数量" },
+          ],
+        ],
+        id:'glkctalbe',
+        even: true,
+        page: true,
+        skin:"row",
+        limit: 14,
+        done: function (res) {
+          alldata = res.data;
+        },
+      });
+    </script>
+  </body>
+</html>

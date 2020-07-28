@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>车辆误时/运距</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">车辆误时、运距</p>
+        </div>
+        <div class="clearfix" style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">合同编号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="ht_num" name="ht_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+             <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">车号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="car_num" name="car_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">查询时间：</label>
+                <div class="layui-input-inline" style="margin-right:5px">
+                    <input type="text" id="starttime" name="starttime" autocomplete="off" class="layui-input bigInput" placeholder="起始日期">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+                <span>-</span>
+                <div class="layui-input-inline" style="margin-left:5px">
+                    <input type="text" id="endtime" name="endtime" autocomplete="off" class="layui-input bigInput" placeholder="结束日期">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">查询</button>
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn export">导出</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    $('.search').click(function(){
+        tableIns.reload({
+            page: {
+				curr:1
+			},  
+            where: {
+                ht_num: $('#ht_num').val(),
+                start_time:  $('#starttime').val(),
+                end_time:  $('#endtime').val(),
+                car_num:  $('#car_num').val()
+            }
+        });
+    })
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        // url: '../assets/api/carMistake.json',
+        url: baseUrl + '/hcms/trans/jbc_info',
+        where: {
+            ht_num: $('#ht_num').val(),
+            start_time:  $('#starttime').val(),
+            end_time:  $('#endtime').val(),
+            car_num:  $('#car_num').val()
+        },
+        cols: [[
+			{field: 'id', title: '序号', fixed:"left", width:80, sort:true},
+            {field: 'send_id', title: '出货编号', fixed:"left", width:130,},
+            {field: 'ht_num', title: '任务单号', width:115,sort: true},
+            {field: 'car_num', title: '车号', width:80,sort: true},
+            {field: 'send_time', title: '发货时间', width:170,sort: true},
+            {field: 'driver_name', title: '司机', width:80},
+            {field: 'take_unit', title: '收货单位',  width:150,},
+            {field: 'proj_name', title: '工程名称',  width:150,},
+            {field: 'station_name', title: '站名',  width:65,},
+            {field: 'realDistance', title: '实际运距(km)',  width:135,},
+            {field: 'upperDistance', title: '去程距离(km)', width:135, templet: function(d) {
+                if(d.upperDistance-d.realDistance>=5 || d.upperDistance-d.realDistance<=-5 || d.lowerDistance != 0  && (d.upperDistance-d.lowerDistance>=5|| d.upperDistance-d.lowerDistance<=-5)){
+                    return '<span style="color: red">'+d.upperDistance+'</span>';
+                }
+                return d.upperDistance;
+            }},
+            {field: 'lowerDistance', title: '返程距离(km)', width:135},
+            {field: 'send_count', title: '发货方量(方)', width:135},
+            {field: 'jiaozhu_type', title: '浇筑方式', width:120},
+            {field: 'standard_time', title: '标准时间(分钟)', width:145},
+            {field: 'yj_time', title: '预计施工时间(分钟)', width:175},
+            {field: 'unloadTime', title: '卸货用时', width:100,templet: function(d) {
+                if(d.unloadTime < 0){
+                    return '无';
+                } else {
+                    return time(d.unloadTime/1000);
+                } 
+            }},
+            {field: 'time_lag', title: '超时时间(分钟)', width:141},
+            {field: 'timeout_pay', title: '超时价格(元/方)', width:150},
+            {field: 'timeout_pay_total', title: '超时费(元)', width:110},
+            {field: 'mistake_time', title: '误时时间(分钟)', width:141},
+            {field: 'mistake_pay', title: '误时价格(元/分钟)', width:165},
+            {field: 'mistake_pay_total', title: '搅拌站误时费(元)', width:160},
+            {field: 'gdmistake_pay_total', title: '工地误时费(元)', width:141},
+            {field: 'goTime', title: '去程用时', width:100,templet: function(d) {
+                if(d.goTime == 0){
+                    return '无';
+                }
+                return time(d.goTime/1000);
+            }},
+            {field: 'kickback', title: '返程用时', width:100,templet: function(d) {
+                if(d.kickback == 0){
+                    return '无';
+                }
+                return time(d.kickback/1000);
+            }},
+            {field: 'startTime', title: '出发时间', width:170,templet: function(d) {
+                if(d.startTime == 0){
+                    return '无';
+                }
+            },
+            {
+                field: 'arriveTime', title: '到达时间', width: 170
+                , templet: function (d) {
+                    if (d.arriveTime == 0) {
+                        return '无';
+                    }
+                    return d.arriveTime;
+                }
+            },
+
+            {
+                field: 'returnTime', title: '返回时间', width: 170, templet: function (d) {
+                    if (d.returnTime == 0) {
+                        return '无';
+                    }
+                    return d.returnTime;
+                }
+            },
+            {
+                field: 'backTime', title: '回到时间', width: 170
+                , templet: function (d) {
+                    if (d.backTime == 0) {
+                        return '无';
+                    }
+                    return d.backTime;
+                }
+            },
+
+            // {title: '操作', width: 65, toolbar: '#barDemo', fixed: "right", align: "center"}
+        ]],
+        even: true,
+        page: true,
+        skin: 'row',
+        done: function () {
+
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            dataRender(obj.data)
+            form.render()
+        }
+    });
+    function time(value) {
+        var y = Math.floor(value / (365 * 24 * 60 * 60)) > 0 ? Math.floor(value / (365 * 24 * 60 * 60)) + '年' : '';
+        var yRem = value % (365 * 24 * 60 * 60);
+        var m = Math.floor(yRem / (30 * 24 * 60 * 60)) > 0 ? Math.floor(yRem / (30 * 24 * 60 * 60)) + '月' : '';
+        var mRem = yRem % (30 * 24 * 60 * 60);
+        var d = Math.floor(mRem / (24 * 60 * 60)) > 0 ? Math.floor(mRem / (24 * 60 * 60)) + '天' : '';
+        var dRem = mRem % (24 * 60 * 60);
+        var h = Math.floor(dRem / (60 * 60)) > 0 ? Math.floor(dRem / (60 * 60)) + '小时' : '';
+        var hRem = dRem % (60 * 60);
+        var mi = Math.floor(hRem / 60) > 0 ? Math.floor(hRem / 60) + '分' : '';
+        var miRem = hRem % 60;
+        var s = Math.round(miRem) + '秒';
+        return y + m + d + h + mi + s;
+    }
+    </script>
+</body>
+</html>

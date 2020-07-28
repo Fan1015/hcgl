@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>考勤汇总</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">考勤汇总</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn upload">浏览</button>
+                </div>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="请选择导入文件" name="files" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">考勤日期：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="com_code" id="gs_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">导入</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+	        <ul class="bz-shad">
+	              <li><span style="color: red">*</span>备注：</li>
+	              <li>1、请确保导入文件的格式正确和数据完整，否则无法正常导入</li>
+	              <li>2、表格中不能出现空行</li>
+	              <li>3、您也可以参照模板进行编辑导入文件 <a href="/public/uploads/template/attendance_template.xls"><i class="layui-icon" title="点击下载模板" style="cursor: pointer;color:#3e66f4">&#xe601;</i></a></li>
+	        </ul>
+	    </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+
+
+
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        url: '../assets/api/clockingIn.json',
+	        cols: [[
+				{field:'id', width:70, title: 'ID', sort: true, fixed: 'left'},
+				{field:'empl_num', width:115, title: '员工编号', fixed: 'left', sort: true},
+				{field:'empl_name', width:96, title: '员工姓名'},
+				{field:'depart_name', width:96, title: '部门名称'},
+				{field:'should_to', title: '应到', width: 65},
+				{field:'real_to', width:65, title: '实到'},
+				{field:'tardy', width:65, title: '迟到'},
+				{field:'leave_early', width:65, title: '早退'},
+				{field:'absent', width:65, title: '旷工'},
+				{field:'should_sign_time', width:96, title: '应签次数'},
+				{field:'should_sign_in', width:80, title: '应签到'},
+				{field:'should_sign_back', width:80, title: '应签退'},
+				{field:'not_sign_in', width:80, title: '未签到'},
+				{field:'not_sign_back', width:80, title: '未签退'},
+				{field:'tardy_time', width:96, title: '迟到次数'},
+				{field:'leave_early_time', width:96, title: '早退次数'},
+				{field:'attend_time', width:96, title: '出勤时长'},
+				{field:'overtime', width:96, title: '加班时长'},
+				{field:'plain_overtime', width:96, title: '平日加班'},
+				{field:'rest_overtime', width:115, title: '休息日加班'},
+				{field:'holidays_overtime', width:115, title: '节假日加班'},
+				{field:'leave', width:65, title: '请假'},
+				{field:'sick_leave', width:65, title: '病假'},
+				{field:'casual_leave', width:65, title: '事假'},
+				{field:'maternity_leave', width:65, title: '产假'},
+				{field:'home_leave', width:80, title: '探亲假'},
+				{field:'annual_leave', width:65, title: '年假'},
+				{field:'evection', width:96, title: '因公外出'},
+				{field:'create_time', width:170, title: '导入时间'},
+				{field:'update_time', width:170, title: '修改时间'},
+				{field:'check_time', width:170, title: '考勤日期'}
+            ]],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        done: function(res) {
+	            console.log(res)
+	        }
+	    });
+
+    </script>
+</body>
+</html>

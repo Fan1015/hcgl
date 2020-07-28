@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>销售合同</title>
+    <style>
+        .jlul{
+            padding: 30px;
+        }
+        .jlul li{
+            width: 25%;
+        }
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <p class="hctitle">销售合同</p>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">任务单号：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" placeholder="" name="ht_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <label class="layui-form-label">收货单位：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" placeholder="" name="take_unit" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom: 24px;">
+                <label class="layui-form-label">查询时间：</label>
+                <div class="layui-input-inline" style="margin-right:5px">
+                    <input type="text" id="starttime" placeholder="开始时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="1">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+                <span>-</span>
+                <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+                    <input type="text" id="endtime" placeholder="结束时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="2">
+                    <span class="dateiconb" style="top:3px">
+                      <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+			状态S：<span>0</span>条   状态E：<span>0</span>条  未传输：<span>238</span>条
+			<button class="hcbtn " style="width:auto;padding:0 10px;height:35px;line-height: 35px">传输状态排顺序</button>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+      	<button class="hcbtn search layui-btn-sm" lay-event="upload" style="height:30px;line-height: 30px">批量上传</button>
+      </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    // 点击保存
+    $('body').on('click', '.save', function() {
+        var data = formData();
+        console.log(data);
+    });
+
+    //开始时间选择
+    laydate.render({
+        elem: "#starttime",
+        done: function (value, date) {
+        },
+    });
+    //结束时间选择
+    laydate.render({
+        elem: "#endtime",
+        done: function (value, date) {
+        },
+    });
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+
+    listReisze()
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: 'http://10.0.0.9:8008/admin/sdtest/get_xshtdata',
+        toolbar: '#toolbarDemo',
+        defaultToolbar: ['filter', 'exports', 'print'],
+        cols: [
+            [
+				{type: 'checkbox',width:50, fixed: 'left'},                         
+				{field: 'ht_num', title: '任务单号', fixed:"left", width:100},
+				{field: 'sap_status', title: '传输状态', width:100},
+				{field: 'sap_xsht', title: 'sap合同编号', width:120},
+				{field: 'take_unit', title: '收货单位', width:210},
+				{field: 'proj_name', title: '工程名称', width:210},
+				{field: 'strong_lv', title: '强度等级', width:100},
+				{field: 'business_man', title: '业务员', width:80},
+				{field: 'weight_title', title: '磅单标题', width:220},
+				{field: 'sap_kh', title: '客户编码', width:100},
+				{field: 'sap_sdf', title: '送达方', width:90},
+				{field: 'all_count', title: '生产数量', width:100},
+				{field: 'price', title: '销售单价', width:100},
+				{field: 'sap_price', title: '传输单价', width:100},
+				{field: 'sap_xszz', title: '销售组织', width:100},
+				{field: 'sap_dls', title: '代理商', width:80},
+				{field: 'sap_wuliao', title: '物料编码', width:100},
+				{field: 'phb_num', title: '配合比', width:100},
+				{field: 'create_time', title: '生效日期', width:170},
+				{field: 'sap_ywy', title: '业务员编码', width:112},
+				{field: 'sap_user', title: '传输人', width:80},
+				//任务单自带的SAP编号
+				{field: 'kh_num', title: 'OA客户编码', width:123},
+				{field: 'sdf_num', title: 'OA送达方', width:107},
+				{field: 'wuliao', title: 'OA物料编码', width:123},
+				{field: 'gs_code', title: 'OA公司编码', width:123},
+				{title: '操作', width:65, toolbar:'#barDemo',fixed:"right",align:"center"}
+            ]
+        ],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            dataRender(obj.data)
+            form.render()
+        }
+    });
+     // 点击添加
+     $('.add').click(function() {
+        layer.open({
+            type:1,
+          title: "编辑",
+            area:['90%','80%'],
+            btn:['确定','取消'],
+            content: $('#xshtAdd').html(),
+            success (layero, index) {
+                form.render()
+            }
+        })
+    });
+    function listAddDemo(val) {
+        switch (val) {
+          case 1:
+            title = "供应商";
+            laytplUrl = "./xsht-khbm.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          case 2:
+            title = "供应商";
+            laytplUrl = "./xsht-sdfbm.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          case 3:
+            title = "物料数据";
+            laytplUrl = "./xsht-wlsj.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          default:
+            break;
+        }
+      }
+</script>
+<script type="text/html" id="xshtAdd">
+    <div class="hclit">
+            <ul class="jlul layui-form clearfix">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">任务单号</p>
+                        <div class="dd-value">
+                            <input type="text" name="ht_num" autocomplete="off" readonly>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">客户编码 </p>
+                        <div class="dd-value"> 
+                            <input type="text" name="sap_kh" autocomplete="off" readonly="" value="">
+                            <span class="selcetsearch listAdd" onclick="listAddDemo(1)">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </span> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">数量</p>
+                        <div class="dd-value"> 
+                        	<input type="text" name="all_count" autocomplete="off" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">业务经办</p>
+                        <div class="dd-value">
+                        	<select name="business_man">
+                                <option value="" selected="selected"></option>
+                                <option value="5000">万昌运输代理商</option>  
+                                <option value="6000">技术服务代理商</option>     
+                                <option value="100">公户</option><option value="500">万昌运输代理商</option><option value="600">技术服务代理商</option><option value="101">李新伟</option><option value="102">孟新年</option><option value="103">郑松绍</option><option value="104">张正军</option><option value="105">连志伟</option><option value="106">李元博</option><option value="107">郭建平</option><option value="108">焦洪安</option><option value="109">李晓峰</option><option value="110">王泽辉</option><option value="111">赵林佳</option><option value="112">张海燕</option><option value="113">王亚飞</option><option value="114">赵林旺2</option><option value="115">康新标</option><option value="116">吴智涛</option><option value="117">连娟</option><option value="118">赵林旺</option><option value="119">张建功</option><option value="120">张继光</option><option value="121">白嘉琪</option><option value="122">白育萍</option><option value="123">张平阳</option><option value="124">赵文红</option><option value="125">冯志勇</option><option value="126">刘诗阳</option><option value="127">尚宝迪</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">销售组织</p>
+                        <div class="dd-value">
+                        	<select name="sap_xszz">
+                                <option value="">请选择</option>
+                                <option value="1000">河南省恒昌建材销售组织</option>
+                                <option value="1010">巩义市伟治建筑材料销售组织</option>
+                                <option value="1020">河南省恒昌建材科技有限公司松大站销售组织</option>
+                                <option value="2000">河南省山立建材销售组织</option>
+                                <option value="3000">郑州银河基建销售组织</option>   
+                                <option value="5000">巩义万昌运输销售组织</option>
+                                <option value="6000">河南省恒昌混凝土技术销售组织</option>
+                                <option value="7000">恒昌集团资金事业部销售组织</option>
+                                <option value="8000">恒昌集团行政事业部销售组织</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">送达方编码</p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="sdf_num" value="">
+                            <span class="selcetsearch listAdd" onclick="listAddDemo(2)">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </span> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">销售单价</p>
+                        <div class="dd-value"> 
+                        	<input type="text" autocomplete="off" name="price" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">更改标识</p>
+                        <div class="dd-value"> 
+                        	<select name="changeid">
+                                <option value="I">创建</option>
+                                <option value="U">修改</option>
+                                <option value="D">删除</option>
+                            </select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">代理商</p>
+                        <div class="dd-value"> 
+                        	<select name="sap_dls">
+                              	<option value="" selected="selected"></option>
+                              	<option value="5000">万昌运输代理商</option>  
+                              	<option value="6000">技术服务代理商</option>                            
+                                <option value="1000">公户代理商</option><option value="5000">万昌运输代理商</option><option value="6000">技术服务代理商</option><option value="1001">李新伟</option><option value="1002">孟新年</option><option value="1003">郑松绍</option><option value="1004">张正军</option><option value="1005">连志伟</option><option value="1006">李元博</option><option value="1007">郭建平</option><option value="1008">焦洪安</option><option value="1009">李晓峰</option><option value="1010">王泽辉</option><option value="1011">赵林佳</option><option value="1012">张海燕</option><option value="1013">王亚飞</option><option value="1014">赵林旺2</option><option value="1015">康新标</option><option value="1016">吴智涛</option><option value="1017">连娟</option><option value="1018">赵林旺</option><option value="1019">张建功</option><option value="1020">张继光</option><option value="1021">白嘉琪</option><option value="1022">白育萍</option><option value="1023">张平阳</option><option value="1024">赵文红</option><option value="1025">冯志勇</option><option value="1026">刘诗阳</option><option value="1027">尚宝迪</option></select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">物料编码</p>
+                        <div class="dd-value"> 
+                            <input type="text" autocomplete="off" name="sap_wuliao" readonly="">
+                            <span class="selcetsearch listAdd" onclick="listAddDemo(3)">
+                                <i class="layui-icon layui-icon-search"></i>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                <!-- <li>
+                    <div class="dd-value task-btnbox hcbig clearfix">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn reload">刷新</button> 
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+</script>
+</body>
+</html>

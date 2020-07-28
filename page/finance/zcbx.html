@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>资产报销单</title>
+    
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">资产报销单</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!--start SAP传输状态选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 113px;"
+            >SAP传输状态：</label
+          >
+          <div class="layui-input-inline">
+            <select name="sapStatus" id="sapStatus">
+              <option value=""></option>
+              <option value="S">S</option>
+              <option value="E">E</option>
+            </select>
+          </div>
+        </div>
+        <!-- end SAP传输状态选择 -->
+        <!-- start 公司代码 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">公司代码：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入公司代码"
+              name="commCode"
+              id="commCode"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 公司代码 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="zcbxStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="zcbxEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn update">刷新</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="zcbxTable" lay-filter="zcbxtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#zcbxStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#zcbxEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#zcbxTable",
+        // url: "../assets/api/zcbxTable.json",
+        url: baseUrl + '/hcms/oa_form/zcbxds_data',
+        cols: [[
+                {field: 'serial_num', title: '流水号', width: 120,fixed:'left',sort:true}
+                , {field: 'sap_status', title: 'SAP状态', width: 100}
+                , {field: 'sap_back', title: 'SAP返回', width: 180}
+                , {field: 'sap_time', title: 'SAP上传时间', width: 180}
+                , {field: 'sap_user', title: 'SAP上传用户', width: 160}
+                , {field: 'sap_msg', title: 'SAP返回信息', width: 200}
+                , {field: 'com_code', title: '公司代码', width: 120}
+                , {field: 'com_code_short', title: '公司代码简称', width: 160}
+                , {field: 'staff_code', title: '员工编码', width: 120}
+                , {field: 'staff_desc', title: '员工描述', width: 120}
+                , {field: 'baoxiao_detail', title: '报销明细', width: 160}
+                , {field: 'initiatorr', title: '发起人', width: 120}
+                , {field: 'initiatorr_c', title: '申请人代码', width: 120}
+                , {field: 'gm', title: '总经理', width: 120}
+                , {field: 'section', title: '部门经理', width: 120}
+                , {field: 'purchasee', title: '采购经理', width: 120}
+                , {field: 'accoun', title: '主办会计', width: 120}
+                , {field: 'money_b', title: '金额大写', width: 120}
+                , {field: 'money_l', title: '金额小写', width: 120,sort: true}
+                , {field: 'tally_code', title: '记账科目代码', width: 120}
+                , {field: 'tally_desc', title: '记账科目描述', width: 200}
+                , {field: 'submitter', title: '提交人', width: 160}
+                , {field: 'create_time', title: '发起时间', width: 180}
+                , {field: 'exec_time', title: '执行时间', width: 180,fixed: 'right'}
+            ]],
+        id: "zcbxReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {},
+      });
+      $(".search").click(function () {
+        var sapStatus = $("#sapStatus").val();
+        var commCode = $("#commCode").val();
+        var startTime = $("zcbxStart").val();
+        var endTime = $("#zcbxEnd").val();
+        if (commCode == "") {
+          layer.msg("请输入公司代码！");
+          return false;
+        }
+        if (startTime > endTime) {
+          layer.msg("起始时间不能大于结束时间", { icon: 2, anim: 6 });
+          return;
+        }
+        table.reload("oabxReload", {
+          where: {
+            sapStatus,
+            commCode,
+            startTime,
+            endTime,
+          },
+          page: {
+            curr: 1,
+          },
+        });
+      });
+      $(".update").on("click", function () {
+        $("#commCode").val("");
+        $("#sapStatus").val("");
+        $("#zcbxStart").val("");
+        $("#zcbxEnd").val("");
+        location.reload();
+      });
+    </script>
+  </body>
+</html>,

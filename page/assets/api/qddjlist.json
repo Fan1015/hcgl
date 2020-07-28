@@ -1,0 +1,12 @@
+{
+	"code":0,
+	"data":[{
+		"key":"强度等级",
+		"name":"name",
+		"type":0
+	},{
+		"key":"折方系数",
+		"name":"phone",
+		"type":0
+	}]
+}

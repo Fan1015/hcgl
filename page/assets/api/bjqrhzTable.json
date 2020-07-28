@@ -1,0 +1,158 @@
+{
+    "code": 0,
+    "count": 0,
+    "data": [
+        {
+            "run_id":"625804",
+            "station_name":"山立搅拌站",
+            "applicant": "赵志勇",
+            "endtime": "2020-06-29 16:41:56",
+            "arrivaltime": "2020-06-29 16:41:50",
+            "table_data": [
+                {
+                    "wz_name": "水泥",
+                    "guige": "永安42.5",
+                    "number": "200(吨)",
+                    "price": "350",
+                    "money": "70000.00",
+                    "gys_name": "河南永安水泥有限责任公司",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-29 16:41:50",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "0",
+                    "bj_beizhu": ""
+                },
+                {
+                    "wz_name": "水泥",
+                    "guige": "新安42.5",
+                    "number": "200(吨)",
+                    "price": "360",
+                    "money": "72000.00",
+                    "gys_name": "新安中联万基水泥有限公司",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-29 16:41:50",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "0",
+                    "bj_beizhu": ""
+                },
+                {
+                    "wz_name": "矿粉",
+                    "guige": "矿粉",
+                    "number": "180(吨)",
+                    "price": "320",
+                    "money": "57600.00",
+                    "gys_name": "济源市国泰微粉科技有限公司",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-29 16:41:50",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "0",
+                    "bj_beizhu": ""
+                },
+                {
+                    "wz_name": "煤灰",
+                    "guige": "煤灰",
+                    "number": "100(吨)",
+                    "price": "125",
+                    "money": "12500.00",
+                    "gys_name": "李建伟",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-29 16:41:50",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "",
+                    "bj_beizhu": ""
+                }
+            ]
+        },
+        {
+            "run_id":"625803",
+            "station_name":"山立搅拌站",
+            "applicant": "赵志勇",
+            "endtime": "2020-06-30 21:40:57",
+            "arrivaltime": "2020-06-30 18:00:00",
+            "table_data": [
+                {
+                    "wz_name": "河砂",
+                    "guige": "河砂",
+                    "number": "50(方)",
+                    "price": "123",
+                    "money": "6150.00",
+                    "gys_name": "张旭晖",
+                    "pay_method": "一次现金",
+                    "goods_time": "2020-06-30 18:00:00",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "郑州",
+                    "zhangqi": "15",
+                    "bj_beizhu": ""
+                }, {
+                    "wz_name": "河砂",
+                    "guige": "河砂",
+                    "number": "50(方)",
+                    "price": "123",
+                    "money": "6150.00",
+                    "gys_name": "王建波（河沙）",
+                    "pay_method": "一次现金",
+                    "goods_time": "2020-06-30 18:00:00",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "0",
+                    "bj_beizhu": ""
+                }
+            ]
+        },{
+            "run_id":"625802",
+            "station_name":"恒昌搅拌站",
+            "applicant": "赵志勇",
+            "endtime": "2020-06-30 21:39:07",
+            "arrivaltime": "2020-06-30 18:00:00",
+            "table_data": [
+                {
+                    "wz_name": "石子",
+                    "guige": "1-2",
+                    "number": "100(方)",
+                    "price": "141.6",
+                    "money": "14160.00",
+                    "gys_name": "王亚彬",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-30 18:00:00",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "",
+                    "zhangqi": "15",
+                    "bj_beizhu": ""
+                },{
+                    "wz_name": "石子",
+                    "guige": "1-2",
+                    "number": "100(方)",
+                    "price": "141.6",
+                    "money": "14160.00",
+                    "gys_name": "王亚彬",
+                    "pay_method": "一次承兑",
+                    "goods_time": "2020-06-30 18:00:00",
+                    "sh_endtime": "",
+                    "ysbz": "",
+                    "yunfei": "",
+                    "chandi": "本地",
+                    "zhangqi": "15",
+                    "bj_beizhu": ""
+                }
+            ]
+        }
+    ]
+}

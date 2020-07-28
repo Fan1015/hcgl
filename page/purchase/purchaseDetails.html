@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>进货明细表</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">进货明细表</h2>
+      <div class="clearfix jhmxb" style="padding-right: 24px;">
+        <!-- start 所属站点 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">所属站点：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="station_auth"
+              autocomplete="off"
+              class="layui-input bigInput"
+              value="太龙,山立,伟治,松大"
+            />
+          </div>
+        </div>
+        <!-- end 所属站点 -->
+        <!-- start 站点选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">站点：</label>
+          <div class="layui-input-inline">
+            <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+            <select name="station" id="station">
+              <option value=""></option>
+              <option value="太龙">太龙</option>
+              <option value="山立">山立</option>
+              <option value="伟治">伟治</option>
+              <option value="松大">松大</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!-- start 任务单号 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">发货单位：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="send"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 任务单号 -->
+        <!-- start 车牌号 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">车牌号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="car_num"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 车牌号 -->
+        <!-- start 全部车辆 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">全部车辆：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="outer_car"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 全部车辆 -->
+      <!-- </div>
+      <div class="clearfix" style="padding-right: 24px;"> -->
+        <!-- start 开始时间选择 -->
+        <div class="layui-inline hcbig" style="margin-bottom: 24px;float:left">
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline" style="margin-right:5px;">
+            <input
+              type="text"
+              name="start"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+            <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+          <span>-</span>
+          <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+            <input
+              type="text"
+              name="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+             <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <!-- <div class="layui-inline hcbig" style="margin-bottom: 24px; float:left">
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div> -->
+        <!-- end 结束时间选择 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px; float:left">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export">导出</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!-- </div> -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="tl" lay-filter="ddtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      // 点击查询
+      $(".search").click(function () {
+        var obj = formData('.jhmxb');
+        console.log(obj);
+        table.reload('jhmxtalbe', {
+          where: obj,
+          page: {
+            curr: 1, //重新从第 1 页开始
+          },
+        });
+      });
+      // 导出
+      $(".export").click(function () {
+        console.log("导出按钮");
+      });
+      //开始时间选择
+      laydate.render({
+        elem: "#start",
+        done: function (value, date) {
+        
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end",
+        done: function (value, date) {
+          
+        },
+      });
+      var obj = formData('.jhmxb');
+      console.log(obj)
+      // 初始化表格数据
+      tableRender({
+        elem: "#tl",
+        // url: "../assets/api/purchaseDetailsTable.json",
+        url: baseUrl + '/hcms/Indata/sh_detaildata',
+        where:obj,
+        id:'jhmxtalbe',
+        cols: [
+          [
+            { field: "id", title: "序号", fixed:'left', sort: true,width:80},
+            { field: "in_num", title: "进货编号", fixed:'left', width:120},
+            { field: "car_num", title: "车号",width:100},
+            { field: "ht_num", title: "供货合同",width:100},
+            { field: "send_goods", title: "发货",width:200},
+            { field: "take_goods", title: "收货",width:230},
+            { field: "goods_name", title: "货品名称",width:100},
+            { field: "goods_spec", title: "货品规格",width:100},
+            { field: "stor_place", title: "存放地" ,width:180},
+            { field: "all_weight", title: "毛重",width:80 },
+            { field: "car_weight", title: "皮重" ,width:80},
+            { field: "send_weight", title: "净重",width:80},
+            { field: "fang_count", title: "方量" ,width:90},
+            { field: "df_weight", title: "对方净重",width:100},
+            { field: "jz_time", title: "进站时间",width:170},
+            { field: "cz_time", title: "出站时间",width:170},
+            { field: "station_name", title: "站名",width:100},
+            { field: "js_way", title: "结算方式",width:100},
+            { field: "dist_price", title: "运价",width:80},
+            { field: "all_dist", title: "运费",width:80},
+            { field: "pri", title: "单价",width:80},
+            { field: "all_pri", title: "金额",width:80},
+            { field: "dist", title: "里程",width:100},
+            { field: "beizhu", title: "备注",width:100},
+            { field: "handle_man", title: "操作员",width:100}
+          ]
+        ],
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 13,
+        done: function (res) {
+          
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>采购报价确认</title>
+    <style>
+      .table_title {
+        display: flex;
+        justify-content: space-between;
+        margin: 0px 0 20px;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .code {
+        line-height: 38px;
+      }
+      .btn_group > button {
+        /*width: 100px;*/
+      }
+      .btn_group > button:not(:last-child) {
+        margin-right: 20px;
+      }
+      .btn_group > button:last-child {
+        margin-right: 5px;
+      }
+      .layui-table-cell {
+        height: auto;
+        line-height: 28px;
+        padding: 0 15px;
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        box-sizing: border-box;
+      }
+      .layui-table[lay-even] > tbody > tr:nth-child(odd) {
+        background: #f6f7fe !important;
+      }
+      .layui-table[lay-even] > tbody > tr:nth-child(even) {
+        background: #ffffff !important;
+      }
+      .layui-table[lay-even] > thead > tr:nth-child(2n) {
+        background-color: #ffffff !important;
+      }
+      .layui-table[lay-even] tbody tr:hover,.layui-table[lay-even] thead tr:hover {
+        background: #f6f7fe !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">采购报价确认</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 流水号  -->
+        <div class="layui-inline hcbig" style="float: left;">
+          <label class="layui-form-label" style="width: 68px;">流水号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="run_id"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 流水号 -->
+        <!-- start 显示类型 -->
+        <div class="layui-inline hcbig" style="float: left;">
+          <label class="layui-form-label">显示类型：</label>
+          <div class="layui-input-inline">
+            <select name="display_type" id="display_type">
+              <option value="no" selected>未确认</option>
+              <option value="yes">已确认</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 显示类型 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+        </div>
+        <!--end 搜索导出按钮 -->
+      </div>
+      <!--start 表格视图 -->
+      <div class="viewTable" style="padding-right: 24px;"></div>
+      <!--end 表格视图 -->
+    </div>
+
+    <script type="text/html" id="barDemo">
+      <a class="layui-chose" style="background-color:#3e66f4" lay-event="del">选择</a>
+    </script>
+    <script type="text/html" id="ListTable">
+
+       <!--start 数据表格 -->
+       <div style="padding: 30px; background:#ffffff;margin-top: 30px;box-shadow: #e6e6e6 0px 0px 10px;">
+        <div class="table_title">
+            <div class="code">
+              <span>流水号：{{d.tableData[0].run_id}}</span>
+              <span>【{{d.station_name}}】</span>
+            </div>
+            <div class="btn_group">
+            <button class="hcbtn msgRecord">消息记录</button>
+            <button class="hcbtn endConfirmation">结束确认</button>
+            <button class="hcbtn gysTel">供应商电话</button>
+            </div>
+          </div>
+          <div class="table" >
+            <table
+              class="layui-table" lay-even="" lay-skin="row" layui-data={page:false}>
+              <thead>
+                <tr>
+                  <th lay-data="{filed:'people',title:'申请人',width:100}">申请人</th>
+                  <th lay-data="{field:'username',title:'张富豪',width:100}">{{d.username}}</th>
+                  <th lay-data="{filed:'company_code',title:'公司代码',width:100}">公司代码</th>
+                  <th lay-data="{filed:'code',title:'code',width:100}" >{{d.code}}</th>
+                  <th lay-data="{filed:'arrival_time',title:'要求到厂时间',width:100}">要求到厂时间</th>
+                  <th lay-data="{filed:'arrivaltime',title:'time',width:100}" colspan="2">{{d.arrivaltime}}</th>
+                  <th lay-data="{filed:'bj_endtime',title:'报价截止时间',width:100}">报价截止时间</th>
+                  <th lay-data="{filed:'endtime',title:'time',width:100}" colspan="2">{{d.endtime}}</th>
+                </tr>
+                <tr>
+                  <th lay-data="{field:'run_id',width:110}">流水号</th>
+                  <th lay-data="{field:'yl_id',width:95}">原材料编号</th>
+                  <th lay-data="{field:'wz_name', width:75}">物资名称</th>
+                  <th lay-data="{field:'guige',width:100}">规格型号</th>
+                  <th lay-data="{field:'number',width:95 }">数量（单位）</th>
+                  <th lay-data="{field:'lasttime_bj',width:100 }">上次价格</th>
+                  <th lay-data="{field:'end_time',width:170  }">截止送货时间</th>
+                  <th lay-data="{field:'ys_bz', width:75}">验收标准</th>
+                  <th lay-data="{field:'beizhu';width:75 }">备注</th>
+                  <th lay-data="{title:'操作';width:75,toolbar: '#barDemo'}" style="text-align:center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+          {{# layui.each(d.tableData,function(index,item){  }}
+                <tr >
+                  <td>{{item.run_id}}</td>
+                  <td>{{item.yl_id}}</td>
+                  <td>{{item.wz_name}}</td>
+                  <td>{{item.guige}}</td>
+                  <td>{{item.number}}</td>
+                  <td>{{item.lasttime_bj}}</td>
+                  <td>{{item.end_time}}</td>
+                  <td>{{item.ys_bz}}</td>
+                  <td>{{item.beizhu}}</td>
+                  <td  style="text-align:center;color:#3e66f4;cursor:pointer;" toolbar="#">
+                    选择
+                  </td>
+                </tr>
+                {{#  }); }}
+              </tbody>
+            </table>
+          </div>
+       </div>
+      <!--end 数据表格 -->
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      form.render();
+      // 点击搜索
+      $(".search").click(function () {
+        run_id = $("#run_id").val(); //流水号
+        display_type = $("#display_type").val(); //物资类别
+        if (!run_id || !display_type) {
+          layer.msg("请正确填写搜索信息", { icon: 2 });
+        } else {
+          getTable();
+        }
+      });
+      // 渲染模板
+      var demoTpl = $("#ListTable").html();
+      getTable();
+      function getTable() {
+        $.ajax({
+          url: "../assets/api/cgbjqrTable.json",
+          success: function (res) {
+            // 渲染模板
+            for (var j = 0; j < res.data.length; j++) {
+              laytpl(demoTpl).render(res.data[j], function (html) {
+                $(".viewTable").append(html);
+              });
+            }
+          },
+        });
+      }
+      //监听行单击事件
+      table.on("row(text_chose)", function (obj) {
+        console.log(1112222);
+        console.log(obj.tr); //得到当前行元素对象
+        console.log(obj.data); //得到当前行数据
+        //obj.del(); //删除当前行
+        //obj.update(fields) //修改当前行数据
+      });
+    </script>
+  </body>
+</html>

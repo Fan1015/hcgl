@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>销售统计</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div id="receiveOne" style="width:100%;height:430px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveTwo" style="width:50%;height:440px"></div>
+            <div id="receiveThr" style="width:49%;height:440px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveFor" style="width:50%;height:440px"></div>
+            <div id="receiveFiv" style="width:49%;height:440px;padding:20px;background:#fff"></div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        
+
+        window.onresize = function(){
+            var resize = true;
+            onxhrstore(resize)
+            receiveThr(resize)
+            // receiveFor(resize)
+            receiveFiv(resize)
+        }
+        
+        onxhrstore()
+        
+        function onxhrstore(resize){
+            var datas = JSON.parse(getStore('xstjData'))
+            if(datas && datas.length == 3){
+                // console.log(datas)
+                receiveOne(datas[0].data, resize)
+                receiveFor(datas[1].data, resize)
+                receiveFiv(datas[2].data, resize)
+            }else{
+                var oneUrl = '/hcms/sale/m_count';
+                var forUrl = '/hcms/sale/top5';
+                var fivUrl = '/hcms/sale/cust_order';
+                Promise.all([promiseSovl(oneUrl),promiseSovl(forUrl),promiseSovl(fivUrl)]).then((res) => {
+                    // console.log(res)
+                    receiveOne(res[0].data, resize)
+                    receiveFor(res[1].data, resize)
+                    receiveFiv(res[2].data, resize)
+                    setStore('xstjData', JSON.stringify(res))
+                })
+            }
+        }
+        receiveTwo()
+        receiveThr()
+        // receiveFor()
+        
+        // /hcms/sale/m_count
+
+        function receiveOne(data, resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var dataAll = [];
+            var data1 = data.tl_data;
+            var data2 = data.sl_data;
+            var data3 = data.wz_data;
+            // var data4 = [120,100,120,100,120,100,120,100,120,100,120,100];
+            for(var i = 0;i < data1.length;i++){
+                // dataAll[i] = Math.round((data1[i] + data2[i] + data3[i])*100)/100
+                dataAll[i] = (data1[i]*100 + data2[i]*100 + data3[i]*100)/100
+            }
+            // console.log(dataAll)
+            var option = {
+                title: {
+                    text: '五月份销售统计',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:10,
+                    containLabel:true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['恒昌','山立','伟治','松大']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisLabel:{
+                        rotate:30
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: data.strong_lv
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '恒昌',
+                        type: 'bar',
+                        stack: 'one',
+                        barCategoryGap:'100%', 
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#7bb0ff'
+                        },
+                        data: data1
+                    },
+                    {
+                        name: '山立',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        data: data2
+                    },
+                    {
+                        name: '伟治',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ffbe40'
+                        },
+                        data: data3
+                    },
+                    // {
+                    //     name: '松大',
+                    //     type: 'bar',
+                    //     stack: 'one',
+                    //     barWidth:10,
+                    //     itemStyle:{
+                    //         color:'#af87fe'
+                    //     },
+                    //     data: data4
+                    // },
+                    { 
+                        name: '总计',
+                        type: 'bar',
+                        barGap: '-25%',  
+                        label: {
+                            normal: {
+                                // offset:['50', '80'],
+                                show: true,
+                                position: 'top',
+                                // formatter:'{c}',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                color:'rgba(128, 128, 128, 0)'
+                            }
+                        },
+                        data: dataAll
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var option = {
+                title: {
+                    text: '销售TOP5总成本/销售价格对比'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    icon:'circle',
+                    right:20,
+                    data: ['成本', '销售价格']
+                },
+                grid: {
+                    left: 10,
+                    right: 20,
+                    bottom: 0,
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['C30', 'C25', 'C35', 'C15', 'C20']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                },
+                series: [
+                    {
+                        name: '成本',
+                        type: 'line',
+                        lineStyle:{
+                            color:'#ff9580'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data: [320, 332, 301, 334, 390]
+                    },
+                    {
+                        name: '销售价格',
+                        type: 'line',
+                        lineStyle:{
+                            color:'#17c1c1'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data: [820, 932, 901, 934, 1290]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        
+        function receiveThr(resize){
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '销售利润TOP5总成本/销售价格对比'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    icon:'circle',
+                    right:20,
+                    data: ['成本', '销售价格']
+                },
+                grid: {
+                    left: 10,
+                    right: 20,
+                    bottom: 0,
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['C30', 'C25', 'C35', 'C15', 'C20']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                },
+                series: [
+                    {
+                        name: '成本',
+                        type: 'line',
+                        lineStyle:{
+                            color:'#ff9580'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data: [320, 332, 301, 334, 390]
+                    },
+                    {
+                        name: '销售价格',
+                        type: 'line',
+                        lineStyle:{
+                            color:'#17c1c1'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data: [820, 932, 901, 934, 1290]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFor(data, resize){
+            var myChart = echarts.init(document.getElementById('receiveFor'));
+            var option = {
+                title: {
+                    text: '客户TOP5',
+                    left: 'left'
+                },
+                grid:{
+                    left: 10,
+                    right: 20,
+                    bottom: 0,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    // formatter:function(param){
+                    //     for(var i = 0;i < data.cust_code.length;i++){
+                    //         if(param[0].name == data.cust_code[i]){
+                    //             return data.cust_name[i] + ': ' + param[0].value
+                    //         }
+                    //     }
+                    // }
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: data.cust_code
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'bar',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#3e66f4'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: data.money
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFiv(data, resize){
+            var myChart = echarts.init(document.getElementById('receiveFiv'));
+            // 配置项
+            var option = {
+                title: {
+                    text: '中深建业建设集团有限公司（100351）四月份订单',
+                    left: 'left'
+                },
+                grid:{
+                    left: 10,
+                    right: 20,
+                    bottom: 0,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: data.strong_lv
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'bar',
+                        // stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#af87fe'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: data.num
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

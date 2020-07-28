@@ -1,0 +1,104 @@
+{
+	"code":0,
+	"data":[{
+		"id": 499,
+		"gs_code": "2000",
+		"kh_num": "100154",
+		"sdf_num": "400407",
+		"kh_name": "代理商客户-张正军",
+		"proj_name": "兴隆净水剂有限公司",
+		"balance": 0,
+		"jiesuan_time": "2019-02-21 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 500,
+		"gs_code": "2000",
+		"kh_num": "100156",
+		"sdf_num": "400408",
+		"kh_name": "代理商客户-李元博",
+		"proj_name": "河南海源机械制造有限公司",
+		"balance": 0,
+		"jiesuan_time": "2019-02-21 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 501,
+		"gs_code": "1000",
+		"kh_num": "100150",
+		"sdf_num": "400347",
+		"kh_name": "代理商客户-张正军",
+		"proj_name": "河南省邦鹏建筑技术工程有限公司巩义分公司",
+		"balance": 0,
+		"jiesuan_time": "2019-02-22 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 502,
+		"gs_code": "1000",
+		"kh_num": "100152",
+		"sdf_num": "400409",
+		"kh_name": "代理商客户-孟新年",
+		"proj_name": "马二峰",
+		"balance": 0,
+		"jiesuan_time": "2019-02-22 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 503,
+		"gs_code": "2000",
+		"kh_num": "100045",
+		"sdf_num": "400410",
+		"kh_name": "张中军",
+		"proj_name": "竹林天基管业",
+		"balance": 0,
+		"jiesuan_time": "2019-02-23 00:00:00",
+		"balance_type": "合同"
+	},{
+		"id": 504,
+		"gs_code": "2000",
+		"kh_num": "100162",
+		"sdf_num": "400230",
+		"kh_name": "代理商客户-张海燕",
+		"proj_name": "北山口五耐二分厂",
+		"balance": 0,
+		"jiesuan_time": "2019-02-23 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 505,
+		"gs_code": "1000",
+		"kh_num": "100156",
+		"sdf_num": "400411",
+		"kh_name": "代理商客户-李元博",
+		"proj_name": "裕实国际建设集团股份有限公司",
+		"balance": 0,
+		"jiesuan_time": "2019-02-24 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 506,
+		"gs_code": "1000",
+		"kh_num": "100151",
+		"sdf_num": "400363",
+		"kh_name": "代理商客户-李新伟",
+		"proj_name": "小关镇绿化项目",
+		"balance": 0,
+		"jiesuan_time": "2019-02-25 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 507,
+		"gs_code": "1010",
+		"kh_num": "100151",
+		"sdf_num": "400412",
+		"kh_name": "代理商客户-李新伟",
+		"proj_name": "巩义市人民电缆厂",
+		"balance": 0,
+		"jiesuan_time": "2019-02-25 00:00:00",
+		"balance_type": "预付款"
+	},{
+		"id": 693,
+		"gs_code": "1010",
+		"kh_num": "3000",
+		"sdf_num": "",
+		"kh_name": "公司基建",
+		"proj_name": "",
+		"balance": 0,
+		"jiesuan_time": "2019-02-01 00:00:00",
+		"balance_type": null
+	}]
+}

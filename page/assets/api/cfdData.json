@@ -1,0 +1,94 @@
+{
+	"code":0,
+	"data":[{
+		"id": 126,
+		"place": "太龙水泥1#库_7",
+		"danwei": "吨",
+		"rl": "250",
+		"goods_name": "永安水泥42.5",
+		"warning": "150",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 127,
+		"place": "太龙水泥2#库_8",
+		"danwei": "吨",
+		"rl": "250",
+		"goods_name": "新安42.5",
+		"warning": "150",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 128,
+		"place": "太龙煤灰3#库_9",
+		"danwei": "吨",
+		"rl": "200",
+		"goods_name": "煤灰",
+		"warning": "100",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 129,
+		"place": "太龙矿粉4#库_11",
+		"danwei": "吨",
+		"rl": "250",
+		"goods_name": "矿粉",
+		"warning": "100",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 130,
+		"place": "太龙减水剂1#库_15",
+		"danwei": "吨",
+		"rl": "10",
+		"goods_name": "减水剂",
+		"warning": "2",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 131,
+		"place": "太龙减水剂2#库_16",
+		"danwei": "吨",
+		"rl": "10",
+		"goods_name": "减水剂",
+		"warning": "2",
+		"station_name": "太龙",
+		"kouku_status": "单仓扣库"
+	},{
+		"id": 132,
+		"place": "太龙煤灰2#储备库",
+		"danwei": "吨",
+		"rl": "100",
+		"goods_name": "煤灰",
+		"warning": "30",
+		"station_name": "太龙",
+		"kouku_status": "无仓扣库"
+	},{
+		"id": 133,
+		"place": "太龙矿粉3#储备库",
+		"danwei": "吨",
+		"rl": "100",
+		"goods_name": "矿粉",
+		"warning": "30",
+		"station_name": "太龙",
+		"kouku_status": "无仓扣库"
+	},{
+		"id": 134,
+		"place": "太龙矿粉4#储备库",
+		"danwei": "吨",
+		"rl": "100",
+		"goods_name": "矿粉",
+		"warning": "30",
+		"station_name": "太龙",
+		"kouku_status": "无仓扣库"
+	},{
+		"id": 135,
+		"place": "太龙5#储备库",
+		"danwei": "吨",
+		"rl": "100",
+		"goods_name": "矿粉",
+		"warning": "30",
+		"station_name": "太龙",
+		"kouku_status": "无仓扣库"
+	}]
+}

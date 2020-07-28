@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>恒昌管理系统</title>
+
+<meta name="description" content=" ">
+ <link rel="stylesheet" href="./assets/layui/css/layui.css">
+ <link rel="stylesheet" type="text/css" href="./assets/css/login1.css" tppabs="css/style.css" />
+ <script type="text/javascript" src="./assets/layui/layui.all.js" charset="utf-8"></script>
+
+<style>
+body{
+    height:100%;
+    background:url(./assets/image/mc0124.jpg) no-repeat center center;
+    overflow:hidden;
+    background-size: cover;
+}
+canvas{
+    z-index:-1;
+    position:absolute;
+}
+</style>
+<script src="./assets/jquery/jquery.min.js"></script>
+<script src="./assets/js/verificationNumbers.js" tppabs="js/verificationNumbers.js"></script>
+    <script src="./assets/js/common.js"></script>
+</head>
+<body>
+    <div class="loginbox">
+        <div class="logos">
+            <img src="assets/image/logo-text.png" alt="">
+        </div>
+        <dl class="admin_login">
+            <dd class="user_icon">
+                <span class="login-icons"><img src="assets/image/user.png" alt=""></span>
+                <input type="text" name="username" id='username' autocomplete="off" placeholder="用户名" class="login_txtbx"/>
+            </dd>
+            <dd class="pwd_icon">
+                <span class="login-icons"><img src="assets/image/psd.png" alt=""></span>
+                <input type="password" name="password"  id="password" autocomplete="off" placeholder="账户密码" class="login_txtbx"/>
+            </dd>
+            <dd>
+                <button id="bs" type="button" value="立即登陆" class="submit_btn"/>登录</button>
+            </dd>
+        </dl>
+    </div>
+</body>
+<script>
+var form = layui.form;
+form.render();
+
+$(document).ready(function() {
+    
+  //测试提交，对接程序删除即可
+  $(".submit_btn").click(function(){
+        login();
+    });
+});
+
+
+function login(){
+    var username  = $('#username').val();
+    var password  = $('#password').val();
+    $.ajax({
+        url: baseUrl + '/hcms/user/login',
+        type: 'post',
+        dataType: 'json',
+        data:{
+            username: username,
+            password: password
+        },
+        success: (res) => {
+            console.log(res)
+
+            if(res.code == 0){
+                setStore('username', username);
+                setStore('takeOpen', res.data.token);
+                location.href = "./index.html";
+            }else{
+                console.log(res.msg)
+                layer.msg(res.msg)
+            }
+        },
+        error: (res) => {
+            console.log(res)
+        }
+    })
+}
+
+document.onkeydown = function(e){
+    var ev = document.all ? window.event : e;
+    if(ev.keyCode==13) {
+          login();
+     }
+}
+//将function函数赋值给onload对象
+window.onload = function ()
+{
+    //从Cookie获取到用户名
+    var username = getStore("username") ;
+    //如果用户名为空,则给表单元素赋空值
+    if ( username == "" )
+    {
+        document.getElementById("username").value="" ;
+        document.getElementById("password").value="" ;
+    }
+    //获取对应的密码,并把用户名,密码赋值给表单
+    else
+    {
+        var password = getStore(username) ;
+        document.getElementById("username").value = username ;
+        document.getElementById("password").value = password ;
+    }
+}
+
+// 设置localStorage
+function setStore(key, value, expire) {
+    var exp = expire ? expire : 1000*60*60*24;
+    var obj = {
+        data: value,
+        time: Date.now(),
+        expire: exp
+    };
+    try {
+        localStorage.setItem(key, JSON.stringify(obj));
+    } catch (e) {
+        if (isQuotaExceeded(e)) {
+            console.error("Error: 本地存储超过限制");
+            localStorage.clear();
+        } else {
+            console.error("Error: 保存到本地存储失败");
+        }
+    }
+}
+
+function isQuotaExceeded(e) {
+    var quotaExceeded = false;
+    if (e) {
+        if (e.code) {
+            switch (e.code) {
+                case 22:
+                    quotaExceeded = true;
+                    break;
+                case 1014: // Firefox 
+                    if (e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+                        quotaExceeded = true;
+                    }
+                    break;
+            }
+        } else if (e.number === -2147024882) { // IE8 
+            quotaExceeded = true;
+        }
+    }
+    return quotaExceeded;
+}
+// 获取localStorage
+function getStore(key) {
+    var val = localStorage.getItem(key);
+    if (!val) {
+        return val;
+    }
+    val = JSON.parse(val);
+    if (Date.now() - val.time > val.expire) {
+        localStorage.removeItem(key);
+        return null;
+    }
+    return val.data;
+}
+
+</script>
+</html>

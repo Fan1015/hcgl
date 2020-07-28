@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="assets/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <title>销售总量</title>
+    <style>
+        .qhbtn{
+            width:302px;
+        }
+        .qhbtn span{
+            width:75px;
+            border-left:1px solid #ccc;
+        }
+        .qhbtn span:first-child{
+            border:none;
+        }
+        .box{
+            padding-right:0;
+        }
+        .layui-table[lay-size=sm] th{
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box layui-form">
+        <ul class="proglist shfixe">
+            <li class="one">
+                <div class="pcselist">
+                <div class="clearfix">
+                    <span class="pcsene" style="line-height: 40px"><i class="iconfont icon-erji-gongdanbaobiao"></i></span>
+                    <div class="progmsg" style="vertical-align: bottom">
+                        <p>销售额</p>
+                        <p class="num" id="one_num"></p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>本月完成率：<span>53.1%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar" style="background: #7bb0ff" lay-percent="53.1%"></div>
+                    </div>
+                </div>
+                </div>
+            </li>
+            <li class="two">
+                <div class="pcselist">
+                <div>
+                    <span class="pcseor" style="line-height: 40px"><i class="iconfont icon-erji-ziyuanbaobiao"></i></span>
+                    <div class="progmsg" style="vertical-align: bottom">
+                        <p>销售数量-混凝土</p>
+                        <p class="num" id="two_num"></p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>本月完成率：<span>66.7%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar" style="background: #ffbe40" lay-percent="66.7%"></div>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <li class="three">
+                <div class="pcselist">
+                <div>
+                    <span class="pcserd" style="line-height: 40px;color:#b98bff"><i class="iconfont icon-yiji-baobiaoguanli"></i></span>
+                    <div class="progmsg" style="vertical-align: bottom">
+                        <p>销售数量-砂浆</p>
+                        <p class="num" id="khsh_num">232吨</p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>本月完成率：<span>38.1%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar" style="background: #b98bff" lay-percent="38.1%"></div>
+                    </div>
+                </div>
+            </div>
+            </li>
+            <li class="four">
+                <div class="pcselist">
+                <div>
+                    <span class="pcserd" style="line-height: 40px"><i class="iconfont icon-yiji-baobiaoguanli"></i></span>
+                    <div class="progmsg" style="vertical-align: bottom">
+                        <p>回款金额</p>
+                        <p class="num" id="three_num">333</p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>本月完成率：<span>38.1%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar" style="background: #ff9580" lay-percent="38.1%"></div>
+                    </div>
+                </div>
+            </div>
+            </li>
+
+        </ul>
+        <!-- <ul class="mgtp20 pcsetle">
+            <li class="pcselist pcsene">
+                <p>业务收入</p>
+                <p class="num">12435</p>
+            </li>
+            <li class="pcselist pcsewo">
+                <p>业务成本</p>
+                <p class="num">12435</p>
+            </li>
+            <li class="pcselist pcserd">
+                <p>应收账款</p>
+                <p class="num">12435</p>
+            </li>
+            <li class="pcselist pcseor">
+                <p>应付账款</p>
+                <p class="num">12435</p>
+            </li>
+        </ul> -->
+        <ul class="clearfix mgtp20 xsqh" style="padding-right:20px">
+            <li id="receiveOne" style="width:40%;height:620px;float:left;"></li>
+            <li style="width:58%;float:right">
+                <div style="width:100%;height:300px;position:relative;">
+                    <div class="qhbtn">
+                        <span class="focus" type="">今日</span>
+                        <span type="yest">昨日</span>
+                        <span type="week">近7天</span>
+                        <span type="month">近30天</span>
+                    </div>
+                    <div id="receiveTwo" style="width:100%;height:300px;"></div>
+                </div>
+                <div class="mgtp20">
+                    <div class="qhbtn" style="width:245px;border:none;top:15px;right:0;">
+                        <input type="radio" name="zhandian" lay-filter="zhandian" value="太龙" title="太龙" checked>
+                        <input type="radio" name="zhandian" lay-filter="zhandian" value="山立" title="山立">
+                        <input type="radio" name="zhandian" lay-filter="zhandian" value="伟治" title="伟治">
+                    </div>
+                    <div id="receiveThr" style="width:100%;height:300px;"></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="diagram mgtp20 clearfix" style="padding-right:20px">
+            <li style="width:50%;float:left">
+                <h3 class="staname">生产任务单</h3>
+                <div class="chtb" style="padding:0 10px">
+                    <table class="layui-table" id="tl" lay-filter="prctTask"></table>
+                </div>
+            </li>
+            <li id="receiveFor" style="width:50%;height:380px;float:left"></li>
+        </ul>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a class="" style="color:#4986ff;cursor:pointer" lay-event="detail">详情</a>
+    </script>
+    <script src="../assets/layui/layui.all.js"></script>
+    <script src="../assets/jquery/jquery.min.js"></script>
+    <script src="../assets/js/echarts.js"></script>
+    <script src="../assets/js/bluebirds.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script>
+        var table = layui.table;
+        var element = layui.element;
+        var layer = layui.layer;
+        var form = layui.form;
+        tableRender({
+            elem: "#tl",
+            // url:'../api/table2.json',
+            url: baseUrl + "/hcms/produce/prod_ht",
+            height:350,
+            cols:[[
+                {field: 'ht_num', title: '任务单号', fixed:"left", minWidth:90,width:110,},
+                {field: 'gs_code', title: '公司代码', minWidth:90,width:90,},
+                {field: 'kh_num', title: '客户编码',  minWidth:90,width:90,},
+                {field: 'sdf_num', title: '送达方编码', minWidth:105,width:105,},
+                {field: 'take_unit', title: '收货单位', minWidth:220, width:220},
+                {field: 'proj_name', title: '工程名称', minWidth:230,width:260},
+                {field: 'proj_area', title: '工程部位', minWidth:120,width:120},
+                {field: 'all_count', title: '生产数量', minWidth:90,width:90},
+                {field: 'goods_name', title: '商品名称', minWidth:90,width:90},
+                {field: 'strong_lv', title: '强度等级', minWidth:90,width:90},
+                {field: 'pinzhong', title: '品种', minWidth:70,width:70},
+                {field: 'tanluo_lv', title: '坍落度', minWidth:75,width:75},
+                {field: 'jiaozhu_type', title: '浇筑方式', minWidth:90,width:90},
+                {field: 'kangshen_lv', title: '抗渗等级', minWidth:90,width:90},
+                {field: 'zhefang_ratio', title: '折方系数', minWidth:90,width:90},
+                {field: 'zhefang_use', title: '单位', minWidth:70,width:70},
+                {field: 'use_status', title: '使用', minWidth:70,width:70},
+                {field: 'create_time', title: '建单时间', minWidth:90,width:170},
+                {field: 'proj_addr', title: '工程地点', minWidth:90,width:90},
+                {field: 'use_time', title: '使用时间', minWidth:90,width:170},
+                {field: 'use_count', title: '使用次数', minWidth:90,width:90},
+                {field: 'business_man', title: '业务经办', minWidth:90,width:90},
+                {field: 'ht_type', title: '回款方式', minWidth:90,width:90},
+                {field: 'pb_num', title: '配比编号', minWidth:90,width:90},
+                {field: 'trans_dist', title: '运距', minWidth:60,width:60},
+                {field: 'dcbc_price', title: '单次泵送费', minWidth:105,width:105},
+                {field: 'cgbf_price', title: '超100方泵费', minWidth:115,width:115},
+                {field: 'start_time', title: '开工时间', minWidth:90,width:170},
+                {field: 'prod_phone', title: '工地电话', minWidth:90,width:125},
+                {field: 'station_name', title: '站名', minWidth:75,width:75},
+                {field: 'conn_man', title: '联系人', minWidth:80,width:80},
+                {field: 'weight_title', title: '磅单标题', minWidth:220,width:220},
+                {title: '操作', width:70, toolbar:'#barDemo',fixed:"right",align:"center"}
+            ]],
+            size:'sm',
+            page: true,
+            limit: 7,
+            even:true,
+            limits: [7, 14],
+            done: function (res) {
+              
+            },
+        });
+        table.on('tool(prctTask)',function(obj){
+            if(obj.event == 'detail'){
+                layer.msg('暂无数据')
+            }
+        })
+
+        // 30天和7天切换
+        $('.qhbtn span').click(function(e){
+            $(this).addClass("focus").siblings().removeClass("focus");
+            var type = $(this).attr("type");
+            promiseSovl("/hcms/sale/sale_count", "get", { type: type }).then((res) => {
+                
+                receiveTwo(res.data,true);
+            })
+        })
+
+        window.onresize = function(){
+            var resize = true
+            onXhrStore(resize);
+        }
+
+        form.on('radio(zhandian)',function(obj){
+            var station = obj.value;
+            var url = "/hcms/cgreport/jx_select?zhandian=" + station;
+            promiseSovl(url).then((res) => {
+                receiveThr(res.data);
+            })
+        })
+        
+        onXhrStore();
+        function onXhrStore(resize) {
+            var oneUrl = "/hcms/sale/center"; //数据中心
+            var threeUrl = "/hcms/sale/sale_count"; //销售情况统计
+            var fourUrl = "/hcms/cgreport/jx_select?zhandian=太龙"; //原材料进货/消耗实时统计
+            var fivUrl = '/hcms/finance/receipt_cost'; //收支汇总
+            Promise.all([
+                promiseSovl(oneUrl, "get"),
+                // promiseSovl(twoUrl, "get"),
+                promiseSovl(threeUrl, "get"),
+                promiseSovl(fourUrl, "get"),
+                promiseSovl(fivUrl, "get")
+            ]).then((res) => {
+                // console.log(res);
+                listData(res[0].data);
+                receiveOne("", resize);
+                console.log(res[1])
+                receiveTwo(res[1].data, resize);
+                receiveThr(res[2].data,resize);
+                receiveFor(res[3].data, resize);
+            });
+        }
+
+        function listData(data) {
+            $("#one_num").html(data.sale_money+'元');
+            $("#two_num").html(data.sale_num+'方');
+            $("#three_num").html(data.receipt+'元');
+        }
+        
+        function receiveOne(data, resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var option = {
+                title: {
+                    text: '生产/消耗分析11',
+                    left: 'left'
+                },
+                legend: {
+                    data: ['原料库存', '原料消耗'],
+                    right:0,
+                    icon:'circle'
+                },
+                grid: {
+                    left: 0,
+                    right: 30,
+                    bottom: 0,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    show:false,
+                    type: 'value',
+                },
+                yAxis: [{
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    position: 'left',
+                    type: 'category',
+                    data: ['米石', '河沙', '煤灰', '汝阳砂',  '柴油', '母液', '0.5-1石子', '砂浆砂', '水泥']
+                }],
+                series: [
+                    {
+                        type: 'bar',
+                        name:'原料消耗',
+                        barWidth:15,
+                        label: {
+                            show: true,
+                            position: 'right'
+                        },
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0,
+                                    [
+                                        {offset: 0, color: '#fda600'},   
+                                        {offset: 1, color: '#fb7600'}
+                                    ]
+                                ),
+                                barBorderRadius: 10
+                            },
+                             emphasis: {
+                                barBorderRadius: 10
+                            },
+                        },
+                        data: [12140.2, 13414.1, 19325.1, 23438.5, 31000.7, 68180.5,12159.5, 13414.4, 19325.2, 23438.1, 31000.1, 68180.7,12159.2, 13414.3, 19325.5, 23438, 31000.6, 68180]
+                    },
+                    {
+                        type: 'bar',
+                        name:'原料库存',
+                        barWidth:15,
+                        label: {
+                            show: true,
+                            position: 'right'
+                        },
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0,
+                                    [
+                                        {offset: 0, color: '#7bafff'},   
+                                        {offset: 1, color: '#4068f4'}
+                                    ]
+                                ),
+                                barBorderRadius: 10
+                            },
+                             emphasis: {
+                                barBorderRadius: 10
+                            },
+                        },
+                        data: [12159, 13400.3, 19325.9, 23438.6, 32120.5, 68157.1,12133.1, 13414, 19325.7, 23412.5, 32340.5, 68176.3,12159, 13414, 19310.5, 23420.1, 31022.3, 68140.4]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(data,resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var option = {
+                title: {
+                    text: '出货情况统计',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel:true,
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisTick:{
+                        show:false
+                    },
+                    axisLine:{
+                        show:false
+                    },
+                    axisLabel:{
+                        rotate:30
+                    },
+                    data: data.date
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                },
+                series: [{
+                    data: data.money,
+                    type: 'line',
+                    smooth: true,
+                    itemStyle:{
+                        color:'#7bb0ff'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#7bb0ff'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(255,255,255,0)'
+                        }])
+                    },
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveThr(data, resize){
+            var xAxisData = [];
+            var jh_data = [];
+            var xh_data = [];
+            for(var i = 0; i < data.length;i++){
+                if(data[i] && (data[i].jinhuo || data[i].xiaohao)){
+                    xAxisData.push(data[i].cailiao);
+                    jh_data.push(data[i].jinhuo);
+                    xh_data.push(-data[i].xiaohao)
+                }
+            }
+            if(jh_data.length == 0){
+                layer.msg('暂无数据');
+            }
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '原材料进货/消耗实时统计',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel:true,
+                },
+                legend: {
+                    right: 'center',
+                    top: 0,
+                    icon:'circle',
+                    data:['进货','消耗']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    axisLabel:{
+                        rotate:30
+                    },
+                    data: xAxisData
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '进货',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#3e85ff'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: jh_data
+                    },
+                    {
+                        name: '消耗',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#feb23a'
+                        },
+                        label: {
+                            show: true,
+                            position: 'bottom'
+                        },
+                        data: xh_data
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFor(data,resize){
+            var myChart = echarts.init(document.getElementById('receiveFor'));
+            var option = {
+                title: {
+                    text: '收支汇总',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel:true,
+                },
+                legend: {
+                    data: ['收入', '支出'],
+                    right:0,
+                    icon:'circle'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisTick:{
+                        show:false
+                    },
+                    axisLine:{
+                        show:false
+                    },
+                    data: data.date
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [{
+                    data: data.money_info.receipt,
+                    name:'收入',
+                    type: 'line',
+                    smooth: true,
+                    itemStyle:{
+                        color:'#7bb0ff'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#7bb0ff'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(255,255,255,0)'
+                        }])
+                    },
+                },{
+                    data: data.money_info.cost,
+                    type: 'line',
+                    name:'支出',
+                    smooth: true,
+                    itemStyle:{
+                        color:'#ff9580'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#ff9580'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(255,255,255,0)'
+                        }])
+                    },
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

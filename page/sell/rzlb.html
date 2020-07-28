@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>费用类别</title>
+    <style>
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; }
+        input[type="number"]{ -moz-appearance: textfield; }
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">费用类别</p>
+        </div>
+        <div class="clearfix" style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">搜索类型：</label>
+                <div class="layui-input-inline">
+                    <select name="search_key">
+	                    <option value="">选择搜索类型</option>
+	                    <option value="rzlb">入账类别</option>
+	                    <option value="fymx">费用明细</option>
+	                </select>
+                </div>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="supp_unit" id="gs_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+                <!-- <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div> -->
+                
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="del" style="border:none">删除</a>
+    </script>
+    <script type="text/html" id="layeropen">
+        <div class="layui-form">
+        <div class="hcbig" style="margin-bottom: 24px;">
+            <label class="layui-form-label">入账类别：</label>
+            <div class="layui-input-inline" style="margin-right:5px">
+                <input type="number" id="rzlbcode" list="url_list" placeholder="代码" autocomplete="off" class="layui-input bigInput" lay-filter="rzlbcode">
+                <datalist id="url_list">
+                    <div id="url_option_list">
+                        <option data-name="10" value="10" />
+                        <option data-name="20" value="20" />
+                        <option data-name="30" value="30" />
+                        <option data-name="40" value="40" />
+                        <option data-name="50" value="50" />
+                        <option data-name="60" value="60" />
+                        <option data-name="70" value="70" />
+                    </div>
+                </datalist>
+            </div>
+            <span>-</span>
+            <div class="layui-input-inline" style="margin-left:5px;margin-right: 0;">
+                <input type="text" placeholder="名称" id="rzlbval" autocomplete="off" class="layui-input bigInput">
+            </div>
+        </div>
+        <div class=" hcbig" style="margin-bottom: 24px;">
+            <label class="layui-form-label">费用明细：</label>
+            <div class="layui-input-inline" style="margin-right:5px">
+                <input type="number" placeholder="代码" id="fymxcode" autocomplete="off" class="layui-input bigInput">
+            </div>
+            <span>-</span>
+            <div class="layui-input-inline" style="margin-left:5px;margin-right: 0;">
+                <input type="text" placeholder="名称" id="fymxval" autocomplete="off" class="layui-input bigInput">
+            </div>
+        </div>
+        </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    var alldata = null;
+
+    $('.add').click(function(){
+        layer.open({
+            btn: ['确定', '取消'],
+            area: ['585px','400px'],
+            content: $('#layeropen').html(),
+            success (layero, index) {
+                var option = ''
+                for(var i in rzlbArr){
+                    var name = rzlbArr[i].split('-')[0]
+                    option += '<option data-name="'+ name +'" value="'+ name +'" />'
+                }
+                $('#url_option_list').html(option)
+                form.render()
+            },
+            yes (index, layero) {
+                var url = '/hcms/expenses_base/add_eb';
+                if(!$('#rzlbcode').val() || !$('#rzlbval').val() || !$('#fymxval').val() || !$('#fymxcode').val()) {
+                    layer.msg('必填项，不能为空', {type:1,time:2000})
+                    // openmsg('必填项，不能为空')
+                    return false;
+                }
+                var rzname = $('#rzlbcode').val() + '-' + $('#rzlbval').val();
+                var fyname = $('#rzlbval').val() + '-' + $('#fymxval').val() + '-' + $('#fymxcode').val();
+                console.log(fyname)
+                var data = {
+                    rzlb:rzname,
+                    fymx:fyname
+                }
+                promiseSovl(url, 'post', data).then(function(res){
+                    if(res.code == 0) {
+                        layer.msg('保存成功', {type:1,time:2000}, function(){
+                            location.reload();
+                        })
+                    }
+                })
+            }
+        })
+    })
+
+    $('.export').click(function(){
+        var ind = layer.load(0,{shade:0.5})
+        exportAllData({
+            url: tableIns.config.url,
+            data:{},
+            length: alldata.count,
+            export (res) {
+                layer.close(ind)
+                console.log(res)
+                table.exportFile(tableIns.config.id,res,'xls')
+            }
+        })
+    })
+
+    var rzlbArr = [];
+    var rzurl = '/hcms/basic_data/rzlbs';
+    promiseSovl(rzurl).then(function(res){
+        console.log(res)
+        rzlbArr = res.data;
+
+    })
+
+    $('body').on('change', '#rzlbcode', function(){
+        console.log(99)
+        var curr_rzlb = $(this).val();
+        if(! curr_rzlb){
+            $(this).parent().next().next().children('input').val('');
+            return false
+        }
+        for(var i in rzlbArr){
+            if(rzlbArr[i].indexOf(curr_rzlb)>-1){
+                var name = rzlbArr[i].split('-')[1];
+                $(this).parent().next().next().children('input').val(name)
+            }
+        }
+    });
+
+
+    $('body').on('input propertychange', '#rzlbcode', function() {
+        var curr_rzlb = $(this).val();
+        if(! curr_rzlb){
+            $(this).parent().next().next().children('input').val('');
+            return false
+        }
+        for(var i in rzlbArr){
+            if (rzlbArr[i].indexOf(curr_rzlb) != -1) {
+                var name = rzlbArr[i].split('-')[1];
+                $(this).parent().next().next().children('input').val(name)
+            } else {
+                $(this).parent().next().next().children('input').val('')
+            }
+        }
+    })
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+    // var wid = Math.ceil(($('.tablebb').width()-70)/4) -2
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        // url: '../assets/api/rzlb.json',
+        url: baseUrl + '/hcms/expenses_base/eb_list',
+        cols: [[
+			{field: 'id', title: '序号', sort: true },
+            {field: 'rzlb', title: '入账类别' },
+            {field: 'fymx', title: '费用明细' },
+            {field: 'update_time', title: '修改时间' },
+            {title: '操作', width: 70, toolbar: '#barDemo', align: "center"}
+        ]],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function(res) {
+            alldata = res;
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        console.log(obj)
+        if (obj.event == 'del') {
+            //删除
+            layer.confirm('确定要删除吗？', function(){
+                var url = '/hcms/expenses_base/del_eb';
+                var data = {
+                    rzlb_id: obj.data.id
+                }
+                promiseSovl(url,'get', data).then(function(res){
+                    if(res.code == 0) {
+                        layer.msg('删除成功', {type:1,time:2000}, function(){
+                            location.reload()
+                        })
+                    } else {
+                        layer.msg(res.msg, {type:1,time:2000})
+                    }
+                });
+            })
+        }
+    });
+</script>
+</body>
+</html>

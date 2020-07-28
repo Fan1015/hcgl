@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>进货记录</title>
+    <style>
+        .layui-layer-dialog .layui-layer-content{
+            padding-right:6px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">进货记录（太龙，山立，伟治，松大）</p>
+            
+        </div>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <label class="layui-form-label">发货单位：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="supp_unit" id="gs_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <label class="layui-form-label">站点：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <select name="" id="station">
+                       <option value="太龙">太龙</option>
+                       <option value="伟治">伟治</option>
+                       <option value="山立">山立</option>
+                       <option value="松大">松大</option>
+                   </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">查询</button>
+                </div>
+            </div>
+            <!-- <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div> -->
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+    </script>
+    <script type="text/html" id="openform">
+        <ul class="jlul layui-form clearfix">
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">进货编号</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="in_num" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">车号</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="car_num" >
+                    </div>
+                </div>
+            </li>
+            
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">供货合同</p>
+                    <div class="dd-value">
+                        <input type="text" name="ht_num" autocomplete="off">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">发货</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="send_goods" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">收货</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="take_goods" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">货品名称</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="goods_name" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">货品规格</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="goods_spec" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">存放地</p>
+                    <div class="dd-value">
+                        <select name="stor_place">
+                            <option value="">请选择</option>
+                            <option value="山立1减水剂1#库_15">山立1减水剂1#库_15</option>
+                            <option value="山立2湿拌砂浆外加剂水剂10#库_19">山立2湿拌砂浆外加剂水剂10#库_19</option>
+                            <option value="山立1减水剂2#库_16">山立1减水剂2#库_16</option>
+                            <option value="山立干砂库">山立干砂库</option>
+                            <option value="山立1矿粉1#库_12">山立1矿粉1#库_12</option>
+                            <option value="山立2矿粉8#库_12">山立2矿粉8#库_12</option>
+                            <option value="山立1煤灰2#库_10">山立1煤灰2#库_10</option>
+                            <option value="山立2煤灰7#库_10">山立2煤灰7#库_10</option>
+                            <option value="山立砂浆砂库">山立砂浆砂库</option>
+                            <option value="山立1水泥3#库_8">山立1水泥3#库_8</option>
+                            <option value="山立1水泥4#库_7">山立1水泥4#库_7</option>
+                            <option value="山立2水泥5#库_7">山立2水泥5#库_7</option>
+                            <option value="山立2水泥6#库_8">山立2水泥6#库_8</option>
+                            <option value="太龙水泥1#库_7">太龙水泥1#库_7</option>
+                            <option value="太龙水泥2#库_8">太龙水泥2#库_8</option>
+                            <option value="太龙煤灰3#库_9">太龙煤灰3#库_9</option>
+                            <option value="太龙矿粉4#库_11">太龙矿粉4#库_11</option>
+                            <option value="太龙减水剂1#库_15">太龙减水剂1#库_15</option>
+                            <option value="太龙减水剂2#库_16">太龙减水剂2#库_16</option>
+                            <option value="太龙煤灰2#储备库">太龙煤灰2#储备库</option>
+                            <option value="太龙矿粉3#储备库">太龙矿粉3#储备库</option>
+                            <option value="太龙矿粉4#储备库">太龙矿粉4#储备库</option>
+                            <option value="太龙5#储备库">太龙5#储备库</option>
+                            <option value="太龙矿粉8#储备库">太龙矿粉8#储备库</option>
+                            <option value="太龙湿拌砂浆外加剂水剂库">太龙湿拌砂浆外加剂水剂库</option>
+                            <option value="伟治水泥1#库_6">伟治水泥1#库_6</option>
+                            <option value="伟治水泥2#库_7">伟治水泥2#库_7</option>
+                            <option value="伟治矿粉3#库_10">伟治矿粉3#库_10</option>
+                            <option value="伟治煤灰4#库_8">伟治煤灰4#库_8</option>
+                            <option value="伟治减水剂1#库_14">伟治减水剂1#库_14</option>
+                            <option value="伟治减水剂2#库_15">伟治减水剂2#库_15</option>
+                            <option value="山立膨胀剂库">山立膨胀剂库</option>
+                            <option value="伟治膨胀剂库">伟治膨胀剂库</option>
+                            <option value="太龙膨胀剂库">太龙膨胀剂库</option>
+                            <option value="复配车间普通型母液库">复配车间普通型母液库</option>
+                            <option value="复配车间抗泥型母液库">复配车间抗泥型母液库</option>
+                            <option value="复配车间保坍型母液库">复配车间保坍型母液库</option>
+                            <option value="复配车间自密实型母液库">复配车间自密实型母液库</option>
+                            <option value="山立干混砂浆外加剂1#库">山立干混砂浆外加剂1#库</option>
+                            <option value="山立干混砂浆外加剂2#库">山立干混砂浆外加剂2#库</option>
+                            <option value="电子厂河砂库">电子厂河砂库</option>
+                            <option value="山立0.5--1石子库">山立0.5--1石子库</option>
+                            <option value="山立1-2石子库">山立1-2石子库</option>
+                            <option value="山立河砂库">山立河砂库</option>
+                            <option value="山立机制砂库">山立机制砂库</option>
+                            <option value="山立米石库">山立米石库</option>
+                            <option value="山立汝阳砂库">山立汝阳砂库</option>
+                            <option value="太龙0.5-1石子库">太龙0.5-1石子库</option>
+                            <option value="太龙河砂库">太龙河砂库</option>
+                            <option value="太龙机制砂库">太龙机制砂库</option>
+                            <option value="太龙米石库">太龙米石库</option>
+                            <option value="太龙汝阳砂库">太龙汝阳砂库</option>
+                            <option value="太龙砂浆砂库">太龙砂浆砂库</option>
+                            <option value="太龙1-2石子库">太龙1-2石子库</option>
+                            <option value="电子厂石子库">电子厂石子库</option>
+                            <option value="伟治0.5-1石子库">伟治0.5-1石子库</option>
+                            <option value="伟治1-2石子库">伟治1-2石子库</option>
+                            <option value="伟治1-3石子库">伟治1-3石子库</option>
+                            <option value="伟治河砂库">伟治河砂库</option>
+                            <option value="伟治米石库">伟治米石库</option>
+                            <option value="伟治机制砂库">伟治机制砂库</option>
+                            <option value="太龙站柴油库">太龙站柴油库</option>
+                            <option value="山立站柴油库">山立站柴油库</option>
+                            <option value="伟治站柴油库">伟治站柴油库</option>
+                            <option value="太龙复配车间">太龙复配车间</option>
+                            <option value="太龙煤灰6#储备库">太龙煤灰6#储备库</option>
+                            <option value="太龙脱粉砂库">太龙脱粉砂库</option>
+                            <option value="太龙1#储备库">太龙1#储备库</option>
+                            <option value="太龙煤灰7#储备库">太龙煤灰7#储备库</option>
+                            <option value="复配车间和易性母液库">复配车间和易性母液库</option>
+                            <option value="山立1-3石子库">山立1-3石子库</option>
+                            <option value="山立1高标号减水剂3#库_17">山立1高标号减水剂3#库_17</option>
+                            <option value="伟治高标号减水剂库_16">伟治高标号减水剂库_16</option>
+                            <option value="山立1湿拌砂浆外加剂水剂5#库_19">山立1湿拌砂浆外加剂水剂5#库_19</option>
+                            <option value="山立2减水剂6#库_15">山立2减水剂6#库_15</option>
+                            <option value="山立2减水剂7#库_16">山立2减水剂7#库_16</option>
+                            <option value="太龙高标号减水剂库_17">太龙高标号减水剂库_17</option>
+                            <option value="太龙雅居乐减水剂库_18">太龙雅居乐减水剂库_18</option>
+                            <option value="山立脱粉砂库">山立脱粉砂库</option>
+                            <option value="山立2高标号减水剂8#库_17">山立2高标号减水剂8#库_17</option>
+                            <option value="山立1雅居乐减水剂4#库_18">山立1雅居乐减水剂4#库_18</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+            
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">毛重</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="all_weight" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">皮重</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="car_weight" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">净重</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="send_weight" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">方量</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="fang_count" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">对方净重</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="df_weight" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">进站时间</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="jz_time" id="jz_time" readonly="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">出站时间</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="cz_time" id="cz_time" readonly="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">单价</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="price" >
+                    </div>
+                </div>
+            </li>
+            
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">金额</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="all_money" value=""> 
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">运费结算</p>
+                    <div class="dd-value"> 
+                        <input type="text" autocomplete="off" name="trans_js" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">运费</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="trans_money" value="">
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">运价</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="trans_price" >
+                    </div>
+                </div>
+            </li>
+            
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">站名</p>
+                    <div class="dd-value">
+                        <select class="form-control" name="station_name">
+                            <option value="">请选择</option>
+                            <option value="太龙">太龙</option>
+                            <option value="伟治">伟治</option>
+                            <option value="山立">山立</option>
+                            <option value="松大">松大</option>
+                         </select>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">结算方式</p>
+                    <div class="dd-value"> 
+                        <select class="form-control" name="js_way">
+                            <option value="">请选择</option>
+                            <option value="方量结算">方量结算</option>
+                            <option value="净重结算">净重结算</option>
+                   </select>
+                    </div>
+                </div>
+            </li>
+            <li class="">
+                <div class="inlists">
+                    <p class="dd-name">备注</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="beizhu" value="">
+                    </div>
+                </div>
+            </li>
+            <!-- <li>
+                <div class="dd-value task-btnbox hcbig clearfix">
+                    <div class="layui-inline" style="float:left">
+                        <button class="hcbtn save">保存</button> 
+                    </div>
+                    <div class="layui-inline" style="float:left">
+                        <button class="hcbtn reload">刷新</button> 
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    // 点击保存
+    $('body').on('click', '.save', function() {
+        var data = formData();
+        console.log(data);
+    });
+
+    $('.add').click(function(){
+        //编辑
+        layer.open({
+            area:['90%','90%'],
+            btn: ['保存','取消'],
+            content:$('#openform').html(),
+            success (layero,index) {
+                dateRender('#jz_time');
+                dateRender('#cz_time');
+                listReisze()
+                form.render();
+            },
+            yes (index, layero) {
+                var url = '/hcms/Indata/insertdata';
+                var data = formData();
+                promiseSovl(url,'get', data).then(function(res){
+                    if(res.code == 0) {
+                        layer.msg('添加成功');
+                    } else {
+                        layer.msg(res.msg);
+                    }
+                });
+            }
+        })
+    })
+
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+    listReisze()
+    var station="太龙,山立,伟治,松大";
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: baseUrl + '/hcms/indata/getindata',
+        // url:'../assets/api/jhjlData.json',
+        where:{
+          send_goods: $('#gs_code').val(),
+          station: $('#station').val()
+        },
+        cols: [
+            [
+				{field: 'id', title: '序号', fixed:"left", width:80},
+				{field: 'in_num', title: '进货编号', fixed:"left", width:120},
+				{field: 'car_num', title: '车号', width:100},
+				{field: 'ht_num', title: '供货合同', width:100},
+				{field: 'send_goods', title: '发货', width:200},
+				{field: 'take_goods', title: '收货', width:220},
+				{field: 'goods_name', title: '货品名称', width:100},
+				{field: 'goods_spec', title: '货品规格', width:100},
+				{field: 'stor_place', title: '存放地', width:150},
+				{field: 'all_weight', title: '毛重', width:80},
+				{field: 'car_weight', title: '皮重', width:80},
+				{field: 'send_weight', title: '净重', width:80},
+				{field: 'fang_count', title: '方量', width:70},
+				{field: 'df_weight', title: '对方净重', width:100},
+				{field: 'jz_time', title: '进站时间', width:170},
+				{field: 'cz_time', title: '出站时间', width:170},
+				{field: 'price', title: '单价', width:70},
+				{field: 'all_money', title: '金额', width:70},
+				{field: 'trans_js', title: '运费结算', width:100},
+				{field: 'trans_money', title: '运费', width:70},
+				{field: 'trans_price', title: '运价', width:70},
+				{field: 'station_name', title: '站名', width:70},
+				{field: 'js_way', title: '结算方式', width:100},
+				{field: 'print_status', title: '打印状态', width:100},
+				{field: 'beizhu', title: '备注', width:120},
+				{field: 'status', title: '状态', width:70},
+				{field: 'use_status', title: '是否皮重', width:100},
+				{field: 'handle_man', title: '操作员', width:10},
+				{title: '操作', width:70, toolbar:'#barDemo',fixed:"right",align:"center"}
+            ]
+        ],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            layer.open({
+                area:['90%','90%'],
+                btn: ['保存','取消'],
+                content:$('#openform').html(),
+                success (layero,index) {
+                    listReisze()
+                    dateRender('#jz_time')
+                    dateRender('#cz_time')
+                    dataRender(obj.data);
+                    form.render();
+                },
+                yes (index, layero) {
+                    var url = '/hcms/Indata/insertdata';
+                    var data = formData();
+                    promiseSovl(url,'get', data).then(function(res){
+                        if(res.code == 0) {
+                            layer.msg('保存成功');
+                        } else {
+                            layer.msg(res.msg);
+                        }
+                    });
+                }
+            })
+        }
+    });
+</script>
+</body>
+</html>

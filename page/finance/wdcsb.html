@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>先算后干按单测算表</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">先算后干按单测算表</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="starttime" id="starttime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">结束时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="endtime" id="endtime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">站点：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <select name="zhandian" lay-verify="" id="zhandian">
+                        <option value="太龙">太龙</option>
+                        <option value="山立">山立</option>
+                        <option value="伟治">伟治</option>
+                        <option value="全部">全部</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <!-- <table class="layui-hide" id="dome" lay-filter="hcdome"></table> -->
+            <table class="layui-hide" id="dome" lay-filter="hcdome" ></table>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+    	var laydate = layui.laydate;
+    	
+        var alldata = [];
+    	$('.search').click(function(){
+    		tableIns.reload({
+    			where:{
+                    time1:$('#starttime').val(),
+                    time2:$('#endtime').val(),
+                    zhandian: $('#zhandian').val()
+                },
+    			page:{
+    				curr:1
+    			}
+    		});
+    	});
+
+        // 导出
+        $('.export').click(function(){
+            table.exportFile(tableIns.config.id, alldata,'xls');
+        })
+
+    	laydate.render({
+    		elem:'#starttime'
+    	});
+
+    	laydate.render({
+    		elem:'#endtime'
+    	});
+
+	    var tableIns = tableRender({
+            elem: '#dome',
+            height: 'full-135',
+            // url: "../assets/api/wdcsb.json", //数据接口
+            url: baseUrl + '/hcms/Cost/costandandata',
+            page: true, //开启分页
+            where: {
+                time1: $('#starttime').val(),
+                time2: $('#endtime').val(),
+                zhandian: $('#zhandian').val()
+            },
+            id:'wdcsb',
+            cols: [[ //表头
+                { field: 'ht_num', title: '任务单号', fixed: 'left', width: '100' },
+                { field: 'proj_name', title: '工程名称', width: '200' },
+                { field: 'fangliang', title: '发货方量', width: '100' },
+                { field: 'checi', title: '车次', width: '100' },
+                { field: 'yunju_zong', title: '总运距', width: '100' },
+                { field: 'biaozhunchefei', title: '标准运费', width: '150' },
+                { field: 'buyunfei', title: '小方量补运', width: '150' },
+                { field: 'chaoshifei', title: '超时费', width: '100' },
+                { field: 'yunfeishouru', title: '运费收入', width: '120' },
+                { field: 'guanlifei', title: '管理费用', width: '120' },
+                { field: 'youhao', title: '油耗', width: '100' },
+                { field: 'weixiu', title: '维修费', width: '100' },
+                { field: 'luntai', title: '轮胎', width: '100' },
+                { field: 'sijigongzi', title: '司机工资', width: '120' },
+                { field: 'feiyongchengben', title: '费用成本合计', width: '150' },
+                { field: 'lirun', title: '测算利润', width: '120' },
+                { field: 'danfanglirun', title: '单方利润', width: '120' },
+                { field: 'wushifei', title: '误时费', width: '100' }
+            ]],
+            done:function(res){
+                alldata = res.data
+            }
+        });
+
+    </script>
+</body>
+</html>

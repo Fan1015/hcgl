@@ -1,0 +1,75 @@
+{
+	"code":0,
+	"count":3233,
+	"data":[{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙河砂库",
+		"cailiao": "河砂",
+		"kucunnum": 15537622
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙1-2石子库",
+		"cailiao": "1-2石子",
+		"kucunnum": 38702955
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙机制砂库",
+		"cailiao": "机制砂",
+		"kucunnum": 375224
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙汝阳砂库",
+		"cailiao": "汝阳砂",
+		"kucunnum": 1877655
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙膨胀剂库",
+		"cailiao": "膨胀剂",
+		"kucunnum": 47070
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "电子厂河砂库",
+		"cailiao": "河砂",
+		"kucunnum": 13073521
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙水泥1#库_7",
+		"cailiao": "永安42.5",
+		"kucunnum": 257720
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙水泥2#库_8",
+		"cailiao": "新安42.5",
+		"kucunnum": 195614
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙0.5-1石子库",
+		"cailiao": "0.5-1石子",
+		"kucunnum": 4874414
+	},{
+		"timeyue": "2020-05",
+		"timedetail": "2020-05-31 00:00:00",
+		"prodline": "太龙",
+		"cangweinum": "太龙减水剂1#库_15",
+		"cailiao": "减水剂",
+		"kucunnum": 5672
+	}]
+}

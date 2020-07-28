@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>公司间销售单</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">公司间销售单</p>
+            <ul class="jlul layui-form clearfix">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">单据类型 <button class="listAdd">搜索</button></p>
+                        <div class="dd-value">
+                            <input type="text" name="dj_type" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">申请人 <button class="listAdd">搜索</button></p>
+                        <div class="dd-value"> 
+                        	<input type="text" name="initiatorr" autocomplete="off" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">单据日期</p>
+                        <div class="dd-value"> 
+                        	<input type="text" id="djdate" name="create_time" autocomplete="off" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">划拨单位</p>
+                        <div class="dd-value">
+                        	<select class="form-control input-sm" name="grant_unit">
+								<option value="请选择" selected="selected">请选择</option>
+								<option value="1000">河南省恒昌建材科技有限公司</option>
+								<option value="1010">巩义市伟治建筑材料有限公司</option>
+								<option value="1020">河南省恒昌建材科技有限公司松大站</option>
+								<option value="2000">河南省山立建材科技有限公司</option>
+								<option value="3000">郑州银河建筑工程有限公司工程服务分公司</option>
+								<option value="5000">巩义市万昌运输有限公司</option>
+								<option value="6000">河南省恒昌商砼技术服务有限公司</option>
+								<option value="7000">恒昌集团资金事业部</option>
+								<option value="8000">恒昌集团行政事业部</option>
+								<option value="9000">河南元博软件有限公司</option>
+							</select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">公司代码</p>
+                        <div class="dd-value">
+                        	<select class="form-control input-sm" name="com_code">
+								<option value="请选择" selected="selected">请选择</option>
+								<option value="1000">河南省恒昌建材科技有限公司</option>
+								<option value="1010">巩义市伟治建筑材料有限公司</option>
+								<option value="1020">河南省恒昌建材科技有限公司松大站</option>
+								<option value="2000">河南省山立建材科技有限公司</option>
+								<option value="3000">郑州银河建筑工程有限公司工程服务分公司</option>
+								<option value="5000">巩义市万昌运输有限公司</option>
+								<option value="6000">河南省恒昌商砼技术服务有限公司</option>
+								<option value="7000">恒昌集团资金事业部</option>
+								<option value="8000">恒昌集团行政事业部</option>
+								<option value="9000">河南元博软件有限公司</option>
+							</select>
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">收款金额</p>
+                        <div class="dd-value"> 
+                        	<input type="text" autocomplete="off" name="money_l" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">OA流水号</p>
+                        <div class="dd-value"> 
+                        	<input type="text" autocomplete="off" name="serial_num" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">资金用途</p>
+                        <div class="dd-value"> 
+                        	<input type="text" autocomplete="off" name="purpose" value=""> 
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dd-value task-btnbox hcbig clearfix">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn reload">刷新</button> 
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label" style="width:100px">OA流水号：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" placeholder="" name="serial_num" id="serial_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">公司代码：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="com_code" id="com_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+    // 点击保存
+    $('body').on('click', '.save', function() {
+        var data = formData();
+        console.log(data);
+    });
+
+    $('.search').click(function(){
+        tableIns.reload({
+            where:{
+                oa_num:$('#serial_num').val(),
+                commCode:$('#com_code').val()
+            },
+            page:{
+                curr:1
+            }
+        })
+    });
+
+    //开始时间选择
+    laydate.render({
+        elem: "#djdate",
+        done: function (value, date) {
+            console.log(112, value);
+            console.log(113, date);
+        },
+    });
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+
+    listReisze()
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: baseUrl + '/hcms/oa_form/gsjxss_data',
+        cols: [
+            [
+				{field: 'serial_num', title: 'OA流水号', fixed:"left",width:110},
+				{field: 'sap_status', title: 'sap状态', width:100},
+				{field: 'sap_back', title: 'sap返回', width:335},
+				{field: 'create_time', title: '单据日期', width:120},
+				{field: 'dj_type', title: '单据类型', width:120},
+				{field: 'com_code', title: '公司代码', width:100},
+				{field: 'com_code_short', title: '公司', width:130},
+				{field: 'initiatorr', title: '申请人', width:90},
+				{field: 'initiatorr_c', title: '申请人代码', width:120},
+				{field: 'money_l', title: '收款金额', width:120},
+				{field: 'grant_unit', title: '划拨单位代码', width:130},
+				{field: 'grant_unit_short', title: '划拨单位', width:150},
+				{field: 'purpose', title: '资金用途', width:150},
+				{title: '操作', width:65, toolbar:'#barDemo',fixed:"right",align:"center"}
+            ]
+        ],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            dataRender(obj.data)
+            form.render()
+        }
+    });
+</script>
+</body>
+</html>

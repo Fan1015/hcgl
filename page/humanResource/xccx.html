@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>薪酬查询</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        薪酬查询
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="xccxStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="xccxEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 部门选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">部门：</label>
+          <div class="layui-input-inline">
+            <select name="dept_id" id="dept_id" lay-filter="dept_id">
+              <option value="">请选择</option>
+              <option value="1">行政中心</option>
+              <option value="2">资金中心</option>
+              <option value="3">恒昌建材</option>
+              <option value="4">山立建材</option>
+              <option value="5">伟治建材</option>
+              <option value="7">万昌运输</option>
+              <option value="8">银河基建</option>
+              <option value="9">元博公司</option>
+              <option value="10">技术服务恒昌生产</option>
+              <option value="13">技术服务山立生产</option>
+              <option value="14">技术服务伟治生产</option>
+              <option value="16">技术服务技术中心</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 部门选择 -->
+        <!-- start 岗位 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">岗位：</label>
+          <div class="layui-input-inline">
+            <select name="gw_id" id="gw_id" lay-filter="gw_id">
+              <option value="">全部</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 岗位 -->
+        <!-- start 客户名称 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">姓名：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="personName"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 客户名称 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="button">导出</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="xccxTable" lay-filter="xccxTest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#xccxStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#xccxEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      form.on("select(dept_id)", function (data) {
+        var value = data.value;
+        console.log(value, 121);
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#xccxTable",
+        url: "../assets/api/xccxTable.json",
+        // cellMinWidth: 80,
+        cols: [
+          [
+            {
+              field: "index",
+              title: "序号",
+              width: 80,
+              fixed: "left",
+              sort: true,
+              rowspan:2
+
+            },
+            {
+              field: "empl_name",
+              title: "姓名",
+              width: 80,
+              fixed: "left",
+              rowspan:2
+
+            },
+            {
+              field: "empl_num",
+              title: "员工编号",
+              width: 120,
+              fixed: "left",
+              sort: true,
+              rowspan:2
+
+            },
+            {
+              field: "dept_name",
+              title: "部门",
+              width: 90,
+              fixed: "left",
+              rowspan:2
+
+            },
+            {
+              field: "gw_name",
+              title: "岗位",
+              fixed: "left",
+              width: 80,
+              rowspan:2
+            },
+            {
+              field: "ycqts",
+              title: "应出勤",
+              width: 90,
+              rowspan:2
+
+            },
+            { field: "cqgz", title: "出勤工资", width: 80, colspan: 4,align:"center" },
+            { field: "jxgz", title: "绩效工资", width: 110,rowspan:2},
+            { field: "tcgz", title: "提成工资", width: 110, rowspan:2},
+            { field: "jiangjin", title: "奖金", width: 80, rowspan:2},
+            { field: "jbbz", title: "加班补助", width: 110, rowspan:2 },
+            { field: "cyb", title: "车油补助", width: 110,rowspan:2},
+            { field: "fdcbz", title: "翻斗车补助", width: 130,rowspan:2 },
+            { field: "ydjx", title: "月度绩效", width:110,rowspan:2},
+            { field: "wsf", title: "误时工资", width:110,rowspan:2},
+            {
+              field: "shouldpay",
+              title: "应发工资(元)",
+              width:130,
+              rowspan:2
+            },
+            { field: "", title: "代扣项", colspan: 100 ,align:"center"},
+            {
+              field: "sfgz",
+              title: "实发工资(元)",
+              width: 130,
+              fixed: "right",
+              rowspan:2
+            },
+          ],
+          [
+            { field: "sjcqts", title: "实际考勤", width:110 },
+            { field: "cheshu", title: "车数", width: 80 },
+            { field: "jbgz", title: "基本工资", width: 120 },
+            { field: "cqgz", title: "出勤工资", width: 110 },
+            { field: "sbkk", title: "社保扣款", width: 110 },
+            { field: "fakuan", title: "罚款", width: 80 },
+            { field: "rybxkk", title: "人员保险扣款", width: 150 },
+            { field: "clbxkk", title: "车辆保险扣款", width: 150},
+            { field: "cfkk", title: "餐费扣款", width:110 },
+            { field: "jiezhi", title: "借支(元)", width: 100 },
+            { field: "cdztkk", title: "迟到早退扣款", width:150},
+            { field: "kgkk", title: "旷工扣款", width: 110,},
+            { field: "diary", title: "日志扣款", width:110 },
+            { field: "dzlx", title: "垫资利息", width: 110},
+          ],
+        ],
+        id: "xccxReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {},
+      });
+      var $ = layui.$,
+        active = {
+          reload: function () {
+            var startTime = $("#xccxStart").val(); //开始时间
+            var endTime = $("#xccxEnd").val(); //结束时间
+            var bumen = $("#dept_id").val(); //部门
+            var gangw = $("#gw_id").val(); //岗位
+            var name = $("#personName").val(); //姓名
+            //执行重载
+            table.reload("xccxReload", {
+              page: {
+                curr: 1, //重新从第 1 页开始
+              },
+              where: {},
+            });
+          },
+        };
+
+      $(".search").on("click", function () {
+        var type = $(this).data("type");
+        console.log(type);
+        active[type] ? active[type].call(this) : "";
+      });
+    </script>
+  </body>
+</html>

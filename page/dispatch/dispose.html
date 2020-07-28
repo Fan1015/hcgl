@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>批量处理任务单</title>
+
+</head>
+<body>
+    <div class="hcbox layui-form">
+    	<div class="formbox" style="">
+			<div class="layui-inline hcbig clearfix" >
+                <label class="layui-form-label">任务单号：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="ht_num" id="ht_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="starttime" id="starttime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">结束时间：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="endtime" id="endtime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+            </div>
+    	</div>
+    	<div class="layui-tab layui-tab-brief" lay-filter="disposeTab">
+		  	<ul class="layui-tab-title">
+			    <li class="layui-this">未完工</li>
+			    <li>完工</li>
+		  	</ul>
+		  	<div class="layui-tab-content" style="height: 100px;">
+		        <div class="layui-tab-item layui-show">
+					<table class="layui-hide" id="wwang" lay-filter="wwang"></table>
+		        </div>
+				<div class="layui-tab-item">
+					<table class="layui-hide" id="wang" lay-filter="wang"></table>
+		        </div>
+		    </div>
+        </div>
+    </div>
+    <script type="text/html" id="toolbarDemo">
+    	<button class="layui-btn layui-btn-sm" lay-event="finishDis">批量完工</button>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script >
+    	var table = layui.table;
+	    var form = layui.form;
+	    var element = layui.element;
+	    var laydate = layui.laydate;
+
+	    // 监听tab点击
+	    element.on('tab(disposeTab)', function(elem){
+    		// console.log(elem)
+  		});
+
+  		var allDatas = [];
+
+  		var htNum = [];
+
+  		//
+  		$('.search').click(function(){
+  			var obj = {
+  				ht_num:$('#ht_num').val(),
+  				starttime:$('#starttime').val(),
+  				endtime:$("#endtime").val()
+  			};
+  			tableIns.reload({
+  				where:obj,
+  				page:{
+  					curr:1
+  				}
+  			})
+  		})
+
+  		// 监听复选框
+  		table.on('checkbox(wwang)', function(obj){
+  			if(obj.type == 'one'){
+  				var ind = htNum.indexOf(obj.data.ht_num);
+  				if(ind != -1)
+					htNum.splice(ind,1)
+  				if(obj.checked){
+  					htNum.push(obj.data.ht_num)
+  				}
+  			}else if(obj.type == 'all'){
+  				for(var i = 0;i < allDatas.length;i++){
+  					var ind = htNum.indexOf(allDatas[i].ht_num);
+  					if(ind != -1){
+  						htNum.splice(ind,1)
+  					}
+  				}
+  				if(obj.checked){
+  					for(var i = 0;i < allDatas.length;i++){
+  							htNum.push(allDatas[i].ht_num);
+  					}
+  				}else{
+  					
+  				}
+  			}
+  		});
+
+  		//监听批量完工
+	    table.on('toolbar(wwang)',function(obj){
+	    	// 批量完工
+	    	if(obj.event == 'finishDis'){
+	    		if(htNum.length > 0){
+	    			var data = {
+	    				ht_nums:htNum.join(',')
+	    			}
+	    			finishWork(data)
+	    		}
+	    	}
+	    });
+	    laydate.render({
+	    	elem:'#starttime'
+	    });
+	    laydate.render({
+	    	elem:'#endtime'
+	    })
+  		var tableIns = tableRender({
+            elem: '#wwang',
+            // url: '../assets/api/dispose_nowg.json',
+            url:baseUrl + '/hcms/produce/prod_ht',
+            toolbar: '#toolbarDemo',
+            defaultToolbar:[],
+            where:{
+            	use_status:1
+            },
+            cols: [
+                [
+			        {type: 'checkbox', width:50, fixed: 'left'},                
+			        {field: 'ht_num', title: '任务单号', fixed:"left", width:120},
+	                {field: 'take_unit', title: '收货单位',  width:260},
+	                {field: 'proj_name', title: '工程名称', width:260},
+	                {field: 'proj_area', title: '工程部位', width:180},
+	                {field: 'all_count', title: '生产数量', width:100},
+	                {field: 'goods_name', title: '商品名称', width:100},
+	                {field: 'strong_lv', title: '强度等级', width:100},
+	                {field: 'pinzhong', title: '品种', width:90},
+	                {field: 'tanluo_lv', title: '坍落度', width:80},
+	                {field: 'jiaozhu_type', title: '浇筑方式', width:100},
+	                {field: 'kangshen_lv', title: '抗渗等级', width:100},
+	                {field: 'zhefang_ratio', title: '折方系数', width:100},
+	                {field: 'zhefang_use', title: '单位', width:65},
+	                {field: 'use_status', title: '使用', width:80},
+	                // {field: 'recv_status', title: '接受', width:80},
+	                {field: 'proj_addr', title: '工程地点', width:150},
+	                {field: 'start_time', title: '使用时间', width:170},
+	                {field: 'use_count', title: '使用次数', width:100},
+	                {field: 'business_man', title: '业务经办', width:100},
+	                {field: 'ht_type', title: '回款方式', width:100},
+	                {field: 'pb_num', title: '配比编号', width:100},
+	                {field: 'trans_dist', title: '运距', width:70},
+	                {field: 'dcbc_price', title: '单次泵送费', width:112},
+	                {field: 'cgbf_price', title: '超100方泵费', width:130},
+	                {field: 'start_time', title: '开工时间',  width:170},
+	                {field: 'prod_phone', title: '工地电话',  width:125},
+	                {field: 'station_name', title: '站名', width:80},
+	                {field: 'conn_man', title: '联系人', width:80},
+	                {field: 'weight_title', title: '磅单标题', width:220},
+	                {field: 'create_time', title: '建单时间', width: 170}
+                ]
+            ],
+            even: true,
+            page: true,
+            skin:'row',
+            done: function(res) {
+                console.log(res);
+                allDatas = res.data;
+            }
+        });
+
+  		var complete = tableRender({
+            elem: '#wang', 
+            // url: '../assets/api/dispose_wg.json',  //数据接口
+            url: baseUrl + '/hcms/produce/prod_ht',
+            even: true,
+            page: true,
+            skin:'row',
+            where:{
+            	use_status:'完工'
+            },
+            cols: [[ //表头
+                {field: 'ht_num', title: '任务单号', fixed:"left", width:96},
+                {field: 'take_unit', title: '收货单位',  width:260},
+                {field: 'proj_name', title: '工程名称', width:260},
+                {field: 'proj_area', title: '工程部位', width:200},
+                {field: 'all_count', title: '生产数量', width:100},
+                {field: 'goods_name', title: '商品名称', width:100},
+                {field: 'strong_lv', title: '强度等级', width:100},
+                {field: 'pinzhong', title: '品种', width:80},
+                {field: 'tanluo_lv', title: '坍落度', width:80},
+                {field: 'jiaozhu_type', title: '浇筑方式', width:100},
+                {field: 'kangshen_lv', title: '抗渗等级', width:100},
+                {field: 'zhefang_ratio', title: '折方系数', width:100},
+                {field: 'zhefang_use', title: '单位', width:80},
+                {field: 'use_status', title: '使用', width:80},
+                {field: 'proj_addr', title: '工程地点', width:150},
+                {field: 'start_time', title: '使用时间', width:170},
+                {field: 'use_count', title: '使用次数', width:100},
+                {field: 'business_man', title: '业务经办', width:100},
+                {field: 'ht_type', title: '回款方式', width:100},
+                {field: 'pb_num', title: '配比编号', width:100},
+                {field: 'trans_dist', title: '运距', width:80},
+                {field: 'dcbc_price', title: '单次泵送费', width:115},
+                {field: 'cgbf_price', title: '超100方泵费', width:130},
+                {field: 'start_time', title: '开工时间',  width:170},
+                {field: 'prod_phone', title: '工地电话',  width:125},
+                {field: 'station_name', title: '站名', width:80},
+                {field: 'conn_man', title: '联系人', width:100},
+                {field: 'weight_title', title: '磅单标题', width:220},
+                {field: 'create_time', title: '建单时间', width: 170}
+            ]],
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,564 @@
+{
+    "count":62,
+    "data":[
+        {
+            "id":1,
+            "dept_id":1,
+            "gw_name":"行政财务",
+            "is_del":0,
+            "act_time":"2019-10-05 16:11:33",
+            "index":1,
+            "dept_name":"行政中心"
+        },
+        {
+            "id":2,
+            "dept_id":2,
+            "gw_name":"法务",
+            "is_del":0,
+            "act_time":"2019-09-25 14:16:26",
+            "index":2,
+            "dept_name":"资金中心"
+        },
+        {
+            "id":5,
+            "dept_id":1,
+            "gw_name":"总调度",
+            "is_del":0,
+            "act_time":"2019-09-24 10:19:47",
+            "index":3,
+            "dept_name":"行政中心"
+        },
+        {
+            "id":6,
+            "dept_id":1,
+            "gw_name":"调度",
+            "is_del":0,
+            "act_time":"2019-09-24 10:19:57",
+            "index":4,
+            "dept_name":"行政中心"
+        },
+        {
+            "id":9,
+            "dept_id":2,
+            "gw_name":"资金中心经理",
+            "is_del":0,
+            "act_time":"2019-09-24 16:00:46",
+            "index":5,
+            "dept_name":"资金中心"
+        },
+        {
+            "id":11,
+            "dept_id":2,
+            "gw_name":"资金出纳",
+            "is_del":0,
+            "act_time":"2019-09-24 16:16:16",
+            "index":6,
+            "dept_name":"资金中心"
+        },
+        {
+            "id":12,
+            "dept_id":8,
+            "gw_name":"项目管理人员",
+            "is_del":0,
+            "act_time":"2019-09-24 16:19:30",
+            "index":7,
+            "dept_name":"银河基建"
+        },
+        {
+            "id":14,
+            "dept_id":3,
+            "gw_name":"厨师",
+            "is_del":0,
+            "act_time":"2019-09-24 17:12:51",
+            "index":8,
+            "dept_name":"恒昌建材"
+        },
+        {
+            "id":15,
+            "dept_id":7,
+            "gw_name":"管理人员",
+            "is_del":0,
+            "act_time":"2019-09-24 17:56:48",
+            "index":9,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":16,
+            "dept_id":7,
+            "gw_name":"搅拌车司机",
+            "is_del":0,
+            "act_time":"2019-09-24 17:56:58",
+            "index":10,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":17,
+            "dept_id":7,
+            "gw_name":"粉骨料车司机",
+            "is_del":0,
+            "act_time":"2019-09-24 17:57:07",
+            "index":11,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":18,
+            "dept_id":7,
+            "gw_name":"地泵汽泵司机",
+            "is_del":0,
+            "act_time":"2019-09-24 17:58:21",
+            "index":12,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":19,
+            "dept_id":7,
+            "gw_name":"钩机司机",
+            "is_del":0,
+            "act_time":"2019-09-30 16:57:31",
+            "index":13,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":20,
+            "dept_id":7,
+            "gw_name":"修理工",
+            "is_del":0,
+            "act_time":"2019-09-24 17:59:34",
+            "index":14,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":21,
+            "dept_id":7,
+            "gw_name":"服务副经理",
+            "is_del":0,
+            "act_time":"2019-09-24 18:02:01",
+            "index":15,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":22,
+            "dept_id":7,
+            "gw_name":"泵车负责人",
+            "is_del":0,
+            "act_time":"2019-09-24 18:03:26",
+            "index":16,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":23,
+            "dept_id":7,
+            "gw_name":"粉骨料负责人",
+            "is_del":0,
+            "act_time":"2019-09-24 18:04:02",
+            "index":17,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":25,
+            "dept_id":9,
+            "gw_name":"信息管理员",
+            "is_del":0,
+            "act_time":"2019-09-26 08:27:32",
+            "index":18,
+            "dept_name":"元博公司"
+        },
+        {
+            "id":26,
+            "dept_id":3,
+            "gw_name":"采购",
+            "is_del":0,
+            "act_time":"2019-09-26 09:31:44",
+            "index":19,
+            "dept_name":"恒昌建材"
+        },
+        {
+            "id":27,
+            "dept_id":4,
+            "gw_name":"行政",
+            "is_del":0,
+            "act_time":"2019-10-05 16:31:16",
+            "index":20,
+            "dept_name":"山立建材"
+        },
+        {
+            "id":29,
+            "dept_id":5,
+            "gw_name":"行政财务",
+            "is_del":0,
+            "act_time":"2019-10-05 17:33:59",
+            "index":21,
+            "dept_name":"伟治建材"
+        },
+        {
+            "id":30,
+            "dept_id":10,
+            "gw_name":"操作司磅员",
+            "is_del":0,
+            "act_time":"2019-09-29 10:54:54",
+            "index":22,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":31,
+            "dept_id":13,
+            "gw_name":"操作司磅员",
+            "is_del":0,
+            "act_time":"2019-09-29 10:54:59",
+            "index":23,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":32,
+            "dept_id":14,
+            "gw_name":"制砂工保洁门岗小车司机",
+            "is_del":0,
+            "act_time":"2019-09-29 10:58:43",
+            "index":24,
+            "dept_name":"技术服务伟治生产"
+        },
+        {
+            "id":33,
+            "dept_id":10,
+            "gw_name":"铲车司机修理工",
+            "is_del":0,
+            "act_time":"2019-09-29 10:59:56",
+            "index":25,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":34,
+            "dept_id":13,
+            "gw_name":"铲车司机修理工",
+            "is_del":0,
+            "act_time":"2019-09-29 11:00:00",
+            "index":26,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":35,
+            "dept_id":14,
+            "gw_name":"铲车司机修理工",
+            "is_del":0,
+            "act_time":"2019-09-29 11:00:04",
+            "index":27,
+            "dept_name":"技术服务伟治生产"
+        },
+        {
+            "id":36,
+            "dept_id":10,
+            "gw_name":"站生产负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:39",
+            "index":28,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":37,
+            "dept_id":13,
+            "gw_name":"站生产负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:46",
+            "index":29,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":38,
+            "dept_id":14,
+            "gw_name":"站生产负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:49",
+            "index":30,
+            "dept_name":"技术服务伟治生产"
+        },
+        {
+            "id":39,
+            "dept_id":14,
+            "gw_name":"生产经理",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:55",
+            "index":31,
+            "dept_name":"技术服务伟治生产"
+        },
+        {
+            "id":40,
+            "dept_id":13,
+            "gw_name":"生产经理",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:57",
+            "index":32,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":41,
+            "dept_id":10,
+            "gw_name":"生产经理",
+            "is_del":0,
+            "act_time":"2019-09-29 11:01:59",
+            "index":33,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":42,
+            "dept_id":13,
+            "gw_name":"生产技术经理",
+            "is_del":0,
+            "act_time":"2019-09-29 11:02:11",
+            "index":34,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":43,
+            "dept_id":16,
+            "gw_name":"中心质控员",
+            "is_del":0,
+            "act_time":"2019-09-29 11:02:38",
+            "index":35,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":44,
+            "dept_id":16,
+            "gw_name":"中心总质控",
+            "is_del":0,
+            "act_time":"2019-09-29 11:02:43",
+            "index":36,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":45,
+            "dept_id":16,
+            "gw_name":"分站质控员",
+            "is_del":0,
+            "act_time":"2019-09-29 11:02:52",
+            "index":37,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":46,
+            "dept_id":16,
+            "gw_name":"材料验收员实验员现场质控",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:20",
+            "index":38,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":47,
+            "dept_id":16,
+            "gw_name":"现场养护负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:32",
+            "index":39,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":48,
+            "dept_id":16,
+            "gw_name":"现场养护组长",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:39",
+            "index":40,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":49,
+            "dept_id":16,
+            "gw_name":"资料员",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:46",
+            "index":41,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":50,
+            "dept_id":16,
+            "gw_name":"辅助工",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:50",
+            "index":42,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":51,
+            "dept_id":16,
+            "gw_name":"质量负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:03:56",
+            "index":43,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":52,
+            "dept_id":16,
+            "gw_name":"技术负责人",
+            "is_del":0,
+            "act_time":"2019-09-29 11:04:01",
+            "index":44,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":53,
+            "dept_id":16,
+            "gw_name":"复配员",
+            "is_del":0,
+            "act_time":"2019-09-29 11:04:06",
+            "index":45,
+            "dept_name":"技术服务技术中心"
+        },
+        {
+            "id":54,
+            "dept_id":10,
+            "gw_name":"制砂工保洁门岗小车司机",
+            "is_del":0,
+            "act_time":"2019-09-29 11:10:29",
+            "index":46,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":55,
+            "dept_id":13,
+            "gw_name":"制砂工保洁门岗小车司机",
+            "is_del":0,
+            "act_time":"2019-09-29 11:10:35",
+            "index":47,
+            "dept_name":"技术服务山立生产"
+        },
+        {
+            "id":57,
+            "dept_id":10,
+            "gw_name":"生产技术经理助理",
+            "is_del":0,
+            "act_time":"2019-09-29 11:18:28",
+            "index":48,
+            "dept_name":"技术服务恒昌生产"
+        },
+        {
+            "id":58,
+            "dept_id":14,
+            "gw_name":"操作司磅员",
+            "is_del":0,
+            "act_time":"2019-09-29 11:20:06",
+            "index":49,
+            "dept_name":"技术服务伟治生产"
+        },
+        {
+            "id":59,
+            "dept_id":7,
+            "gw_name":"自吊车司机",
+            "is_del":0,
+            "act_time":"2019-09-30 08:54:58",
+            "index":50,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":60,
+            "dept_id":7,
+            "gw_name":"工程队铲车司机",
+            "is_del":0,
+            "act_time":"2019-09-30 16:58:13",
+            "index":51,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":61,
+            "dept_id":7,
+            "gw_name":"工程队久保田钩机",
+            "is_del":0,
+            "act_time":"2019-09-30 16:58:29",
+            "index":52,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":62,
+            "dept_id":7,
+            "gw_name":"工程队洗扫车司机",
+            "is_del":0,
+            "act_time":"2019-10-02 16:35:35",
+            "index":53,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":63,
+            "dept_id":1,
+            "gw_name":"总经理",
+            "is_del":0,
+            "act_time":"2019-10-05 16:02:06",
+            "index":54,
+            "dept_name":"行政中心"
+        },
+        {
+            "id":64,
+            "dept_id":1,
+            "gw_name":"厨师",
+            "is_del":0,
+            "act_time":"2019-10-05 16:11:26",
+            "index":55,
+            "dept_name":"行政中心"
+        },
+        {
+            "id":65,
+            "dept_id":4,
+            "gw_name":"厨师",
+            "is_del":0,
+            "act_time":"2019-10-05 16:30:59",
+            "index":56,
+            "dept_name":"山立建材"
+        },
+        {
+            "id":66,
+            "dept_id":7,
+            "gw_name":"车队经理",
+            "is_del":0,
+            "act_time":"2019-10-05 16:47:55",
+            "index":57,
+            "dept_name":"万昌运输"
+        },
+        {
+            "id":67,
+            "dept_id":5,
+            "gw_name":"厨师",
+            "is_del":0,
+            "act_time":"2019-10-05 17:34:18",
+            "index":58,
+            "dept_name":"伟治建材"
+        },
+        {
+            "id":68,
+            "dept_id":3,
+            "gw_name":"代理商",
+            "is_del":0,
+            "act_time":"2019-10-10 15:31:34",
+            "index":59,
+            "dept_name":"恒昌建材"
+        },
+        {
+            "id":69,
+            "dept_id":4,
+            "gw_name":"代理商",
+            "is_del":0,
+            "act_time":"2019-10-10 15:31:38",
+            "index":60,
+            "dept_name":"山立建材"
+        },
+        {
+            "id":70,
+            "dept_id":5,
+            "gw_name":"行政代理商",
+            "is_del":0,
+            "act_time":"2019-10-10 15:44:39",
+            "index":61,
+            "dept_name":"伟治建材"
+        },
+        {
+            "id":71,
+            "dept_id":5,
+            "gw_name":"代理商",
+            "is_del":0,
+            "act_time":"2019-10-10 15:45:38",
+            "index":62,
+            "dept_name":"伟治建材"
+        }
+    ],
+    "code":0
+}

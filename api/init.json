@@ -1,0 +1,1262 @@
+{
+    "homeInfo": {
+        "title": "首页",
+        "href": "page/xxzl.html"
+    },
+    "logoInfo": {
+        "title": "恒昌管理系统(新版测试)",
+        "image": "./assets/image/logo.png",
+        "href": ""
+    },
+    "menuInfo": [{
+        "title": "",
+        "icon": "",
+        "href": "",
+        "target": "_self",
+        "child": [{
+            "title": "行政管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl001.png",
+            "target": "_self",
+            "child": [{
+                "title": "办公用品",
+                "href": "page/404/404.html#01",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "行政资产",
+                "href": "page/404/404.html#02",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "管理制度",
+                "href": "page/404/404.html#03",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "会议组织",
+                "href": "page/404/404.html#04",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "办公车辆",
+                "href": "page/404/404.html#05",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "生活住宿",
+                "href": "page/404/404.html#06",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "餐卡消费",
+                    "href": "page/administration/ckxf.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            }, {
+                "title": "卫生管理",
+                "href": "page/404/404.html#07",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "人资管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl002.png",
+            "target": "_self",
+            "child":[{
+              "title": "数据中心",
+              "href": "page/humanResource/rszx.html",
+              "icon": "",
+              "target": "_self"
+            },{
+                "title": "薪酬管理",
+                "href": "page/404/404.html#08",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "考勤汇总",
+                    "href": "page/humanResource/clockingIn.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "基本工资维护",
+                    "href": "page/humanResource/jbgz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "薪酬查询",
+                    "href": "page/humanResource/xccx.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+               "title": "人员招聘",
+               "href": "page/404/404.html#09",
+               "icon": "",
+               "target": "_self",
+               "child":[{
+                    "title": "员工编号维护",
+                    "href": "page/humanResource/staffid.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+              "title": "人事档案",
+              "href": "page/404/404.html#10",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "入离职管理",
+              "href": "page/404/404.html#11",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "劳动合同",
+              "href": "page/404/404.html#12",
+              "icon": "",
+              "target": "_self"
+            }]
+        }, {
+            "title": "法务管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl003.png",
+            "target": "_self",
+            "child":[{
+              "title": "合同审核",
+              "href": "page/404/404.html#13",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "印章申请",
+              "href": "page/404/404.html#14",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "法务档案",
+              "href": "page/404/404.html#15",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "诉讼案件",
+              "href": "page/404/404.html#16",
+              "icon": "",
+              "target": "_self"
+            }]
+        }, {
+            "title": "资金管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl004.png",
+            "target": "_self",
+            "child":[{
+              "title": "资金管理",
+              "href": "page/404/404.html#17",
+              "icon": "",
+              "target": "_self"
+            },{
+              "title": "资产管理",
+              "href": "page/404/404.html#18",
+              "icon": "",
+              "target": "_self"
+            }]
+        }, {
+            "title": "信息管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl005.png",
+            "target": "_self",
+            "child":[{
+                "title": "服务器系统管理",
+                "href": "page/404/404.html#19",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "网络系统管理",
+                "href": "page/404/404.html#20",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "SAP物料主数据",
+                    "href": "page/information/SAPwl.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "SAP供应商主数据",
+                    "href": "page/information/SAPgys.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "应用软件维护",
+                "href": "page/404/404.html#21",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "用户列表",
+                    "href": "page/information/userlist.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "用户列表-新",
+                    "href": "page/information/userlistnew.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "工地用户信息",
+                    "href": "page/information/gdyhxx.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "工地叫货信息",
+                    "href": "page/information/gdjdxx.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "订单配合比绑定",
+                    "href": "page/information/ddphb.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "订单列表",
+                    "href": "page/information/ddlb.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "订单消息",
+                    "href": "page/information/ddmsg.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "客户端用户管理",
+                    "href": "page/information/usermanage.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "角色列表",
+                    "href": "page/information/rolelist.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "权限列表",
+                    "href": "page/information/permissionList.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "移动端权限列表",
+                    "href": "page/information/wePermissionList.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "操作日志",
+                    "href": "page/information/czrz.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "电子设备管理",
+                "href": "page/404/404.html#22",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "通讯线路维护",
+                "href": "page/404/404.html#23",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "运营管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl006.png",
+            "target": "_self",
+            "child": [{
+                "title": "运营预算",
+                "href": "page/404/404.html#24",
+                "icon": "",
+                "target": "_self"
+            }, {
+                "title": "目标考核",
+                "href": "page/404/404.html#25",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "自运营考核",
+                "href": "page/404/404.html#26",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "目标追责",
+                "href": "page/404/404.html#27",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "销售管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl007.png",
+            "target": "_self",
+            "child": [{
+                "title": "数据分析",
+                "href": "page/sell/xszx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售统计",
+                "href": "page/sell/xstj.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "回款统计",
+                "href": "page/sell/hktj.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "SAP客户信息",
+                "href": "page/sell/SAPClientMsg.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "客户信息维护",
+                "href": "page/sell/khxx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "入账类别",
+                "href": "page/sell/rzlb.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "特殊品种价格维护",
+                "href": "page/sell/tjgwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "违约金维护",
+                "href": "page/sell/wyjwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "单价维护",
+                "href": "page/sell/djwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "地磅运费",
+                "href": "page/sell/dbyf.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "服务订单创建",
+                "href": "page/sell/fwdd.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售合同",
+                "href": "page/sell/xsht.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售发布价",
+                "href": "page/sell/releasePrice.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "代理商当月提成报表",
+                "href": "page/sell/agentRoyalty.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "公司间销售",
+                "href": "page/sell/gsjxs.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "发货进度评价",
+                "href": "page/sell/sendgds.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售APP",
+                "href": "page/404/404.html#29",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售目标",
+                "href": "page/404/404.html#30",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "回款目标",
+                "href": "page/404/404.html#31",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售评审",
+                "href": "page/404/404.html#32",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "信用考核",
+                "href": "page/404/404.html#33",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "区域管理",
+                "href": "page/404/404.html#34",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "工作日志",
+                "href": "page/404/404.html#35",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "售后服务",
+                "href": "page/404/404.html#36",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "对账单管理",
+                "href": "page/404/404.html#37",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "采购管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl008.png",
+            "target": "_self",
+            "child": [{
+                "title": "数据分析",
+                "href": "page/purchase/cgzx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "收料报表",
+                "href": "page/purchase/statistics.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "物料清单",
+                "href": "page/purchase/wlqd.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "库存管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "数据统计",
+                    "href": "page/purchase/sjtj.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "入库单",
+                    "href": "page/purchase/rkd.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "采购汇总",
+                    "href": "page/purchase/cghz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "库存报表",
+                    "href": "page/purchase/kcbb.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "库存维护",
+                    "href": "page/purchase/kcwh.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "过磅入库",
+                    "href": "page/purchase/gbrk.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "存放地",
+                    "href": "page/purchase/cfdz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "出货记录",
+                    "href": "page/purchase/chjl.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "进货统计",
+                    "href": "page/purchase/jhtj.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "出货汇总表",
+                    "href": "page/purchase/chhz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "进货记录",
+                    "href": "page/purchase/jhjl.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "进货明细",
+                    "href": "page/purchase/jhmx.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "进货明细表",
+                    "href": "page/purchase/purchaseDetails.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "进货汇总表",
+                    "href": "page/purchase/jhhz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "收料日报表",
+                    "href": "page/purchase/shouliao.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "收料汇总表",
+                    "href": "page/purchase/slhz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "材料价格维护",
+                    "href": "page/purchase/cljg.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "原材料类别维护",
+                    "href": "page/purchase/yclwh.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "骨料库存日报表",
+                    "href": "page/purchase/glkc.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "主机入库历史",
+                    "href": "page/purchase/zjrkls.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "供应商",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "供货商统计",
+                    "href": "page/purchase/shizi.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "需方信息维护",
+                    "href": "page/purchase/xfxx.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "供应商信息维护",
+                    "href": "page/purchase/gysxx.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "供应商合同管理",
+                    "href": "page/purchase/gysht.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "采购APP",
+                "href": "page/404/404.html#42",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "合同管理",
+                "href": "page/purchase/htgl.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "采购计划管理",
+                "href": "page/404/404.html#43",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "采购需求删除",
+                    "href": "page/purchase/cgxqsc.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "采购审核",
+                    "href": "page/purchase/cgsh.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "报价确认汇总",
+                    "href": "page/purchase/bjqrhz.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "采购报价确认",
+                    "href": "page/purchase/cgbjqr.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "付款管理",
+                "href": "page/404/404.html#44",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "生产技术管理",
+            "href": "page/404/404.html",
+            "icon": "./assets/image/icon/gl009.png",
+            "target": "_self",
+            "child":[{
+                "title": "生产中心",
+                "href": "page/product/sczx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "产量统计",
+                "href": "page/product/cltj.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "生产任务单",
+                "href": "page/product/task.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "强度等级",
+                "href": "page/product/qddj.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "生产管理",
+                "href": "page/404/404.html#45",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "生产信息",
+                    "href": "page/product/scmsg.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "任务单状态",
+                    "href": "page/product/rwdzt.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "消耗数据",
+                    "href": "page/product/xhsj.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "按库存生产入库",
+                    "href": "page/product/scrk.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "车辆调度",
+                    "href": "page/product/cardispatch.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "安全管理",
+                    "href": "page/404/404.html#47",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "设备管理",
+                    "href": "page/404/404.html#48",
+                    "icon": "",
+                    "target": "_self",
+                    "child":[{
+                        "title": "皮带秤生产信息",
+                        "href": "page/product/pdcsc.html",
+                        "icon": "",
+                        "target": "_self"
+                    }]
+                },{
+                    "title": "人员管理",
+                    "href": "page/404/404.html#49",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "生产预算",
+                    "href": "page/404/404.html#50",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "成本管理",
+                    "href": "page/404/404.html#51",
+                    "icon": "",
+                    "target": "_self",
+                    "child":[{
+                        "title": "山立站1#消耗",
+                        "href": "page/product/slxh1.html",
+                        "icon": "",
+                        "target": "_self"
+                    },{
+                        "title": "山立站2#消耗",
+                        "href": "page/product/slxh2.html",
+                        "icon": "",
+                        "target": "_self"
+                    },{
+                        "title": "恒昌站消耗",
+                        "href": "page/product/hcxh.html",
+                        "icon": "",
+                        "target": "_self"
+                    },{
+                        "title": "伟治站消耗",
+                        "href": "page/product/wzxh.html",
+                        "icon": "",
+                        "target": "_self"
+                    }]
+                }]
+            },{
+                "title": "技术管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "配比管理",
+                    "href": "page/404/404.html#52",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "级配管理",
+                    "href": "page/404/404.html#53",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "质控管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "骨料快检",
+                    "href": "page/404/404.html#54",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "胶材检测",
+                    "href": "page/404/404.html#55",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "物料库存",
+                    "href": "page/404/404.html#56",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "材料退场",
+                    "href": "page/404/404.html#57",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "试块强度",
+                    "href": "page/404/404.html#58",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "成本预算",
+                    "href": "page/404/404.html#59",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "现场养护",
+                    "href": "page/404/404.html#60",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            }]
+        }, {
+            "title": "调度管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl010.png",
+            "target": "_self",
+            "child":[{
+                "title": "调度分析",
+                "href": "page/dispatch/ddzx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "今日看板",
+                "href": "page/dispatch/jrkb.html",
+                "icon": "",
+                "target": "_blank"
+            },{
+                "title": "行政车辆轨迹",
+                "href": "page/dispatch/adcartrack.html",
+                "icon": "",
+                "target": "_blank"
+            },{
+                "title": "车辆GPS",
+                "href": "page/dispatch/carGPS.html",
+                "icon": "",
+                "target": "_blank"
+            },{
+                "title": "车辆GPS(权限)",
+                "href": "page/dispatch/carjuri.html",
+                "icon": "",
+                "target": "_blank"
+            },{
+                "title": "调度记录",
+                "href": "page/dispatch/ddjl.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "车辆信息",
+                "href": "page/dispatch/clxx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "APP用户信息",
+                "href": "page/dispatch/yhxx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "运距维护",
+                "href": "page/dispatch/yjwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "智能排产",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "排产综合分析",
+                    "href": "page/dispatch/pczhfx.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "发货考核",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child":[{
+                    "title": "发货明细表",
+                    "href": "page/dispatch/deliveryDetails.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "发货日报表",
+                    "href": "page/dispatch/dailyDelivery.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "发货汇总表",
+                    "href": "page/dispatch/ddbb.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "出货统计",
+                    "href": "page/dispatch/chtj.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "生产监督",
+                "href": "page/404/404.html#63",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "质量监督",
+                "href": "page/404/404.html#64",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "安全监督",
+                "href": "page/404/404.html#65",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "异常处理",
+                "href": "page/404/404.html#66",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "库存监督",
+                "href": "page/404/404.html#67",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "运输管理",
+            "href": "page/404/404.html",
+            "icon": "./assets/image/icon/gl011.png",
+            "target": "_self",
+            "child":[{
+                "title": "原料车运距维护",
+                "href": "page/transportation/ylcwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "运输车信息维护",
+                "href": "page/transportation/yscwh.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "出货统计(按车号)",
+                "href": "page/transportation/chtj.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "油卡绑定",
+
+                "href": "page/transportation/oilCard.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "车辆误时、运距",
+                "href": "page/transportation/carmistake.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "经营预算",
+                "href": "page/404/404.html#68",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "加油消耗数据统计",
+                    "href": "page/transportation/oilExpend.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "油站消费",
+                    "href": "page/transportation/yzxf.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "油库库存维护",
+                    "href": "page/transportation/ykkcwh.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "搅拌车",
+                    "href": "page/404/404.html#69",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "原料车",
+                    "href": "",
+                    "icon": "",
+                    "target": "_self",
+                    "child":[{
+                        "title": "车辆超速报表",
+                        "href": "page/transportation/clcs.html",
+                        "icon": "",
+                        "target": "_self"
+                    }]
+                },{
+                    "title": "工程队",
+                    "href": "page/404/404.html#71",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "目标考核",
+                "href": "page/404/404.html",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                     "title": "搅拌车",
+                    "href": "page/404/404.html#72",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "原料车",
+                    "href": "page/404/404.html#73",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "工程队",
+                    "href": "page/404/404.html#74",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "车辆台账",
+                "href": "page/404/404.html#75",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "安全管理",
+                "href": "page/404/404.html#76",
+                "icon": "",
+                "target": "_self"
+            }]
+        }, {
+            "title": "基建管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl012.png",
+            "target": "",
+            "child": [{
+                "title": "成本预算",
+                "href": "page/404/404.html#77",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "项目管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "合同管理",
+                    "href": "page/404/404.html#78",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "预决算管理",
+                    "href": "page/404/404.html#79",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "工期管理",
+                    "href": "page/404/404.html#80",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "安全管理",
+                    "href": "page/404/404.html#81",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "应收款管理",
+                    "href": "page/404/404.html#82",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "质量管理",
+                    "href": "page/404/404.html#83",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            }]
+        },{
+            "title": "财务管理",
+            "href": "",
+            "icon": "./assets/image/icon/gl013.png",
+            "target": "_self",
+            "child": [{
+                "title": "数据中心",
+                "href": "page/finance/cwzx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "财务分析",
+                "href": "page/finance/cwfx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "销售订单利润测算维护",
+                "href": "page/finance/lrcs.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "成本预算（单价）维护",
+                "href": "page/finance/cbys.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "信用额度",
+                "href": "page/finance/xyed.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "领料单",
+                "href": "page/finance/lingld.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "资产报销单",
+                "href": "page/finance/zcbx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "OA报销单",
+                "href": "page/finance/OAbx.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "先算后干按车测算表",
+                "href": "page/finance/wcCsb.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "先算后干按单测算表",
+                "href": "page/finance/wdcbs.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "先算后干粉骨料车测算表",
+                "href": "page/finance/fglcsb.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "原料车利润分析表",
+                "href": "page/finance/materialProfit.html",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "资产管理",
+                "href": "page/404/404.html",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "应收款管理",
+                    "href": "",
+                    "icon": "",
+                    "target": "_self",
+                    "child": [{
+                        "title": "收款审核",
+                        "href": "page/finance/sksh.html",
+                        "icon": "",
+                        "target": "_self"
+                    },{
+                        "title": "收款审核单",
+                        "href": "page/finance/skshd.html",
+                        "icon": "",
+                        "target": "_self"
+                    }]
+                },{
+                    "title": "应付管理",
+                    "href": "",
+                    "icon": "",
+                    "target": "_self",
+                    "child": [{
+                        "title": "资金支出",
+                        "href": "page/finance/zjzc.html",
+                        "icon": "",
+                        "target": "_self"
+                    }]
+                },{
+                    "title": "存货管理",
+                    "href": "page/404/404.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "固定资产",
+                    "href": "page/404/404.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "低值易耗",
+                    "href": "page/404/404.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "在建工程",
+                    "href": "page/404/404.html",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "无形资产",
+                    "href": "page/404/404.html",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "应付管理",
+                "href": "page/404/404.html#84",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "应付账款",
+                    "href": "page/404/404.html#84",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "应付薪酬",
+                    "href": "page/404/404.html#85",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "应付税金",
+                    "href": "page/404/404.html#86",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "应付保证金",
+                    "href": "page/404/404.html#87",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "费用管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "销售费用",
+                    "href": "page/404/404.html#88",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "管理费用",
+                    "href": "page/404/404.html#89",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "财务费用",
+                    "href": "page/404/404.html#90",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "税金及附加",
+                    "href": "page/404/404.html#91",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "成本管理",
+                "href": "",
+                "icon": "",
+                "target": "_self",
+                "child": [{
+                    "title": "材料成本",
+                    "href": "page/404/404.html#91",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "制造费用",
+                    "href": "page/404/404.html#92",
+                    "icon": "",
+                    "target": "_self"
+                },{
+                    "title": "生产费用",
+                    "href": "page/404/404.html#93",
+                    "icon": "",
+                    "target": "_self"
+                }]
+            },{
+                "title": "利润考核",
+                "href": "page/404/404.html#94",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "绩效考核",
+                "href": "page/404/404.html#95",
+                "icon": "",
+                "target": "_self"
+            },{
+                "title": "税务控制",
+                "href": "page/404/404.html#96",
+                "icon": "",
+                "target": "_self"
+            }]
+        }]
+    }]
+}

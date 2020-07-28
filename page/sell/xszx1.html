@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/iconfont/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>销售中心</title>
+    <style>
+        .qhbtn{
+            width:302px;
+        }
+        .qhbtn span{
+            width:75px;
+            border-left:1px solid #ccc;
+        }
+        .qhbtn span:first-child{
+            border:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+    	<ul class="proglist">
+            <li class="pcselist one">
+                <div class="clearfix">
+                    <span class="pcsene"><i class="iconfont icon-erji-gongdanbaobiao"></i></span>
+                    <div class="progmsg">
+                        <p>销售额</p>
+                        <p class="num">12435</p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>销售额完成率：<span>58%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar layui-bg-blue" lay-percent="40%"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="pcselist two">
+                <div>
+                    <span class="pcseor"><i class="iconfont icon-erji-ziyuanbaobiao"></i></span>
+                    <div class="progmsg">
+                        <p>销售数量</p>
+                        <p class="num">12435</p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>销售目标完成率：<span>58%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar  layui-bg-orange" lay-percent="40%"></div>
+                    </div>
+                </div>
+            </li>
+            <li class="pcselist three">
+                <div>
+                    <span class="pcserd"><i class="iconfont icon-yiji-baobiaoguanli"></i></span>
+                    <div class="progmsg">
+                        <p>回款金额</p>
+                        <p class="num">12435</p>
+                    </div>
+                    <span class="more"><img src="assets/image/more.png" alt=""></span>
+                </div>
+                <div class="progdata">
+                    <p>回款目标完成率：<span>58%</span></p>
+                    <div class="layui-progress">
+                        <div class="layui-progress-bar layui-bg-red" lay-percent="40%"></div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="clearfix mgtp20 xsqh">
+        	<li id="receiveOne" style="width:30%;height:300px;float:left"></li>
+        	<li id="receiveTwo" style="width:68%;height:300px;float:right"></li>
+        	<li class="qhbtn"><span class="focus">今日</span><span>昨日</span><span>近7天</span><span>近30天</span></li>
+        </ul>
+        <ul class="diagram mgtp20">
+            <li id="receiveThr" style="width:100%;height:300px"></li>
+        </ul>
+		<div id="receiveFor" style="">
+			<h2 class="staname">生产任务单</h2>
+    		<div class="chtb">
+		    	<table class="layui-table" id="tl" lay-filter="pdcTask"></table>
+	    	</div>
+		</div>
+    </div>
+	<script type="text/html" id="barDemo">
+		<a class="" style="color:#4986ff" lay-event="detail">详情</a>
+	</script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+	 <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+        var element = layui.element;
+        var layer = layui.layer;
+        table.on('tool(pdcTask)',function(obj){
+            if(obj.event == 'detail'){
+                layer.msg('暂无数据')
+            }
+        })
+        tableRender({
+		    elem: '#tl',
+		    url:'./assets/api/table1.json',
+		    cols: [[
+				{field:'zd1', title: '编号'},
+				{field:'zd2', title: '客户名称'},
+				{field:'zd3', title: '工程名称'},
+				{field:'zd4', title: '商品名称'}, 
+				{field:'zd10', title: '强度等级'},
+				{field:'zd5', title: '商品数量'},
+				{field:'zd6', title: '施工单位'},
+				{field:'zd6', title: '品种'},
+				{field:'zd7', title: '塌落度'},
+				{field:'zd8', title: '施工方式'},
+				{field:'zd9', title: '工程地点'},
+				{field:'zd8', title: '使用时间'},
+				{field:'zd9', title: '操作', toolbar: '#barDemo'}
+		    ]],
+		    size: 'sm',
+		    page: true,
+		    limit:10,
+		    done:function(res){
+		    	console.log(res)
+		    }
+		});
+        var data1 = [820, 932, 901, 934, 1290, 1330, 1320]
+        var time1 = ['3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7']
+        var data2 = [820, 932, 901, 934, 1290, 1330, 1320, 1330, 1320,820, 932, 901, 934, 1290, 1330, 1320, 1330, 1320,820, 932, 901, 934, 1290, 1330, 1320, 1330, 1320,1330, 1320,1330, 1320]
+        var time2 = ['3.1', '3.2', '3.3', '3.4', '3.5', '3.6', '3.7','3.8','3.9','3.10','3.11', '3.12', '3.13', '3.14', '3.15', '3.16', '3.17','3.18','3.19','3.20','3.21', '3.22', '3.23', '3.24', '3.25', '3.26', '3.27','3.28','3.29','3.30','3.31'];
+        // 30天和7天切换
+        $('.qhbtn span').click(function(e){
+            console.log(2)
+            $(this).addClass('focus').siblings().removeClass('focus');
+            var index = $(this).index();
+            if(index == 0){
+                receivTwo(time1,data1)
+            }else {
+                receivTwo(time2,data2)
+            }
+        })
+
+        
+        window.onresize = function(){
+            var resize = true
+            receiveOne(resize)
+            receiveTwo(time1,data1,resize);
+            receiveThr(resize)
+        }
+
+        receiveOne()
+        receiveTwo(time1,data1);
+        receiveThr();
+        function receiveOne(resize){
+    		var myChart = echarts.init(document.getElementById('receiveOne'));
+    		var option = {
+			    title: {
+			        text: '站点发货情况',
+			        left: 'left'
+			    },
+			    tooltip: {
+			        trigger: 'item',
+			        formatter: '{a} <br/>{b} : {c} ({d}%)'
+			    },
+			    legend: {
+			        left: 'right',
+			        top: '30px',
+                    icon:'circle',
+                    orient:'vertical',
+			        data: ['太龙', '山立', '伟治', '松大']
+			    },
+			    color:['#7bb0ff','#ff9580','#ffbe40','#af87fe'],
+			    series: [
+			        {
+			            name: '站点发货情况',
+			            type: 'pie',
+			            radius: [40, 70],
+			            center: ['40%', '50%'],
+			            label: {
+			                show: true,
+			                formatter:'{d}%',
+			            },
+			            emphasis: {
+			                label: {
+			                    show: true
+			                }
+			            },
+			            data: [
+			                {value: 15, name: '太龙'},
+			                {value: 30, name: '山立'},
+			                {value: 15, name: '伟治'},
+			                {value: 25, name: '松大'}
+			            ]
+			        }
+			    ]
+			};
+            if(resize)
+                myChart.resize();
+    		myChart.setOption(option);
+    	}
+    	function receiveTwo(time,data,resize){
+    		var myChart = echarts.init(document.getElementById('receiveTwo'));
+    		var option = {
+                title: {
+                    text: '销售情况统计',
+                    left: 'left'
+                },
+                grid:{
+                    left:50,
+                    right:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    axisTick:{
+                        show:false
+                    },
+                    axisLine:{
+                        show:false
+                    },
+                    data: time
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                },
+                series: [{
+                    data: data,
+                    type: 'line',
+                    smooth: true,
+                    itemStyle:{
+                        color:'#7bb0ff'
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                            offset: 0,
+                            color: '#7bb0ff'
+                        }, {
+                            offset: 1,
+                            color: 'rgba(255,255,255,0)'
+                        }])
+                    },
+                }]
+            };
+            if(resize)
+                myChart.resize();
+    		myChart.setOption(option);
+    	}
+    	function receiveThr(resize){
+    		var myChart = echarts.init(document.getElementById('receiveThr'));
+    		option = {
+                title: {
+                    text: '当日实际生产统计',
+                    align: 'left'
+                },
+                legend: {
+                    data: ['实际产量', '计划产量'],
+                    right:0,
+                    icon:'circle'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                grid:{
+                	left:30,
+                	right:20,
+                    bottom:20
+                },
+                xAxis: [{
+                    type: 'category',
+                    axisTick:{
+                        show:false
+                    },
+                    axisLine:{
+                        show:false
+                    },
+                    data: ['c30', 'c40', 'c50', 'c60', 'c70','c30', 'c40', 'c50', 'c60', 'c70']
+                }],
+                yAxis: [{
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                }],
+                series: [
+                    {
+                        name: '实际产量',
+                        type: 'bar',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#7bb0ff'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: [72.0, 114.9, 179.0, 123.2, 25.6,72.0, 114.9, 179.0, 123.2, 25.6]
+                    },
+                    {
+                        name: '计划产量',
+                        type: 'bar',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: [70.7, 175.6, 182.2, 48.7, 18.8,70.7, 175.6, 182.2, 48.7, 18.8]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+    		myChart.setOption(option);
+    	}
+    </script>
+</body>
+</html>

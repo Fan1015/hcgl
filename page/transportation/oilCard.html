@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>油卡绑定</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">油卡绑定</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">搜索类型：</label>
+                <div class="layui-input-inline seartype" style="float:left">
+                    <select name="search_key" lay-filter="search_key" id="search_key">
+	                    <option value="">选择搜索类型</option>
+	                    <option value="card_no">卡号</option>
+	                    <option value="card_holder">持卡人</option>
+	                    <option value="car_num">内部车号</option>
+	                    <option value="car_plate">车牌号</option>
+	                </select>
+                </div>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="card_no" id="search_val" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+        <a lay-event="del" style="">删除</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+    	var util = layui.util;
+
+    	$('.search').click(function(){
+    		var name = $('#search_key').val();
+    		var value = $('#search_val').val();
+    		tableIns.reload({
+    			where:{
+                    search_key:name,
+                    search_val: value
+                },
+    			page:{
+    				curr:1
+    			}
+    		});
+    	});
+
+        // 监听添加按钮
+    	$('.add').click(function(){
+    		layer.open({
+                // type:1,
+                btn:['确定','取消'],
+                title:'添加油卡',
+                area:['920px','600px'],
+                content:$('#layerform').html(),
+                success (layero, index) {
+                    renderSelect('#re_category', rzlbArr[0].data.recorded_category)
+                    renderSelect('#company',  rzlbArr[0].data.company);
+                    renderCarSelect('#car_plate', rzlbArr[1].data)
+                    form.render();
+                },
+                yes (index, layero) {
+                    var data = formData();
+                    var url = '/hcms/oil/bind_card';
+                    console.log(data)
+                    delete data.id
+                    for(list in data) {
+                        if((list != 'car_num' || list != 'car_plate') && !data[list]) {
+                            layer.msg('必填项不能为空', {type:1, time: 2000})
+                            return false
+                        }
+                    }
+                    promiseSovl(url, 'post', data).then(function(res){
+                        if(res.code == 0) {
+                            layer.msg('保存成功', {type: 1, time: 2000}, function(){
+                                location.reload()
+                            })
+                        } else {
+                            layer.msg(res.msg, {type: 1, time: 2000})
+                        }
+                    });
+                } 
+            })
+    	});
+
+        // 
+        var oilurl = '/hcms/oil/base_data'; //入账类别和公司代码
+        var mxurl = '/hcms/oil/fymx';  // 费用明细
+        var carurl = '/hcms/oil/no_bind_car'; // 未绑定油卡的车辆
+        var rzlbArr = [];
+
+        // 获取下拉框信息
+        Promise.all([
+            promiseSovl(oilurl),
+            // promiseSovl(mxurl),
+            promiseSovl(carurl)
+        ]).then((res) => {
+            console.log(res)
+            rzlbArr = res
+        })
+
+        // 监听入账类别下拉框
+        form.on('select(recorded_category)',function (obj) {
+            console.log(obj);
+            // var data = {
+            //     recorded_category: obj.value
+            // }
+            // promiseSovl(mxurl,'get', data).then(function(res){
+            //     console.log(res)
+            //     renderSelect('#cost_detail', res.data.cost_detail);
+            //     form.render()
+            // })
+            fymxrender(obj.value)
+        });
+
+        //监听选择车辆下拉框
+        form.on('select(car_plate)',function (obj) {
+            console.log(obj);
+            var textId = $(this).text().split('|')[0]
+            console.log(textId);
+            if(obj.value)
+                $('#car_num').val(textId)
+            else
+                $('#car_num').val('')
+        });
+
+        //监听辅助对象下拉框
+        form.on('select(obj_category)',function (obj) {
+            console.log(obj);
+            //assist
+            if(obj.value == '成本中心')
+                $('#assist').attr('openAddr','cbzx')
+            else if (obj.value == '内部订单')
+                $('#assist').attr('openAddr','nbdd')
+            else
+                $('#assist').removeAttr('openAddr')
+        });
+
+        // 监听选择油卡
+    	$('body').on('click', '#cardmsgs', function(){
+    		layer.open({
+    			type:2,
+    			area:['930px','700px'],
+    			title:'选择油卡',
+    			content:'./oilCardList.html'
+    		})
+    	});
+
+        // 监听供应商input选择
+        var gysindex = null
+        $('body').on('click', '#supplier', function(){
+            if($('#company').val()){
+                var com_code = $('#company').val().split('|')[0]
+                gysindex = layer.open({
+                    type:2,
+                    area:['930px','700px'],
+                    title:'选择供应商',
+                    content:'./oilCard-ghs.html#com_code='+com_code
+                })
+            } else {
+                layer.msg('请选择公司代码', {type:1,time: 2000})
+            }
+        });
+
+        // 监听辅助功能
+        var fzgindex = null
+        $('body').on('click', '#assist', function(){
+            var types = $(this).attr('openAddr');
+            var com_code = $('#company').val().split('|')[0];
+            var company = $('#company').val();
+            if (company && types == 'cbzx') {
+                fzgindex = layer.open({
+                    type:2,
+                    area:['930px','700px'],
+                    title:'辅助功能',
+                    content:'./oilCard-'+types+'.html#com_code='+com_code
+                })
+            } else if(company && types == 'nbdd') {
+                fzgindex = layer.open({
+                    type:2,
+                    area:['930px','700px'],
+                    title:'辅助功能',
+                    content:'./oilCard-'+types+'.html#com_code='+com_code
+                })
+            }else if(!types){
+                layer.msg('请选择辅助对象', {type:1, time:2000})
+            } else if (!company) {
+                layer.msg('请选择公司代码', {type:1, time:2000})
+            }
+            
+        });
+
+        // 清除input框的内容
+        $('body').on('click', '.dateiconb', function(){
+            $(this).parent().find('input').val('')
+        });
+
+    	// form.on('select(search_key)',function(obj){
+    	// 	var name = obj.value;
+    	// 	$(this).parents('.seartype').next().find('input').attr('name',name);
+    	// });
+
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        // url: '../assets/api/oilCard.json',
+            url: baseUrl + '/hcms/oil/card_bind_car',
+	        cols: [[
+				{field: 'id', title: '序号', width: 80, sort: true, fixed: 'left'},
+                {field: 'card_no', title: '油卡号', width: 190, sort: true},
+                {field: 'card_holder', title: '持卡人', width: 100},
+                {field: 'card_carnum', title: '油卡绑定车牌号', width: 144},
+                {field: 'car_num', title: '内部车号', width: 117},
+                {field: 'car_plate', title: '车牌号', width: 117},
+                {field: 'recorded_category', title: '入账类别', width: 115},
+                {field: 'cost_detail', title: '费用明细', width: 180},
+                {field: 'company', title: '所属公司', width: 225},
+                {field: 'supplier', title: '供应商', width: 225},
+                {field: 'tally', title: '记账科目', width: 190},
+                {field: 'obj_category', title: '辅助对象类别', width: 130},
+                {field: 'assist', title: '辅助对象', width: 120},
+                {fixed: 'right', title:'操作', toolbar: '#barDemo', align:"center", width:120}
+            ]],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        limit:10,
+	        done: function(res) {
+	            console.log(res)
+	        }
+	    });
+
+	    // 表格数据编辑
+	    table.on('tool(ddtest)', function(obj) {
+	        if (obj.event == 'edit') {
+	            //编辑
+                layer.open({
+                    // type:1,
+                    btn:['确定','取消'],
+                    title:'编辑油卡',
+                    area:['920px','600px'],
+                    content:$('#layerform').html(),
+                    success (layero, index) {
+                        dataRender(obj.data);
+                        var re_category = obj.data.recorded_category;
+                        var company = obj.data.company;
+                        var carPlate = obj.data.car_plate;
+                        var carNum = obj.data.car_num;
+                        var fymxval = obj.data.cost_detail
+                        var cardmsgs = obj.data.card_no + '|' + obj.data.card_holder + '|' + obj.data.card_carnum;
+                        console.log(cardmsgs)
+                        renderSelect('#re_category', rzlbArr[0].data.recorded_category,re_category)
+                        fymxrender(re_category,fymxval)
+                        renderSelect('#company',  rzlbArr[0].data.company,company);
+                        renderCarSelect('#car_plate', rzlbArr[1].data,carPlate,carNum)
+                        $('#cardmsgs').val(cardmsgs)
+                        form.render();
+                    },
+                    yes (index, layero) {
+                        var data = formData();
+                        var url = '/hcms/oil/edit_card';
+                        console.log(data)
+                        data.oil_card_id = data.id
+                        delete data.id
+                        for(list in data) {
+                            if((list != 'car_num' || list != 'car_plate') && !data[list]) {
+                                layer.msg('必填项不能为空', {type:1, time: 2000})
+                                return false
+                            }
+                        }
+                        promiseSovl(url, 'post', data).then(function(res){
+                            if(res.code == 0) {
+                                layer.msg('保存成功', {type: 1, time: 2000}, function(){
+                                    location.reload()
+                                })
+                            } else {
+                                layer.msg(res.msg, {type: 1, time: 2000})
+                            }
+                        });
+                    } 
+                })
+	        } else if (obj.event == 'del') {
+	        	var ind = layer.confirm('确定要删除吗？',function(){
+                    var url = '/hcms/oil/del_card',
+                    data = {
+                        oil_id: obj.data.id
+                    }
+	        		promiseSovl(url, 'get', data).then(function(res){
+                        if(res.code == 0) {
+                            layer.msg('删除成功', {type: 1, time: 2000}, function(){
+                                location.reload()
+                            })
+                        } else {
+                            layer.msg(res.msg, {type: 1, time: 2000})
+                        }
+                    })
+	        	})
+	        }
+	    });
+
+	    // 窗口大小改变事件
+	    window.onresize = function() {
+	        listReisze()
+	    }
+	    listReisze();
+
+        function fymxrender(key,value) {
+            var data = {
+                recorded_category: key
+            }
+            promiseSovl(mxurl,'get', data).then(function(res){
+                renderSelect('#cost_detail', res.data.cost_detail,value);
+                form.render()
+            })
+        }
+        function renderSelect(dome, data, val){
+            var option = '<option value="">请选择</option>'
+            for(var i = 0;i < data.length;i ++) {
+                if(val && data[i] == val)
+                    option += '<option value="'+data[i]+'" selected="">'+data[i]+'</option>';
+                else
+                    option += '<option value="'+data[i]+'">'+data[i]+'</option>';
+            }
+            $(dome).html(option)
+        }
+        function renderCarSelect(dome, data, val, num){
+            console.log(data)
+            var option = '<option value="">请选择</option>'
+            var len2 = 0;
+            for(var i = 0;i < data.length;i ++) {
+                if(val && data[i].car_plate == val){
+                    option += '<option value="'+data[i].car_plate+'" selected="">' + 
+                    data[i].car_num + '|' + data[i].car_plate +'</option>';
+                }else {
+                    len2++
+                    option += '<option value="'+data[i].car_plate+'">' + 
+                    data[i].car_num + '|' + data[i].car_plate +'</option>';
+                }
+            }
+            if(val && len2 == data.length){
+                option += '<option value="'+ val + '" selected="">' + num + '|' + val +'</option>';
+            }
+            $(dome).html(option)
+        }
+    </script>
+</body>
+<script type="text/html" id="layerform">
+    <ul class="jlul layui-form clearfix">
+        <input type="hidden" name="id">
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">选择车辆</p>
+                <div class="dd-value">
+                    <input type="hidden" name="car_num" id="car_num">
+                    <select name="car_plate" lay-filter="car_plate" id="car_plate">
+                        <option value="">选择车辆</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">选择油卡</p>
+                <div class="dd-value">
+                    <input type="hidden" name="card_no" id="card_no">
+                    <input type="hidden" name="card_holder" id="card_holder">
+                    <input type="hidden" name="card_carnum" id="card_carnum">
+                    <input type="text" autocomplete="off" id="cardmsgs" placeholder="点击选择油卡" readonly="">
+                    <span class="dateiconb" style="">
+                        <i class="layui-icon layui-icon-close"></i>
+                    </span>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">入账类别</p>
+                <div class="dd-value"> 
+                    <select name="recorded_category" lay-filter="recorded_category" id="re_category">
+                        <option value="">入账类别</option>
+                    </select> 
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">费用明细</p>
+                <div class="dd-value">
+                    <select name="cost_detail" lay-filter="cost_detail" id="cost_detail">
+                        <option value="">费用明细</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">公司代码</p>
+                <div class="dd-value">
+                    <select name="company" lay-filter="company" id="company">
+                        <option value="">公司代码</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">供应商</p>
+                <div class="dd-value">
+                    <input type="text" name="supplier" id="supplier" placeholder="供应商" value="" readonly="">
+                    <span class="dateiconb" style="">
+                        <i class="layui-icon layui-icon-close"></i>
+                    </span>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">记账科目</p>
+                <div class="dd-value">
+                    <input type="text" id="tally" name="tally" placeholder="记账科目" value="" readonly="">
+                    <span class="dateiconb" style="">
+                        <i class="layui-icon layui-icon-close"></i>
+                    </span>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">辅助对象</p>
+                <div class="dd-value">
+                    <select name="obj_category" lay-filter="obj_category" id="obj_category">
+                        <option value="">请选择</option>
+                        <option value="成本中心">成本中心</option>
+                        <option value="内部订单">内部订单</option>
+                    </select>
+                </div>
+            </div>
+        </li>
+        <li class="">
+            <div class="inlists">
+                <p class="dd-name">辅助功能</p>
+                <div class="dd-value">
+                    <input type="text" autocomplete="off" name="assist" id="assist" placeholder="辅助功能" value="" readonly="">
+                    <span class="dateiconb" style="">
+                        <i class="layui-icon layui-icon-close"></i>
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</script>
+</html>

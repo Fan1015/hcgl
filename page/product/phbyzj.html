@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>配合比与主机消耗</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">配合比与主机消耗</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">查询日期：</label>
+                <div class="layui-input-inline seartype" style="float:left">
+                    <input type="text" name="start_time" id="start_time" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">任务单号：</label>
+                <div class="layui-input-inline seartype" style="float:left">
+                    <input type="text" name="ht_num" id="ht_num" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+    	var laydate = layui.laydate;
+    	
+
+        var alldata = null;
+
+    	$('.search').click(function(){
+    		
+    		tableIns.reload({
+    			where:{
+                    search_key:name,
+                    search_value:value
+                },
+    			page:{
+    				curr:1
+    			}
+    		});
+    	});
+
+        $('.export').click(function(){
+            table.exportFile('priseReload',alldata.data,'xls')
+        });
+
+ 
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        url: 'http://10.0.0.9:8008/admin/Bom/search_bom',
+            // url: baseUrl + '/hcms/sale/fb_price',
+            id:'priseReload',
+	        cols: [[
+				{field: 'send_time', title: '发货日期', fixed:"left", width:120,sort: true},
+                {field: 'ht_num', title: '任务单号', fixed:"left", width:100},
+                {field: 'proj_name', title: '工程名称', fixed:"left", width:100},
+                {field: 'strong_lv', title: '强度等级', fixed:"left", width:100},
+                {field: 'wuliao', title: '物料编号', fixed:"left", width:100},
+                {field: 'send_count', title: '生产方量', fixed:"left", width:100},
+                {field: 'data', title: '数据', width:80},
+                {field: '12ston', title: '1-2石子',  width:93},
+                {field: '51ston', title: '0.5-1石子', width:107},
+                {field: 'hs', title: '河砂', width:70},
+                {field: 'ghs', title: '干河砂', width:80},
+                {field: 'jzs', title: '机制砂', width:80},
+                {field: 'jy425', title: '金隅水泥42.5', width:154},
+                {field: 'jy525', title: '金隅水泥52.5', width:154},
+                {field: 'xa425', title: '新安水泥42.5', width:154},
+                {field: 'ya425', title: '永安水泥42.5', width:154},
+                {field: 'zl425', title: '中联水泥42.5', width:154},
+                {field: 'df525', title: '登封水泥52.5', width:154},
+                {field: 'mh', title: '煤灰', width:80},
+                {field: 'kf', title: '矿粉', width:80},
+                {field: 'jsj', title: '减水剂', width:80},
+                {field: 'pzj', title: '膨胀剂', width:80},
+                {field: 'ms', title: '米石', width:80},
+                {field: 'rys', title: '汝阳砂', width:80},
+                {field: 'tfs', title: '脱粉砂', width:80},
+                {field: 'sjfj', title: '砂浆粉剂', width:96},
+                {field: 'sjsj', title: '砂浆水剂', width:96},
+                {field: 'sjs', title: '砂浆砂', width:80},
+                {field: 'water', title: '水', width:70},
+                {field: 'swjj', title: '湿拌砂浆外加剂', width:154},
+                {field: 'gwjj', title: '干混砂浆外加剂', width:154},
+                {field: 'gss', title: '过筛砂', width:80},
+                {field: '13ston', title: '1-3石子', width:90},
+                {field: '13ston', title: '水洗砂', width:80},
+                {field: 'jehj', title: '金额合计', width:96}
+            ]],
+	        page: true,
+	        done: function(res) {
+                alldata = res
+	            console.log(res);
+	        }
+	    });
+
+	    laydate.render({
+            elem:'#start_time',
+        })
+    </script>
+</body>
+</html>

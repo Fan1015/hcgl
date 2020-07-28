@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>出货明细表</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+        <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">出货明细表(太龙,山立,伟治,松大)</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 所属站点 -->
+        <!--<div-->
+                <!--class="layui-inline hcbig"-->
+                <!--style="margin-bottom: 24px; float: left;"-->
+        <!--&gt;-->
+            <!--<label class="layui-form-label">所属站点：</label>-->
+            <!--<div class="layui-input-inline">-->
+                <!--<input-->
+                        <!--type="text"-->
+                        <!--placeholder=""-->
+                        <!--id="site"-->
+                        <!--autocomplete="off"-->
+                        <!--class="layui-input bigInput"-->
+                <!--/>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!-- end 所属站点 -->
+        <!-- start 站点选择 -->
+        <div
+                class="layui-inline hcbig"
+                style="margin-bottom: 24px; float: left;"
+        >
+            <label class="layui-form-label">站点：</label>
+            <div class="layui-input-inline">
+                <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+                <select name="" id="station">
+                    <option value=""></option>
+                    <option value="太龙">太龙</option>
+                    <option value="山立">山立</option>
+                    <option value="伟治">伟治</option>
+                </select>
+            </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!-- start 任务单号 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">任务单号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+                        id="ht_num"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 任务单号 -->
+         <!-- start 车牌号 -->
+        <div
+         class="layui-inline hcbig"
+         style="margin-bottom: 24px; float: left;"
+        >
+         <label class="layui-form-label">车牌号：</label>
+         <div class="layui-input-inline">
+           <input
+             type="text"
+             placeholder=""
+             id="car_num"
+             autocomplete="off"
+             class="layui-input bigInput"
+           />
+          </div>
+        </div>
+        <!-- end 车牌号 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float:left;"
+        >
+          <label class="layui-form-label">查询时间：</label>
+          <div class="layui-input-inline" style="margin-right:5px">
+            <input
+              type="text"
+              id="starttime"
+              placeholder="开始时间"
+              autocomplete="off"
+              readonly=""
+              class="layui-input bigInput"
+            />
+            <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+          <span>-</span>
+          <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+            <input
+              type="text"
+              id="endtime"
+              placeholder="结束时间"
+              autocomplete="off"
+              readonly=""
+              class="layui-input bigInput"
+            />
+            <span class="dateiconb" style="top:3px">
+              <i class="layui-icon layui-icon-date"></i>
+            </span>
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export">导出</button>
+          </div>
+        </div>
+        
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="tl" lay-filter="ddtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        var table = layui.table;
+        var form = layui.form;
+        // var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+        var layer = layui.layer;
+
+        var alldata = []
+        // 点击搜索
+        $(".search").click(function () {
+          tableIns.reload({
+            where: {
+                start: $('#starttime').val(),
+                end: $('#endtime').val(),
+                station: $('#station').val(),
+                ht_num: $('#ht_num').val(),
+                car_num: $('#car_num').val()
+            },
+            page: {
+              curr: 1, //重新从第 1 页开始
+            }
+          });
+        });
+        // 导出
+        $(".export").click(function(){
+              var ind = layer.load(0,{shade:0.5})
+              exportAllData({
+                  url: tableIns.config.url,
+                  data:{
+                    al_station: '太龙,山立,伟治,松大'
+                  },
+                  length: alldata.count,
+                  export (res) {
+                      layer.close(ind)
+                      console.log(res)
+                      table.exportFile(tableIns.config.id,res,'xls')
+                  }
+              })
+            // table.exportFile(tableIns.config.id, alldata,'xls')
+        })
+      //开始时间选择
+      laydate.render({
+        elem: "#starttime",
+        type: "datetime",
+        done: function (value, date) {
+          
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#endtime",
+        type: "datetime",
+        done: function (value, date) {
+          
+        },
+      });
+      // 初始化表格数据
+      tableIns = tableRender({
+        elem: "#tl",
+        // url: "../assets/api/deliveryDetailsTable.json",
+        url: baseUrl + "/hcms/Indata/outdata_mingxi",
+        id: 'fhmx',
+        where: {
+            al_station: '太龙,山立,伟治,松大'
+        },        
+		cols: [
+          [
+             { field: "id", title: "序号", sort: true,width:80},
+            { field: "send_id", title: "出货编号",width:140 },
+            { field: "ht_num", title: "合同编号" ,width:100},
+            { field: "sap_xszz", title: "销售组织" ,width:100},
+            { field: "sap_sdf", title: "送达方编码",width:120 },
+            { field: "sap_kh", title: "客户编码" ,width:100},
+            { field: "car_num", title: "车号",width:100 },
+            { field: "driver_name", title: "司机" ,width:90},
+            { field: "gcmc", title: "工程名称" ,width:220},
+            { field: "shdw", title: "委托单位",width:230 },
+            { field: "proj_area", title: "工程部位",width:220 },
+            { field: "strong_lv", title: "强度等级" ,width:100},
+            { field: "pinzhong", title: "品种" ,width:90},
+            { field: "goods_name", title: "商品名称" ,width:100},
+            { field: "tanluo_lv", title: "坍落度",width:80 },
+            { field: "jiaozhu_type", title: "浇筑方式",width:140 },
+            { field: "prod_count", title: "生产方量",width:100 },
+            { field: "send_count", title: "发货方量" ,width:100},
+            { field: "unit_price", title: "单价",width:70 },
+            { field: "sum_price", title: "金额",width:100 },
+            { field: "send_time", title: "发货时间",width:170 },
+            { field: "proj_addr", title: "工程地点",width:230 },
+            { field: "kangshen_lv", title: "抗渗等级",width:100 },
+            { field: "all_weight", title: "毛重",width:80 },
+            { field: "car_weight", title: "皮重",width:80  },
+            { field: "send_weight", title: "净重",width:80  },
+            { field: "all_count", title: "累计方量" ,width:100 },
+            { field: "car_weight_time", title: "皮重时间",width:170  },
+            { field: "dist", title: "运距",width:80 },
+            { field: "dist_price_bz", title: "标准运费",width:100  },
+            { field: "dist_price_xf", title: "搅拌站小方量",width:130  },
+            { field: "dist_price_bf", title: "工地小方量",width:120  },
+            { field: "dist_price_cs", title: "超时费",width:100  },
+            { field: "dist_price_ws", title: "搅拌站误时费" ,width:130 },
+            { field: "dist_price_gd_ws", title: "工地误时费" ,width:120 },
+            { field: "dcbc_price", title: "单次泵车费用" ,width:130 },
+            { field: "cgbf_price", title: "超百方价格" ,width:120 },
+            { field: "bengfei", title: "泵费",width:100  },
+            { field: "sgbc", title: "施工泵车",width:100  },
+            { field: "handle_man", title: "操作员",width:80 },
+            { field: "business_man", title: "经办人",width:100  },
+            { field: "station_name", title: "站名" ,width:100 },
+            { field: "add_up_car", title: "车次",width:100  }
+          ]
+        ],
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 10,
+        done: function (res) {
+          alldata = res
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>用户列表</title>
+    
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <h2 class="staname" style="padding: 0 0 40px 0;">用户列表</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 搜索类型 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 30px; float: left;"
+        >
+          <label class="layui-form-label">搜索类型：</label>
+          <div class="layui-input-inline">
+            <select name="search_key" id="search_key">
+              <option value="">请选择</option>
+              <option value="username">用户名</option>
+              <option value="phone">手机号</option>
+              <option value="cust_code">客户代码</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 搜索类型 -->
+        <!-- start 搜索内容 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 30px; float: left;"
+        >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入搜索内容"
+              id="search_val"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 搜索内容 -->
+        <div class="layui-inline hcbig">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <!-- <div class="layui-inline" style="float: left;">
+            <button class="hcbtn reload" data-type="reload" type="button">
+              刷新
+            </button>
+          </div> -->
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" data-type="reload" type="button">
+              导出
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="userTable" lay-filter="usertest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="barDemo">
+      <a class="deldata" style="color:#4986ff" lay-event="del">删除</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <!-- <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/xadmin.js"></script> -->
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var layer = layui.layer;
+      var laydate = layui.laydate;
+
+      var alldata = [];
+      form.on("select(sync_key)", function (data) {
+        var type = data.type;
+        console.log(type, 120120);
+      });
+
+      var detailObj = null;
+      table.on("tool(usertest)", function (obj) {
+        // console.log(obj)
+        if (obj.event == "audit") {
+          localStorage.setItem("userlistAudit", JSON.stringify(obj.data));
+          detailObj = obj.data;
+          layer.open({
+            type: 2,
+            title: "绑定客户编码",
+            area: ["75%", "90%"],
+            maxmin: true,
+            offset: ["20px", "200px"],
+            content: "./userlist-bangd.html",
+            success: (res) => {
+              // $('')
+            },
+          });
+        } else if (obj.event == "del") {
+          //删除
+          var _this = $(this);
+          var url = '/hcms/minipro_user/del_user';
+          var data = {
+            uid:obj.data.id
+          }
+          layer.confirm("确定删除此任务单，删除后不可恢复！", function (index) {
+            promiseSovl(url,'get', data).then(function(res){
+              if(res.code == 0) {
+                obj.del();
+                layer.msg('删除成功');
+              }else {
+                layer.msg(res.msg)
+              }
+            })
+          });
+        }
+      });
+      var tableIns = tableRender({
+        elem: "#userTable",
+        // url: "../assets/api/userTable.json",
+        url: baseUrl + '/hcms/minipro_user/user_list',
+        cols: [
+          [
+            //表头
+            { field: "id", title: "序号", width: 80, sort: true, fixed: "left" },
+            { field: "username", title: "用户名", width: 200 },
+            { field: "nickname", title: "昵称", width: 180, sort: true },
+            { title: "头像", width: 80, templet(d) {
+                if (d.avatar)
+                  return (
+                    '<img src="' +
+                    d.avatar +
+                    '" alt="" style="width:70%;height:100%;border-radius:4px">'
+                  );
+                return "无";
+              }
+            },
+            { field: "phone", title: "电话", width: 177 },
+            { title: "是否绑定微信", width: 150, sort: true, templet(d) {
+                if (d.open_id)
+                  return '<span style="color: #5FB878;">已绑定</span>';
+                return '<span style="color: #FF5722;">未绑定</span>';
+              }
+            },
+            { field: "cust_code", title: "客户编码", width: 100 },
+            { field: "agent_code", title: "SAP代理商代码", width: 160 },
+            { field: "agent", title: "SAP代理商", width: 120 },
+            { field: "yonghu_leix", title: "用户类型", width: 150, sort: true, templet(d) {
+                switch (d.role.title) {
+                  case "客户":
+                    return (
+                      '<span style="color: #5FB878;">' +
+                      d.role.title +
+                      "</span>"
+                    );
+                    break;
+                  case "代理商":
+                    return (
+                      '<span style="color: #FF5722;">' +
+                      d.role.title +
+                      "</span>"
+                    );
+                    break;
+                  default:
+                    return (
+                      '<span style="color: #01AAED;">' +
+                      d.role.title +
+                      "</span>"
+                    );
+                    break;
+                }
+              }
+            },
+            { field: "create_time", title: "注册时间", width: 180 },
+            { field: "last_login_time", title: "最后登录时间", width: 200 },
+            { fixed: "right", title: "是否审核", width: 120, templet(d) {
+                if (d.is_check)
+                  return '<button class="layui-btn layui-btn-xs layui-btn-normal"  lay-event="audit">已审核</button>';
+                return '<button class="layui-btn layui-btn-xs layui-btn-primary"  lay-event="audit">未审核</button>';
+              },
+            },
+            { fixed: "right", align: "center", title: "操作", toolbar: "#barDemo", width: 80,
+            },
+          ],
+        ],
+        id: "userReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {
+          //   console.log(res);
+          alldata = res.data
+        },
+      });
+
+      $(".search").on("click", function () {
+        var search_key = $("#search_key").val(); //搜索类型
+        var search_val = $("#search_val").val(); //搜索内容
+        if (search_key == "" || search_val == "") {
+          layer.msg("请选择搜索类型和内容！");
+          return false;
+        }
+        //执行重载
+        table.reload("userReload", {
+          page: {
+            curr: 1, //重新从第 1 页开始
+          },
+          where: {
+            search_key: search_key,
+            search_val: search_val
+          }
+        });
+      });
+
+      $(".reload").on("click", function () {
+        location.reload();
+      });
+      
+      $(".export").on("click", function () {
+        table.exportFile("userReload", alldata, "xls");
+      });
+    </script>
+  </body>
+</html>

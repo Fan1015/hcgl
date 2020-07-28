@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=WDnO4ZB2V7e3SU8wGepgAQ97g3tvHe4N"></script>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/menuicon/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>车辆GPS</title>
+    <style>
+    	.mapbox{
+    		width:100%;
+    		height:100%;
+    		padding-right:331px;
+    	}
+    	#allmap{
+    		width:100%;
+    		height:100%;
+    	}
+    	#search_track{
+    		width:331px;
+    		height:100%;
+    		/*padding:30px 30px 30px 0;*/
+    		position:absolute;
+    		top:0;
+    		right:0;
+    		margin: auto;
+    		z-index:2;
+    	}
+    	#search_track input{
+    		width:203px;
+    	}
+    	.carboxed{
+    		width:100%;
+    		height:100%;
+    		/*box-shadow: 0 0 8px 5px #ccc;*/
+    		background:#fff;
+    		padding:20px;
+    		/*border-radius:8px;*/
+    	}
+    	#treemodule{
+    		height:93%;
+    		overflow:auto;
+    	}
+    	#treemodule *{
+    		box-sizing: content-box;
+    	}
+    	#treemodule .layui-tree-entry{
+    		height:25px;
+    		
+    	}
+    	.layui-tree-txt{
+    		font-size:16px;
+    		color:#333;
+    	}
+    </style>
+</head>
+<body>
+	<div id="search_track" style="">
+		<div class="carboxed">
+			<div class="layui-inline" style="margin-bottom: 20px">
+		        <button class="hcbtn hcbtn2 checkgj">查看轨迹</button>
+		    </div>
+		    <div class="layui-inline" style="margin-bottom: 20px;float:right">
+		        <button class="hcbtn hcbtn2 checkxzgj">行政车轨迹</button>
+		    </div>
+
+	    	<div id="treemodule" class="demo-tree-more"></div>
+		</div>
+	</div>
+	<div class="mapbox">
+		<div id="allmap"></div>
+	</div>
+
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+	<script src="../../assets/js/common.js"></script>
+    <script type="text/javascript">
+	var tree = layui.tree;
+	var laytpl = layui.laytpl;
+
+	var gpsdata = {
+ 		curr_status:'',
+ 		auth:'self'
+ 	};
+ 	var cardata = {
+		curr_status:'',
+		auth:'self'
+	};
+ 
+ 	carTypeList(cardata);
+	//车辆轨迹
+	carGPSTrack(gpsdata)
+
+	// 车辆轨迹
+	$('.checkgj').click(function(){
+		layer.open({
+			type:2,
+			area:['80%','80%'],
+			title:'车辆轨迹',
+			content:'./adcartrack.html#url=/hcms/location/show_track',
+			success:function(index,layero){
+				// console.log(index)
+			}
+		})
+	});
+
+	$('.checkxzgj').click(function(){
+		layer.open({
+			type:2,
+			area:['80%','80%'],
+			title:'车辆轨迹',
+			content:'./adcartrack.html#url=/hcms/location/show_xz_track',
+			success:function(index,layero){
+				// console.log(index)
+			}
+		})
+	})
+
+ 	//实时更新消息
+    // setInterval(function() {
+    //     carGPSTrack(gpsdata);
+    // },5000);
+
+    //车辆类型
+    function carTypeList(data){
+		var carUrl = '/hcms/location/car_tree';
+		promiseSovl(carUrl,'get',data).then(function(res){
+			console.log(res)
+			//无连接线风格
+			if(res.code == 0){
+				tree.render({
+					elem: '#treemodule',
+					data: res.data,
+					field:'name',
+					showLine: false,  //是否开启连接线
+					click: function(obj){
+						console.log(obj);
+						if(obj.data.alias)
+							gpsdata = {
+								car_type_app:obj.data.alias,
+								flag: false
+							}
+						else if(obj.data.id)
+							gpsdata = {
+								car_num:obj.data.id,
+								flag:true
+							}
+						carGPSTrack(gpsdata,gpsdata.flag)
+					}
+				});
+			}
+		})
+	}
+ 	//地图车辆类型
+ 	function carGPSTrack(data,contro){
+ 		var gpsurl = '/hcms/location/curr_loc';
+	 	promiseSovl(gpsurl,'get',data).then(function(res){
+		// $.ajax({
+		// 	url:'../assets/api/carGPS.json',
+		// 	success: (data) => {
+				
+			if(res.code == 0){
+				map.clearOverlays()
+				res.count = res.data.length;
+				console.log(res)
+				var points = []; //一组坐标点
+	            for (var i = 0; i < res.count; i++) {
+	            	var lat = res.data[i].curr_latitude;
+	            	var lon = res.data[i].curr_longitude
+	            	var pointe = new BMap.Point(lon, lat);
+	            	points.push(pointe);
+	                cloStatus = res.data[i].curr_status;
+	                car_cate = checkCarCate(res.data[i].car_type_app);
+	                var colanim = getColAndIm(res.data[i].curr_status,car_cate);
+	                var is_power = '';
+	                if(res.data[i].car_type_app == '行政用车'){
+	                	if(res.data[i].curr_power == 1){
+	                		is_power = '已启动'
+	                	}
+	                }
+	                var content ='车号:' + res.data[i].car_num + '--' + res.data[i].curr_status + is_power + '<br>速度:' +  Math.round(res.data[i].curr_speed*100)/100 +'km/h<br>任务单号:' + res.data[i].ht_num + '<br>' + res.data[i].curr_time.substr(5)+ mapcircle(colanim[0],res.data[i].curr_status);
+
+	                myIcon = new BMap.Icon(colanim[1], new BMap.Size(50, 52),{});
+	                var marker = new BMap.Marker(pointe); // 创建标注
+	                marker.setIcon(myIcon);
+	                map.addOverlay(marker); // 将标注添加到地图中
+	                var label = new BMap.Label(content, { offset: new BMap.Size(50, -26) });
+	                label.setStyle({
+	                    border: 'none',
+	                    // border: '1px solid ' + colanim[0],
+	                    borderRadius:'4px',
+	                    padding:'8px',
+	                    paddingRight:'20px',
+	                    color: colanim[0],
+	                    boxShadow:'0 2px 6px 1px #ccc'
+	                });
+	                marker.setLabel(label);
+	                addClickHandler(res.data[i].car_num, marker);
+	            }
+				const view = map.getViewport(points); //获取最佳视角
+				const zoom = view.zoom; //获取最佳视角的缩放层级
+				const centerPoint = view.center; //获取最佳视角的中心点
+				if(contro)
+					map.centerAndZoom(centerPoint, 12); //设置中心点和缩放层级
+			// }
+			}
+		});
+	 }
+	function mapcircle(color,text){
+		if(text)
+			var t = text.substr(0,1);
+		else
+			t = ''
+		t = t == '出' ? '发' : t;
+		return '<div class="mapcircle" style="border:2px solid '+color+';color:'+color+'">'+t+'</div>'
+	}
+    var map = new BMap.Map("allmap");
+
+    map.centerAndZoom("巩义");
+    //map.setCurrentCity("巩义"); //设置为衡阳
+    // map.addControl(new BMap.MapTypeControl()); //可拖拽
+    map.enableScrollWheelZoom(true); //滚轮实现方法缩小
+    // 左上角缩放控件
+	var navigationControl = new BMap.NavigationControl({
+		// 靠左上角位置
+		anchor: BMAP_ANCHOR_TOP_LEFT,
+		// LARGE类型
+		type: BMAP_NAVIGATION_CONTROL_LARGE,
+		// 启用显示定位
+		enableGeolocation: true
+	});
+	map.addControl(navigationControl);
+
+
+	function addClickHandler(content, marker) {
+	    marker.addEventListener("click", function(e) {
+	        gpsdata = {
+	        	curr_status:'',
+	 			car_type_app:'',
+	        	car_num: content
+	        }
+	       carGPSTrack(gpsdata,true);
+	    });
+	}
+
+	//检测车辆类型
+	function checkCarCate(car_cate) {
+	    var imageUrl = '';
+	    switch (car_cate) {
+	        case '罐车':
+	            imageUrl = '/assets/image/icon/gc';
+	            break;
+	        case '泵车':
+	            imageUrl = '/assets/image/icon/bc';
+	            break;
+	        case '行政用车':
+	            imageUrl = '/assets/image/icon/xzyc';
+	            break;
+	        default:
+	            //其他车型暂用罐车图片
+	            imageUrl = '/assets/image/icon/gc';
+	            break;
+	    }
+	    return imageUrl;
+	}
+
+	//根据车辆状态返回不同颜色,和图片
+	function getColAndIm(cloStatus,carCate){
+	    var clo = '';
+	    switch (cloStatus) {
+	        case '出发':
+	            clo = '#e7770e';
+	            iconUrl = car_cate + '/1.png';
+	            break;
+	        case '到达':
+	            clo = '#1F9FFF';
+	            iconUrl = car_cate + '/2.png';
+	            break;
+	        case '回到':
+	            clo = '#009688';
+	            iconUrl = car_cate + '/3.png';
+	            break;
+	        case '返回':
+	            clo = '#D40000';
+	            iconUrl = car_cate + '/4.png';
+	            break;
+	        case '正常':
+	            clo = '#BC0F95';
+	            iconUrl = car_cate + '/6.png';
+	            break;
+	        case '返回--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '出发--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '到达--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '回到--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        //没有匹配任务单号的暂时里面图片
+	        default:
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            // statements_def
+	            break;
+	    }
+	    return colandimg= new Array(clo,iconUrl);
+	}
+    </script>
+</body>
+</html>

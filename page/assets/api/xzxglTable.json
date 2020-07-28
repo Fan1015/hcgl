@@ -1,0 +1,573 @@
+{
+    "count":24,
+    "data":[
+        {
+            "id":1,
+            "item_name":"应出勤天数",
+            "is_del":0,
+            "act_time":"2019-09-05 20:05:44",
+            "index":1,
+            "item_gs":[
+                {
+                    "id":3,
+                    "item_id":1,
+                    "gs_name":"应出勤天数",
+                    "gs_short":"getDays",
+                    "gs_content":"在信息系统-薪资管理-人员管理-中手工维护。未设置的，默认是28天",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:57:49"
+                }
+            ]
+        },
+        {
+            "id":2,
+            "item_name":"实际出勤天数",
+            "is_del":0,
+            "act_time":"2019-08-29 09:28:22",
+            "index":2,
+            "item_gs":[
+                {
+                    "id":4,
+                    "item_id":2,
+                    "gs_name":"实际出勤天数",
+                    "gs_short":"getShouldDay",
+                    "gs_content":"来自中控考勤系统",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:57:09"
+                }
+            ]
+        },
+        {
+            "id":3,
+            "item_name":"车数",
+            "is_del":0,
+            "act_time":"2019-08-29 09:28:28",
+            "index":3,
+            "item_gs":[
+                {
+                    "id":34,
+                    "item_id":3,
+                    "gs_name":"搅拌车车数",
+                    "gs_short":"jbcs",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:29:18"
+                },
+                {
+                    "id":35,
+                    "item_id":3,
+                    "gs_name":"粉骨料车数",
+                    "gs_short":"fglcs",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:29:48"
+                },
+                {
+                    "id":36,
+                    "item_id":3,
+                    "gs_name":"自吊车车数",
+                    "gs_short":"zdcs",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:31:08"
+                }
+            ]
+        },
+        {
+            "id":4,
+            "item_name":"基本工资",
+            "is_del":0,
+            "act_time":"2019-08-29 09:28:33",
+            "index":4,
+            "item_gs":[
+                {
+                    "id":19,
+                    "item_id":4,
+                    "gs_name":"基本工资",
+                    "gs_short":"getBasePay",
+                    "gs_content":"基本工资*实际出勤天数/应出勤天数-迟到扣款-旷工扣款 ",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:58:36"
+                }
+            ]
+        },
+        {
+            "id":5,
+            "item_name":"出勤工资",
+            "is_del":0,
+            "act_time":"2019-08-29 09:28:42",
+            "index":5,
+            "item_gs":[
+                {
+                    "id":15,
+                    "item_id":5,
+                    "gs_name":"出勤工资",
+                    "gs_short":"getAttendancePay",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:43:10"
+                }
+            ]
+        },
+        {
+            "id":6,
+            "item_name":"绩效工资",
+            "is_del":0,
+            "act_time":"2019-08-29 09:28:51",
+            "index":6,
+            "item_gs":[
+                {
+                    "id":20,
+                    "item_id":6,
+                    "gs_name":"调度中心绩效",
+                    "gs_short":"ddjx",
+                    "gs_content":"按发货方量和对应的系数（信息系统手工维护）相乘，与 出勤天数/应出勤天数 进行调节。",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:51:57"
+                },
+                {
+                    "id":21,
+                    "item_id":6,
+                    "gs_name":"万昌管理绩效",
+                    "gs_short":"wcgljx",
+                    "gs_content":"1.00元/M3*运输总量（全年按46万方为基数，不足时按此数上浮，1.00元/方工资包含：赵华克0.36元/方，赵海林0.25元/方，李济周0.15元，翟国庆0.10元/方）。具体个人系统，在信息系统中手工维护",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:52:43"
+                },
+                {
+                    "id":23,
+                    "item_id":6,
+                    "gs_name":"采购中心绩效",
+                    "gs_short":"cgzxjx",
+                    "gs_content":"按固定薪酬工资+考核工资，根据每个月下达的采购任务的完成比例核算。完成情况，信息系统手工维护",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:50:47"
+                },
+                {
+                    "id":24,
+                    "item_id":6,
+                    "gs_name":"地泵绩效",
+                    "gs_short":"dbjx",
+                    "gs_content":"绩效工资按收入15%计算，生活费除特殊情况不再报销。来自OA中万昌非过磅收入确认工作流",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:50:13"
+                },
+                {
+                    "id":25,
+                    "item_id":6,
+                    "gs_name":"铲车司机绩效",
+                    "gs_short":"ccjx",
+                    "gs_content":"铲车司机按扣除油耗后利润的15%计提。来自OA中万昌非过磅收入确认工作流",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:49:40"
+                },
+                {
+                    "id":27,
+                    "item_id":6,
+                    "gs_name":"泵车负责人绩效",
+                    "gs_short":"dbgljx",
+                    "gs_content":"(汽泵泵地泵收入-油耗-泵工工资-维修费)*8%",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:22:59"
+                },
+                {
+                    "id":28,
+                    "item_id":6,
+                    "gs_name":"久保田钩机绩效",
+                    "gs_short":"jbtgjjx",
+                    "gs_content":"久保田钩机司机按扣除油耗的利润20%计提",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:21:18"
+                },
+                {
+                    "id":29,
+                    "item_id":6,
+                    "gs_name":"自吊车绩效",
+                    "gs_short":"zdcjx",
+                    "gs_content":"超出30车数绩效工资太龙山立站每车30元、伟治站40元",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:25:02"
+                },
+                {
+                    "id":37,
+                    "item_id":6,
+                    "gs_name":"粉骨料车负责人绩效",
+                    "gs_short":"wcgljx2",
+                    "gs_content":"发货总运输量(干混车+粉料车+粉骨料车+自吊车)*0.25 //2019-09-29添加",
+                    "is_del":0,
+                    "act_time":"2019-10-09 16:00:51"
+                }
+            ]
+        },
+        {
+            "id":7,
+            "item_name":"提成工资",
+            "is_del":0,
+            "act_time":"2019-08-29 09:29:00",
+            "index":7,
+            "item_gs":[
+                {
+                    "id":30,
+                    "item_id":7,
+                    "gs_name":"搅拌车提成",
+                    "gs_short":"jbctc",
+                    "gs_content":"单车提成；每月运输超40车部分增加工资：A：单车：15Km以内（含15km）提成30元/车。B：单车：16-24Km以内 提成40元/车。C：单车：25公里（含25公里）以上提成50元/车",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:25:38"
+                },
+                {
+                    "id":31,
+                    "item_id":7,
+                    "gs_name":"粉骨料车提成",
+                    "gs_short":"fgltc",
+                    "gs_content":"参照信息系统中-进货提成工资标准模块",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:26:20"
+                },
+                {
+                    "id":38,
+                    "item_id":7,
+                    "gs_name":"代理商-太龙站提成",
+                    "gs_short":"xstctl",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-10-10 15:26:15"
+                },
+                {
+                    "id":40,
+                    "item_id":7,
+                    "gs_name":"代理商-伟治站提成",
+                    "gs_short":"xstcwz",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-10-10 15:26:59"
+                },
+                {
+                    "id":41,
+                    "item_id":7,
+                    "gs_name":"代理商-山立站提成",
+                    "gs_short":"xstcsl",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-10-10 15:27:09"
+                }
+            ]
+        },
+        {
+            "id":8,
+            "item_name":"奖金",
+            "is_del":0,
+            "act_time":"2019-08-29 09:29:05",
+            "index":8,
+            "item_gs":[
+                {
+                    "id":32,
+                    "item_id":8,
+                    "gs_name":"搅拌车奖金",
+                    "gs_short":"jbjiangjin",
+                    "gs_content":"超70车以上奖50元/车",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:27:09"
+                },
+                {
+                    "id":33,
+                    "item_id":8,
+                    "gs_name":"粉骨料车奖金",
+                    "gs_short":"fgljiangjin",
+                    "gs_content":"1、骨料大半挂：每月超100车奖励300元，（5601康稍虎、0766刘武利）。2、骨料小半挂:每月超120车奖励300元，（8521、5297、5207）3、粉料车：每月拉矿粉、永安以外的水泥超65车奖励300元，(不包括永安水泥)超80车奖励500元（5605、1863、0766、5297、8521、5250、5227）",
+                    "is_del":0,
+                    "act_time":"2019-09-28 17:27:44"
+                }
+            ]
+        },
+        {
+            "id":9,
+            "item_name":"加班补助",
+            "is_del":0,
+            "act_time":"2019-08-29 09:29:12",
+            "index":9,
+            "item_gs":[
+                {
+                    "id":14,
+                    "item_id":9,
+                    "gs_name":"加班补助",
+                    "gs_short":"jbbz",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:41:42"
+                }
+            ]
+        },
+        {
+            "id":10,
+            "item_name":"车、油补助",
+            "is_del":0,
+            "act_time":"2019-08-29 09:29:27",
+            "index":10,
+            "item_gs":[
+                {
+                    "id":13,
+                    "item_id":10,
+                    "gs_name":"车、油补助",
+                    "gs_short":"cyb",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:41:25"
+                }
+            ]
+        },
+        {
+            "id":11,
+            "item_name":"误时工资",
+            "is_del":0,
+            "act_time":"2019-08-29 09:29:51",
+            "index":11,
+            "item_gs":[
+                {
+                    "id":22,
+                    "item_id":11,
+                    "gs_name":"误时工资",
+                    "gs_short":"wsf",
+                    "gs_content":"1、超过预计施工时间，3元/分钟2、误时超2小时以后，每小时20元",
+                    "is_del":0,
+                    "act_time":"2019-09-27 09:55:41"
+                }
+            ]
+        },
+        {
+            "id":12,
+            "item_name":"社保扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:30:17",
+            "index":12,
+            "item_gs":[
+                {
+                    "id":12,
+                    "item_id":12,
+                    "gs_name":"社保扣款",
+                    "gs_short":"sbkk",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:40:34"
+                }
+            ]
+        },
+        {
+            "id":13,
+            "item_name":"罚款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:30:23",
+            "index":13,
+            "item_gs":[
+                {
+                    "id":11,
+                    "item_id":13,
+                    "gs_name":"罚款",
+                    "gs_short":"fakuan",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:40:13"
+                }
+            ]
+        },
+        {
+            "id":14,
+            "item_name":"人员保险扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:30:35",
+            "index":14,
+            "item_gs":[
+                {
+                    "id":10,
+                    "item_id":14,
+                    "gs_name":"人员保险扣款",
+                    "gs_short":"rybxkk",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:39:59"
+                }
+            ]
+        },
+        {
+            "id":15,
+            "item_name":"车辆保险扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:30:49",
+            "index":15,
+            "item_gs":[
+                {
+                    "id":9,
+                    "item_id":15,
+                    "gs_name":"车辆保险扣款",
+                    "gs_short":"clbxkk",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:39:39"
+                }
+            ]
+        },
+        {
+            "id":16,
+            "item_name":"餐费扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:30:59",
+            "index":16,
+            "item_gs":[
+                {
+                    "id":8,
+                    "item_id":16,
+                    "gs_name":"餐费扣款",
+                    "gs_short":"cfkk",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:39:12"
+                }
+            ]
+        },
+        {
+            "id":17,
+            "item_name":"借支",
+            "is_del":0,
+            "act_time":"2019-08-29 09:31:06",
+            "index":17,
+            "item_gs":[
+                {
+                    "id":7,
+                    "item_id":17,
+                    "gs_name":"借支",
+                    "gs_short":"jiezhi",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:38:53"
+                }
+            ]
+        },
+        {
+            "id":18,
+            "item_name":"迟到扣款",
+            "is_del":0,
+            "act_time":"2019-09-12 08:44:18",
+            "index":18,
+            "item_gs":[
+                {
+                    "id":17,
+                    "item_id":18,
+                    "gs_name":"迟到扣款",
+                    "gs_short":"getLate",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:44:53"
+                }
+            ]
+        },
+        {
+            "id":19,
+            "item_name":"旷工扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:32:19",
+            "index":19,
+            "item_gs":[
+                {
+                    "id":16,
+                    "item_id":19,
+                    "gs_name":"旷工扣款",
+                    "gs_short":"getNeglectWork",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:43:46"
+                }
+            ]
+        },
+        {
+            "id":20,
+            "item_name":"日志扣款",
+            "is_del":0,
+            "act_time":"2019-08-29 09:32:27",
+            "index":20,
+            "item_gs":[
+                {
+                    "id":6,
+                    "item_id":20,
+                    "gs_name":"日志扣款",
+                    "gs_short":"getDiary",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:38:33"
+                }
+            ]
+        },
+        {
+            "id":23,
+            "item_name":"早退扣款",
+            "is_del":0,
+            "act_time":"2019-09-12 08:44:31",
+            "index":21,
+            "item_gs":[
+                {
+                    "id":18,
+                    "item_id":23,
+                    "gs_name":"早退扣款",
+                    "gs_short":"getLeave",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-09-12 08:45:10"
+                }
+            ]
+        },
+        {
+            "id":24,
+            "item_name":"翻斗车补助",
+            "is_del":0,
+            "act_time":"2019-10-16 10:34:40",
+            "index":22,
+            "item_gs":[
+                {
+                    "id":42,
+                    "item_id":24,
+                    "gs_name":"翻斗车补助",
+                    "gs_short":"fdcbz",
+                    "gs_content":"翻斗车，每车补助10元",
+                    "is_del":0,
+                    "act_time":"2019-10-16 11:16:59"
+                }
+            ]
+        },
+        {
+            "id":25,
+            "item_name":"月度绩效",
+            "is_del":0,
+            "act_time":"2019-10-17 10:52:07",
+            "index":23,
+            "item_gs":[
+                {
+                    "id":43,
+                    "item_id":25,
+                    "gs_name":"月度绩效",
+                    "gs_short":"ydjx",
+                    "gs_content":"",
+                    "is_del":0,
+                    "act_time":"2019-10-17 10:51:59"
+                }
+            ]
+        },
+        {
+            "id":26,
+            "item_name":"垫资利息",
+            "is_del":0,
+            "act_time":"2019-11-05 09:42:14",
+            "index":24,
+            "item_gs":[
+                {
+                    "id":44,
+                    "item_id":26,
+                    "gs_name":"代理商垫资利息",
+                    "gs_short":"dlsdzlx",
+                    "gs_content":"减垫资合同户的借款利息（当天借款金额*0.0005/天*天数）",
+                    "is_del":0,
+                    "act_time":"2019-11-05 10:11:51"
+                }
+            ]
+        }
+    ],
+    "code":0
+}

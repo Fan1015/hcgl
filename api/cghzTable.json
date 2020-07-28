@@ -1,0 +1,272 @@
+{
+    "code":0,
+    "count":0,
+    "data":[
+        {
+            "run_id":"623221",
+            "station_name":"山立搅拌站",
+            "wuzileibie":"原材料",
+            "applicant":"张富豪",
+            "fb_time":"2020-06-26 17:55:15",
+            "table_data":[
+                {
+                    "gys_name":"王建波（河沙）",
+                    "yl_name":"河砂",
+                    "guige":"河砂",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"123.00 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"",
+                    "fk_method":"",
+                    "sh_status":"",
+                    "explain":""
+                },{
+                    "gys_name":"王建波（河沙）",
+                    "yl_name":"河砂",
+                    "guige":"河砂",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"123.00 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"",
+                    "fk_method":"",
+                    "sh_status":"",
+                    "explain":""
+                },{
+                    "gys_name":"王建波（河沙）",
+                    "yl_name":"河砂",
+                    "guige":"河砂",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"123.00 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"",
+                    "fk_method":"",
+                    "sh_status":"",
+                    "explain":""
+                }
+            ]
+
+        },{
+            "run_id":"623219",
+            "station_name":"山立搅拌站",
+            "wuzileibie":"原材料",
+            "applicant":"李秀娟",
+            "fb_time":"2020-06-26 17:53:38",
+            "table_data":[
+                {
+                    "gys_name":"王亚彬",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"141.6 | |",
+                    "xj_bj":"141.6 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"141.60",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                }, {
+                    "gys_name":"李晨丽",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"50",
+                    "cd_bj":"139.2 | |",
+                    "xj_bj":"139.2 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"139.2",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                }, {
+                    "gys_name":"康银苹",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"132.80 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"132.80",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                }, {
+                    "gys_name":"刘新玲（石子）",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"200",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"139.20 | |",
+                    "zhangqi":"",
+                    "chandi":"巩义",
+                    "yunfei":"",
+                    "price":"139.20",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                }, {
+                    "gys_name":"王梦柯（石子）",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"50",
+                    "cd_bj":"137.6 | |",
+                    "xj_bj":"137.6 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"137.60",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                }
+            ]
+
+        }, {
+            "run_id":"623218",
+            "station_name":"恒昌搅拌站",
+            "wuzileibie":"原材料",
+            "applicant":"赵志勇",
+            "fb_time":"2020-06-26 17:53:11",
+            "table_data":[
+                {
+                    "gys_name":"王建波（河沙）",
+                    "yl_name":"河砂",
+                    "guige":"河砂",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"200",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"121.00 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"121.00",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                }
+            ]
+
+        }, {
+            "run_id":"623219 ",
+            "station_name":"山立搅拌站",
+            "wuzileibie":"原材料",
+            "applicant":"赵志勇",
+            "fb_time":"2020-06-26 17:53:38",
+            "table_data":[
+                {
+                    "gys_name":"王亚彬",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"141.6 | |",
+                    "xj_bj":"141.6 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"141.60",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                }, {
+                    "gys_name":"李晨丽",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"50",
+                    "cd_bj":"139.2 | |",
+                    "xj_bj":"139.2 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"139.20",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                },{
+                    "gys_name":"康银苹",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"100",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"132.80 | |",
+                    "zhangqi":"15",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"132.80",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                },{
+                    "gys_name":"刘新玲（石子）",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"200",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"132.80 | |",
+                    "zhangqi":"15",
+                    "chandi":"巩义",
+                    "yunfei":"",
+                    "price":"132.80",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                },{
+                    "gys_name":"王梦柯（石子）",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"50",
+                    "cd_bj":"137.6 | |",
+                    "xj_bj":"137.6 | |",
+                    "zhangqi":"",
+                    "chandi":"",
+                    "yunfei":"",
+                    "price":"137.60",
+                    "fk_method":"一次承兑",
+                    "sh_status":"已审核",
+                    "explain":""
+                },{
+                    "gys_name":"张洪蛟（石子）",
+                    "yl_name":"石子",
+                    "guige":"1-2",
+                    "xq_num":"1000 (方)",
+                    "bj_num":"300",
+                    "cd_bj":"0 | |",
+                    "xj_bj":"131.00 | |",
+                    "zhangqi":"15",
+                    "chandi":"巩义",
+                    "yunfei":"",
+                    "price":"131.00",
+                    "fk_method":"一次现金",
+                    "sh_status":"已审核",
+                    "explain":""
+                }
+            ]
+
+        }
+    ]
+}

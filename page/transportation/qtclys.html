@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>其它车辆运输信息</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        其它车辆运输信息
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 车号 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 50px;">车号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="car_num"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 车号 -->
+        <!-- start 开始时间选择 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+            <label class="layui-form-label">查询时间：</label>
+            <div class="layui-input-inline" style="margin-right:5px">
+                <input type="text" id="starttime" name="starttime" autocomplete="off" class="layui-input bigInput" placeholder="起始日期">
+                <span class="dateiconb" style="top:3px">
+                    <i class="layui-icon layui-icon-date"></i>
+                </span>
+            </div>
+            <span>-</span>
+            <div class="layui-input-inline" style="margin-left:5px">
+                <input type="text" id="endtime" name="endtime" autocomplete="off" class="layui-input bigInput" placeholder="结束日期">
+                <span class="dateiconb" style="top:3px">
+                    <i class="layui-icon layui-icon-date"></i>
+                </span>
+            </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <!-- <div class="layui-inline" style="float: left;">
+            <button class="hcbtn reload" type="button">
+              刷新
+            </button>
+          </div> -->
+          
+        </div>
+        <div class="layui-inline" style="float: right;">
+          <button class="hcbtn export" type="submit">导出</button>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table
+          class="layui-hide"
+          id="qtclysTable"
+          lay-filter="qtclystest"
+        ></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+
+      var alldata = null;
+      // 点击查询
+      $(".search").click(function () {
+          //执行重载
+          table.reload("qtclysReload", {
+            page: {
+              curr: 1, //重新从第 1 页开始
+            },
+            where: {
+              start_time:  $('#starttime').val(),
+              end_time:  $('#endtime').val(),
+              car_num:  $('#car_num').val()
+            },
+          });
+      });
+      $(".export").click(function () {
+        var url = qtclysTable.config.url;
+        var alllen = alldata.count ? alldata.count : alldata.data.length;
+        var ind = layer.load();
+        exportAllData({
+          url: url,
+          data:{
+            start_time:  $('#starttime').val(),
+            end_time:  $('#endtime').val(),
+            car_num:  $('#car_num').val(),
+          },
+          length: alllen,
+          export (res) {
+            console.log(res)
+            layer.close(ind)
+            table.exportFile("qtclysReload", res, "xls");
+          }
+        })
+      });
+      $(".reload").click(function(){
+          location.reload();
+      })
+      //开始时间选择
+      laydate.render({
+        elem: "#starttime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#endtime",
+        done: function (value, date) {},
+      });
+      // 初始化表格数据
+      var qtclysTable = tableRender({
+        elem: "#qtclysTable",
+        // url: "../assets/api/qtclysTable.json",
+        url: baseUrl + '/hcms/trans/other_info',
+        where:{
+          // ht_num: $('#ht_num').val(),
+          start_time:  $('#starttime').val(),
+          end_time:  $('#endtime').val(),
+          car_num:  $('#car_num').val()
+        },
+        cols: [
+          [
+            { field: "id", title: "序号", width: 100, sort: true },
+            { field: "send_id", title: "出货编号", width: 150 },
+            { field: "car_num", title: "车号",width: 120 },
+            { field: "user_name", title: "司机",width: 100 },
+            { field: "upperDistance", title: "去程距离/km", width: 130 },
+            { field: "lowerDistance", title: "返程距离/km", width: 130 },
+            { field: "goTime", title: "去程时间", width: 150, templet: function (d) {
+                if (d.goTime == 0) {
+                  return "无";
+                }
+                return time(d.goTime / 1000);
+              },
+            },
+            { field: "kickback", title: "返程时间", width: 150, templet: function (d) {
+                if (d.kickback == 0) {
+                  return "无";
+                }
+                return time(d.kickback / 1000);
+              },
+            },
+            { field: "startTime", title: "出发时间", width: 170 },
+            { field: "arriveTime", title: "到达时间", width: 170 },
+            { field: "returnTime", title: "返回时间", width: 170 },
+            { field: "backTime", title: "回到时间", width: 170 }
+          ]
+        ],
+        id: "qtclysReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 13,
+        done: function (res) {
+          alldata = res
+        },
+      });
+
+      function time(value) {
+        var y = Math.floor(value/(365*24*60*60)) > 0 ? Math.floor(value/(365*24*60*60)) + '年' : '';
+        var yRem = value%(365*24*60*60);
+        var m = Math.floor(yRem/(30*24*60*60)) > 0? Math.floor(yRem/(30*24*60*60)) + '月' : '';
+        var mRem = yRem%(30*24*60*60);
+        var d = Math.floor(mRem/(24*60*60)) > 0 ? Math.floor(mRem/(24*60*60)) + '天' :'';
+        var dRem = mRem%(24*60*60);
+        var h = Math.floor(dRem/(60*60)) > 0 ? Math.floor(dRem/(60*60)) + '小时' :'';
+        var hRem = dRem%(60*60);
+        var mi = Math.floor(hRem/60) > 0 ? Math.floor(hRem/60) + '分' :'';
+        var miRem = hRem%60;
+        var s = Math.round(miRem) + '秒';
+        return y + m + d + h + mi + s;
+    }
+    </script>
+  </body>
+</html>

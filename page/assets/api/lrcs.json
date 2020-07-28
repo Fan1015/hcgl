@@ -1,0 +1,115 @@
+{
+	"count": 26,
+	"data": [{
+		"id": 3,
+		"wuliao_num": 1000000002,
+		"wuliao_name": "中联42.5",
+		"units": "公斤",
+		"price1": "0",
+		"price2": "0",
+		"price3": "0",
+		"create_time": null,
+		"update_time": "2019-08-12 11:16:07",
+		"bom_title": "zl425"
+	}, {
+		"id": 13,
+		"wuliao_num": 1000000002,
+		"wuliao_name": "登封52.5",
+		"units": "公斤",
+		"price1": "0",
+		"price2": "0",
+		"price3": "0",
+		"create_time": null,
+		"update_time": "2019-08-12 11:17:30",
+		"bom_title": "df525"
+	}, {
+		"id": 23,
+		"wuliao_num": 1000000003,
+		"wuliao_name": "金隅52.5",
+		"units": "公斤",
+		"price1": "0",
+		"price2": "0",
+		"price3": "0",
+		"create_time": null,
+		"update_time": "2019-08-12 11:18:21",
+		"bom_title": "jy525"
+	}, {
+		"id": 14,
+		"wuliao_num": 1000000004,
+		"wuliao_name": "矿粉",
+		"units": "公斤",
+		"price1": "0.",
+		"price2": "0.",
+		"price3": "0.",
+		"create_time": null,
+		"update_time": "2020-04-18 17:03:38",
+		"bom_title": "kf"
+	}, {
+		"id": 12,
+		"wuliao_num": 1000000005,
+		"wuliao_name": "煤灰",
+		"units": "公斤",
+		"price1": "0.",
+		"price2": "0.",
+		"price3": "0.",
+		"create_time": null,
+		"update_time": "2020-04-18 17:03:46",
+		"bom_title": "mh"
+	}, {
+		"id": 2,
+		"wuliao_num": 1000000006,
+		"wuliao_name": "1-2",
+		"units": "公斤",
+		"price1": "0.0",
+		"price2": "0.0",
+		"price3": "0.0",
+		"create_time": null,
+		"update_time": "2020-04-18 17:03:54",
+		"bom_title": "12ston"
+	}, {
+		"id": 1,
+		"wuliao_num": 1000000007,
+		"wuliao_name": "0.5-1",
+		"units": "公斤",
+		"price1": "0.0",
+		"price2": "0.0",
+		"price3": "0.0",
+		"create_time": null,
+		"update_time": "2020-04-18 17:04:02",
+		"bom_title": "51ston"
+	}, {
+		"id": 25,
+		"wuliao_num": 1000000008,
+		"wuliao_name": "1-3",
+		"units": "公斤",
+		"price1": "0.",
+		"price2": "0.",
+		"price3": "0.",
+		"create_time": null,
+		"update_time": "2020-04-18 17:04:11",
+		"bom_title": "13ston"
+	}, {
+		"id": 18,
+		"wuliao_num": 1000000009,
+		"wuliao_name": "米石",
+		"units": "公斤",
+		"price1": "0.0",
+		"price2": "0.0",
+		"price3": "0.0",
+		"create_time": null,
+		"update_time": "2020-04-18 17:06:02",
+		"bom_title": "ms"
+	}, {
+		"id": 7,
+		"wuliao_num": 1000000010,
+		"wuliao_name": "机制砂",
+		"units": "公斤",
+		"price1": "0.0",
+		"price2": "0.",
+		"price3": "0.0",
+		"create_time": null,
+		"update_time": "2020-04-18 17:04:21",
+		"bom_title": "jzs"
+	}],
+	"code": 0
+}

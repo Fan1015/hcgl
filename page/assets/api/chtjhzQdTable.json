@@ -1,0 +1,37 @@
+{
+    "data":[
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"C20",
+            "fangs":56.02
+        },
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"C25",
+            "fangs":604.79
+        },
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"C30",
+            "fangs":89.52
+        },
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"C35",
+            "fangs":40.62
+        },
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"C40",
+            "fangs":65
+        },
+        {
+            "send_time":"2020-07-08",
+            "strong_lv":"水",
+            "fangs":6.9
+        }
+    ],
+    "code":0,
+    "msg":"",
+    "count":3
+}

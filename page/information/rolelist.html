@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>管理系统角色管理</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">管理系统角色管理</p>
+            
+        </div>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="role" id="roleName" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn add">添加</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+        
+    </div>
+    <script type="text/html" id="barDemo">
+    	<a lay-event="accredit" style="">授权</a>
+        <a lay-event="appAccredit " style="">移动端授权</a>
+        <a lay-event="edit" style="">编辑</a>
+        <a lay-event="del" style="">删除</a>
+    </script>
+    <script type="text/html" id="layerTpl">
+    	<div class="layui-form layerin" style="padding:20px">
+            <input type="hidden" name="g_id">
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label"><span class="redfont">*</span>&nbsp;角色名称</label>
+	            <div class="layui-input-inline" style="float:left;margin-left:20px">
+	               <input type="text" name="title" autocomplete="off" class="layui-input bigInput">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label"><span class="redfont">*</span>&nbsp;站点</label>
+	            <div class="layui-input-inline" id="station" style="width:200px;float:left;margin-left:20px;">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px;">
+	        	<label class="layui-form-label"><span class="redfont">*</span>&nbsp;公司名称</label>
+	            <div class="layui-input-inline" id="comboxe" style="width:200px;float:left;margin-left:20px;">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px;">
+                <label class="layui-form-label">默认首页</label>
+                <div class="layui-input-inline" style="float:left;margin-left:20px;">
+                    <input type="text" name="index_href" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/xm-select/dist/xm-select.js" charset="utf-8"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        var table = layui.table;
+        var form = layui.form;
+        var laydate = layui.laydate;
+        var layer = layui.layer;
+
+        var allData = null;
+
+        var comlist = [
+            {name: '恒昌建材', value: 1000},
+            {name: '伟治建材', value: 1010},
+            {name: '山立建材', value: 2000},
+            {name: '银河建筑', value: 3000},
+            {name: '万昌运输', value: 5000},
+            {name: '技术服务', value: 6000},
+            {name: '资金事业部', value: 7000},
+            {name: '行政事业部', value: 8000},
+            {name: '元博软件', value: 9000}
+        ];
+        var stationList = [
+            {name:'太龙',value:'太龙'},
+            {name:'山立',value:'山立'},
+            {name:'伟治',value:'伟治'},
+        ]
+        $('.reload').click(function(){
+            location.reload();
+        });
+        // 添加按钮
+        $('.add').click(function(){
+            layerMsg({
+                title:'编辑角色',
+                success(){
+                    checkSelect('#comboxe','com_code',comlist);
+                    checkSelect('#station','station',stationList);
+                    var title = $('#roleName').val();
+                    $('[name=title]').val(title);
+                    form.render();
+                },
+                yes(){
+                    var data = formData('.layerin')
+                    var url = '/hcms/group/add_group';
+                    if(!data.title || !data.station || !data.com_code){
+                        layer.msg('必填项，不能为空');
+                        return false;
+                    }
+                    promiseSovl(url,'post',data).then(function(res){
+                        if(res.code == 0){
+                            layer.msg('添加成功',{time:2000}, function(){
+                                location.reload()
+                            })
+                        }else{
+                            layer.msg(res.msg)
+                        }
+                    })
+                },
+                reset(){
+                    checkSelect('#comboxe','com_code',comlist);
+                    checkSelect('#station','station',stationList);
+                    var title = $('#roleName').val();
+                    $('[name=title]').val(title);
+                    $('[name=index_href]').val('');
+                    return false
+                }
+            })
+        });
+
+        //监听角色转换开关
+        form.on('switch()', function(data){
+            var index = $(this).parents('tr').index();
+            var newStatus = data.elem.checked ? 1 : 2;
+            var data = {
+                g_id: allData[index].id,
+                status: newStatus
+            };
+            var url = '/hcms/group/change_status';
+            promiseSovl(url,'get',data).then(function(res){
+                if(res.code == 0){
+                    layer.msg(res.msg,{time:2000},function(){
+                        location.reload();
+                    });
+                }else {
+                    layer.msg(res.msg,{time:2000});
+                }
+            });
+        });
+
+        // 表格数据编辑
+        table.on('tool(ddtest)', function(obj) {
+            console.log(obj)
+            // 授权
+            if (obj.event == 'accredit') {
+                var url = '/hcms/group/change_auth'
+                layer.open({
+                    title: '角色授权',
+                    type: 2,
+                    area:['400px','550px'],
+                    btn: ['确定','重置'],
+                    content:'./authtorole.html#g_id=' + obj.data.id,
+                    success(layero, index){ 
+                        // var iframe = window['layui-layer-iframe' + index];
+                        // // 向子页面的全局函数child传参
+                        // iframe.getGID(obj.data.id);
+                    },
+                    btn1(index,layer0) {
+                        
+                        var checkedData = $('#layui-layer-iframe'+ index)[0].contentWindow.tree.getChecked('auth_tree');
+                        if (checkedData.length <= 0) {
+                            layer.msg('请勾选权限', {icon: 2});
+                            return false;
+                        }
+                        var id = obj.data.id;
+                        var index = layer.confirm('确认授权!', {icon: 3, title: '提示'}, function () {
+                            var data = {auth_list: JSON.stringify(checkedData), g_id: id};
+                            var url = '/hcms/group/change_auth';
+                            promiseSovl(url, 'post', data).then(function (res) {
+                                if (res.code == 0) {
+                                    layer.msg('授权成功', {time: 2000}, function () {
+                                        parent.layer.closeAll();
+                                        parent.layui.table.reload('group');
+                                    })
+                                }
+                            }).catch(function () {
+
+                            });
+                        });
+                    },
+                    btn2(index,layero){
+                        $('#layui-layer-iframe'+ index)[0].contentWindow.tree.reload('auth_tree', {});
+                    }
+                })
+            } else if (obj.event == 'appAccredi'){
+                //移动端授权
+            } else if (obj.event == 'edit') {
+                //编辑
+                var comSele = obj.data.com_code.split(',');
+                var stationSele = obj.data.station.split(',');
+                // 编辑公司数据
+                for(var i = 0;i < comSele.length;i++){
+                    for(var j = 0;j < comlist.length;j++){
+                        if(comSele[i] == comlist[j].value){
+                            comlist[j].selected = true
+                        }
+                    }
+                }
+                // 编辑站点数据
+                for(var i = 0;i < stationSele.length;i++){
+                    for(var j = 0;j < stationList.length;j++){
+                        if(stationSele[i] == stationList[j].value){
+                            stationList[j].selected = true
+                        }
+                    }
+                }
+                layerMsg({
+                    title:'编辑角色',
+                    success(){
+                        checkSelect('#comboxe','com_code',comlist);
+                        checkSelect('#station','station',stationList);
+                        var title = $('#roleName').val();
+                        $('[name=g_id]').val(obj.data.id);
+                        $('[name=title]').val(obj.data.title);
+                        $('[name=index_href]').val(obj.data.index_href);
+                        form.render();
+                    },
+                    yes(){
+                        var data = formData('.layerin')
+                        var url = '/hcms/group/edit_group';
+                        if(!data.title || !data.station || !data.com_code){
+                            layer.msg('必填项，不能为空');
+                            return false;
+                        }
+                        promiseSovl(url,'post',data).then(function(res){
+                            if(res.code == 0){
+                                layer.msg('编辑成功',{time:2000}, function(){
+                                    location.reload()
+                                })
+                            }else{
+                                layer.msg(res.msg)
+                            }
+                        });
+                    },
+                    reset(){
+                        checkSelect('#comboxe','com_code',comlist);
+                        checkSelect('#station','station',stationList);
+                        var title = $('#roleName').val();
+                        $('[name=g_id]').val(obj.data.id);
+                        $('[name=title]').val(obj.data.title);
+                        $('[name=index_href]').val(obj.data.index_href);
+                        form.render();
+                        return false
+                    }
+                })
+            } else if (obj.event == 'del') {
+                //删除
+                var url = '/hcms/group/del_group'
+                var data = {g_id: obj.data.id}
+                layer.confirm('确定要删除吗？',function(){
+                    promiseSovl(url,'get',data).then(function(res){
+                        if(res.code == 0){
+                            layer.msg('删除成功',{time:2000}, function(){
+                                location.reload()
+                            })
+                        }
+                    })
+                })
+                
+            }
+        });
+
+        // 窗口大小改变事件
+        window.onresize = function() {
+            listReisze()
+        }
+        listReisze()
+        
+        var tableIns = tableRender({
+            elem: '#ddtest',
+            // url: '../assets/api/rolelist.json',
+            url: baseUrl + '/hcms/group/group_list',
+            cols: [[
+                {field: 'id',title: 'ID'}, 
+                {field: 'title', title: '角色', minWidth: 170}, 
+                {field: 'belong', title: '所属'},
+                {field: 'status', title: '状态',templet(obj){
+                	if(obj.status == 1){
+                		return '<input type="checkbox" name="yyy" lay-skin="switch" lay-text="开启|关闭" checked>'
+                	}else{
+                		return '<input type="checkbox" name="yyy" lay-skin="switch" lay-text="开启|关闭">'
+                	}
+                }}, 
+                {title: '操作', width:280, toolbar:'#barDemo',align:"center"}
+            ]],
+            even: true,
+            page: true,
+            skin:'row',
+            limit:15,
+            limits:[15,30,45,60],
+            done: function(res) {
+                allData = res.data
+            },
+            id:'group'
+        });
+
+        function layerMsg(param){
+            layer.open({
+                type:1,
+                title:param.title,
+                area:['400px','550px'],
+                btn:['确定','重置'],
+                content: $('#layerTpl').html(),
+                success(){
+                    param.success();
+                },
+                btn1(obj){
+                    param.yes();
+                },
+                btn2(objer){
+                    param.reset();
+                },
+                cancel(){
+                    for(var i = 0;i < comlist.length;i++){
+                        delete comlist[i].selected
+                    }
+                    for(var i = 0;i < stationList.length;i++){
+                        delete stationList[i].selected
+                    }
+                }
+            });
+        }
+        
+    </script>
+</body>
+</html>

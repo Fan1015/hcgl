@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>搅拌车出货统计</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+        <!-- title标题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">搅拌车出货统计</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+            type="text"
+            id="start"
+            placeholder=""
+            autocomplete="off"
+            class="layui-input bigInput"
+          />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+        
+        <!-- start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn site">导出</button>
+          </div>
+        </div>
+        <!-- end 搜索导出按钮-->
+      </div>
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="tl" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+
+    //   // 点击查询
+    //   $(".search").click(function () {
+    //     var obj = {
+    //       date1: $("#start").val(), //开始时间字段，注意修改
+    //       date2: $("#end").val(), //结束时间字段，注意修改
+    //     };
+    //     console.log(obj);
+    //     // tableIns.reload({
+    //     //   where: obj,
+    //     //   page: {
+    //     //     curr: 1, //重新从第 1 页开始
+    //     //   },
+    //     // });
+    //   });
+    //   $(".site").click(function () {
+    //     console.log("导出按钮");
+    //   });
+      //开始时间选择
+      laydate.render({
+        elem: "#start",
+        done: function (value, date) {
+         
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end",
+        done: function (value, date) {
+         
+        },
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#tl",
+        url: "../assets/api/chtjCarIdTable.json",
+        // cellMinWidth: 80,
+        cols: [
+          [
+            { field: "time", title: "日期", sort: true ,width:170},
+            { field: "chehao", title: "车号",width:100 },
+            { field: "cheshu", title: "车数",width:90 },
+            { field: "yunju", title: "运距",width:90 },
+            { field: "fang", title: "方量",width:100 },
+            { field: "bz_yf", title: "标准运费",width:100 },
+            { field: "xfl_yf", title: "小方量补运费",width:150 },
+            { field: "cs_yf", title: "超时费",width:90 },
+            { field: "ws_yf", title: "误时费",width:90 },
+            { field: "yunfei", title: "运费合计",width:120 }
+          ]
+        ],
+        id:"testReload",
+        even: true,
+        page: true,
+        skin:"row",
+        limit: 13,
+        done: function (res) {
+         
+        }
+      });
+
+      $(".search").click(function () {
+        var start = $("#start").val();
+        var end = $("#end").val();
+        if (start == "" || end == "") {
+          alert("请完善搜索条件！");
+        } else {
+          //执行重载
+          table.reload("testReload", {
+            page: {
+              curr: 1, //重新从第 1 页开始
+            },
+            where: {
+              zd1: $("#start").val(),
+              zd3: $("#end").val(),
+              type: "search",
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

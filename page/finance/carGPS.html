@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=WDnO4ZB2V7e3SU8wGepgAQ97g3tvHe4N"></script>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/menuicon/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>车辆GPS</title>
+    <style>
+    	.mapbox{
+    		width:100%;
+    		height:100%;
+    		padding-right:200px;
+    	}
+    	#allmap{
+    		width:100%;
+    		height:100%;
+    	}
+    	#search_track{
+    		width:361px;
+    		height:100%;
+    		padding:30px 30px 30px 0;
+    		position:absolute;
+    		top:0;
+    		right:0;
+    		margin: auto;
+    		z-index:2;
+    	}
+    	#search_track input{
+    		width:203px;
+    	}
+    	.carboxed{
+    		width:100%;
+    		height:100%;
+    		box-shadow: 0 0 8px 5px #ccc;
+    		background:#fff;
+    		padding:20px;
+    		border-radius:8px;
+    	}
+    	#treemodule *{
+    		box-sizing: content-box;
+    	}
+    	#treemodule .layui-tree-entry{
+    		height:25px;
+    		
+    	}
+    	.layui-tree-txt{
+    		font-size:16px;
+    		color:#333;
+    	}
+    </style>
+</head>
+<body>
+	<div id="search_track" style="">
+		<div class="carboxed">
+			<div class="layui-inline hcbig clearfix">
+			    <div class="layui-input-inline" style="float:left">
+			        <input type="text" name="starttime" id="starttime" autocomplete="off" class="layui-input bigInput">
+			    </div>
+			    <div class="layui-input-inline" style="float:left;margin:0">
+			        <button class="hcbtn search">搜索</button>
+			    </div>
+			</div>
+			<div class="layui-inline" style="margin:15px 0">
+		        <button class="hcbtn hcbtn2 checkgj">查看轨迹</button>
+		    </div>
+		    <div>
+		    	<ul class="cartypeul clearfix">
+		    		<li class="caritem focus">全部</li>
+		    		<li class="caritem">出发</li>
+		    		<li class="caritem">返回</li>
+		    		<li class="caritem">回到</li>
+		    		<li class="caritem">到达</li>
+		    	</ul>
+		    	<div>
+		    		<div id="treemodule" class="demo-tree-more"></div>
+		    	</div>
+		    </div>
+		    <div>
+		    	<ul class="fastmsg clearfix">
+		    		<li class="caritem focus" style="">超速报警</li>
+		    		<li class="clearfast" style="float:right;cursor:pointer">
+		    			<span>清除</span>
+		    			<span class="redfont"><i class="iconfont">&#xebf8;</i></span>
+		    		</li>
+		    	</ul>
+		    	<ul class="fastlist">
+		    		<li class="csbjlit">
+						<span class="redfont"><i class="layui-icon layui-icon-notice"></i></span>
+						<span>豫A1997V号车超速，时速63.62km/h 2020-04-30 10:30:00</span></br>
+						<span>
+							87号车超速，时速63.62km/h
+							<span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span>
+						</span>
+						
+					</li>
+					<li class="csbjlit">
+						<span class="redfont"><i class="layui-icon layui-icon-notice"></i></span>
+						<span>豫A1997V号车超速，时速63.62km/h 2020-04-30 10:30:00</span></br>
+						<span>
+							87号车超速，时速63.62km/h
+							<span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span>
+						</span>
+						
+					</li>
+					<li class="csbjlit">
+						<span class="redfont"><i class="layui-icon layui-icon-notice"></i></span>
+						<span>豫A1997V号车超速，时速63.62km/h 2020-04-30 10:30:00</span></br>
+						<span>
+							87号车超速，时速63.62km/h
+							<span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span>
+						</span>
+						
+					</li>
+		    	</ul>
+		    </div>
+		</div>
+	</div>
+	<div class="mapbox">
+		<div id="allmap"></div>
+	</div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+	<script src="../../assets/js/common.js"></script>
+    <script type="text/javascript">
+	var tree = layui.tree;
+
+	//车辆类型
+	$.ajax({
+		url:'../assets/api/carTree.json',
+		success: (res) => {
+			console.log(res)
+			//无连接线风格
+			tree.render({
+				elem: '#treemodule',
+				data: res,
+				field:'name',
+				showLine: false  //是否开启连接线
+			});
+		}
+	});
+	
+	//
+	$('.checkgj').click(function(){
+		layer.open({
+			type:2,
+			area:['80%','80%'],
+			title:'车辆轨迹',
+			content:'../dispatch/adcartrack.html',
+			success:function(index,layero){
+				console.log(index)
+			}
+		})
+	})
+	// 车辆类型tab
+	$('.cartypeul .caritem').click(function(){
+		$(this).addClass('focus').siblings().removeClass('focus')
+	});
+ 	// 清除超速报警
+ 	$('.clearfast').click(function(){
+
+ 	})
+ 	// 删除一个超速报警
+ 	$('.csbjlit .closed').click(function(){
+ 		
+ 	})
+
+
+ 	//车辆类型
+	$.ajax({
+		url:'../assets/api/carGPS.json',
+		success: (data) => {
+			console.log(data)
+			 map.clearOverlays()
+            for (var i = 0; i < data.count; i++) {
+                cloStatus = data.data[i].curr_status;
+                car_cate   = checkCarCate(data.data[i].car_type_app);
+                var colanim = getColAndIm(data.data[i].curr_status,car_cate);
+                var is_power = '';
+                if(data.data[i].curr_power !== null){
+                    is_power = '--<b style="color: red;">未启动</b>';
+                    if(data.data[i].curr_power !== 0) 
+                    	is_power = '--<b style="color: green;">已启动</b>';
+                }
+                var content ='车号:' + data.data[i].car_num + '--' + data.data[i].curr_status + is_power + '<br>速度:' +  Math.round(data.data[i].curr_speed*100)/100 +'km/h<br>任务单号:' + data.data[i].ht_num + '<br>' + data.data[i].curr_time.substr(5)+ mapcircle(colanim[0],data.data[i].curr_status);
+                
+                var ggPoint = new BMap.Point(data.data[i].curr_longitude, data.data[i].curr_latitude);
+                
+                myIcon = new BMap.Icon(colanim[1], new BMap.Size(50, 52),{});
+                var marker = new BMap.Marker(ggPoint); // 创建标注
+                marker.setIcon(myIcon);
+                map.addOverlay(marker); // 将标注添加到地图中
+                var label = new BMap.Label(content, { offset: new BMap.Size(50, -26) });
+                label.setStyle({
+                    border: 'none',
+                    // border: '1px solid ' + colanim[0],
+                    borderRadius:'4px',
+                    padding:'8px',
+                    paddingRight:'20px',
+                    color: colanim[0],
+                    boxShadow:'0 2px 6px 1px #ccc'
+                });
+                marker.setLabel(label);
+                addClickHandler(data.data[i].car_num, marker);
+                // if($('#memory').val() != ''){
+                //     var new_Point = new BMap.Point(data.data[0].curr_longitude, data.data[0].curr_latitude);
+                //     map.panTo(new_Point);
+                //     break;
+                // }
+            }
+		}
+	});
+	function mapcircle(color,text){
+		if(text){
+			var t = text.substr(0,1)
+			console.log(t)
+			t = t == '出' ? '发' : t;
+			return '<div class="mapcircle" style="border:2px solid '+color+';color:'+color+'">'+t+'</div>'
+		}else{
+			return ''
+		}
+	}
+    var map = new BMap.Map("allmap");
+
+    map.centerAndZoom("巩义");
+    map.setCurrentCity("巩义"); //设置为衡阳
+    // map.addControl(new BMap.MapTypeControl()); //可拖拽
+    map.enableScrollWheelZoom(true); //滚轮实现方法缩小
+
+    var sy = new BMap.Symbol(BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+	    scale: 0.6,//图标缩放大小
+	    strokeColor:'#18c7b9',//设置矢量图标的线填充颜色
+	    strokeWeight: '2',//设置线宽
+	    rotation:120
+	});
+	var point1 = new BMap.Point(113.054408, 34.761712);
+	var point2 = new BMap.Point(113.231129, 34.761447)
+	var icons = new BMap.IconSequence(sy, '10', '10');
+	//检测车辆类型
+	function checkCarCate(car_cate) {
+	    var imageUrl = '';
+	    switch (car_cate) {
+	        case '罐车':
+	            imageUrl = '/assets/image/icon/gc';
+	            break;
+	        case '泵车':
+	            imageUrl = '/assets/image/icon/bc';
+	            break;
+	        case '行政用车':
+	            imageUrl = '/assets/image/icon/xzyc';
+	            break;
+	        default:
+	            //其他车型暂用罐车图片
+	            imageUrl = '/assets/image/icon/gc';
+	            break;
+	    }
+	    return imageUrl;
+	}
+
+	//根据车辆状态返回不同颜色,和图片
+	function getColAndIm(cloStatus,carCate){
+	    var clo = '';
+	    switch (cloStatus) {
+	        case '出发':
+	            clo = '#e7770e';
+	            iconUrl = car_cate + '/1.png';
+	            break;
+	        case '到达':
+	            clo = '#1F9FFF';
+	            iconUrl = car_cate + '/2.png';
+	            break;
+	        case '回到':
+	            clo = '#009688';
+	            iconUrl = car_cate + '/3.png';
+	            break;
+	        case '返回':
+	            clo = '#D40000';
+	            iconUrl = car_cate + '/4.png';
+	            break;
+	        case '正常':
+	            clo = '#BC0F95';
+	            iconUrl = car_cate + '/6.png';
+	            break;
+	        case '返回--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '出发--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '到达--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        case '回到--离线':
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            break;
+	        //没有匹配任务单号的暂时里面图片
+	        default:
+	            clo = '#4E5052';
+	            iconUrl = car_cate + '/5.png';
+	            // statements_def
+	            break;
+	    }
+	    return colandimg= new Array(clo,iconUrl);
+	}
+	//检测点击图标
+	function addClickHandler(content, marker) {
+	    marker.addEventListener("click", function(e) {
+	        // // openInfo(content, e)
+	        // x_admin_show('辅助类型','/admin/dispatch/showtrack.html',1000,600);
+	        // console.log(content);
+	        $('#memory').val(content);
+	        getlive();
+	    });
+	}
+
+    </script>
+</body>
+</html>

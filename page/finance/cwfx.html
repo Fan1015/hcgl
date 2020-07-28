@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>财务分析</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div id="receiveOne" style="width:49%;height:440px"></div>
+            <div style="width:50%;height:440px">
+                <div id="receiveTwo" style="height:210px;margin-bottom:20px"></div>
+                <div id="receiveThr" style="height:210px"></div>
+            </div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div style="width:30%;height:540px;padding:20px;background:#fff">
+                <div id="receiveFor" style="height:260px;margin-bottom:20px"></div>
+                <div id="receiveFiv" style="height:260px"></div>
+            </div>
+            <!-- <div id="receiveFor" style="width:30%;height:540px"></div> -->
+            <div id="receiveSix" style="width:69%;height:540px;padding:20px;background:#fff"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveSen" style="width:30%;height:440px;padding:20px;background:#fff"></div>
+            <div id="receiveEit" style="width:69%;height:440px;padding:20px;background:#fff"></div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+	 <script src="../../assets/js/common.js"></script>
+    <script>
+        
+        window.onresize = function(){
+            var resize = true;
+            receiveOne(resize);
+            receiveTwo(resize);
+            receiveThr(resize);
+            receiveFor(resize);
+            receiveFiv(resize);
+            receiveSix(resize);
+            receiveSen(resize);
+            receiveEit(resize);
+        }
+
+        receiveOne()
+        receiveTwo()
+        receiveThr()
+        receiveFor()
+        receiveFiv()
+        receiveSix()
+        receiveSen()
+        receiveEit()
+        function receiveOne(resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var option = {
+                title: {
+                    text: '关键指标分析',
+                    left:'left'
+                },
+                radar: {
+                    name: {
+                        textStyle: {
+                            color: '#333',
+                        }
+                    },
+                    splitNumber: 3,
+                    shape: 'circle',
+                    splitArea:{
+                        areaStyle:{
+                            color:['#fff','#fff']
+                        }
+                    },
+                    indicator: [
+                        { name: '营业利润率（%）', max: 150},
+                        { name: '应收账款周转率（%）', max: 150},
+                        { name: '资产负债率（%）', max: 150},
+                        { name: '现金比率（%）', max: 150}
+                    ]
+                },
+                series: [{
+                    name: '',
+                    type: 'radar',
+                    lineStyle:{
+                        color: '#3e66f4'
+                    },
+                    areaStyle: {
+                        color: '#3e66f4'
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    data: [
+                        {
+                            value: [50, 50, 50, 110],
+                            name: '关键指标分析'
+                        }
+                    ]
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var option = {
+                title: {
+                    text: '成本管理',
+                    left: 'left'
+                },
+                grid:{
+                    left:20,
+                    right:20
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    left: 'right',
+                    icon:'rect',
+                    itemWidth:15,
+                    itemHeight:15,
+                    data: ['材料成本','制造费用','生产费用']
+                },
+                xAxis: {
+                    type:'value',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    min:0,
+                    max:100,
+                    axisLabel:{
+                        formatter:function(name){
+                            return name + '%'
+                        }
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data:[]
+                },
+                series: [
+                    {
+                        name: '材料成本',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#7bb0ff',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [50]
+                    },
+                    {
+                        name: '制造费用',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#ff9580',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [30]
+                    },
+                    {
+                        name: '生产费用',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#ffbe40',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [20]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveThr(resize){
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '费用管理',
+                    left: 'left'
+                },
+                grid:{
+                    left:20,
+                    right:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    left: 'right',
+                    icon:'rect',
+                    itemWidth:15,
+                    itemHeight:15,
+                    data: ['销售费用','管理费用','财务费用','税金及附加']
+                },
+                xAxis: {
+                    type:'value',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    min:0,
+                    max:100,
+                    axisLabel:{
+                        formatter:function(name){
+                            return name + '%'
+                        }
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data:[]
+                },
+                series: [
+                    {
+                        name: '销售费用',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#7bb0ff',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [30]
+                    },
+                    {
+                        name: '管理费用',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#ff9580',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [30]
+                    },
+                    {
+                        name: '财务费用',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#ffbe40',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [20]
+                    },
+                    {
+                        name: '税金及附加',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:30,
+                        itemStyle:{
+                            emphasis: {
+                                barBorderRadius: 8
+                            },
+                            normal: {
+                                color:'#af87fe',
+                                barBorderRadius: 8
+                            }
+                        },
+                        data: [20]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFor(resize){
+            var myChart = echarts.init(document.getElementById('receiveFor'));
+            var option = {
+                title: {
+                    text: '公司资产负债占比',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    left: 'right',
+                    top: '30px',
+                    icon:'circle',
+                    orient:'vertical',
+                    data: ['负债', '资产']
+                },
+                color:['#7bb0ff','#ff9580'],
+                series: [
+                    {
+                        name: '资产负债占比',
+                        type: 'pie',
+                        radius: [40, 70],
+                        center: ['40%', '60%'],
+                        label: {
+                            show: true,
+                            formatter:'{d}%',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: [
+                            {value: 42,name: '负债'},
+                            {value: 58, name: '资产'}
+                        ]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFiv(resize){
+            var myChart = echarts.init(document.getElementById('receiveFiv'));
+            var option = {
+                title: {
+                    text: '资产结构',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    left: 'right',
+                    top: '30px',
+                    icon:'circle',
+                    orient:'vertical',
+                    data: ['非流动资产', '流动资产']
+                },
+                color:['#af87fe','#ffbe40'],
+                series: [
+                    {
+                        name: '资产结构',
+                        type: 'pie',
+                        radius: [40, 70],
+                        center: ['40%', '50%'],
+                        label: {
+                            show: true,
+                            formatter:'{d}%',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: [
+                            {value: 60,name: '流动资产'},
+                            {value: 40, name: '非流动资产'}
+                        ]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveSix(resize){
+            var myChart = echarts.init(document.getElementById('receiveSix'));
+            var option = {
+                title: {
+                    text: '分公司应收账款',
+                    left: 'left'
+                },
+                grid: {
+                    left: 0,
+                    right: 20,
+                    bottom: 20,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    max:100,
+                    interval:10,
+                    axisLabel:{
+                        formatter:function(name){
+                            return name + '%'
+                        }
+                    },
+                    boundaryGap: [0, 0.01]
+                },
+                yAxis: [{
+                    type: 'category',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    
+                    position: 'left',
+                    type: 'category',
+                    data: ['运输管理', '财务部门', '采购部门', '万昌运输', '山立建材', '恒昌建材', '伟治建材']
+                }],
+                series: [
+                    {
+                        type: 'bar',
+                        barWidth:30,
+                        itemStyle:{
+                            normal: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 0,
+                                    [
+                                        {offset: 0, color: '#ffdbd7'},   
+                                        {offset: 1, color: '#ff9580'}
+                                    ]
+                                ),
+                                barBorderRadius: 10
+                            },
+                             emphasis: {
+                                barBorderRadius: 10
+                            },
+                            
+                        },
+                        data: [66, 66, 50, 70, 50, 80, 70]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveSen(resize){
+            var myChart = echarts.init(document.getElementById('receiveSen'));
+            var legenData = [{
+                name:'中国银行',
+                data:420000,
+                value: 42
+            },{
+                name:'工商银行',
+                data:420000,
+                value: 10
+            },{
+                name:'建设银行',
+                data:420000,
+                value: 20
+            },{
+                name:'农业银行',
+                data:420000,
+                value: 20
+            }]
+            var option = {
+                title: {
+                    text: '贷款分析',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    left: 'left',
+                    bottom: '30px',
+                    icon:'circle',
+                    orient:'vertical',
+                    formatter:function (name) {
+                        for(var i = 0;i < legenData.length;i++){
+                            if(legenData[i].name == name){
+                                return name + '  ' + legenData[i].value + '%  ' + legenData[i].data
+                            }
+                        }
+                    },
+                    data: ['中国银行', '工商银行', '建设银行', '农业银行']
+                },
+                color:['#7bb0ff','#ff9580','#af87fe','#ffbe40'],
+                series: [
+                    {
+                        name: '贷款分析',
+                        type: 'pie',
+                        radius: [60, 90],
+                        center: ['50%', '40%'],
+                        label: {
+                            show: true,
+                            formatter:'{c}%',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: legenData
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveEit(resize){
+            var myChart = echarts.init(document.getElementById('receiveEit'));
+            var option = {
+                title: {
+                    text: '应收款结构',
+                    left: 'left'
+                },
+                grid: {
+                    left: 0,
+                    right: 20,
+                    bottom: 20,
+                    containLabel: true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type: 'category',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    boundaryGap: [0, 0.01],
+                    data: ['货币资金', '短期投资', '应收票据', '应收账款', '应收利息', '其他流动资产']
+                },
+                yAxis: [{
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                }],
+                series: [
+                    {
+                        type: 'bar',
+                        barWidth:20,
+                        itemStyle:{
+                            normal: {
+                                color: '#17c1c1'
+                            }
+                            
+                        },
+                        label:{
+                            show:true,
+                            position:'top'
+                        },
+                        data: [66, 66, 50, 70, 50, 80]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>回款统计</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div id="receiveOne" style="width:100%;height:430px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveTwo" style="width:30%;height:440px"></div>
+            <div id="receiveThr" style="width:69%;height:440px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveFor" style="width:30%;height:440px"></div>
+            <div id="receiveFiv" style="width:69%;height:440px;padding:20px;background:#fff"></div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        window.onresize = function(){
+            var resize = true;
+            receiveOne(resize)
+            receiveTwo(resize)
+            receiveThr(resize)
+            receiveFor(resize)
+            receiveFiv(resize)
+        }
+        // receiveOne()
+        receiveTwo()
+        receiveThr()
+        receiveFor()
+        receiveFiv()
+
+        onxhrstore()
+        
+        function onxhrstore(resize){
+            var datas = getStore('hktjData')
+            datas = datas ? datas : JSON.parse(datas)
+            if(datas && datas.length == 3){
+                // console.log(datas)
+                receiveOne(datas[0].data, resize)
+            }else{
+                var oneUrl = '/hcms/sale/m_receipt';
+                Promise.all([promiseSovl(oneUrl)]).then((res) => {
+                    console.log(res)
+                    receiveOne(res[0].data, resize)
+                    // receiveFor(res[1].data, resize)
+                    setStore('hktjData', JSON.stringify(res))
+                })
+            }
+        }
+        function receiveOne(data, resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var option = {
+                title: {
+                    text: '五月份每日回款统计',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    right:10,
+                    containLabel:true
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                xAxis: {
+                    type: 'category',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    axisLabel:{
+                        rotate:30
+                    },
+                    data: data.date
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [{
+                    lineStyle:{
+                        color:'#ff9580'
+                    },
+                    label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                    data: data.money,
+                    type: 'line'
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var datas = [
+                {value: 35, bfb:40, name: '90天以内'},
+                {value: 30, bfb:10, name: '60天以内'},
+                {value: 35, bfb:10, name: '30天以内'},
+                {value: 35, bfb:16, name: '预期未回款'}
+            ]
+            var option = {
+                title: {
+                    text: '回款期限分析（评分：正常）',
+                    left: 'left'
+                },
+                grid:{
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b} : {c}({d}%)'
+                },
+                legend: {
+                    left: 'left',
+                    bottom: 0,
+                    icon:'circle',
+                    formatter:function(name){
+                        for(var i = 0; i < datas.length;i++){
+                            if(name == datas[i].name){
+                                return name + '  ' + datas[i].bfb + '%'
+                            }
+                        }
+                    },
+                    orient:'vertical',
+                    data: ['90天以内', '60天以内', '30天以内','预期未回款']
+                },
+                color:['#7bb0ff','#ff9580','#af87fe','#ffbe40'],
+                series: [
+                    {
+                        // name: '当日收款',
+                        type: 'pie',
+                        radius: [70, 100],
+                        center: ['50%', '40%'],
+                        label: {
+                            show: true,
+                            formatter:'{c}%',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: datas
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveThr(resize){
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '五月份未逾期客户回款金额统计',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                grid:{
+                    left:40,
+                    right:10
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['已回款','总金额']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['客户1', '客户2', '客户3', '客户4', '客户5']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '已回款',
+                        type: 'bar',
+                        // stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        label: {
+                            show: true,
+                            position:'top'
+                        },
+                        data: [120,100,120,100,120]
+                    },
+                    {
+                        name: '总金额',
+                        type: 'bar',
+                        // stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#17c1c1'
+                        },
+                        label: {
+                            show: true,
+                            position:'top'
+                        },
+                        data: [620,460,620,460,620]
+                        
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFor(resize){
+            var myChart = echarts.init(document.getElementById('receiveFor'));
+            var option = {
+                title: {
+                    text: '客户1逾期'
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                grid:{
+                    containLabel:true,
+                    left:30,
+                    right:30
+                },
+                radar: {
+                    name: {
+                        textStyle: {
+                            color: '#333',
+                            // backgroundColor: '#999',
+                            // borderRadius: 3,
+                            // padding: [3, 5],
+                             nameGap:10
+                        }
+                    },
+                    splitArea:{
+                        areaStyle:{
+                            color:['rgb(216,224,253)','rgb(185,200,251)']
+                        }
+                    },
+                    indicator: [
+                        { name: '销售金额', max: 6500},
+                        { name: '销售数量', max: 16000},
+                        { name: '信誉度', max: 30000},
+                        { name: '逾期原因', max: 38000},
+                        { name: '客户排名', max: 52000}
+                    ]
+                },
+                series: [{
+                    name: '',
+                    type: 'radar',
+                    lineStyle:{
+                        color: '#3e66f4'
+                    },
+                    areaStyle: {
+                        color: '#3e66f4'
+                    },
+                    tooltip: {
+                        trigger: 'item'
+                    },
+                    data: [
+                        {
+                            value: [4300, 10000, 28000, 35000, 50000, 19000],
+                            name: '客户1逾期'
+                        }
+                    ]
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveFiv(resize){
+            var myChart = echarts.init(document.getElementById('receiveFiv'));
+            // 配置项
+            var yAxisData = [0,'红线','低','中','高']
+            var option = {
+                title: {
+                    text: '客户逾期处理（逾期欠款金额大小）',
+                    left: 'left'
+                },
+                grid:{
+                    left:40,
+                    right:10,
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'item'
+                },
+                xAxis: {
+                    type: 'category',
+                    scale:true,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    splitLine:{
+                        show:false
+                    },
+                    data:['客户1', '客户2', '客户3', '客户4', '客户5', '客户5']
+                },
+                yAxis: {
+                    type: 'value',
+                    // scale:true,
+                    splitNumber:4,
+                    axisLine:{
+                        show:false
+                    },
+                    axisLabel:{
+                        formatter: function (value, index) {
+                            return yAxisData[index]
+                        }
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    // data:['0','红线','低','中','高']
+                },
+                series: [{
+                    name: '',
+                    data:  [
+                        [0,26,'D'],
+                        [1,35,'B'],
+                        [2,78,'C'],
+                        [3,21,'A'],
+                        [4,41,'C'],
+                        [5,49,'C'],
+                    ],
+                    type: 'scatter',
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter:function(data){
+                            return data.data[1] + '/' + data.data[2]
+                        }
+                    },
+                    symbolSize: function (data) {
+                        return Math.sqrt(data[1])*5
+                    },
+                    itemStyle: {
+                        color: '#3e66f4'
+                    }
+                }]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

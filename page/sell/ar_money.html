@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>代理商回款统计表</title>
+    <style>
+        table td, table th {
+            text-align: center !important;
+        }
+        .layui-table td{
+            line-height:38px
+        }
+    </style>
+</head>
+<body>
+<div class="hcbox layui-form">
+    <div class="hclit">
+        <p class="hctitle">代理商回款统计表</p>
+    </div>
+    <div class="clearfix" style="margin-top:40px;padding-right:24px">
+        <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+            <label class="layui-form-label">时间查询：</label>
+            <div class="layui-input-inline" style="margin-right:5px">
+                <input type="text" id="start" placeholder="" autocomplete="off" class="layui-input bigInput">
+            </div>
+            <span>-</span>
+            <div class="layui-input-inline" style="margin-left:5px">
+                <input type="text" id="end" placeholder="" autocomplete="off" class="layui-input bigInput">
+            </div>
+        </div>
+        <div class="layui-inline hcbig clearfix" style="margin-bottom:24px;float:left">
+            <div class="layui-inline" style="float:left">
+                <button class="hcbtn search" type="button">搜索</button>
+            </div>
+            <div class="layui-inline" style="float:left">
+                <button class="hcbtn doExcel" type="button">导出</button>
+            </div>
+            <div class="layui-inline" style="float:left">
+                单位：万元
+            </div>
+        </div>
+    </div>
+    <div id="view"></div>
+</div>
+<script id="demo" type="text/html">
+    <div>
+        <table style="width: 100%;" id="table_ele" border="1" class="layui-table">
+            {{# layui.each(d.agent_info, function(index, item){ }}
+
+            <colgroup>
+
+            </colgroup>
+            <thead>
+
+            <tr>
+                {{# layui.each(item.agent, function(iindex, iitem){ }}
+                <th colspan="3">{{ iitem }}</th>
+                {{# }); }}
+            </tr>
+            <tr>
+                {{# layui.each(item.agent, function(iindex, iitem){ }}
+                <th>预付款</th>
+                <th>合同</th>
+                <th>小计</th>
+                {{# }); }}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                {{# layui.each(item.money, function(iindex, iitem){ }}
+                <td>{{ iitem }}</td>
+                {{# }); }}
+            </tr>
+            </tbody>
+            {{# }); }}
+            <!--<thead>-->
+            <tr style="background:#edeff8">
+                <th height="50" colspan="3" rowspan="2">本日小结</th>
+                <th colspan="2">本日预付款回款</th>
+                <th colspan="2">本日合同回款</th>
+                <th colspan="2">本日合同合计</th>
+                <th colspan="2">预付款占比例</th>
+                <th colspan="3" rowspan="2">本月小结</th>
+                <th colspan="2">本月预付款回款</th>
+                <th colspan="2">本月合同回款</th>
+                <th colspan="2">本月合同合计</th>
+                <th colspan="2">预付款占比例</th>
+            </tr>
+            <!--</thead>
+            <tbody>-->
+            <tr>
+                <td colspan="2">{{ d.all_count.yfk_d_money }}</td>
+                <td colspan="2">{{ d.all_count.ht_d_money }}</td>
+                <td colspan="2">{{ d.all_count.total_d_money }}</td>
+                <td colspan="2">{{ d.all_count.yfk_d_zb }} %</td>
+                <td colspan="2">{{ d.all_count.yfk_m_money }}</td>
+                <td colspan="2">{{ d.all_count.ht_m_money }}</td>
+                <td colspan="2">{{ d.all_count.total_m_money }}</td>
+                <td colspan="2">{{ d.all_count.yfk_m_zb }} %</td>
+            </tr>
+            <!--</tbody>-->
+        </table>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a lay-event="edit" style="color:#5a8fff;cursor:pointer">编辑</a>
+</script>
+<script src="../../assets/layui/layui.all.js"></script>
+<script src="../../assets/jquery/jquery.min.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script src="../../assets/js/table2excel.js" charset="utf-8"></script>
+<script>
+    var table = layui.table;
+    var form = layui.form;
+    var laytpl = layui.laytpl;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+
+    // 点击查询
+    $(".search").click(function () {
+
+    });
+    $('.reloads').click(function () {
+        location.reload();
+    });
+    var dd = new Date();
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time2 = y + '-' + m + '-' + d + ' 06:00:00'; // 日期选择
+    dd.setDate(dd.getDate() - 1);
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time1 = y + '-' + m + '-' + d + ' 06:00:00'; // 日期选择
+    laydate.render({
+        elem: '#start',
+        type: 'datetime',
+        value: time1,
+        done: function (value, date) {
+
+        }
+    });
+    laydate.render({
+        elem: '#end',
+        type: 'datetime',
+        value: time2,
+        // value: ,
+    });
+    window.onload = function () {
+        getData();
+    };
+
+    function getData() {
+        var getTpl = $('#demo').html()
+            , view = document.getElementById('view');
+        var url = '/hcms/sale/agent_return_money';
+        var data = {};
+        var start_time = $('#start').val();
+        var end_time = $('#end').val();
+        var oDate1 = new Date(start_time);
+        var oDate2 = new Date(end_time);
+        if ((oDate2.getTime() - oDate1.getTime()) > 24 * 60 * 60 * 1000) {
+            layer.msg('查询时间不能超过一天');
+            return false;
+        }
+        if (start_time) data.start_time = start_time;
+        if (end_time) data.end_time = end_time;
+        promiseSovl(url, 'get', data).then(function (res) {
+            if (res.code == 0) {
+                laytpl(getTpl).render(res.data, function (html) {
+                    view.innerHTML = html;
+                });
+            } else {
+                layer.msg(res.msg)
+            }
+        });
+    }
+
+    $('.search').click(function () {
+        getData();
+    });
+    $('.doExcel').click(function () {
+        var start_time = $('#start').val();
+        var end_time = $('#end').val();
+        var table2excel = new Table2Excel();
+        var ele = document.getElementById('table_ele');
+        table2excel.export(ele, '代理商当日实际回款' + start_time + '至' + end_time);
+    });
+</script>
+</body>
+</html>

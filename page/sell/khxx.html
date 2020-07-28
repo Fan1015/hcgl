@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>客户信息维护</title>
+    <style>
+      .jlul {
+        padding: 30px;
+      }
+	 
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <p class="hctitle">客户信息维护</p>
+      <div style="margin: 0 0 30px; padding-right: 24px;">
+        <div class="layui-inline hcbig clearfix">
+          <label class="layui-form-label">客户名称：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="kh_name"
+              autocomplete="off"
+              id="kh"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <div class="layui-inline hcbig clearfix">
+          <label class="layui-form-label">工程名称：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              name="proj_name"
+              autocomplete="off"
+              id="proj"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <div class="layui-inline hcbig clearfix">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+        </div>
+        <div class="layui-inline" style="float: right;">
+          <button class="hcbtn add">添加</button>
+        </div>
+      </div>
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="barDemo">
+      <a lay-event="edit">编辑</a>
+      <a lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="stateList">
+      {{# layui.each(d,function(index,item){}}
+      <li class="{{# if(item.type == 1){}}double{{# }}}">
+          {{# if(item.key){}}
+          <div class="inlists">
+              <p class="dd-name">{{item.key}}</p>
+              {{# if(item.zd4){}}
+              <div class="dd-value">
+                  <select name="{{item.name}}" id="">
+                      <option value="">请选择</option>
+                      {{# layui.each(item.zd4,function(i,m){}}
+                      <option value="{{m}}">{{m}}</option>
+                      {{# })}}
+                  </select>
+              </div>
+              {{# }else{}}
+              <div class="dd-value">
+                  {{# if(item.key){}}<input type="text" autocomplete="off" name="{{item.name}}" value="">{{# }}}
+              </div>
+              {{# }}}
+          </div>
+          {{# }}}
+      </li>
+      {{# })}}
+      <li>
+          <div class="dd-value task-btnbox hcbig clearfix">
+              <div class="layui-inline" style="float:left">
+                  <button class="hcbtn save" >保存</button>
+              </div>
+          </div>
+      </li>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+
+      var listTpl = $("#stateList").html();
+      var stateData = [],
+        num = 0;
+      var listData = null;
+      listRender(function () {
+        dataRender(listData);
+        form.render();
+      });
+
+      // 点击保存
+      $("body").on("click", ".save", function () {
+        var data = formData();
+        console.log(data);
+      });
+
+      // 窗口大小改变事件
+      window.onresize = function () {
+        if (stateData.length > 0) {
+          var data = listDataRender(stateData);
+          tplInit(data);
+          dataRender(listData);
+        }
+      };
+
+      // 初始化列表
+      function listRender(fn) {
+        $.ajax({
+          url: "../assets/api/khxxList.json",
+          success: (res) => {
+            stateData = res.data;
+            var data = listDataRender(stateData);
+            tplInit(data);
+            fn();
+          },
+        });
+      }
+
+      var tableIns = tableRender({
+        elem: "#ddtest",
+        url: baseUrl + "/hcms/cust/cust_list",
+        cols: [
+          [
+            { field: "id", title: "序号", width: 80, sort: true },
+            { field: "gs_code", title: "公司代码", width: 100 },
+            { field: "sdf_num", title: "送达方编码", width: 112 },
+            { field: "kh_num", title: "客户编码", width: 100 },
+            { field: "kh_name", title: "客户名称" },
+            { field: "proj_name", title: "工程名称" },
+            { field: "business_man", title: "业务员", width: 100 },
+            { field: "balance_type", title: "类型", width: 70 },
+            { field: "update_time", title: "时间", width: 170 },
+            {
+              title: "操作",
+              width: 120,
+              toolbar: "#barDemo",
+              fixed: "right",
+              align: "center",
+            },
+          ],
+        ],
+        even: true,
+        page: true,
+        limit: 10,
+        skin: "row",
+        id: "khxxReload",
+        done: function () {},
+      });
+      // 点击搜索
+      $(".search").click(function () {
+		  var kh_name = $("#kh").val(); //搜索类型
+		  var proj_name = $("#proj").val(); //搜索内容
+		  if (kh_name == "" || proj_name == "") {
+		    layer.msg("请完善搜索信息！",  { type: 1, time: 1000 });
+		    return false;
+		  }
+        table.reload("khxxReload", {
+          where: {
+            kh_name: $("#kh").val(),
+            proj_name: $("#proj").val(),
+          },
+          page: {
+            curr: 1,
+          },
+        });
+      });
+      // 表格数据编辑
+      table.on("tool(ddtest)", function (obj) {
+        if (obj.event == "edit") {
+          //编辑
+          layer.open({
+            type: 1,
+            title: "编辑",
+            area: ["54%", "50%"],
+            btn: ["确定", "取消"],
+            content: $("#khxxAdd").html(),
+            success(layero, index) {
+              dataRender(obj.data);
+              form.render();
+            },
+            yes(index, layero) {
+              var data = {
+                id: obj.data.id,
+                gs_code: $("#gs_code").val(),
+                kh_num: $("#kh_num").val(),
+                sdf_num: $("#sdf_num").val(),
+                kh_name: $("#kh_name").val(),
+                proj_name: $("#proj_name").val(),
+                business_man: $("#business_man").val(),
+                balance_type: $("#balance_type").val(),
+              };
+              promiseSovl("/hcms/cust/edit_cust", "post", data).then(function (
+                res
+              ) {
+                if (res.code == 0) {
+                  layer.msg("编辑成功", { type: 1, time: 1000 }, function () {
+                    location.reload();
+                  });
+                } else {
+                  layer.msg(res.msg, { type: 1, time: 1000 });
+                }
+              });
+            },
+          });
+        } else if (obj.event == "del") {
+          layer.confirm("确定要删除吗？", function () {
+            // var url = "/hcms/spec_pz/del_pz",
+              data = {
+                id: obj.data.id,
+              };
+            promiseSovl('/hcms/cust/del_cust', "post", data).then(function (res) {
+              if (res.code == 0) {
+                layer.msg("删除成功", { type: 1, time: 1000 }, function () {
+                  location.reload();
+                });
+              } else {
+                layer.msg(res.msg, { type: 1, time: 1000 });
+              }
+            });
+          });
+        }
+      });
+      // 点击添加
+      $(".add").click(function () {
+        layer.open({
+          type: 1,
+          title: "编辑",
+          area: ["54%", "50%"],
+          btn: ["确定", "取消"],
+          content: $("#khxxAdd").html(),
+          success(layero, index) {
+            form.render();
+          },
+          yes(index, layero) {
+            var data = {
+              gs_code: $("#gs_code").val(),
+              kh_num: $("#kh_num").val(),
+              sdf_num: $("#sdf_num").val(),
+              kh_name: $("#kh_name").val(),
+              proj_name: $("#proj_name").val(),
+              business_man: $("#business_man").val(),
+              balance_type: $("#balance_type").val(),
+            };
+            promiseSovl("/hcms/cust/add_cust", "post", data).then(function (
+              res
+            ) {
+              if (res.code == 0) {
+                layer.msg("新增成功", { type: 1, time: 1000 }, function () {
+                  location.reload();
+                });
+              } else {
+                layer.msg(res.msg, { type: 1, time: 1000 });
+              }
+            });
+          },
+        });
+      });
+    </script>
+    <script type="text/html" id="khxxAdd">
+      <div class="hclit">
+          <ul class="jlul layui-form clearfix">
+              <li class="">
+                  <div class="inlists">
+                      <p class="dd-name">公司代码</p>
+                      <div class="dd-value">
+                          <input type="text" autocomplete="off" name="gs_code" id="gs_code" value="">
+                      </div>
+                  </div>
+              </li>
+              <li class="">
+                  <div class="inlists">
+                      <p class="dd-name">客户编码</p>
+                      <div class="dd-value">
+                          <input type="text" autocomplete="off" name="kh_num" id="kh_num" value="">
+                      </div>
+                  </div>
+              </li>
+              <li class="">
+                  <div class="inlists">
+                      <p class="dd-name">送达方编码</p>
+                      <div class="dd-value">
+                          <input type="text" autocomplete="off" name="sdf_num" id="sdf_num" value="">
+                      </div>
+                  </div>
+              </li>
+              <li class="">
+                <div class="inlists">
+                    <p class="dd-name">客户名称</p>
+                    <div class="dd-value">
+                        <input type="text" autocomplete="off" name="kh_name" id="kh_name" value="">
+                    </div>
+                </div>
+            </li> <li class="">
+              <div class="inlists">
+                  <p class="dd-name">工程名称</p>
+                  <div class="dd-value">
+                      <input type="text" autocomplete="off" name="proj_name" id="proj_name" value="">
+                  </div>
+              </div>
+          </li>
+              <li class="">
+                  <div class="inlists">
+                      <p class="dd-name">业务员</p>
+                      <div class="dd-value">
+                          <input type="text" autocomplete="off" name="business_man" id="business_man" value="">
+                      </div>
+                  </div>
+              </li>
+              <li class="">
+                  <div class="inlists">
+                      <p class="dd-name">类型</p>
+                      <div class="dd-value">
+                          <input type="text" autocomplete="off" name="balance_type" id="balance_type" value="">
+                      </div>
+                  </div>
+              </li>
+
+          </ul>
+      </div>
+    </script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>原料车利润分析表</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">原料车利润分析表</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="starttime" id="starttime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">结束时间：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="endtime" id="endtime" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="dome" lay-filter="hcdome"></table>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+    	var laydate = layui.laydate;
+    	
+
+        var alldata = [];
+
+        // 搜索
+    	$('.search').click(function(){
+    		tableIns.reload({
+    			where:{
+                    start_time:$('#starttime').val(),
+                    end_time:$('#endtime').val()
+                },
+    			page:{
+    				curr:1
+    			}
+    		});
+    	});
+        //导出
+        $('.export').click(function(){
+            table.exportFile('metertable',alldata.data,'xls')
+        });
+
+    	laydate.render({
+    		elem:'#starttime'
+    	})
+    	laydate.render({
+    		elem:'#endtime'
+    	})
+	    var tableIns = tableRender({
+	        elem: '#dome',
+	        // url: '../assets/api/wcCsb.json',
+            url: baseUrl + '/hcms/Cost/costyuanliaofenxi',
+            where:{
+                start_time: $('#starttime').val(),
+                end_time: $('#endtime').val()
+            },
+            id:'metertable',
+	        cols: [
+            [
+				{ rowspan:2, title:'车号', field:'car_num', width:85 , sort: true},
+				{ rowspan:2, title:'司机', field:'driver_name', width:80},
+				{ rowspan:2, title:'车辆类型', field:'car_type_app', width:110 },
+				{ colspan:2, title:'任务对比', align:'center'},
+				{ colspan:2, title:'运输数量(方/吨)', align:'center'},
+                { colspan:2, title:'收入对比', align:'center'},
+                { colspan:8, title:'成本', align:'center'},
+                { rowspan:2, title:'计划利润', field:'jihualirun', width:96},
+                { rowspan:2, title:'实际利润', field:'shijilirun', width:96},
+                { rowspan:2, title:'考核利润', field:'kaohelirun', width:96}
+            ],
+            [
+                {field:'norm_car_num', title:'目标车数', width:96},
+                {field:'shiji_car_num', title:'实际车数', width:96},
+                {field:'capacity', title:'目标方量', width:96},
+                {field:'shiji_fang', title:'实际方量', width:96},
+                {field:'plan_pay', title:'计划收入', width:96},
+                {field:'shiji_pay', title:'实际收入', width:96},
+                {field:' ', title:'工资', width:90},
+                {field:'youhao', title:'油耗', width:80},
+                {field:'weixiu', title:'维修', width:80},
+                {field:' ', title:'罚款及其他', width:115},
+                {field:'baoxian', title:'保险', width:80},
+                {field:'zhejiu', title:'折旧', width:80},
+                {field:'guanlifei', title:'管理费', width:80},
+                {field:'total', title:'小计', width:90}
+            ]
+            ],
+	        even: true,
+	        page: false,
+            limit:10,
+	        skin:'row',
+	        done: function(res) {
+	            console.log(res);
+                alldata = res;
+	        }
+	    });
+    </script>
+</body>
+</html>

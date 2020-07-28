@@ -1,0 +1,90 @@
+{
+	"code": 0,
+	"msg": "",
+	"data": [{
+		"id": 1,
+		"status": 1,
+		"belong":"太龙，山立，伟治，松大",
+		"title": "超级管理组"
+	}, {
+		"id": 113,
+		"status": 1,
+		"belong":"",
+		"title": "超级用户-开发"
+	}, {
+		"id": 240,
+		"status": 1,
+		"belong":"太龙,山立,伟治,松大",
+		"title": "薪酬管理"
+	}, {
+		"id": 238,
+		"status": 1,
+		"belong":"",
+		"title": "销售APP测试-技术"
+	}, {
+		"id": 237,
+		"status": 1,
+		"belong":"太龙,山立,伟治,松大",
+		"title": "销售APP测试-销售"
+	}, {
+		"id": 236,
+		"status": 1,
+		"belong":"太龙，山立，伟治，松大",
+		"title": "财务中心"
+	}, {
+		"id": 235,
+		"status": 1,
+		"belong":"",
+		"title": "供应商组",
+		"assist": "无"
+	}, {
+		"id": 234,
+		"status": 1,
+		"belong":"",
+		"title": "管理中心组",
+		"assist": "无"
+	}, {
+		"id": 233,
+		"status": 1,
+		"belong":"太龙，山立，伟治，松大",
+		"title": "采购组",
+		"assist": "无"
+	}, {
+		"id": 232,
+		"status": 1,
+		"belong":"",
+		"title": "审核中心",
+		"assist": "无"
+	}, {
+		"id": 231,
+		"status": 1,
+		"belong":"",
+		"title": "金隅水泥",
+		"assist": "无"
+	}, {
+		"id": 230,
+		"status": 1,
+		"belong":"太龙，山立，伟治，松大",
+		"title": "生产技术控制中心",
+		"assist": "无"
+	}, {
+		"id": 229,
+		"status": 1,
+		"title": "采购",
+		"belong":"太龙，山立，伟治，松大",
+		"assist": "运营中心-李秋让"
+	}, {
+		"id": 228,
+		"status": 1,
+		"belong":"",
+		"title": "车辆GPS",
+		"assist": "薪酬管理"
+	}, {
+		"id": 227,
+		"status": 1,
+		"belong":"",
+		"title": "万昌安全负责人",
+		"assist": "无"
+	}],
+	"count": 15
+}

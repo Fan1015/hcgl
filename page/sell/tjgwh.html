@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>特殊品种价格维护</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">特殊品种价格维护</p>
+        </div>
+        <div class="clearfix" style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">品种：</label>
+                <div class="layui-input-inline">
+                   <select name="pinzhong" id="pinzhong">
+                       
+                   </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <!-- <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div> -->
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit">编辑</a>
+        <a lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="layeropen">
+        <div style="padding:30px">
+            <input type="hidden" name="id" id="prid">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">品种：</label>
+                <div class="layui-input-inline">
+                   <input type="text" name="pinzhong" id="pinzhongs" autocomplete="off" disabled="" class="layui-input bigInput">
+               </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label" style="width:7rem">品种额外单价：</label>
+                <div class="layui-input-inline" style="margin-right: 0">
+                   <input type="text" name="price" id="price" autocomplete="off" class="layui-input bigInput" />
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <!-- <script src="../../assets/js/echarts.js"></script> -->
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+
+
+    // 搜索
+    $('.search').click(function(){
+        table.reload('tsjgtable',{
+            where: {
+                pinzhong: $('#pinzhong').val(),
+            },
+            papge: {
+                curr:1
+            }
+        })
+    });
+
+    //
+    $('.add').click(function(){
+        layer.open({
+            type:1,
+            title:'特殊品种价格维护',
+            area:['690','300px'],
+            btn:['确定','取消'],
+            content: $('#layeropen').html(),
+            success (layero, index) {
+                $('#pinzhongs').removeAttr('disabled');
+            },
+            yes (index,layero) {
+                var url = '/hcms/spec_pz/add_pz';
+                var data = {
+                    pinzhong: $('#pinzhongs').val(),
+                    price: $('#price').val()
+                }
+                promiseSovl(url, 'post', data).then(function(res){
+                    if (res.code == 0) {
+                        layer.msg('保存成功', {type:1, time:2000}, function(){
+                            location.reload();
+                        })
+                    } else {
+                        layer.msg(res.msg, {type:1, time:2000})
+                    }
+                })
+            }
+        })
+    })
+    var pzurl = '/hcms/spec_pz/pinzhongs';
+    promiseSovl(pzurl).then(function(res){
+        // console.log(res)
+        if(res.code == 0) {
+            var list = res.data;
+            var option = '<option value="">请选择</option>'
+            for(var i = 0;i < list.length;i ++) {
+                if(list[i])
+                    option += '<option value="'+list[i]+'">'+list[i]+'</option>'
+            }
+            $('#pinzhong').html(option)
+            form.render();
+        }
+    })
+    // var wid = Math.ceil(($('.tablebb').width()-70)/4) -2
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        // url: '../assets/api/tjgwh.json',
+        url: baseUrl + '/hcms/spec_pz/pz_list',
+        where: {
+            pinzhong:'',
+        },
+        id: 'tsjgtable',
+        cols: [[
+			{field: 'id', title: '序号', sort: true},
+            {field: 'pinzhong', title: '品种' },
+            {field: 'price', title: '品种额外单价' },
+            {field: 'create_time', title: '创建时间' },
+            {title: '操作', width: 120, toolbar: '#barDemo', align: "center"}
+        ]],
+        even: true,
+        page: true,
+        limit:10,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        if (obj.event == 'edit') {
+            //编辑
+            layer.open({
+                type:1,
+                title:'特殊品种价格维护',
+                area:['690','300px'],
+                btn:['确定','取消'],
+                content: $('#layeropen').html(),
+                success (layero, index) {
+                    $('#prid').val(obj.data.id)
+                    $('#pinzhongs').val(obj.data.pinzhong);
+                    $('#price').val(obj.data.price)
+                },
+                yes (index,layero) {
+                    var url = '/hcms/spec_pz/edit_pz';
+                    var data = {
+                        id: obj.data.id,
+                        pinzhong: $('#pinzhongs').val(),
+                        price: $('#price').val()
+                    }
+                    promiseSovl(url, 'post', data).then(function(res){
+                        if (res.code == 0) {
+                            layer.msg('保存成功', {type:1, time:2000}, function(){
+                                location.reload();
+                            })
+                        } else {
+                            layer.msg(res.msg, {type:1, time:2000})
+                        }
+                    })
+                }
+            })
+        } else if (obj.event == 'del') {
+            layer.confirm('确定要删除吗？', function(){
+                var url = '/hcms/spec_pz/del_pz',
+                data = {
+                    id: obj.data.id
+                };
+                promiseSovl(url, 'get', data).then(function(res){
+                    if (res.code == 0) {
+                        layer.msg('删除成功', {type:1, time:2000}, function(){
+                            location.reload();
+                        })
+                    } else {
+                        layer.msg(res.msg, {type:1, time:2000})
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>

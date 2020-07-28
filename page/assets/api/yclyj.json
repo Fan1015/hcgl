@@ -1,0 +1,58 @@
+{
+	"code":0,
+	"data":[{
+		"id": 1000,
+		"supplier": "电子厂砂库",
+		"distl": "4",
+		"dissl": "20",
+		"diswz": "0"
+	},{
+		"id": 2000,
+		"supplier": "山立建材",
+		"distl": "20",
+		"dissl": "0",
+		"diswz": "0"
+	},{
+		"id": 6000,
+		"supplier": "技术服务公司",
+		"distl": "1",
+		"dissl": "20",
+		"diswz": "0"
+	},{
+		"id": 110029,
+		"supplier": "河南永安水泥有限责任公司",
+		"distl": "25",
+		"dissl": "9",
+		"diswz": "0"
+	},{
+		"id": 110031,
+		"supplier": "济源市国泰微粉科技有限公司",
+		"distl": "106",
+		"dissl": "125",
+		"diswz": "105"
+	},{
+		"id": 110330,
+		"supplier": "新安中联万基水泥有限公司",
+		"distl": "110",
+		"dissl": "130",
+		"diswz": "105"
+	},{
+		"id": 110478,
+		"supplier": "赵海军-张沟",
+		"distl": "19",
+		"dissl": "0",
+		"diswz": "0"
+	},{
+		"id": 110487,
+		"supplier": "赵海军-竹林",
+		"distl": "15",
+		"dissl": "0",
+		"diswz": "0"
+	},{
+		"id": 210226,
+		"supplier": "赵海军",
+		"distl": "22",
+		"dissl": "2",
+		"diswz": "0"
+	}]
+}

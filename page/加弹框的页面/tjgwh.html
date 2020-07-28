@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>特殊品种价格维护</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">特殊品种价格维护</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label" style="width: 50px;">品种：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="supp_unit" id="gs_code" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var layer=layui.layer;
+
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+    var wid = Math.ceil(($('.tablebb').width()-70)/4) -2
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        url: '../assets/api/tjgwh.json',
+        cols: [[
+			{field: 'id', title: '序号', width: wid, sort: true},
+            {field: 'pinzhong', title: '品种', width: wid},
+            {field: 'price', title: '品种额外单价', width: wid},
+            {field: 'create_time', title: '创建时间', width: wid},
+            {title: '操作', width: 70, toolbar: '#barDemo', align: "center"}
+        ]],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function() {
+            
+        }
+    });
+    // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        localStorage.setItem("tjgwhEdit", JSON.stringify(obj.data))
+        if (obj.event == 'edit') {
+            layer.open({
+                type:2,
+                title:"特殊品种价格维护",
+                area:["40%","25%"],
+                content:"./tjgwh-edit.html",
+                success:(res) => {
+
+                }
+            })
+        }
+    });
+    $(".search").on('click',function(){
+        if(!$("#gs_code").val()){
+            layer.msg("请完善搜索信息！")
+        }
+        // else{
+        //     $.ajax({
+                
+        //     })
+        // }
+    })
+    $(".reload").on('click',function(){
+        location.reload();
+    })
+</script>
+</body>
+</html>

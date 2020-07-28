@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>供应商报价表</title>
+    <style>
+        .layui-tab-content {
+            padding: 30px 10px 10px 0;
+        }
+
+        .layui-form-item {
+            width: 90%;
+        }
+
+        .layui-tab-title {
+            border-bottom: none;
+        }
+
+        .layui-tab-title li {
+            font-size: 16px;
+        }
+
+        .layui-tab-title li:last-child {
+            padding: 0 30px;
+        }
+
+        .layui-tab-brief>.layui-tab-title .layui-this {
+            color: #3e66f4;
+            font-weight: 700;
+        }
+
+        .layui-tab-brief>.layui-tab-more li.layui-this:after,
+        .layui-tab-brief>.layui-tab-title .layui-this:after {
+            border: none;
+            border-radius: 0;
+            border-bottom: 3px solid #3e66f4;
+            padding-left: 30px;
+        }
+
+        .layui-layer-title {
+            font-size: 20px !important;
+            font-weight: bold !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hcbox layui-form">
+        <!-- title表题 -->
+        <p class="staname" style="padding: 0 0 30px 0; font-size: 24px; font-weight: 700;">
+            供应商报价表
+        </p>
+        <div class="clearfix" style="padding-right: 24px;">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <input type="text" value="" style="display: none;" id="type">
+                <ul class="layui-tab-title">
+                    <li class="layui-this" onclick="renderTb('wei_bj')">未报价单数（10）</li>
+                    <li onclick="renderTb('yi_bj')">已报价单数（0）</li>
+                    <li onclick="renderTb('yi_jiezhi')">已截止报价单</li>
+                    <li onclick="renderTb('lishi_bj')">历史报价单</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show" lay-filter="table_box">
+                        <table class="layui-hide" id="wei_bj" lay-filter="wei_bj"></table>
+                    </div>
+                    <div class="layui-tab-item" lay-filter="table_box">
+                        <table id="yi_bj" lay-filter="yi_bj"></table>
+                    </div>
+                    <div class="layui-tab-item" lay-filter="table_box">
+                        <table id="yi_jiezhi" lay-filter="yi_jiezhi"></table>
+                    </div>
+                    <div class="layui-tab-item" lay-filter="table_box">
+                        <table id="lishi_bj" lay-filter="lishi_bj"></table>
+                    </div>
+                </div>
+            </div>
+            <!--start 数据表格 -->
+        </div>
+        <script type="text/html" id="baojiaDemo">
+      <a class="baojia" lay-event="baojia" style="color:#4986ff">报价</a>
+    </script>
+        <script type="text/html" id="detailDemo">
+        <a class="detail" lay-event="detail" style="color:#4986ff">详情</a>
+      </script>
+        <script src="../../assets/jquery/jquery.min.js"></script>
+        <script src="../../assets/layui/layui.all.js"></script>
+        <script src="../../assets/js/bluebirds.js"></script>
+        <script src="../../assets/js/common.js"></script>
+        <script>
+            var table = layui.table;
+            var form = layui.form;
+            var laydate = layui.laydate;
+            var layer = layui.layer;
+            var element = layui.element;
+            var flage = false;
+            var dataObj={};
+
+            element.on("tab(table_box)", function (data) {
+                // console.log(data);
+                if (data.index == 0 || data.index == 1 || data.index == 2) {
+                    //这里的index表示有多少个选项卡
+                    $(document).resize();
+                }
+            });
+            //开始时间选择
+            laydate.render({
+                elem: "#ddlbStart",
+                type: "datetime",
+                done: function (value, date) { },
+            });
+            //结束时间选择
+            laydate.render({
+                elem: "#ddlbEnd",
+                type: "datetime",
+                done: function (value, date) { },
+            });
+            // 未报价单数R
+            wei_bj = tableRender({
+                elem: "#wei_bj",
+                url: "../assets/api/gysbjTable.json",
+                page: true, //开启分页
+                limit: 10,
+                cols: [
+                    [
+                        {
+                            field: "run_id",
+                            title: "流水号",
+                        },
+                        {
+                            field: "ycl",
+                            title: "材料类别",
+                        },
+                        { field: "bjend_time", title: "报价截止日期", },
+                        { title: "操作", toolbar: "#baojiaDemo", algn: "center", width: 80 },
+                    ],
+                ],
+                id: "wei_bj",
+                done: function (res) {
+                    flage = true;
+                    // Export_data("wei_bj", $.this, flage);
+                },
+            });
+            // 已报价单数
+            yi_bj = tableRender({
+                elem: "#yi_bj",
+                url: "../assets/api/gysbjTable.json",
+
+                page: true, //开启分页
+                cols: [
+                    [
+                        {
+                            field: "run_id",
+                            title: "流水号",
+                        },
+                        {
+                            field: "ycl",
+                            title: "材料类别",
+                        },
+                        { field: "bjend_time", title: "报价截止日期", },
+                        { title: "操作", toolbar: "#detailDemo", algn: "center", width: 80 },
+
+                    ],
+                ],
+                id: "yi_bj",
+                limit: 10,
+                done: function (res) {
+                    flage = true;
+                    // Export_data("yi_bj", $.this, flage);
+                },
+            });
+
+            // 已截止报价单数
+            yi_jiezhi = tableRender({
+                elem: "#yi_jiezhi",
+                url: "../assets/api/gysbjTable.json",
+                page: true, //开启分页
+                cols: [
+                    [
+                        {
+                            field: "run_id",
+                            title: "流水号",
+                        },
+                        {
+                            field: "ycl",
+                            title: "材料类别",
+                        },
+                        { field: "bjend_time", title: "报价截止日期", },
+                        { title: "操作", toolbar: "#detailDemo", algn: "center", width: 80 },
+                    ],
+                ],
+                id: "yi_jiezhi",
+                done: function (res) {
+                    flage = true;
+                    // Export_data("yi_jiezhi", $.this, flage);
+                },
+            });
+
+            // 历史报价单数
+            lishi_bj = tableRender({
+                elem: "#lishi_bj",
+                url: "../assets/api/gysbjTable.json",
+
+                page: true, //开启分页
+                even: true,
+                cols: [
+                    [
+                        {
+                            field: "run_id",
+                            title: "流水号",
+                        },
+                        {
+                            field: "ycl",
+                            title: "材料类别",
+                        },
+                        { field: "bjend_time", title: "报价截止日期", },
+                        { title: "操作", toolbar: "#detailDemo", algn: "center", width: 80 },
+                    ],
+                ],
+                id: "return_order",
+                done: function (res) {
+                    flage = true;
+                    // Export_data("return_order", $.this, flage);
+                },
+            });
+            //监听未报价表格工具事件
+            table.on("tool(wei_bj)", function (obj) {
+                var data = obj.data;
+                var val=$("#type").val()
+                if (obj.event === "baojia") {
+                    openBaojiaDetail(val,data);
+                }
+            });
+
+            //监听已报价表格工具事件
+            table.on("tool(yi_bj)", function (obj) {
+                var data = obj.data;
+                var val=$("#type").val()
+                if (obj.event === "detail") {
+                    openBaojiaDetail(val,data);
+                }
+            });
+            //监听已截止报价表格工具事件
+            table.on("tool(yi_jiezhi)", function (obj) {
+                var data = obj.data;
+                var val=$("#type").val()
+                if (obj.event === "detail") {
+                    openBaojiaDetail(val,data);
+                }
+            });
+            //监听历史报价表格工具事件
+            table.on("tool(lishi_bj)", function (obj) {
+                var data = obj.data;
+                var val=$("#type").val()
+                if (obj.event === "detail") {
+                    openBaojiaDetail(val,data);
+                }
+            });
+            //报价详情弹框
+            function openBaojiaDetail(val,data) {
+                dataObj.run_id=data.run_id;
+                dataObj.bjend_time=data.bjend_time;
+                dataObj.val=val;
+                $.ajax({
+                    url:"../assets/api/gysbj_detailTable.json",
+                    success:function(res){
+                        dataObj.list=res.data
+                        localStorage.setItem("gysbjDetail", JSON.stringify(dataObj))
+                    }
+                })
+                layer.open({
+                    type: 2,
+                    title: "报价详情",
+                    area: ["90%", "80%"],
+                    content: "./gysbj_detail.html",
+                    success: (res) => { },
+                });
+            }
+            tableEle = "wei_bj";
+            window.renderTb = function (tab) {
+                switch (tab) {
+                    case "wei_bj": //未报价
+                        tableEle = "wei_bj";
+                        $("#type").val(0)
+                        wei_bj.reload();
+                        break;
+                    case "yi_bj": //已报价
+                        tableEle = "yi_bj";
+                        $("#type").val(1)
+                        yi_bj.reload();
+                        break;
+                    case "yi_jiezhi": //已截止报价
+                        tableEle = "yi_jiezhi";
+                        $("#type").val(2)
+                        yi_jiezhi.reload();
+                        break;
+                    case "lishi_bj": //历史报价
+                        tableEle = "lishi_bj";
+                        $("#type").val(3)
+                        lishi_bj.reload();
+                        break;
+                    default:
+                        yi_bj.reload();
+                        wei_bj.reload();
+                        yi_jiezhi.reload();
+                        lishi_bj.reload();
+
+                        break;
+                }
+            };
+
+        </script>
+</body>
+
+</html>

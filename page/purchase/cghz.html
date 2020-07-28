@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>采购合同汇总</title>
+    <style>
+      .table_title {
+        display: flex;
+        justify-content: space-between;
+        margin: 6px 0 20px;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .time {
+        margin-right: 24px;
+      }
+      .layui-table-cell {
+        height: auto;
+        line-height: 28px;
+        padding: 0 15px;
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        box-sizing: border-box;
+      }
+      .layui-table[lay-even] > tbody > tr:nth-child(odd) {
+        background: #f6f7fe !important;
+      }
+      .layui-table[lay-even] > tbody > tr:nth-child(even) {
+        background: #ffffff !important;
+      }
+      .layui-table[lay-even] > thead > tr:nth-child(2n) {
+        background-color: #ffffff !important;
+      }
+      .layui-table[lay-even] tbody tr:hover,.layui-table[lay-even] thead tr:hover {
+        background: #f6f7fe !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">采购合同汇总</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 流水号  -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 68px;">流水号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="run_id"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 流水号 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="start"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 物资类别 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">物资类别：</label>
+          <div class="layui-input-inline">
+            <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+            <select name="category_name" id="category_name">
+              <option value=""> </option>
+              <option value="17">五金电料</option>
+              <option value="20">交通工具</option>
+              <option value="21">其他类</option>
+              <option value="6">办公用品</option>
+              <option value="2">化学物品</option>
+              <option value="1">原材料</option>
+              <option value="18">工用具</option>
+              <option value="19">机器设备及生产设备</option>
+              <option value="3">油品</option>
+              <option value="4">生产工具</option>
+              <option value="7">生活物资</option>
+              <option value="16">电子设备</option>
+              <option value="5">车辆备品备件</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 物资类别 -->
+        <!-- start 原料名称 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">原料名称：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="yuanliao_name"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 原料名称 -->
+      </div>
+
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 供应商名称 -->
+        <div class="layui-inline hcbig" style="margin-bottom: 24px;">
+          <label class="layui-form-label" style="width: 100px;"
+            >供应商名称：</label
+          >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="supp_name"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 供应商名称 -->
+
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export">导出</button>
+          </div>
+        </div>
+        <!--end 搜索导出按钮 -->
+      </div>
+      <!--start 表格视图 -->
+      <div class="viewTable"></div>
+      <!--end 表格视图 -->
+    </div>
+    <script type="text/html" id="ListTable">
+       <!--start 数据表格 -->
+       <div class="table_title">
+        <p class="code">
+          <span>流水号：{{d.run_id}}</span>
+          <span>【{{d.station_name}}】</span>
+        </p>
+        <p class="time">发布时间：{{d.fb_time}}</p>
+      </div>
+      <div class="table" style="padding-right: 24px;">
+        <table
+          class="layui-table" style="margin-bottom:30px" lay-even="" lay-skin="row">
+          <!-- lay-data="{ url:'../../api/cghuTable.json', limit: 6, limits:[6]}" -->
+
+          <thead>
+            <tr>
+              <th lay-data="{filed:'people',title:'申请人',width:100}" rowspan="1">申请人</th>
+              <th lay-data="{field:'username',title:'张富豪',width:100}" rowspan="1">{{d.applicant}}
+                <!-- 联系人 -->
+              </th>
+              <th lay-data="{filed:'wz_leibie,title:'物资类别',width:100}" rowspan="1">物资类别</th>
+              <th lay-data="{filed:'sh_wz',title:'生活物资',width:100}" rowspan="1">{{d.wuzileibie}}</th>
+              <!-- <th lay-data="{filed:'wz_leibie,title:'物资类别',width:100}" rowspan="1">物资类别</th> -->
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+            <tr>
+              <th lay-data="{field:'gys_name',width:110}">供应商单位名称</th>
+              <th lay-data="{field:'yl_name',width:95}">原料名称</th>
+              <th lay-data="{field:'guige', width:75}">规格</th>
+              <th lay-data="{field:'xq_num',width:100}">需求数量（单位）</th>
+              <th lay-data="{field:'bj_num',width:95 }">报价数量</th>
+              <th lay-data="{field:'cd_bj',width:100 }">承兑报价(1|2|3)</th>
+              <th lay-data="{field:'xj_bj',width:100  }">现金报价(1|2|3)</th>
+              <th lay-data="{field:'zhangqi', width:75}">账期</th>
+              <th lay-data="{field:'chandi',width:75 }">产地</th>
+              <th lay-data="{field:'yunfei',width:95}">万昌运费</th>
+              <th lay-data="{field:'price',width:95}">选中价格</th>
+              <th lay-data="{field:'fk_method',width:95}">付款方式</th>
+              <th lay-data="{field:'sh_status',width:95}">审核状态</th>
+              <th lay-data="{field:'explain', width:150}">未签订最低价情情况说明</th>
+            </tr>
+          </thead>
+          <tbody>
+      {{# layui.each(d.table_data,function(index,item){  }}
+            <tr>
+              <td>{{item.gys_name}}</td>
+              <td>{{item.yl_name}}</td>
+              <td>{{item.guige}}</td>
+              <td>{{item.xq_num}}</td>
+              <td>{{item.bj_num}}</td>
+              <td>{{item.cd_bj}}</td>
+              <td>{{item.xj_bj}}</td>
+              <td>{{item.zhangqi}}</td>
+              <td>{{item.chandi}}</td>
+              <td>{{item.yunfei}}</td>
+              <td>{{item.price}}</td>
+              <td>{{item.fk_method}}</td>
+              <td>{{item.sh_status}}</td>
+              <td>{{item.explain}}</td>
+            </tr>
+            {{#  }); }}
+          </tbody>
+
+        </table>
+      </div>
+      <!--end 数据表格 -->
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      form.render();
+      // 点击查询
+      $(".search").click(function () {
+        run_id = $("#run_id").val(); //流水号
+        wuzileibie = $("#category_name").val(); //物资类别
+        yl_name = $("#yuanliao_name").val(); //原料名称
+        gys_name = $("#supp_name").val(); //供应商名称
+        start_time = $("#start").val(); //开始时间字段，注意修改
+        end_time = $("#end").val(); //结束时间字段，注意修改
+        if (
+          !run_id ||
+          !wuzileibie ||
+          !yl_name ||
+          !gys_name ||
+          !start_time ||
+          !end_time
+        ) {
+          layer.msg("请正确填写搜索信息", { icon: 2 });
+        } else {
+        }
+      });
+      // 导出
+      $(".export").click(function () {
+        console.log("导出按钮");
+      });
+      //开始时间选择
+      laydate.render({
+        elem: "#start",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      // 渲染模板
+      var demoTpl = $("#ListTable").html();
+      getTable();
+      function getTable() {
+        // 改成promise
+        $.ajax({
+          url: "../assets/api/cghzTable.json",
+          success: function (res) {
+            // console.log(res.data.length, 120120);
+            // 渲染模板
+            for (var j = 0; j < res.data.length; j++) {
+              laytpl(demoTpl).render(res.data[j], function (html) {
+                $(".viewTable").append(html);
+              });
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>先算后干成本预算单价维护</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <p class="hctitle">先算后干成本预算单价维护</p>
+
+        
+        <div style="margin-bottom:30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">物料名称：</label>
+                <div class="layui-input-inline">
+					<input type="text" id="kh_num" autocomplete="off" name="cailiao" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+        <a lay-event="del" style="">删除</a>
+    </script>
+    
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+		var table = layui.table;
+        var form = layui.form;
+        var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+  
+        // 点击保存
+        $('body').on('click','.save',function(){
+            var data = formData();
+            var url = '/hcms/cost/danjiaweihuinsert';
+            data.bianhao = data.code;
+            data.name = data.cailiao;
+            delete data.code;
+            delete data.cailiao;
+            console.log(data);
+            for(list in data){
+                if(!data[list]){
+                    layer.msg('数据不全，请补充完整');
+                    return false
+                }
+            }
+            // console.log(999)
+            promiseSovl(url,'get', data).then(function(res){
+                if(res.code == 0){
+                    layer.msg('保存成功')
+                }else{
+                    layer.msg(res.msg)
+                }
+            });
+        });
+
+        // 窗口大小改变事件
+        window.onresize = function() {
+        	listReisze();
+        }
+		listReisze();
+		$('.search').click(function(){
+			var value = $('#kh_num').val();
+			tableIns.reload({
+				where:{
+                    cailiao:value
+                },
+				page:{
+					curr:1
+				}
+			})
+		})
+		
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        // url: '../assets/api/cbys.json',
+	        url: baseUrl + '/hcms/Cost/danjiaweihuselect',
+            where:{
+                cailiao: $('#kh_num').val()
+            },
+	        cols: [[
+				{ field: 'updatatime', title: '更新时间'},
+                { field: 'code', title: '物料编号'},
+                { field: 'cailiao', title: '物料名称'},
+                { field: 'units', title: '单位'},
+                { field: 'price1', title: '太龙单价'},
+                { field: 'price2', title: '山立单价'},
+                { field: 'price3', title: '伟治单价'},
+                { title: '操作', width:120, toolbar:'#barDemo',align:"center"}
+            ]],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        done: function() {
+	            
+	        }
+	    });
+
+	    // 表格数据编辑
+	    table.on('tool(ddtest)', function(obj) {
+	    	console.log(obj)
+	    	var id = obj.data.id
+	        if (obj.event == 'edit') {
+                //编辑
+                layer.open({
+                type: 1,
+                title: "编辑",
+                area: ["70%", "60%"],
+                btn: ["确定", "取消"],
+                content: $("#cbysAdd").html(),
+                success(layero, index) {
+	                dataRender(obj.data)
+                    form.render();
+                },
+            });
+	        } else if(obj.event == 'del') {
+                var url = '/hcms/Cost/danjiaweihudel';
+                var data = {
+                    updatatime:obj.data.updatatime,
+                    bianhao:obj.data.code
+                }
+	            layer.confirm('确定要删除吗？',function(){
+                    promiseSovl(url,'get', data).then(function(res){
+                        if(res.code == 0){
+                            obj.tr.remove();
+                            layer.msg('删除成功')
+                        }else{
+                            layer.msg(res.msg)
+                        }
+                    });
+	        	})
+	        }
+        });
+         // 点击添加
+         $(".add").click(function () {
+            layer.open({
+                type: 1,
+                title: "编辑",
+                area: ["70%", "60%"],
+                btn: ["确定", "取消"],
+                content: $("#cbysAdd").html(),
+                success(layero, index) {
+                    form.render();
+                },
+            });
+        });
+    </script>
+    <script type="text/html" id="cbysAdd">
+        <div class="hclit">
+            <ul class="jlul layui-form clearfix" style="padding:30px">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">更新时间</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="updatatime" readonly="" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">物料名称</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="cailiao" readonly="" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">物料编号</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="code" readonly="" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">物料单位</p>
+                        <div class="dd-value">
+                            <input type="text" autocomplete="off" name="units" readonly="" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">太龙单价</p>
+                        <div class="dd-value">
+                            <input type="number" autocomplete="off" name="price1" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">山立单价</p>
+                        <div class="dd-value">
+                             <input type="number" autocomplete="off" name="price2" value="">
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">伟治单价</p>
+                        <div class="dd-value">
+                             <input type="number" autocomplete="off" name="price3" value="">
+                        </div>
+                    </div>
+                </li>
+                <!-- <li class="">
+                    <div class="dd-value task-btnbox hcbig clearfix">
+                        <div class="layui-inline" style="float:left">
+                            <button class="hcbtn save">保存</button> 
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </script>
+</body>
+</html>

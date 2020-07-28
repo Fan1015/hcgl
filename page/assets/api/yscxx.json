@@ -1,0 +1,94 @@
+{
+	"code":0,
+	"data":[{
+		"car_num": "101",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "102",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "105",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "106",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "107",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "108",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "109",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "111",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "112",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	},{
+		"car_num": "113",
+		"cartype": "搅拌车四类",
+		"sijitype": "有",
+		"bzcs": "3",
+		"bzfl": "45",
+		"jcgl": "3.2",
+		"jcwx": "0.4",
+		"jcyh": "8.062"
+	}]
+}

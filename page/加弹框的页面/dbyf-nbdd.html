@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <style>
+      .layui-form-label {
+        width: 115px;
+      }
+      .layui-input {
+        height: 38px;
+      }
+      /* 范围选择框的颜色 */
+      .scope {
+        background-color: #ffffff;
+      }
+      /* 范围选择框的颜色 */
+      .last-input > input {
+        background-color: #edeff8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <form class="form-inline" id="mainForm" method="GET" action="#">
+        <!-- start 方法名 -->
+        <div class="lhcbig" style="margin-bottom: 24px;">
+          <label class="layui-form-label">方法名：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              value="Nbdd"
+              id="site"
+              readonly="readonly"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 方法名 -->
+        <!-- start 公司代码 -->
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">公司代码：</label>
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="price_min"
+                value=""
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline last-input">
+              <input
+                type="text"
+                name="price_max"
+                placeholder=""
+                disabled="true"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <div class="layui-input-inline select-input">
+              <select name="" class="sel" lay-filter="sel">
+                <option value="EQ" >等于</option>
+                <option value="CP"  selected="selected"> 包含</option>
+                <option value="GT">大于</option>
+                <option value="LT">小于</option>
+                <option value="GE">大于等于</option>
+                <option value="LE">小于等于</option>
+                <option value="NE">不等于</option>
+                <option value="NP">不包含</option>
+                <option value="BT">范围</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end 公司代码 -->
+        <!-- start 订单描述 -->
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">订单描述：</label>
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="price_min"
+                value=""
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline last-input">
+              <input
+                type="text"
+                name="price_max"
+                placeholder=""
+                disabled="true"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <div class="layui-input-inline select-input">
+              <select name="" class="sel" lay-filter="sel">
+                <option value="EQ">等于</option>
+                <option value="CP"  selected="selected"> 包含</option>
+                <option value="GT">大于</option>
+                <option value="LT">小于</option>
+                <option value="GE">大于等于</option>
+                <option value="LE">小于等于</option>
+                <option value="NE">不等于</option>
+                <option value="NP">不包含</option>
+                <option value="BT">范围</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end 订单描述 -->
+        <!-- start 订单类型 -->
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">订单类型：</label>
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="price_min"
+                value=""
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline last-input">
+              <input
+                type="text"
+                name="price_max"
+                placeholder=""
+                disabled="true"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <div class="layui-input-inline select-input">
+              <select name="" class="sel" lay-filter="sel">
+                <option value="EQ">等于</option>
+                <option value="CP"  selected="selected"> 包含</option>
+                <option value="GT">大于</option>
+                <option value="LT">小于</option>
+                <option value="GE">大于等于</option>
+                <option value="LE">小于等于</option>
+                <option value="NE">不等于</option>
+                <option value="NP">不包含</option>
+                <option value="BT">范围</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end 订单类型 -->
+        <!-- start 订单号码 -->
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">订单号码：</label>
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="price_min"
+                value=""
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline last-input">
+              <input
+                type="text"
+                name="price_max"
+                placeholder=""
+                disabled="true"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <div class="layui-input-inline select-input">
+              <select name="" class="sel" lay-filter="sel">
+                <option value="EQ">等于</option>
+                <option value="CP"  selected="selected"> 包含</option>
+                <option value="GT">大于</option>
+                <option value="LT">小于</option>
+                <option value="GE">大于等于</option>
+                <option value="LE">小于等于</option>
+                <option value="NE">不等于</option>
+                <option value="NP">不包含</option>
+                <option value="BT">范围</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end 订单号码 -->
+        <!-- start 创建日期 -->
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">创建日期：</label>
+            <div class="layui-input-inline">
+              <input
+                type="text"
+                name="price_min"
+                value=""
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+            <div class="layui-form-mid">-</div>
+            <div class="layui-input-inline last-input">
+              <input
+                type="text"
+                name="price_max"
+                placeholder=""
+                disabled="true"
+                autocomplete="off"
+                class="layui-input"
+              />
+            </div>
+            <div class="layui-input-inline select-input">
+              <select name="" class="sel" lay-filter="sel">
+                <option value="EQ">等于</option>
+                <option value="CP"  selected="selected"> 包含</option>
+                <option value="GT">大于</option>
+                <option value="LT">小于</option>
+                <option value="GE">大于等于</option>
+                <option value="LE">小于等于</option>
+                <option value="NE">不等于</option>
+                <option value="NP">不包含</option>
+                <option value="BT">范围</option>
+              </select>
+            </div>
+            <div class="layui-inline" style="margin-left: 12px;">
+              <button class="hcbtn" lay-submit lay-filter="search">
+                搜索
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end 创建日期 -->
+        <!--start 数据表格 -->
+        <div class="table" style="padding-right: 24px;">
+          <!-- <table class="layui-hide" id="dbyfNbdd_table" lay-filter="dbyfNbdd_test"></table> -->
+        </div>
+      </form>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      // 范围
+      form.on("select()", function (data) {
+        $(this)
+          .parents(".select-input")
+          .prev()
+          .children()
+          .attr({
+            disabled: data.value == "BT" ? false : true,
+            style: data.value == "BT" ? "background:#ffffff" : "",
+          });
+      });
+      form.on("submit(search)", function (data) {
+        console.log(data,111)
+        layer.msg("无数据！");
+        return false;
+      });
+    </script>
+  </body>
+</html>

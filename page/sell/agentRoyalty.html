@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>代理商提成报表</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">代理商提成报表</p>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">业务员：</label>
+                <div class="layui-input-inline seartype" style="float:left">
+                    <select class="form-control" name="ywy" id="ywy">
+						<option value="kang?xin?b">kang?xin?b</option>
+						<option value="付新华">付新华</option>
+						<option value="付朋朋">付朋朋</option>
+						<option value="公户">公户</option>
+						<option value="公户代理商">公户代理商</option>
+						<option value="刘诗阳">刘诗阳</option>
+						<option value="史云泊">史云泊</option>
+						<option value="吴智涛">吴智涛</option>
+						<option value="孟新年">孟新年</option>
+						<option value="尚宝迪">尚宝迪</option>
+						<option value="岳喜阳">岳喜阳</option>
+						<option value="康新标">康新标</option>
+						<option value="张平阳">张平阳</option>
+						<option value="张建功">张建功</option>
+						<option value="张正军">张正军</option>
+						<option value="张海燕">张海燕</option>
+						<option value="张继光">张继光</option>
+						<option value="张超">张超</option>
+						<option value="李元博">李元博</option>
+						<option value="李新伟">李新伟</option>
+						<option value="李晓峰">李晓峰</option>
+						<option value="焦洪安">焦洪安</option>
+						<option value="王亚飞">王亚飞</option>
+						<option value="王亚飞_">王亚飞_</option>
+						<option value="王泽辉">王泽辉</option>
+						<option value="王辉">王辉</option>
+						<option value="生产技术控制中心">生产技术控制中心</option>
+						<option value="白嘉琪">白嘉琪</option>
+						<option value="白育萍">白育萍</option>
+						<option value="谢洪涛">谢洪涛</option>
+						<option value="谢鸿涛">谢鸿涛</option>
+						<option value="赵婧君">赵婧君</option>
+						<option value="赵志勇">赵志勇</option>
+						<option value="赵文红">赵文红</option>
+						<option value="赵林佳">赵林佳</option>
+						<option value="赵林旺">赵林旺</option>
+						<option value="赵林旺2">赵林旺2</option>
+						<option value="赵茂">赵茂</option>
+						<option value="连娟">连娟</option>
+						<option value="连志伟">连志伟</option>
+						<option value="郎双超">郎双超</option>
+						<option value="郑松绍">郑松绍</option>
+						<option value="郭建平">郭建平</option>
+						<option value="全部">全部</option>
+                   </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+            	<label class="layui-form-label">选择月份：</label>
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="op_time" id="op_time" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn reload">刷新</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+    	var laydate = layui.laydate;
+    	
+    	$('.search').click(function(){
+    		var obj = new Object();
+    		var name = $('#ywy').val();
+    		var value = $('#search_val').val();
+    		obj[name] = value;
+    		tableIns.reload({
+    			where:obj,
+    			page:{
+    				curr:1
+    			}
+    		});
+    	});
+
+    	laydate.render({ 
+			elem: '#op_time',
+			type: 'month'
+		});
+ 
+
+    	$('.reload').click(function(){
+    		location.reload();
+    	});
+
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        url: '../assets/api/agentRoyalty.json',
+	        cols: [[
+				{ field: "send_time", title: "日期", fixed: "left", width: 120, sort: true },
+                { field: "business_man", title: "业务经理", width: 96},
+                { field: "take_unit", title: "客户名称", width: 200},
+                { field: "proj_name", title: "工程名称", width: 200},
+                { field: "ht_num", title: "合同号", width: 90},
+                { field: "xszz", title: "销售组织", width: 96},
+                { field: "kh", title: "客户编码", width: 96},
+                { field: "ht_type", title: "付款方式", width: 96},
+                { field: "strong_lv", title: "强度等级", width: 96},
+                { field: "pinzhong", title: "品种", width: 80},
+                { field: "send_count", title: "方量", width:80},
+                { field: "price", title: "售价", width: 80},
+                { field: "sale_price", title: "发布价", width: 80},
+                { field: "chaogongli", title: "超公里", width: 80},
+                { field: "yw_price", title: "工地回扣", width: 96},
+                { field: "kp20", title: "开发票", width: 80},
+                { field: "danfanglirun", title: "单方利润", width: 96},
+                { field: "push_money", title: "提成", width: 80},
+                { field: "sta_name", title: "站名", width: 80}
+            ]],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        done: function(res) {
+	            console.log(res)
+	        }
+	    });
+
+	    // 表格数据编辑
+	    table.on('tool(ddtest)', function(obj) {
+	        if (obj.event == 'edit') {
+	            //编辑
+	            dataRender(obj.data)
+	            form.render()
+	        } else if (obj.event == 'del') {
+	        	var ind = layer.confirm('确定要删除吗？',function(){
+	        		obj.tr.remove();
+	        		layer.close(ind)
+	        	})
+	        }
+	    });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>人事中心</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div class="echart-wrap-left" style="width:30%;">
+                <div id="receiveOne" style="width:100%;height:400px"></div>
+            </div>
+            <div class="echart-wrap-right" style="width:70%;">
+                <div id="receiveTwo" style="width:100%;height:400px;padding:20px;"></div>
+            </div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveThr" style="width:100%;height:430px"></div>
+        </div>
+        
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+        window.onresize = function(){
+            var resize = true;
+            receiveOne(resize);
+            receiveTwo(resize);
+            receiveThr(resize);
+        }
+        receiveOne()
+        receiveTwo()
+        receiveThr()
+        function receiveOne(resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var legenData = [{
+                name:'万昌运输',
+                value: 83
+            },{
+                name:'行政中心',
+                value: 18
+            },{
+                name:'资金中心',
+                value: 4
+            },{
+                name:'银河基建',
+                value: 5
+            },{
+                name:'元博公司',
+                value: 3
+            },{
+                name:'技术服务',
+                value: 80
+            },{
+                name:'建材代理商',
+                value: 26
+            }]
+            var option = {
+                title: {
+                    text: '人员管理',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                },
+                legend: {
+                    left: 'left',
+                    bottom: 0,
+                    icon:'circle',
+                    width:330,
+                    orient:'horizontal',
+                    formatter:function (name) {
+                        for(var i = 0;i < legenData.length;i++){
+                            if(legenData[i].name == name){
+                                return name + '  '  + legenData[i].value + '人'
+                            }
+                        }
+                    },
+                    data: ['万昌运输', '行政中心', '资金中心', '银河基建', '元博公司', '技术服务', '建材代理商']
+                },
+                color:['#7bb0ff','#ff9580','#af87fe','#ffbe40'],
+                series: [
+                    {
+                        name: '人员管理',
+                        type: 'pie',
+                        radius: [70, 100],
+                        center: ['50%', '40%'],
+                        label: {
+                            show: true,
+                            formatter:'{d}%',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: legenData
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var dataAll = [];
+            var data1 = [0,0,14,11,10,78,0,0,39]
+            var data2 = [18,4,0,0,3,5,5,3,41];
+            for(var i = 0;i < data1.length;i++){
+                dataAll[i] = data1[i] + data2[i]
+            }
+            var option = {
+                title: {
+                    text: '关键人才分析',
+                    left: 'left'
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['基层员工', '关键人才']
+                },
+                grid:{
+                    left:30,
+                    right:10,
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    // boundaryGap:false,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['行政中心', '资金中心', '恒昌建材', '山立建材', '伟治建材', '万昌运输', '银河基建', '元博公司', '技术中心']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '基层员工',
+                        type: 'bar',
+                        stack: 'one',
+                        barCategoryGap:'100%', 
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#7bb0ff'
+                        },
+                        data: data1
+                    },
+                    {
+                        name: '关键人才',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        data: data2
+                    },
+                    { 
+                        name: '总计',
+                        type: 'bar',
+                        barGap: '-20%',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                color:'rgba(128, 128, 128, 0)'
+                            }
+                        },
+                        data: dataAll
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        
+        function receiveThr(resize){
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '骨干人员工资对比统计',
+                    left: 'left'
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['骨干工资', '平均工资']
+                },
+                grid:{
+                    left:30,
+                    right:10,
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    // boundaryGap:false,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['岗位1', '岗位2', '岗位3', '岗位4', '岗位5', '岗位6', '岗位7', '岗位8', '岗位9']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '骨干工资',
+                        type: 'bar',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#3e66f4'
+                        },
+                        label: {
+                            show: true,
+                            position: 'top'
+                        },
+                        data: [120,100,120,100,120,100,120,100,120]
+                    },
+                    {
+                        name: '平均工资',
+                        type: 'line',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        // label: {
+                        //     show: true,
+                        //     position: 'top'
+                        // },
+                        data: [120,100,120,100,120,100,120,100,120]
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

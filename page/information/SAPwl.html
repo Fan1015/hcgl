@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>SAP物料主数据</title>
+    <style>
+      .operation_text {
+        font-size: 14px;
+      }
+      .operation_text > p:not(.last_text) {
+        margin: 0 0 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <h2 class="staname" style="padding: 0 0 40px 0;">SAP物料主数据</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 搜索类型 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom:30px; float: left;"
+        >
+          <label class="layui-form-label">搜索类型：</label>
+          <div class="layui-input-inline">
+            <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+            <select name="search_key" id="search_key">
+              <option value=""></option>
+              <option value="gc_code">工厂</option>
+              <option value="mater_code">物料编码</option>
+              <option value="mater_desc">物料描述</option>
+              <option value="mater_group">物料组</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 搜索类型 -->
+        <!-- start 搜索内容 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 30px; float: left;"
+        >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入搜索内容"
+              id="search_val"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 搜索内容 -->
+        <div class="layui-inline hcbig">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+         <!-- <div class="layui-inline" style="float: left;">
+            <button class="hcbtn update" data-type="reload" type="button">
+              刷新
+            </button>
+          </div> -->
+        </div>
+      </div>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 同步类型 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">搜索类型：</label>
+          <div class="layui-input-inline">
+            <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+            <select name="sync_key" id="sync_key" lay-filter="sync_key">
+              <option value="">选择同步类型</option>
+              <option value="Matnr">物料代码</option>
+              <option value="Matkl">物料组</option>
+              <option value="Werks">工厂</option>
+              <option value="Rdate">日期</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 同步类型 -->
+        <!-- start 同步参数 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入同步参数"
+              id="sync_val"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 同步参数 -->
+        <div class="layui-inline hcbig">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn synch" data-type="reload" type="button"  lay-submit lay-filter="sync">
+              同步数据
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="SAPwlTable" lay-filter="SAPwltest"></table>
+      </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      form.on("select(sync_key)",function(data){
+          var type=data.type
+          // console.log(type,120120)
+      })
+      var tableIns = tableRender({
+        elem: "#SAPwlTable",
+		url:baseUrl+"/hcms/purchase/sap_material",
+        cols: [
+          [
+            {
+              field: "mater_code",
+              title: "物料编号",
+              width: 170,
+            //   fixed: "left",
+              sort: true,
+            },
+            { field: "mater_desc", title: "物料描述", width: 170 },
+            { field: "mater_group", title: "物料组", width: 120 },
+            { field: "mater_type", title: "物料类型", width: 120 },
+            { field: "gc_code", title: "工厂", width: 120 },
+            { field: "purchase_group", title: "采购组", width: 120 },
+            { field: "trans_unit", title: "转换单位", width: 100 },
+            { field: "metering_unit", title: "计量单位", width: 100 },
+            { field: "unit", title: "单位", width: 120 },
+            { field: "c_text", title: "转换描述", width: 150 },
+            {
+              title: "是否删除",
+              width: 100,
+              fixed: "right",
+              templet(d) {
+                if (d.status == 9) {
+                  return '<span style="color: #FF5722;">删除</span>';
+                } else if (d.status == 0) {
+                  return '<span style="color: #5FB878;">正常</span>';
+                } else {
+                  return '<span style="color: #b89413;">未知</span>';
+                }
+              },
+            },
+            {
+              field: "update_time",
+              fixed: "right",
+              title: "更新时间",
+              width: 200,
+            },
+          ],
+        ],
+        id: "SAPwlReload",
+        even: true,
+        page:true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {
+        //   console.log(res);
+        },
+      });
+      form.on("submit(sync)", function(data){
+        var index = layer.load(2, {shade: [0.8, '#393D49']});
+        var flage=false;
+        if(!flage){
+            var msg = '同步失败';
+            layer.msg(msg);
+        }
+        layer.close(index)
+      });
+		// 点击搜索按钮
+		$(".search").on('click',function(){
+			var search_key = $("#search_key").val(); //搜索类型
+			var search_val = $("#search_val").val(); //搜索内容
+			if (search_key == "" || search_val == "") {
+			  layer.msg("请选择搜索类型和内容！", { type: 1, time: 1000 });
+			  return false;
+			}
+			//执行重载
+			table.reload("SAPwlReload", {
+			  page: {
+			    curr: 1, //重新从第 1 页开始
+			  },
+			  where: {
+			    search_key: search_key,
+			    search_val: search_val,
+			  },
+			});
+		})
+    </script>
+  </body>
+</html>

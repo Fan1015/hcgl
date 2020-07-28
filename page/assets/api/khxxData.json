@@ -1,0 +1,105 @@
+{
+	"code":0,
+	"count":300,
+	"data":[{
+		"id":15,
+		"gs_code": "1000",
+		"kh_num": "100001",
+		"sdf_num": "400067",
+		"kh_name": "河南国安建设集团建筑有限公司正和紫荆城尚和园",
+		"proj_name": "正和紫荆城尚和园",
+		"balance_type": "合同",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:08"
+	},{
+		"id": 416,
+		"gs_code": "1000",
+		"kh_num": "100002",
+		"sdf_num": "400068",
+		"kh_name": "河南国安建设集团建筑有限公司正和紫荆城亲和园",
+		"proj_name": "正和紫荆城亲和园",
+		"balance_type": "结束",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:14"
+	},{
+		"id": 417,
+		"gs_code": "1000",
+		"kh_num": "100003",
+		"sdf_num": "400064",
+		"kh_name": "郑州祥和集团有限公司郑州大唐巩义电厂222千伏送出工程",
+		"proj_name": "郑州大唐巩义电厂222千伏送出工程杨里",
+		"balance_type": "结束",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:22"
+	},{
+		"id": 418,
+		"gs_code": "1000",
+		"kh_num": "100003",
+		"sdf_num": "400065",
+		"kh_name": "郑州祥和集团有限公司郑州大唐巩义电厂222千伏送出工程",
+		"proj_name": "郑州大唐巩义电厂222千伏送出工程柏庙",
+		"balance_type": "结束",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:37"
+	},{
+		"id": 419,
+		"gs_code": "1000",
+		"kh_num": "100003",
+		"sdf_num": "400066",
+		"kh_name": "郑州祥和集团有限公司郑州大唐巩义电厂222千伏送出工程",
+		"proj_name": "郑州大唐巩义电厂222千伏送出工程鲁村",
+		"balance_type": "结束",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:42"
+	},{
+		"id": 420,
+		"gs_code": "1000",
+		"kh_num": "100004",
+		"sdf_num": "400069",
+		"kh_name": "河南国安建设集团建筑有限公司正和紫荆城乐和园",
+		"proj_name": "正和紫荆城乐和园",
+		"balance_type": "合同",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:29"
+	},{
+		"id": 421,
+		"gs_code": "1000",
+		"kh_num": "100005",
+		"sdf_num": "400070",
+		"kh_name": "河南国安建设集团建筑有限公司正和紫荆城尚和园砂浆",
+		"proj_name": "正和紫荆城尚和园砂浆",
+		"balance_type": "合同",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:25:48"
+	},{
+		"id": 422,
+		"gs_code": "1000",
+		"kh_num": "100011",
+		"sdf_num": "400084",
+		"kh_name": "中国建筑第二工程局有限公司融创云智小镇项目",
+		"proj_name": "融创云智小镇项目",
+		"balance_type": "合同",
+		"business_man": "李新伟",
+		"update_time": "2019-07-09 17:26:02"
+	},{
+		"id": 423,
+		"gs_code": "1000",
+		"kh_num": "100014",
+		"sdf_num": "400087",
+		"kh_name": "中国有色金属工业第六冶金建设有限公司巩义御景湾一期",
+		"proj_name": "巩义御景湾一期",
+		"balance_type": "合同",
+		"business_man": "连志伟",
+		"update_time": "2019-07-09 17:26:08"
+	},{
+		"id": 424,
+		"gs_code": "1000",
+		"kh_num": "100015",
+		"sdf_num": "400088",
+		"kh_name": "中国有色金属工业第六冶金建设有限公司巩义御景湾湿拌砂浆",
+		"proj_name": "巩义御景湾湿拌砂浆",
+		"balance_type": "合同",
+		"business_man": "连志伟",
+		"update_time": "2019-07-09 17:26:14"
+	}]
+}

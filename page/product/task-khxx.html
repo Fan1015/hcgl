@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>客户信息</title>
+    <style></style>
+</head>
+<body>
+    <div class="layer-child-conent layui-form">
+    	<div class="clearfix" style="">
+    		<div class="layui-inline hcbig" style="margin-bottom:18px;float:left">
+    		    <!-- <label class="layui-form-label">客户名称：</label> -->
+    		    <div class="layui-input-inline">
+    		      	<!-- <input type="text" placeholder="" id="kh_name" autocomplete="off" class="layui-input bigInput"> -->
+                    <select name="khName" id="khName">
+                        <option value="">请选择搜索类型</option>
+                        <option value="gs_code">公司代码</option>
+                        <option value="kh_num">客户编码</option>
+                        <option value="sdf_num">送达方编码</option>
+                        <option value="kh_name">客户名称</option>
+                        <option value="proj_name">工程名称</option>
+                    </select>
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:18px;float:left">
+    		    <!-- <label class="layui-form-label">工程名称：</label> -->
+    		    <div class="layui-input-inline">
+    		      	<input type="text" placeholder="请输入搜索内容" id="proj_name" autocomplete="off" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:18px;float:left">
+    		    <div class="layui-inline" style="float:left">
+    		      	<button class="hcbtn search">搜索</button>
+    		    </div>
+    		</div>
+        </div>
+        <div class="table">
+    		<table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+    	</div>
+    </div>
+    <script type="text/html" id="barDemo">
+    	<a lay-event="select">选择</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var table = layui.table;
+    	var form = layui.form;
+
+    	$('.search').click(function(){
+            console.log({
+                search_key: $('#khName').val(),
+                search_value: $('#proj_name').val()
+            })
+    		table.reload('taskxx',{
+    			where:{
+    				search_key: $('#khName').val(),
+    				search_val: $('#proj_name').val()
+    			},
+    			page:{
+    				curr:1
+    			}
+    		})
+    	})
+
+    	var tableIns = tableRender({
+    		elem:'#ddtest',
+    		url:baseUrl +'/hcms/customer/cust_list',
+            where:{
+                search_key: $('#khName').val(),
+                search_value: $('#proj_name').val()
+            },
+            id:'taskxx',
+    		cols:[[
+    			{field: 'gs_code', title: '公司代码', minWidth:100},
+    			{field: 'kh_num', title: '客户编码',  minWidth:100},
+                {field: 'sdf_num', title: '送达方编码', minWidth:115},
+                {field: 'kh_name', title: '客户单位', minWidth:220},
+                {field: 'proj_name', title: '工程名称', minWidth:230},
+                {title: '操作', width:70, toolbar:'#barDemo',fixed:"right",align:"center"}
+    		]],
+    		even: true,
+    		page:true,
+            limit:10,
+            skin:'row',
+            done:function(res){
+                
+            }
+        });
+        table.on('tool(ddtest)',function(obj){
+        	if(obj.event == 'select'){
+        		parent.$(".jlul").find('[name=take_unit]').val(obj.data.kh_name);
+        		parent.$(".jlul").find('[name=proj_name]').val(obj.data.proj_name);
+        		parent.$(".jlul").find('[name=gs_code]').val(obj.data.gs_code);
+        		parent.$(".jlul").find('[name=kh_num]').val(obj.data.kh_num);
+        		parent.$(".jlul").find('[name=sdf_num]').val(obj.data.sdf_num);
+        		parent.layer.msg('选择成功',{time:2000},function(){
+        			parent.layer.closeAll();
+        		})
+        	}
+        })
+    </script>
+</body>
+</html>

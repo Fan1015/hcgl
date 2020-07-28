@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title></title>
+    <style>
+      /* th,
+      td {
+        border: 1px solid #e6e6e6;
+        text-align: left;
+        height: 40px;
+      }
+      table > tbody > tr .title {
+        width: 100px;
+      }
+      table > thead > tr > th {
+        padding-left: 15px;
+      }
+      table > tbody > tr > td:first-child {
+        width: 120px;
+      }
+      table > tbody > tr > td:nth-child(2) {
+        width: 150px;
+      }
+      table > tbody > tr > td {
+        padding-left: 15px;
+      }
+      table > tbody > tr:nth-child(even) {
+        background-color: #f6f7fe;
+      }
+      table > tbody > tr:nth-child(odd) {
+        background-color: #ffffff;
+      }
+      table > thead > tr:nth-child(n) {
+        background-color: #f6f7fe;
+      }
+      table > tbody > tr:hover {
+        background-color: #f6f7fe;
+      } */
+      .run_id {
+        font-size: 16px;
+        color: #333333;
+        font-weight: bold;
+        padding-bottom: 25px;
+      }
+      .text_title {
+        padding: 30px;
+      }
+      .layui-text > p:not(:last-child) {
+        color: #333333;
+        padding-bottom: 15px;
+      }
+      .layui-text > p:last-child {
+        color: #333333;
+        padding-bottom: 25px;
+      }
+      table > tbody > tr > td > input {
+        background-color: transparent;
+        width: 100%;
+      }
+      .hcbtn {
+        width: 120px;
+      }
+      .already {
+        background: #ffffff;
+        color: #c9c9c9;
+      }
+      /*table的上下margin */
+      .layui-table,
+      .layui-table-view {
+        margin-bottom: 0;
+      }
+      .beizhu {
+        border: 1px solid #e6e6e6;
+        border-top: none;
+      }
+      .beizhu > p {
+        padding: 15px;
+        font-size: 14px;
+        line-height: 30px;
+        color: #ff1212;
+      }
+    </style>
+  </head>
+  <body>
+    <form action="">
+      <div class="text_title layui-form">
+        <div class="layui-text">
+          <p>操作提示</p>
+          <p><span>1）</span>报价为一次性报价，提交完不可修改，请谨慎填写。</p>
+          <p>
+            <span>2）</span
+            >供应数量、现金价格、承兑价格、交货时间、截止送货时间、验收标准、账期（天）、产地、万昌运输、备注列：点击单元格即可修改或填写。
+          </p>
+        </div>
+        <div id="tableDetail"></div>
+        <div class="beizhu">
+          <p>
+            备注：尊敬的供应商用户，首先，很荣幸您成为我单位的合格供应商，以上是我单位本次所需采购物资，望您认真填写，同一表格我单位会同时发往多家供应商，我们会根据您所提供的价格，拆分采购，择优录取。实际采购数量与计划数量不符者，以单价为准。此次您所填价格被我单位选中，不能以任何理由拒绝供货，表格所填内容具同等的法律效应，不被选中，流程将在此结束，此报价中因签字密码属于您的私人保密项，一旦签字，可视为合同签订依据，若长期填报价格不被选中，我单位有权收回该单位此种产品的再次投标权。同时，我们对所提供的价格进保密，若对此有疑义者，可在我单位公平、公正的查询，再次感谢您的配合！
+          </p>
+        </div>
+      </div>
+    </form>
+
+    <script type="text/html" id="theadDemo">
+        {{# var flage=true}}
+        {{# layui.each(d,function(index,item){  }}
+        {{# if(flage){ }}
+        <div>
+          <p class="run_id">流水号：{{d.run_id}}</p>
+        <table class="layui-table">
+            <thead>
+                <tr>
+                    <th lay-data="{field:'applicant', }">申请人</th>
+                    <th lay-data="{field:'username',}">姓名</th>
+                    <th lay-data="{field:'bj_endTime'" colspan="2">报价截止日期</th>
+                    <th lay-data="{field:'bjendTime''}" colspan="4">{{d.bjend_time}}</th>
+                    <th lay-data="{field:'yaoqiu_arrivalTime'}" style="width:200px">要求到场时间</th>
+                    <th lay-data="{field:'yaoqiuTime'}" colspan="4">2020-07-13 15:10:26</th>
+                    {{# if(d.val==0){ }}
+                    <th lay-data="" colspan="2" style="text-align:center">
+                      <button class="hcbtn" >提交报价</button>
+                  </th>
+                    {{# } }}
+                    {{# if(d.val==1){ }}
+                    <th lay-data="" colspan="2">
+                        <button class="hcbtn already" >已报价</button>
+                    </th>
+                    {{# } if(d.val==2){ }}
+                    <th lay-data="" colspan="2">
+                      <button class="hcbtn already" >已截止报价</button>
+                   </th>
+                    {{# }if(d.val==3){  }}
+                    <th lay-data="" colspan="2">
+                      <button class="hcbtn already">历史报价</button>
+                   </th>
+                    {{# } }}
+                </tr>
+                <tr>
+                    <th lay-data="{field:'gys_name'}" style="width:130px">供应商名称</th>
+                    <th lay-data="{field:'name',}" colspan="3">供应商2</th>
+                    <th lay-data="{field:'ts_sm',}"  colspan="4">特殊情况说明</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th lay-data="{field:'wz_name'}">物资名称</th>
+                    <th lay-data="{field:'guige'}" style="width:100px">规格型号</th>
+                    <th lay-data="{field:'num'}" style="width:140px">数量（单位）</th>
+                    <th lay-data="{field:'gy_num'}" style="width:100px">供应数量</th>
+                    <th lay-data="{field:'xj_price'}" style="width:100px">现金价格</th>
+                    <th lay-data="{field:'xj_sum'}">小计</th>
+                    <th lay-data="{field:'cd_price'}" style="width:100px">承兑价格</th>
+                    <th lay-data="{field:'cd_sum'}">小计</th>
+                    <th lay-data="{field:'jiaohuo_time'}">交货时间</th>
+                    <th lay-data="{field:'jiezhi_time'}" style="width:160px">截止送货时间</th>
+                    <th lay-data="{field:'yanshou_bz'}" style="width:100px">验收标准</th>
+                    <th lay-data="{field:'zhangqi'}" style="width:120px">账期（天）</th>
+                    <th lay-data="{field:'chandi'}">产地</th>
+                    <th lay-data="{field:'wcys'}" style="width:100px">万昌运输</th>
+                    <th lay-data="{field:'beizhu'}">备注</th>
+                </tr>
+            </thead>
+            <tbody id="tbodyDetail">
+
+            </tbody>
+        </table>
+      </div>
+      {{# } }}
+      {{# flage=false }}
+
+      {{# }) }}
+    </script>
+    <script type="text/html" id="tbodyDemo">
+      {{# layui.each(d.list,function(index,item){ }}
+      <tr>
+          <td> <input type="checkbox" lay-skin="primary" name="checked_box" lay-filter="checkbox" title="{{item.wz_name}}"></td>
+          <td>{{item.guige}}</td>
+          <td>{{item.num}}</td>
+          <td><input type="text" value="{{item.gy_num}}"</td>
+          <td><input type="text" value="{{item.xj_price}}"</td>
+          <td><input type="text" value="{{item.xj_sum}}"</td>
+          <td><input type="text" value="{{item.cd_price}}"</td>
+          <td><input type="text" value="{{item.cd_sum}}"</td>
+          <td><input type="text" value="{{item.jiaohuo_time}}"</td>
+          <td><input type="text" value="{{item.jiezhi_time}}"</td>
+          <td><input type="text" value="{{item.yanshou_bz}}"</td>
+          <td><input type="text" value="{{item.zhangqi}}"</td>
+          <td><input type="text" value="{{item.chandi}}"</td>
+          <td><input type="text" value="{{item.wcys}}"</td>
+          <td><input type="text" value="{{item.beizhu}}"</td>
+      </tr>
+      {{# }) }}
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var laytpl = layui.laytpl;
+
+      var data = JSON.parse(localStorage.getItem("gysbjDetail"));
+      console.log(data, 2222);
+      var theadTpl = $("#theadDemo").html();
+      laytpl(theadTpl).render(data, function (html) {
+        $("#tableDetail").html(html);
+
+      });
+
+      var tbodyTpl = $("#tbodyDemo").html();
+      laytpl(tbodyTpl).render(data.list[0], function (html) {
+        $("#tbodyDetail").append(html);
+        form.render()
+      });
+    </script>
+  </body>
+</html>

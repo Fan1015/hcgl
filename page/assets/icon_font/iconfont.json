@@ -1,0 +1,51 @@
+{
+  "id": "1817044",
+  "name": "调度",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1526269",
+      "name": "任务",
+      "font_class": "renwu",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "2958940",
+      "name": "车辆管理",
+      "font_class": "cheliangguanli",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "5809147",
+      "name": "采购单",
+      "font_class": "caigoudan",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "8200838",
+      "name": "出货单管理",
+      "font_class": "chuhuodanguanli",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "12183085",
+      "name": "进货车",
+      "font_class": "jinhuoche",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "12975229",
+      "name": "控制台",
+      "font_class": "kongzhitai",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    }
+  ]
+}

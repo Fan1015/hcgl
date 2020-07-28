@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>商砼成本预算</title>
+    <style>
+      .hcbig-top {
+        margin-bottom: 32px;
+        float: left;
+      }
+      .hcbig-foot {
+        float: left;
+        margin-right: 30px;
+        margin-top: 6px;
+      }
+      /*.layui-form-radio {
+        padding: 0;
+        margin: 0;
+      }*/
+    </style>
+  </head>
+
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        商砼成本预算
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="xdcbStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="xdcbEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+        <!-- start 任务单号  -->
+        <div class="layui-inline hcbig" style="float: left;margin-bottom: 24px;">
+          <label class="layui-form-label">任务单号：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="xdcbNum"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 任务单号 -->
+        <!--start 站点选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">站点：</label>
+          <div class="layui-input-inline">
+            <select name="xdcbStation" id="xdcbStation">
+              <option value="太龙">太龙</option>
+              <option value="山立">山立</option>
+              <option value="伟治">伟治</option>
+              <option value="全部">全部</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin: 0 0 24px; float: left;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="submit">导出</button>
+          </div>
+        </div>
+        <!--end 搜索导出按钮 -->
+      </div>
+      <!-- 单选框 -->
+      <div class="clearfix" style="padding-right: 24px;margin-bottom:24px">
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="0" lay-filter="checkType" checked="checked" title="时间" />
+          <input type="radio" name="radio_1" value="1" lay-filter="checkType" title="任务单号" />
+        </div>
+      </div>
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="xdcbtable" lay-filter="xdcbtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      var judge = 0;
+		
+	  var alldata = [];
+      //开始时间选择
+      laydate.render({
+        elem: "#xdcbStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#xdcbEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      form.on('radio(checkType)',function(obj){
+        console.log(obj)
+        judge = obj.value
+      })
+      //查询按钮绑定事件
+      $(".search").on("click", function () {
+        // judge = $('input[name="radio_1"]:checked').val();
+        tableder();
+      });
+     //导出按钮
+     $(".export").click(function(){
+        table.exportFile("xdcbReload", alldata, "xls")
+      }) 
+      tableder();
+      function tableder() {
+       var xdcbystable=tableRender({
+          elem: "#xdcbtable",
+          // url: "../assets/api/xdcbysTable.json",
+          url: baseUrl + '/hcms/Cost/costdata',
+          where: {
+            time1: $("#xdcbStart").val(),
+            time2: $("#xdcbEnd").val(),
+            judge: judge,
+            order:$('#xdcbNum').val(),
+            zhandian:$("#xdcbStation").val()
+          },
+          cols: [
+            [
+              //表头
+              {
+                field: "ht_num",
+                title: "生产任务",
+                fixed: "left",
+                width: "100",
+              },
+              {
+                field: "take_unit",
+                title: "需方单位",
+                width: "180",
+              },
+              {
+                field: "proj_name",
+                title: "工程名称",
+                width: "180",
+              },
+              {
+                field: "trans_dist",
+                title: "运距",
+                width: "100",
+              },
+              {
+                field: "strong_lv",
+                title: "标号",
+                width: "100",
+              },
+              {
+                field: "fahuofangliang",
+                title: "方量",
+                width: "100",
+              },
+              {
+                field: "cailiaochengben",
+                title: "配比成本",
+                width: "140",
+                align: "center",
+              },
+              {
+                field: "zhizuofeiyong",
+                title: "制造费用",
+                width: "100",
+              },
+              {
+                field: "guanlifeiyong",
+                title: "管理费用",
+                width: "100",
+              },
+              { field: "yunfei", title: "运费", width: "100",},
+              {
+                field: "chaoshifei",
+                title: "超时费",
+                width: "100",
+              },
+              {
+                field: "shuicha",
+                title: "税额",
+                width: "100",
+              },
+              {
+                field: "chengbenheji",
+                title: "成本合计",
+                width: "120",
+              },
+              { field: "price", title: "售价", width: "100",},
+              {
+                field: "yewuticheng",
+                title: "业务提成",
+                width: "100",
+              },
+              {
+                field: "kaipiaoshuikuan",
+                title: "开票税款",
+                width: "100",
+              },
+              {
+                field: "yewuhuikou",
+                title: "工地回扣",
+                width: "100",
+              }, //业务回扣
+              {
+                field: "danfanglirun",
+                title: "单方利润",
+                width: "100",
+              },
+              {
+                field: "lirunzonghe",
+                title: "利润（总方）",
+                width: "150",
+              },
+              {
+                field: "fabujia",
+                title: "发布价",
+                width: "100",
+              },
+              {
+                field: "ht_type",
+                title: "付款方式",
+                width: "100",
+              },
+              {
+                field: "station_name",
+                title: "站名",
+                width: "100",
+              },
+
+              {
+                field: "cailiaochengben_zong",
+                title: "配比成本（总方）",
+                width: "160",
+              },
+              {
+                field: "zhizuofeiyong_zong",
+                title: "制造费（总方）",
+                width: "150",
+              },
+              {
+                field: "guanlifeiyong_zong",
+                title: "管理费（总方）",
+                width: "150",
+              },
+              {
+                field: "biaozhunchefei",
+                title: "运费（总方）",
+                width: "150",
+              },
+              {
+                field: "chaoshifei_zong",
+                title: "超时费（总方）",
+                width: "150",
+              },
+              {
+                field: "shuicha_zong",
+                title: "税金（总方）",
+                width: "150",
+              },
+              {
+                field: "chengbenheji_zong",
+                title: "成本（总方）",
+                width: "150",
+              },
+              {
+                field: "yewuticheng_zong",
+                title: "业务提成（总方）",
+                width: "160",
+              },
+              {
+                field: "kaipiaoshuikuan_zong",
+                title: "开票税款（总方）",
+                width: "160",
+              },
+              {
+                field: "yewuhuikou_zong",
+                title: "业务回款（总方）",
+                width: "160",
+              },
+            ],
+          ],
+          page: true,
+          id: "xdcbReload",
+          even: true,
+          skin: "row",
+          limit: 10,
+          done: function (res) {
+            alldata = res.data;
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

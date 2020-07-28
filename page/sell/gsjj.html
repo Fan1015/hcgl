@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>公司简介</title>
+    <style>
+        .company_name {
+            border-bottom: 1px solid #e6e6e6;
+            margin-right: 30px;
+        }
+
+        .company_photo,
+        .company_intro {
+            margin-top: 30px;
+        }
+
+        #demo_img {
+            width: 322px;
+            height: 202px;
+            border-radius: 4px;
+        }
+
+        .layui-btn {
+            background-color: #ffffff;
+            color: #3e66f4;
+            font-size: 18px;
+            padding: 0;
+        }
+
+        .layui-btn:hover {
+            opacity: 1;
+            color: #3e66f4;
+        }
+
+        .layui-layedit {
+            margin-right: 30px;
+        }
+
+        .intro-title {
+            text-align: center;
+        }
+
+        .preview,
+        .reset {
+            margin-left: 20px;
+        }
+
+        a:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">公司简介</p>
+            <div class="company_name">
+                <p class="dd-name" style="margin-bottom: 25px;">公司名称</p>
+                <div class="dd-input" style="padding-bottom: 15px;">
+                    <input type="text" name="car_num" value="河南省恒昌建材科技有限公司-企业简介" style="width:100%;color: #666;font-size: 18px;">
+                </div>
+            </div>
+            <div class="company_photo">
+                <p class="dd-name">公司缩略图</p>
+                <div class="dd-img">
+                    <div class="layui-upload">
+                        <img src="../../assets/image/upload.png" alt="" srcset="">
+                        <button type="button" class="layui-btn" id="upload_btn">上传图片</button>
+                         <div class="layui-upload-list">
+                            <img class="layui-upload-img" id="demo_img"
+                                src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/cb32829d4857439b032cf932c313cee2.jpg">
+                            <p id="demoText"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="company_intro">
+                <p class="dd-name" style="margin-bottom: 25px;">公司介绍</p>
+                <div class="dd-intro">
+                    <textarea id="demo" style="display: none;">
+                        <style>
+                            .intro-title,.intro-img{
+                                text-align: center;
+                            }
+                            .intro-title{
+                                background-color:  rgba(201,0,0,0.7);
+                                line-height: 30px;
+                                color: #ffffff;
+                                font-weight: 600;
+                            }
+                            .intro-text{
+                                margin-top: 10px;
+                                text-indent:30px;
+                                line-height: 30px;
+                                font-size: 16px;
+                            }
+                           
+                        </style>
+                        <div class="intro-out">
+                            <div>
+                                <p class="intro-title">公司概况</p>
+                                <div class="intro-img">
+                                    <img src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/1a6537fd5b2f7c5a21736fc68ccd74fa.jpg" style="width:100%">
+                                </div>
+                                <div class="intro-text">
+                                    河南省恒昌建材科技有限公司于2009年元月成立，专业从事商品混凝土生产、销售的预拌混凝土生产企业，公司位于巩义市工业发展区南河渡，拥有便利的交通运输条件，2015年8月被评为巩义市唯一一家环保型搅拌站。作为巩义市混凝土生产龙头企业，其技术水平代表了巩义市混凝土行业的先进水平。
+                                </div>
+                                <p class="intro-title">管理精髓</p>
+                                <div class="intro-img">
+                                    <img src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/8c70f5d967c07d18ebfac6b28a43b1fb.jpg"style="width:100%">
+                                </div>
+                                <div class="intro-text">
+                                    内抓管理、外树形象、推动成本管理和科技创新工作向前发展，以营销为龙头，科技创新、技术进步为动力，优秀人才为支柱，科学管理为依托，优秀服务为保证，确保品牌优势，创建巩义市商品混凝土一流企业。
+                                </div>
+                                <p class="intro-title">研发能力</p>
+                                <div class="intro-img">
+                                    <img src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/287a13898e888e04396507fc18ce7712.jpg"><img src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/e496ba11a3c835dd9af53d755e065a8a.jpg" style="width:100%">
+                                </div>
+                                <div class="intro-text">
+                                    拥有四条全自动化混凝土生产线以及与其配套的各类生产、试验相关设备，建有标准化300平米检测试验室，配备专业的技术研发人员、现场技术指导人员。
+                                </div>
+                                <p class="intro-title">运输能力</p>
+                                <div class="intro-img">
+                                    <img data-index="1568034419239-0" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/de809a3e775e35eecc1537c6acf4485f.jpg" style="width:100%">
+                                    <img data-index="1568034419239-1" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/c2cd841ba6f6f73e8005deedd5735039.jpg" style="width:100%" > 
+                                    <img data-index="1568034419239-2" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/6477c1430f0efc0628b8cafdfd626e6c.png" style="width:100%"> 
+                                </div>
+                                <div class="intro-text">
+                                    公司自有70余台混凝土搅拌输送车，3辆混凝土汽车泵，5辆混凝土地泵，20余台封闭式粉骨料运输车，2台5T装载机，满足现代化施工队混凝土质量和供应的需求。
+                                </div>
+                                <p class="intro-title">社会贡献</p>
+                                <div class="intro-img">
+                                    <img src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/2bcb73c2cde86b532f0591fb07223de6.jpg" style="width:100%">
+                                </div>
+                                <div class="intro-text">
+                                    数年来，公司以领先的技术、先进的设备和优质的服务承担了巩义市多项重大工程的混凝土施工任务，如：巩义建业春天里、碧桂园、六冶御景湾、河南煤业集团家福园项目工程、万洋国际商贸城、宋城御街商品住宅楼、河南成功学院巩义分院、连霍高速公路郑洛段等，为巩义市市政建设做出了积极贡献。
+                                </div>
+                                <div class="intro-img">
+                                    <img data-index="1568034620838-1" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/e39fd85b8920d5ab0a7d8b72338cc486.jpg" alt="10.jpg" style="width:100%">
+                                    <img data-index="1568034620838-2" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/1311256fc1b29561c65402a7feaca716.jpg" alt="11.jpg" style="width:100%"> 
+                                    <img data-index="1568034620838-3" src="http://hcis.iwoyou.cn:8008/public/uploads/article/20190909/59bfa0e2dcfedcdbac5fdcdb616bfdf8.jpg" alt="12.jpg" style="width:100%"> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </textarea>
+                    <div class="layui-inline hcbig clearfix" style="float: right;margin:20px 0 30px">
+                        <div class="layui-inline" style="margin-right: 30px;">
+                            <button class="hcbtn referTo" lay-filter="edit_com">提交</button>
+                            <button type="reset" class="hcbtn reset">重置</button>
+                            <button class="hcbtn preview"><a href="/page/information/intro.html" target="_blank"
+                                    class="enlarge">预览</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../assets/layui/layui.all.js"></script>
+        <script src="../../assets/jquery/jquery.min.js"></script>
+        <script src="../../assets/js/echarts.js"></script>
+        <script src="../../assets/js/bluebirds.js"></script>
+        <script src="../../assets/js/common.js"></script>
+        <script>
+            var $ = layui.jquery;
+            var upload = layui.upload;
+            var form = layui.form;
+            var layedit = layui.layedit;
+            layui.use('layedit', function () {
+                layedit.build('demo'); //建立编辑器
+            });
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#upload_btn',
+                url: 'https://httpbin.org/post', //改成您自己的上传接口
+                before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        $('#demo_img').attr('src', result); //图片链接（base64）
+                    });
+                },
+                done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    //上传成功
+                },
+                error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+            layedit.set({
+                uploadImage: {
+                    url: '/minipro/index/upload.html' //接口url
+                    , type: '' //默认post
+                    , multiple: true
+                }
+            });
+            var edit_index = layedit.build('demo'); //建立编辑器
+            form.on('submit(edit_com)', function (data) {
+                var send_data = data.field
+                send_data.describe = layedit.getContent(edit_index)
+                // console.log(send_data);
+                // return false;
+                $.ajax({
+                    type: 'post',
+                    url: '/minipro/index/edit_com.html',
+                    data: send_data,
+                    dataType: 'json',
+                    success(data) {
+                        // console.log(1);
+                        // return false;
+                        if (data.code == 1) {
+                            layer.msg(data.msg, { icon: 2 })
+                            return false
+                        }
+                        layer.msg(data.msg, { icon: 1 }, function () {
+                            location.reload()
+                        })
+                    },
+                    error() {
+                        layer.msg('网络异常', { icon: 2 })
+                    }
+                })
+                console.log(data)
+                return false
+            })
+        </script>
+</body>
+
+</html>

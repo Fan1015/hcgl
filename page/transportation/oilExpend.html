@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>加油数据统计</title>
+    <style>
+    	.layui-table-box .layui-table-header tr:nth-child(2){
+    		background: #fff
+    	}
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">加油数据统计</p>
+           
+        </div>
+        <div class="clearfix" style="padding-right:24px">
+            <div class="layui-inline hcbig" style="margin-bottom: 24px; float:left;">
+                <label class="layui-form-label">查询时间：</label>
+                <div class="layui-input-inline" style="margin-right:5px">
+                    <input type="text" id="starttime" placeholder="开始时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="1">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+                <span>-</span>
+                <div class="layui-input-inline" style="margin-left:5px;margin-right: 24px;">
+                    <input type="text" id="endtime" placeholder="结束时间" autocomplete="off" readonly="" class="layui-input bigInput" lay-key="2">
+                    <span class="dateiconb" style="top:3px">
+                        <i class="layui-icon layui-icon-date"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left;margin-right:0;">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+            <div class="layui-inline hcitems clearfix" style="margin-bottom:24px;float:right;">
+                <div class="layui-inline" style="float:left;margin-right:16px;">
+                    <button class="hcbtn focus">
+                    	<i class="fa fa-table" aria-hidden="true"></i> 
+	                    表格显示
+	                </button>
+                </div>
+                <div class="layui-inline" style="float:left;margin-right:0;">
+                    <button class="hcbtn">
+                    	<i class="fa fa-bar-chart" aria-hidden="true"></i>
+                    	图表显示
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="mainbox">
+	        <div class="tablebb" style="padding-right:24px;">
+	            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+	        </div>
+	        <div class="tablebb" style="display: none;width:100%;">
+				<div>
+					<input type="radio" name="tongji" lay-filter="tongji" value="num" title="按数量统计"checked>
+					<input type="radio" name="tongji" lay-filter="tongji" value="money" title="按金额统计">
+				</div>
+	        	<div id="receiveOne" style="width:100%;height:400px;"></div>
+	        	<div id="receiveTwo" style="width:100%;height:400px;"></div>
+	        </div>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+ 
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+		var table = layui.table;
+        var form = layui.form;
+        var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+        var alldata = null;
+        var color = ['#7bafff','#ff997c','#b289ff','#fbbf3a','#46cbca','#f77991','#628bff','#f79f87','#8d8bf9','#f59b4d','#06cd96'];
+
+        // 点击搜索
+        $('.search').click(function(){
+        	var starttime = $('#starttime').val();
+        	var endtime = $('#endtime').val();
+        	tableIns.reload({
+        		where:{
+        			starttime,
+        			endtime
+        		},
+        		page:{
+        			curr:1
+        		}
+        	})
+        });
+
+        // 导出
+        $('.export').click(function(){
+        	var ind = layer.load(0,{shade:0.5})
+            exportAllData({
+                url: tableIns.config.url,
+                data:{},
+                length: alldata.count,
+                export (res) {
+                    layer.close(ind)
+                    console.log(res)
+                    table.exportFile(tableIns.config.id,res,'xls')
+                }
+            })
+        })
+
+        //刷新
+       	$('.reload').click(function(){
+       		location.reload();
+       	})
+        // 表格显示或图表显示
+        $('.hcitems button').click(function(){
+        	$('.hcitems button').removeClass('focus');
+        	$(this).addClass('focus');
+        	var index = $(this).parent().index();
+        	console.log(index);
+        	$('.tablebb').eq(index).show().siblings().hide();
+        	if(index == 1){
+		    	var val = $('input[type=radio]:checked').val();
+		    	var resize = true;
+		    	var echdataone = echartOne(alldata.data,val);
+	            receiveOne(echdataone,resize);
+	            var echdatatwo = echartTwo(alldata.data,val);
+	            receiveTwo(echdatatwo,resize);
+        	}
+        });
+        // 监听单选框
+	    form.on('radio(tongji)',function(obj){
+	    	var val = obj.value;
+	    	var echdataone = echartOne(alldata.data,val);
+            receiveOne(echdataone);
+            var echdatatwo = echartTwo(alldata.data,val);
+            receiveTwo(echdatatwo);
+	    });
+
+	    window.onresize = function(){
+	    	var val = $('input[type=radio]:checked').val();
+	    	var resize = true;
+	    	var echdataone = echartOne(alldata.data,val);
+            receiveOne(echdataone,resize);
+            var echdatatwo = echartTwo(alldata.data,val);
+            receiveTwo(echdatatwo,resize);
+	    }
+
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        // url: '../assets/api/jysjtjTable.json',
+            url: baseUrl + '/hcms/oil/count_data',
+	        id:'export',
+	        cols: [
+	            [
+                    {colspan: 12, title: '加油机消耗统计表', align: 'center'}, //一级表头
+                ],
+                [
+                    {colspan: 3, title: '1#加油机(公司院)', align: 'center'},//二级表头
+                    {colspan: 3, title: '2#加油机(太龙站)', align: 'center'},
+                    {colspan: 3, title: '3#加油机(山立站)', align: 'center'},
+                    {colspan: 3, title: '4#加油机(伟治站)', align: 'center'}
+                ],
+                [
+                    {field: 'm_1_gs_code', title: '公司代码', width: 100},
+                    {field: 'm_1_num', title: '数量(升)', width: 150, totalRow: true, totalRowText: "合计："},
+                    {field: 'm_1_money', title: '金额(元)', width: 150, totalRow: true},
+                    {field: 'm_2_gs_code', title: '公司代码', width: 100},
+                    {field: 'm_2_num', title: '数量(升)', width: 150, totalRow: true},
+                    {field: 'm_2_money', title: '金额(元)', width: 150, totalRow: true},
+                    {field: 'm_3_gs_code', title: '公司代码', width: 100},
+                    {field: 'm_3_num', title: '数量(升)', width: 150, totalRow: true},
+                    {field: 'm_3_money', title: '金额(元)', width: 150, totalRow: true},
+                    {field: 'm_4_gs_code', title: '公司代码', width: 100},
+                    {field: 'm_4_num', title: '数量(升)', width: 150, totalRow: true},
+                    {field: 'm_4_money', title: '金额(元)', width: 150, totalRow: true}
+                ]
+	        ],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        done: function(res) {
+                console.log(res)
+	        	alldata = res;
+	            var echdataone = echartOne(res.data,'num');
+                console.log(echdataone)
+	            receiveOne(echdataone);
+	            var echdatatwo = echartTwo(res.data,'num');
+	            receiveTwo(echdatatwo);
+	        }
+	    });
+
+	    function receiveOne(data, resize){
+	    	var seriesData = [];
+	    	var len = data.dimensions.length-1
+	    	for(var i = 0;i < len;i++){
+	    		seriesData.push({type: 'bar',barWidth:10,itemStyle:{color:color[i]},seriesLayoutBy: 'row'})
+	    	}
+	    	var myChart = echarts.init(document.getElementById("receiveOne"));
+	    	var option = {
+	    		title: {
+                    text: '加油消耗统计-按数量统计-加油机',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel: true
+                },
+	    	    legend: {
+	    	    	right: 0,
+                    icon:'circle',
+	    	    },
+	    	    tooltip: {
+	    	    	trigger: 'axis',
+	    	    	axisPointer:{
+	    	    		type:'shadow'
+	    	    	}
+	    	    },
+	    	    dataset: data,
+	    	    xAxis: {
+	    	    	type: 'category',
+	    	    	axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+	    	    },
+	    	    yAxis: {
+	    	    	axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+	    	    },
+	    	    series: seriesData
+	    	};
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+	    }
+	    function receiveTwo(data, resize){
+	    	var seriesData = [];
+	    	var len = data.dimensions.length-1
+	    	for(var i = 0;i < len;i++){
+	    		seriesData.push({type: 'bar',barWidth:10,itemStyle:{color:color[i]},seriesLayoutBy: 'row'})
+	    	}
+	    	var myChart = echarts.init(document.getElementById("receiveTwo"));
+	    	var option = {
+	    		title: {
+                    text: '加油消耗统计-按数量统计-公司',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel: true
+                },
+	    	    legend: {
+	    	    	right: 0,
+                    icon:'circle',
+	    	    },
+	    	    tooltip: {
+	    	    	trigger: 'axis',
+	    	    	axisPointer:{
+	    	    		type:'shadow'
+	    	    	}
+	    	    },
+	    	    dataset: data,
+	    	    xAxis: {
+	    	    	type: 'category',
+	    	    	axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+	    	    },
+	    	    yAxis: {
+	    	    	axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+	    	    },
+	    	    series: seriesData
+	    	};
+
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+	    }
+
+	    function echartOne(data,name){
+            console.log(data)
+            var objData = {
+            	dimensions:['station'],
+            	source:[
+	            	{station:'1#加油机(公司院)'},
+	            	{station:'2#加油机(太龙站)'},
+	            	{station:'3#加油机(山立站)'},
+	            	{station:'4#加油机(伟治站)'}
+	            ]
+            };
+            for(var i = 0;i < data.length;i++){
+                objData.dimensions.push(data[i].m_1_gs_code);
+                for(var j = 1;j <= objData.source.length;j++){
+                    var keys = 'm_'+j+'_' + name;
+                    objData.source[j-1][data[i].m_1_gs_code] = data[i][keys];
+                }
+            }
+            return objData
+	    }
+	    function echartTwo(data,name){
+	    	var objData = {
+            	dimensions:['station','1#加油机(公司院)','2#加油机(太龙站)','3#加油机(山立站)','4#加油机(伟治站)'],
+            	source:[]
+            };
+            for(var i = 0;i < data.length;i++){
+                objData.source[i] = objData.source[i] ? objData.source[i] : {station:data[i].m_1_gs_code};
+                for(var j = 1;j < objData.dimensions.length;j++){
+                    var keys = 'm_'+j+'_' + name;
+                    objData.source[i][objData.dimensions[j]] = data[i][keys]
+                }
+            }
+            return objData
+	    }
+	</script>
+</body>
+</html>

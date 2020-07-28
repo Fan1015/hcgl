@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>皮带秤生产信息</title>
+    <style>
+      .layui-btn {
+        display: inline-block;
+        background-color: #3e66f4;
+        color: #fff;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 14px;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+      .layui-form-checked[lay-skin="primary"] i {
+        border-color: #3e66f4 !important;
+        background-color: #3e66f4;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title标题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">皮带秤生产信息</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="pdcStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="pdcEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+        <!-- start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">搜索</button>
+          </div>
+          <!-- <div class="layui-inline" style="float: left;">
+            <button class="hcbtn reload" data-type="reload" type="button">刷新</button>
+          </div> -->
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn synch">同步数据</button>
+          </div>
+        </div>
+        <!-- end 搜索导出按钮-->
+      </div>
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="pdctable" lay-filter="pdctest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+          <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量上传</button>
+      </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#pdcStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //   //结束时间选择
+      laydate.render({
+        elem: "#pdcEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      // 同步数据
+      $('.synch').click(function(){
+        var url = '/hcms/produce/synch_belt_data';
+        promiseSovl(url).then(function(res){
+          if(res.code == 0) {
+            layer.msg('同步成功', {time: 2000},function () {
+              location.reload()
+            })
+          }else {
+            layer.msg(res.msg, {time: 2000})
+          }
+        });
+        $.ajax({
+          url:baseUrl + '/hcms/produce/synch_belt_data',
+          success(res){
+            layer.msg(res.msg)
+            // if(res.code == 0) {
+            //   layer.msg(res.msg)
+            // }
+          }
+        })
+      })
+        // 初始化表格数据
+        tableRender({
+          elem: "#pdctable",
+          toolbar: "#toolbarDemo",
+          defaultToolbar: false,
+          // url: "../assets/api/pdcscTable.json",
+          url: baseUrl + '/hcms/produce/belt_data',
+          cols: [
+            [
+              { type: "checkbox", fixed: "left", width: 50 },
+              { field: "id", title: "序号", sort: true , width: 90 },
+              { field: "device_name", title: "设备名称", width: 220 },
+              { field: "sap_status", title: "状态", width: 70 },
+              { field: "sap_back", title: "返回结果", width: 180},
+              { field: "agg_value", title: "累计值", width: 90 ,align:"right"},
+              { field: "start_value", title: "起始值" , width: 90,align:"right"},
+              { field: "end_value", title: "结束值", width: 90 ,align:"right"},
+              { field: "start_time", title: "起始时间", width: 170 },
+              { field: "end_time", title: "结束时间" , width: 170},
+              { field: "create_time", title: "同步时间", width:170 },
+              { field: "sap_msg", title: "返回消息", width: 150},
+            ],
+          ],
+          even: true,
+          page: true,
+          skin: "row",
+          limit: 14,
+          id:"pdcReload",
+          done: function (res) {}
+        });
+        //头工具栏事件
+        table.on('toolbar(pdctest)', function(obj){
+              var checkStatus = table.checkStatus(obj.config.id);
+              switch(obj.event){
+                  case 'getCheckData':
+                      var data = checkStatus.data;
+                      let arr = '';
+                      for(var i in data){
+                          arr += data[i].id + ','
+                      }
+                      if(data.length==0){
+                          layer.msg('请勾选需要上传的数据');
+                          return;
+                      }
+                    //   $.ajax({
+                    //       type:'POST',
+                    //       data:{ids:arr},
+                    //       dataType:'json',
+                    //       url:'/admin/produce/upload_to_sap.html',
+                    //       success(res){
+                    //           layer.msg(res.msg);
+                    //           table.reload('pdcReload');
+                    //       }
+                    //   });
+                      return;
+                      break;
+              }
+          });
+          //表格重载方法
+          var $ = layui.$, active = {
+              reload: function(){
+                  var startTime = $('#pdcStart');
+                  var endTime = $('#pdcEnd');
+
+                  //执行重载
+                  table.reload('pdcReload', {
+                      page: {
+                          curr: 1 //重新从第 1 页开始
+                      }
+                      ,where: {
+                              start_time:startTime.val(),
+                              end_time:endTime.val(),
+                      }
+                  }, 'data');
+              }
+          };
+
+          $('.search').on('click', function(){
+              var type = $(this).data('type');
+              active[type] ? active[type].call(this) : '';
+          });
+
+    </script>
+  </body>
+</html>

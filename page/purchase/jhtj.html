@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>进货统计表</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+        <!-- title标题 -->
+      <h2 class="staname" style="padding: 0 0 40px 0;">进货统计表</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+            type="text"
+            id="start"
+            placeholder=""
+            autocomplete="off"
+            class="layui-input bigInput"
+          />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="end"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+        
+        <!-- start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn site">导出</button>
+          </div>
+        </div>
+        <!-- end 搜索导出按钮-->
+      </div>
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="tl" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      var alldata = null;
+      // 点击查询
+      $(".search").click(function () {
+        var obj = {
+          starttime: $('#start').val(),
+          endtime: $('#end').val()
+        };
+        inst.reload({
+          where: obj,
+          page: {
+            curr: 1, //重新从第 1 页开始
+          },
+        });
+      });
+      $(".site").click(function () {
+        $.ajax({
+          url: baseUrl + '/hcms/indata/gettongjidata',
+          data:{
+            page:1,
+            limit:alldata.count
+          },
+          dataType:'json',
+          success: res => {
+            table.exportFile(inst.config.id, res.data, 'xls')
+          }
+        })
+      });
+
+      //开始时间选择
+      laydate.render({
+        elem: "#start",
+        done: function (value, date) {
+          
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end",
+        done: function (value, date) {
+          
+        },
+      });
+
+      // 初始化表格数据
+      var inst = tableRender({
+        elem: "#tl",
+        // url: "../assets/api/jhtjTable.json",
+        url: baseUrl + '/hcms/indata/gettongjidata',
+        where:{
+            starttime: $('#start').val(),
+            endtime: $('#end').val()
+        },
+        id:'site',
+        cols: [
+          [
+            { field: "send_goods", title: "供货商", sort: true },
+            { field: "goods_name", title: "货品名称",},
+            { field: "goods_spec", title: "规格"},
+            { field: "carnumber", title: "总车数"},
+            { field: "weight", title: "净重/Kg",},
+            { field: "volume", title: "方数"},
+            { field: "age", title: "单价"},
+            { field: "money", title: "总额"}
+          ],
+        ],
+        even: true,
+        page: true,
+        skin:"row",
+        limit: 10,
+        done: function (res) {
+          alldata = res.data
+         
+        },
+      });
+    </script>
+  </body>
+</html>

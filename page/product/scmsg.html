@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>生产信息</title>
+    <style type="text/css">
+      @media screen and (min-width: 1650px) and (max-width: 1980px) {
+        .layui-col-md3 {
+          width: 31%;
+        }
+      }
+      @media screen and (min-width: 1400px) and (max-width: 1650px) {
+        .layui-col-md3 {
+          width: 50%;
+        }
+      }
+      @media screen and (min-width: 1350px) and (max-width: 1400px) {
+        .layui-col-md3 {
+          width: 50%;
+        }
+      }
+      @media screen and (min-width: 1200px) and (max-width: 1350px) {
+        .layui-col-md3 {
+          width: 50%;
+        }
+      }
+      @media screen and (min-width: 1000px) and (max-width: 1200px) {
+        .layui-col-md3 {
+          width: 50%;
+        }
+      }
+      @media screen and (max-width: 1000px) {
+        .layui-col-md3 {
+          width: 100%;
+        }
+      }
+
+      .part {
+        width: 500px;
+        border-radius: 6px;
+        background-color: #ffffff;
+        box-shadow: #e6e6e6 0px 0px 10px;
+        position: relative;
+      }
+
+      .main {
+        width: 440px;
+        border-radius: 2px;
+        margin: auto;
+        padding-bottom: 30px;
+      }
+      .over {
+        right: 0px;
+        text-align: center;
+        border-radius: 6px;
+        width: 500px;
+        position: absolute;
+        height: 650px;
+        line-height: 650px;
+        background: rgba(104, 116, 122, 0.5);
+      }
+
+      .over1 {
+        border-radius: 6px;
+        position: absolute;
+        right: 33px;
+        top: 32px;
+        z-index: 999;
+      }
+      .layui-btn {
+        background-color: #3e66f4;
+        border-radius: 4px;
+      }
+      td {
+        border: 1px solid #e6e6e6;
+        text-align: left;
+        height: 40px;
+      }
+
+      .title {
+        width: 100px;
+        text-align: right;
+        padding-right: 10px;
+      }
+
+      .title1 {
+        padding-left: 10px;
+       
+      }
+
+      .title2 {
+        width: 120px;
+        padding-left: 10px;
+      }
+      table > tbody > tr:nth-child(odd) {
+        background-color: rgb(246, 247, 254);
+      }
+      table > tbody > tr:hover {
+        background-color: rgb(246, 247, 254);
+      }
+      #flash {
+        margin: 0 auto;
+      }
+
+      p {
+        margin: 0 auto;
+      }
+      .send_a,
+      .send_b,
+      .send_t,
+      .send_p {
+        padding-bottom: 15px;
+      }
+      .send_a {
+        padding-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        生产信息（太龙、山立、伟治）
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 调度编号 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 10px; float: left;"
+        >
+          <label class="layui-form-label">调度编号：</label>
+          <div class="layui-input-inline">
+            <select name="station" id="station">
+              <option value="太龙">太龙</option>
+              <option value="山立">山立</option>
+              <option value="伟治">伟治</option>
+              <option value="松大">松大</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 调度编号 -->
+        <!-- start 生产线 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 10px; float: left;"
+        >
+          <label class="layui-form-label">生产线：</label>
+          <div class="layui-input-inline">
+            <select name="prod_line" id="prod_line">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 生产线 -->
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin-bottom: 10px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据显示 -->
+      <div id="List_table" style="padding-right: 24px;">
+        <!-- <table class="layui-hide" id="tl" lay-filter="ddtest"></table> -->
+      </div>
+      <!--end 数据显示 -->
+    </div>
+    <script type="text/html" id="dataDemo">
+      {{#  layui.each(d.list, function(index, item){ }}
+      <div class="layui-col-xs12 layui-col-sm6 layui-col-md3" id="carddata" style="margin-top:20px">
+
+
+          <div class="part">
+            {{# if(item.data_print=="是"){ }}
+
+          <div class="over1">
+          {{# if(item.del_status=="是"){ }}
+              <button type="button" class="layui-btn " id="flash1" onclick="com_del(this)">确认撤销</button>
+          {{# } }}
+          {{# if(item.write_status=="否"){ }}
+              <button type="button" class="layui-btn" id="flash2" onclick="com_write(this)">确认下发</button>
+          {{# } }}
+          </div>
+
+          {{# }else{ }}
+          <div class="over">
+              <button type="button" class="layui-btn" id="flash" onclick="com_recv(this)">确认接收</button>
+          </div>
+          {{# } }}
+              <div class="main">
+                  <p class="send_a">生产主机：<span class="prod_line">{{item.prod_line}}</span></p>
+                  <p class="send_b">任务单号：<span class="ht_num">{{item.ht_num}}</span></p>
+                  <p class="send_p">调度编号：<span class="send_id">{{item.send_id}}</span></p>
+                  <p class="send_t">调度日期：{{item.dispatch_time}}</p>
+          <table style="border: 1px solid">
+              <tr>
+                  <td  class="title">收货单位</td>
+                  <td class="title1" colspan="3">{{item.take_unit}}</td>
+              </tr>
+              <tr>
+                  <td class="title">工程名称</td>
+                  <td class="title1" colspan="3">{{item.proj_name}}</td>
+              </tr>
+              <tr>
+                  <td class="title">工程部位</td>
+                  <td class="title1" colspan="3">{{item.proj_area}}</td>
+              </tr>
+              <tr>
+                  <td class="title" style="font-weight: bold;">强度等级</td>
+                  <td class="title2" style="font-weight: bold;">{{item.strong_lv}}</td>
+                  <td class="title">坍落度</td>
+                  <td class="title2">{{item.tanluo_lv}}</td>
+              </tr>
+              <tr>
+                  <td class="title">抗渗等级</td>
+                  <td class="title2">{{item.kangshen_lv}}</td>
+                  <td class="title" style="font-weight: bold;">车号</td>
+                  <td class="title2" style="font-weight: bold;">{{item.car_num}}</td>
+              </tr>
+              <tr>
+                  <td class="title">浇筑方式</td>
+                  <td class="title2">{{item.jiaozhu_type}}</td>
+                  <td class="title" style="font-weight: bold;">方量</td>
+                  <td class="title2" style="font-weight: bold;">{{item.prod_count}}</td>
+              </tr>
+              <tr>
+                  <td class="title">供货数量</td>
+                  <td class="title2">{{item.all_count}}</td>
+                  <td class="title">砂浆</td>
+                  <td class="title2">{{item.shajiang}}</td>
+              </tr>
+              <tr>
+                  <td class="title">运距</td>
+                  <td class="title2">{{item.dist}}</td>
+                  <td class="title">车次</td>
+                  <td class="title2">{{item.update_status}}</td>
+              </tr>
+              <tr>
+                  <td class="title">品种</td>
+                  <td class="title2">{{item.pinzhong}}</td>
+                  <td class="title">配比号</td>
+                  <td class="title2">{{item.phb_num}}</td>
+              </tr>
+              <tr>
+                  <td class="title">砂浆名称</td>
+                  <td class="title2">{{item.rg_pord_info}}</td>
+                  <td class="title">砂浆配比</td>
+                  <td class="title2">{{item.rg_phb_num}}</td>
+              </tr>
+              <tr>
+                  <td class="title">备注</td>
+                  <td class="title1" colspan="3" style="color: red">{{item.add}}</td>
+              </tr>
+          </table>
+                  {{# if(item.lt_status=="是"){ }}
+                 <p style="color: red;line-height:35px;height:0px"">注意此单为楼梯灰！！！</p>
+                  {{# } }}
+
+                  <!--//判断余料调整显示-->
+                  {{# if(item.yl_status=="是"){}}
+                 <p style="color: red;line-height:35px;height:0px">注意此单有余料调整！！！</p>
+                  {{# } }}
+
+                  <!--//判断坍落度修改-->
+                  {{# if(item.tanluo_status!="0"){}}
+                  <p style="color: red;line-height:35px;height:0px">此单坍落度由（{{item.tanluo_lv}}）变更为（{{item.tanluo_status}}）！！！</p>
+                  <!--get['data'][i]['tanluo_lv']=get['data'][i]['tanluo_status'];-->
+                  {{# } }}
+                  <!--//判断异常补方显示-->
+                  {{# if(item.bf_status=="是"){ }}
+                 <p style="color: red;line-height:35px;height:0px">注意此单异常补方！！！</p>
+                  {{# }else{ }}
+                 <!-- <p></p> -->
+                 {{# } }}
+                  <!--//判断预付款显示-->
+                  {{# if(item.yfk_status=="是"){ }}
+                  <p style="color: red;line-height:35px;height:0px">注意此单为预付款！！！</p>
+                  {{# }else{ }}
+                  <!-- <p></p> -->
+                  {{# } }}
+                  <!--//判断完工显示-->
+                  {{# if(item.wg_status=="是"){ }}
+                  <p style="color: red;line-height:35px;height:0px">注意此单为完工！！！</p>
+                  {{# }else{ }}
+                  <!-- <p></p> -->
+                  {{# } }}
+          </div>
+          </div>
+      </div>
+      {{#  }); }}
+      {{#  if(d.list.length === 0){ }}
+      无数据
+      {{#  } }}
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      // 点击查询
+      $(".search").click(function () {
+        var data = {
+          station: $("#station").val(), //调度编号
+          // zd5: $("#prod_line").val(), //生产线
+        };
+        getTable(data);
+      });
+      getData();
+      //获取数据
+      function getData(data) {
+        $.ajax({
+          //   type: "GET",
+          url: "../assets/api/scmsgTable.json",
+          //   data: data,
+          //   dataType: "json",
+          //   async: true,
+          success(res) {
+            console.log(res.data, 121212);
+            // 获取模板
+            var demoTpl = $("#dataDemo").html();
+            console.log(demoTpl,44444)
+            // var view = document.getElementById("List_table");
+            for (var j = 0; j < res.data.length; j++) {
+              laytpl(demoTpl).render(res.data[j], function (html) {
+                $("#List_table").append(html);
+              });
+            }
+          },
+        });
+      }
+      //确认接受
+      function com_recv(send) {
+        var send_id = $(send)
+          .parent()
+          .next()
+          .children(".send_p")
+          .children(".send_id")[0].innerHTML;
+        console.log(send_id, 120120);
+        $.ajax({
+          // url: '/admin/produce/use_print',
+          type: "GET",
+          data: { send_id: send_id },
+          dataType: "json",
+          success: function (get) {
+            if (get == 1) {
+              layer.msg("接收成功！");
+            }
+            getData();
+          },
+        });
+      }
+      //确认下发 type(1:砂浆下发，2：商砼下发)
+      function com_write(send) {
+        //获取调度编号
+        var send_id = $(send)
+          .parent()
+          .next()
+          .children(".send_p")
+          .children(".send_id")[0].innerHTML;
+        //获取任务单号
+        var ht_num = $(send)
+          .parent()
+          .next()
+          .children(".send_b")
+          .children(".ht_num")[0].innerHTML;
+        var prod_line = $("#prod_line").val(); //生产线
+        var station_name = $("#station").val(); //站点名称
+        //下发类型消息
+        var msg = "";
+        //砂浆判断
+        var shajiang = $(send).parent().next().children("table")[0].rows[6]
+          .cells[3].innerHTML;
+        if (shajiang != "" && shajiang != null) {
+          if (Number(shajiang) > 0) {
+            msg = "同时下发【砂浆任务】";
+          } else {
+            msg = "下发";
+          }
+        }
+        layer.confirm(
+          "确认" +
+            msg +
+            "到 【" +
+            station_name +
+            "】站   【" +
+            prod_line +
+            "号】主机？",
+          {
+            btn: ["确认"], //可以无限个按钮
+          },
+          function (index, layero) {
+            $.ajax({
+              // url: "/admin/produce/prod_write",
+              type: "GET",
+              data: {
+                send_id: send_id,
+                prod_line: prod_line,
+                ht_num: ht_num,
+                station_name: station,
+              },
+              dataType: "json",
+              success: function (get) {
+                layer.close(index);
+                //错误信息提示
+                if (get.status === 0) {
+                  layer.msg(get.msg);
+                  return;
+                }
+                $.ajax({
+                  url: get.url,
+                  type: "get",
+                  dataType: "jsonp",
+                  data: get.data,
+                  success: function (data) {
+                    console.log(data);
+                    if (data.status == "ok") {
+                      layer.msg("下发成功！");
+                      if (data.msg != "") {
+                        layer.msg(data.msg);
+                      }
+                      update_write(send_id, station_name, prod_line);
+                    } else {
+                      layer.msg("下发失败！" + data.status);
+                    }
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    /*错误信息处理*/
+                    layer.msg("通讯错误，请确认主机软件开启或网络连接正常！");
+                  },
+                });
+                getData();
+              },
+            });
+          }
+        );
+      }
+      //确认撤回
+      function com_del(send) {
+        //获取调度编号
+        var send_id = $(send)
+          .parent()
+          .next()
+          .children(".send_p")
+          .children(".send_id")[0].innerHTML;
+        $.ajax({
+          // url: "/admin/produce/use_print_del",
+          type: "GET",
+          data: { send_id: send_id },
+          dataType: "json",
+          success: function (get) {
+            if (get == 1) {
+              layer.msg("撤销成功！");
+            }
+            getData();
+          },
+        });
+      }
+      //更新调度下发状态
+      function update_write(send_id, station_name, prod_line) {
+        console.log(send_id + station_name + prod_line);
+        $.ajax({
+          // url: "/admin/produce/update_write",
+          type: "GET",
+          data: {
+            send_id: send_id,
+            prod_line: prod_line,
+            station_name: station,
+          },
+          dataType: "json",
+          success: function (data) {
+            layer.msg(data.msg);
+          },
+        });
+      }
+      //   setInterval(getData, 5000);
+    </script>
+  </body>
+</html>

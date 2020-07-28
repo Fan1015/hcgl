@@ -1,0 +1,36 @@
+{
+	"code":0,
+	"data":[{
+		"key":"单位名称",
+		"name":"name",
+		"type":0
+	},{
+		"key":"联系方式",
+		"name":"phone",
+		"type":0
+	},{
+		"key":"单位地址",
+		"name":"address",
+		"type":0
+	},{
+		"key":"法人代表",
+		"name":"daibiao",
+		"type":0
+	},{
+		"key":"委托代理人",
+		"name":"weituoren",
+		"type":0
+	},{
+		"key":"开户银行",
+		"name":"kaihu_bank",
+		"type":0
+	},{
+		"key":"账号",
+		"name":"zhanghao",
+		"type":0
+	},{
+		"key":"税号",
+		"name":"shuihao",
+		"type":0
+	}]
+}

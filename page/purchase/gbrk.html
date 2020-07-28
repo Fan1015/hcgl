@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>过磅入库</title>
+    <style>
+      .layui-input-inline > .layui-input {
+        width: 200px;
+      }
+      .exportAdd {
+        margin-bottom: 24px;
+        display: flex;
+        width: 17%;
+	  }
+	  .jlul{
+		  padding: 30px;
+	  }
+	  .jlul li {
+    	width: 25%;
+}
+    </style>
+  </head>
+
+  <body>
+    <div class="hcbox layui-form">
+      <p class="hctitle">过磅入库传输</p>
+      <div style="padding-right: 24px;">
+        <!-- <div> -->
+          <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">站点：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <select
+                class="select1 input-sm"
+                name="zhandian"
+                style="width: 70px;"
+                id="zhandian"
+              >
+                <option value="">全部</option>
+                <option value="太龙">太龙</option>
+                <option value="山立">山立</option>
+                <option value="伟治">伟治</option>
+                <option value="松大">松大</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">供应商：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <input
+                type="text"
+                placeholder=""
+                name="supp_unit"
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+          </div>
+          <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">规格：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <select
+                class="select1 input-sm"
+                name="guige"
+                style="width: 70px;"
+                id="guige"
+              >
+                <option value="">全部</option>
+                <option value=""></option>
+                <option value="0#柴油">0#柴油</option>
+                <option value="0.5-1">0.5-1</option>
+                <option value="1-2">1-2</option>
+                <option value="1-3">1-3</option>
+                <option value="42.5">42.5</option>
+                <option value="DS-U膨胀纤维抗裂防水剂"
+                  >DS-U膨胀纤维抗裂防水剂</option
+                >
+                <option value="M10干混砂浆">M10干混砂浆</option>
+                <option value="M15干混砂浆">M15干混砂浆</option>
+                <option value="M20干混砂浆">M20干混砂浆</option>
+                <option value="M25干混砂浆">M25干混砂浆</option>
+                <option value="M30干混砂浆">M30干混砂浆</option>
+                <option value="M5干混砂浆">M5干混砂浆</option>
+                <option value="M7.5干混砂浆">M7.5干混砂浆</option>
+                <option value="Ⅱ型增强剂 透水型">Ⅱ型增强剂 透水型</option>
+                <option value="三乙醇胺">三乙醇胺</option>
+                <option value="保坍型">保坍型</option>
+                <option value="保塌型">保塌型</option>
+                <option value="减水剂">减水剂</option>
+                <option value="和易性">和易性</option>
+                <option value="嵩基水泥">嵩基水泥</option>
+                <option value="干河砂">干河砂</option>
+                <option value="广西一级">广西一级</option>
+                <option value="引气剂">引气剂</option>
+                <option value="成品减水剂">成品减水剂</option>
+                <option value="抗泥型">抗泥型</option>
+                <option value="抽砂">抽砂</option>
+                <option value="新安42.5">新安42.5</option>
+                <option value="普通型">普通型</option>
+                <option value="机制砂">机制砂</option>
+                <option value="柠檬酸">柠檬酸</option>
+                <option value="水洗砂">水洗砂</option>
+                <option value="永安42.5">永安42.5</option>
+                <option value="汝阳砂">汝阳砂</option>
+                <option value="河砂">河砂</option>
+                <option value="煤灰">煤灰</option>
+                <option value="登封52.5">登封52.5</option>
+                <option value="矿粉">矿粉</option>
+                <option value="砂浆水剂">砂浆水剂</option>
+                <option value="砂浆砂">砂浆砂</option>
+                <option value="砂浆粉剂">砂浆粉剂</option>
+                <option value="硝酸钙">硝酸钙</option>
+                <option value="米石">米石</option>
+                <option value="纤维素">纤维素</option>
+                <option value="脱粉砂">脱粉砂</option>
+                <option value="膨胀剂">膨胀剂</option>
+                <option value="自密实型">自密实型</option>
+                <option value="葡钠">葡钠</option>
+                <option value="表层强化材料">表层强化材料</option>
+                <option value="金隅42.5">金隅42.5</option>
+                <option value="金隅52.5">金隅52.5</option>
+                <option value="阻泥剂">阻泥剂</option>
+                <option value="青石">青石</option>
+                <option value="高减水型">高减水型</option>
+                <option value="高标号减水剂">高标号减水剂</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">车号：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <select class="select1 input-sm" name="outer_car" id="outer_car">
+                <option value=""></option>
+                <option value="鲁WG1587">鲁WG1587</option>
+                <option value="鲁S571J5">鲁S571J5</option>
+                <option value="鲁S556BE">鲁S556BE</option>
+                <option value="鲁Q989ED">鲁Q989ED</option>
+                <option value="鲁Q723GX">鲁Q723GX</option>
+                <option value="鲁Q707FG">鲁Q707FG</option>
+                <option value="鲁Q308GD">鲁Q308GD</option>
+                <option value="鲁Q203GG">鲁Q203GG</option>
+                <option value="鲁Q093FZ">鲁Q093FZ</option>
+                <option value="鲁H59F25">鲁H59F25</option>
+                <option value="鲁H56E97">鲁H56E97</option>
+                <option value="鲁D9377L">鲁D9377L</option>
+                <option value="陕Z168YN">陕Z168YN</option>
+                <option value="陕J288PN">陕J288PN</option>
+                <option value="陕C988WN">陕C988WN</option>
+                <option value="闽A5853K">闽A5853K</option>
+                <option value="鄂N86931">鄂N86931</option>
+                <option value="鄂L59861">鄂L59861</option>
+                <option value="鄂C9H151">鄂C9H151</option>
+                <option value="豫Z87885">豫Z87885</option>
+                <option value="豫Z87395">豫Z87395</option>
+                <option value="豫Z87385">豫Z87385</option>
+                <option value="豫Y0662">豫Y0662</option>
+                <option value="豫U99979">豫U99979</option>
+                <option value="豫U99877">豫U99877</option>
+                <option value="豫U99862">豫U99862</option>
+                <option value="豫U99079">豫U99079</option>
+                <option value="豫U98801">豫U98801</option>
+                <option value="豫U97275">豫U97275</option>
+                <option value="豫U97062">豫U97062</option>
+                <option value="豫U96830">豫U96830</option>
+                <option value="豫U95562">豫U95562</option>
+                <option value="豫U93926">豫U93926</option>
+                <option value="豫U93612">豫U93612</option>
+                <option value="豫U93590">豫U93590</option>
+                <option value="豫U93525">豫U93525</option>
+                <option value="豫U93512">豫U93512</option>
+                <option value="豫U93508">豫U93508</option>
+                <option value="豫U92992">豫U92992</option>
+                <option value="豫U92156">豫U92156</option>
+                <option value="豫U91686">豫U91686</option>
+                <option value="豫U91682">豫U91682</option>
+                <option value="豫U91667">豫U91667</option>
+                <option value="豫U91606">豫U91606</option>
+                <option value="豫U90960">豫U90960</option>
+                <option value="豫U90952">豫U90952</option>
+                <option value="豫U89883">豫U89883</option>
+                <option value="豫U89178">豫U89178</option>
+                <option value="豫U87221">豫U87221</option>
+                <option value="豫U83801">豫U83801</option>
+                <option value="豫U83268">豫U83268</option>
+                <option value="豫U82238">豫U82238</option>
+                <option value="豫U81719">豫U81719</option>
+                <option value="豫U81716">豫U81716</option>
+                <option value="豫U80627">豫U80627</option>
+                <option value="豫U79950">豫U79950</option>
+                <option value="豫U78960">豫U78960</option>
+                <option value="豫U77080">豫U77080</option>
+                <option value="豫U77006">豫U77006</option>
+                <option value="豫U75777">豫U75777</option>
+                <option value="豫U75002">豫U75002</option>
+                <option value="豫U73897">豫U73897</option>
+                <option value="豫U72658">豫U72658</option>
+                <option value="豫U70050">豫U70050</option>
+                <option value="豫U68905">豫U68905</option>
+                <option value="豫U67091">豫U67091</option>
+                <option value="豫U67059">豫U67059</option>
+                <option value="豫U67057">豫U67057</option>
+                <option value="豫U67025">豫U67025</option>
+                <option value="豫U65052">豫U65052</option>
+                <option value="豫U63398">豫U63398</option>
+                <option value="豫U63185">豫U63185</option>
+                <option value="豫U63055">豫U63055</option>
+                <option value="豫U62095">豫U62095</option>
+                <option value="豫U62003">豫U62003</option>
+                <option value="豫U61631">豫U61631</option>
+                <option value="豫U61517">豫U61517</option>
+                <option value="豫U61311">豫U61311</option>
+                <option value="豫U58179">豫U58179</option>
+                <option value="豫U58163">豫U58163</option>
+                <option value="豫U56609">豫U56609</option>
+                <option value="豫U56220">豫U56220</option>
+                <option value="豫U56115">豫U56115</option>
+                <option value="豫U55655">豫U55655</option>
+                <option value="豫U51810">豫U51810</option>
+                <option value="豫U51125">豫U51125</option>
+                <option value="豫U39333">豫U39333</option>
+                <option value="豫U38862">豫U38862</option>
+                <option value="豫U38552">豫U38552</option>
+                <option value="豫U38313">豫U38313</option>
+                <option value="豫U36585">豫U36585</option>
+                <option value="豫U36280">豫U36280</option>
+                <option value="豫U36267">豫U36267</option>
+                <option value="豫U36257">豫U36257</option>
+                <option value="豫U35399">豫U35399</option>
+                <option value="豫U35360">豫U35360</option>
+                <option value="豫U35358">豫U35358</option>
+                <option value="豫U35339">豫U35339</option>
+                <option value="豫U35321">豫U35321</option>
+                <option value="豫U35311">豫U35311</option>
+                <option value="豫U3332D">豫U3332D</option>
+                <option value="豫U33326">豫U33326</option>
+                <option value="豫U33320">豫U33320</option>
+                <option value="豫U31083">豫U31083</option>
+                <option value="豫U31033">豫U31033</option>
+                <option value="豫U31026">豫U31026</option>
+                <option value="豫U31020">豫U31020</option>
+                <option value="豫U30991">豫U30991</option>
+                <option value="豫U30950">豫U30950</option>
+                <option value="豫U30825">豫U30825</option>
+                <option value="豫U301D2">豫U301D2</option>
+                <option value="豫U30189">豫U30189</option>
+                <option value="豫U30175">豫U30175</option>
+                <option value="豫U30102">豫U30102</option>
+                <option value="豫U29677">豫U29677</option>
+                <option value="豫U28887">豫U28887</option>
+                <option value="豫U28190">豫U28190</option>
+                <option value="豫U27112">豫U27112</option>
+                <option value="豫U22976">豫U22976</option>
+                <option value="豫U22888">豫U22888</option>
+                <option value="豫U22859">豫U22859</option>
+                <option value="豫U22082">豫U22082</option>
+                <option value="豫U21868">豫U21868</option>
+                <option value="豫U20685">豫U20685</option>
+                <option value="豫U20681">豫U20681</option>
+                <option value="豫U20618">豫U20618</option>
+                <option value="豫U20609">豫U20609</option>
+                <option value="豫U20600">豫U20600</option>
+                <option value="豫U17071">豫U17071</option>
+                <option value="豫U16996">豫U16996</option>
+                <option value="豫U16961">豫U16961</option>
+                <option value="豫U16960">豫U16960</option>
+                <option value="豫U16925">豫U16925</option>
+                <option value="豫U16902">豫U16902</option>
+                <option value="豫U15998">豫U15998</option>
+                <option value="豫U13695">豫U13695</option>
+                <option value="豫U13631">豫U13631</option>
+                <option value="豫U11922">豫U11922</option>
+                <option value="豫U11699">豫U11699</option>
+                <option value="豫U10935">豫U10935</option>
+                <option value="豫U10896">豫U10896</option>
+                <option value="豫U10813">豫U10813</option>
+                <option value="豫U10328">豫U10328</option>
+                <option value="豫U10285">豫U10285</option>
+                <option value="豫U10229">豫U10229</option>
+                <option value="豫U10193">豫U10193</option>
+                <option value="豫U10182">豫U10182</option>
+                <option value="豫U09923">豫U09923</option>
+                <option value="豫U09831">豫U09831</option>
+                <option value="豫U09622">豫U09622</option>
+                <option value="豫U09359">豫U09359</option>
+                <option value="豫U09303">豫U09303</option>
+                <option value="豫U09063">豫U09063</option>
+                <option value="豫U08919">豫U08919</option>
+                <option value="豫U08599">豫U08599</option>
+                <option value="豫U0839U">豫U0839U</option>
+                <option value="豫U07836">豫U07836</option>
+                <option value="豫U07153">豫U07153</option>
+                <option value="豫U07127">豫U07127</option>
+                <option value="豫U07117">豫U07117</option>
+                <option value="豫U07059">豫U07059</option>
+                <option value="豫U07055">豫U07055</option>
+                <option value="豫U07017">豫U07017</option>
+                <option value="豫U06759">豫U06759</option>
+                <option value="豫U06722">豫U06722</option>
+                <option value="豫U06607">豫U06607</option>
+                <option value="豫U06505">豫U06505</option>
+                <option value="豫U06289">豫U06289</option>
+                <option value="豫U06267">豫U06267</option>
+                <option value="豫U06171">豫U06171</option>
+                <option value="豫U05993">豫U05993</option>
+                <option value="豫U05987">豫U05987</option>
+                <option value="豫U05981">豫U05981</option>
+                <option value="豫U05837">豫U05837</option>
+                <option value="豫U05789">豫U05789</option>
+                <option value="豫U05756">豫U05756</option>
+                <option value="豫U05738">豫U05738</option>
+                <option value="豫U05561">豫U05561</option>
+                <option value="豫U05377">豫U05377</option>
+                <option value="豫SM5E08">豫SM5E08</option>
+                <option value="豫SH2K67">豫SH2K67</option>
+                <option value="豫S55785">豫S55785</option>
+                <option value="豫R7305Z">豫R7305Z</option>
+                <option value="豫Q95366">豫Q95366</option>
+                <option value="豫Q87885">豫Q87885</option>
+                <option value="豫Q37385">豫Q37385</option>
+                <option value="豫Q13770">豫Q13770</option>
+                <option value="豫PX7927">豫PX7927</option>
+                <option value="豫PW0671">豫PW0671</option>
+                <option value="豫PK2833">豫PK2833</option>
+                <option value="豫PH1965">豫PH1965</option>
+                <option value="豫PCA355">豫PCA355</option>
+                <option value="豫P2F813">豫P2F813</option>
+                <option value="豫P06710">豫P06710</option>
+                <option value="豫NR7738">豫NR7738</option>
+                <option value="豫MP3575">豫MP3575</option>
+                <option value="豫ML3335">豫ML3335</option>
+                <option value="豫ME9829">豫ME9829</option>
+                <option value="豫M71569">豫M71569</option>
+                <option value="豫K967E0">豫K967E0</option>
+                <option value="豫K8J6Q6">豫K8J6Q6</option>
+                <option value="豫K8J606">豫K8J606</option>
+                <option value="豫K816Q6">豫K816Q6</option>
+                <option value="豫K81606">豫K81606</option>
+                <option value="豫K7WQ72">豫K7WQ72</option>
+                <option value="豫K7W072">豫K7W072</option>
+                <option value="豫K698K2">豫K698K2</option>
+                <option value="豫K5M728">豫K5M728</option>
+                <option value="豫K582F6">豫K582F6</option>
+                <option value="豫K2L589">豫K2L589</option>
+                <option value="豫K17666">豫K17666</option>
+                <option value="豫K129F1">豫K129F1</option>
+                <option value="豫J95366">豫J95366</option>
+                <option value="豫J16960">豫J16960</option>
+                <option value="豫HQ9877">豫HQ9877</option>
+                <option value="豫HQ1511">豫HQ1511</option>
+                <option value="豫HQ1311">豫HQ1311</option>
+                <option value="豫HP9937">豫HP9937</option>
+                <option value="豫HP9919">豫HP9919</option>
+                <option value="豫HP9908">豫HP9908</option>
+                <option value="豫HP9697">豫HP9697</option>
+                <option value="豫HP9690">豫HP9690</option>
+                <option value="豫HP9331">豫HP9331</option>
+                <option value="豫HP9235">豫HP9235</option>
+                <option value="豫HP9231">豫HP9231</option>
+                <option value="豫HP9189">豫HP9189</option>
+                <option value="豫HP9158">豫HP9158</option>
+                <option value="豫HP8983">豫HP8983</option>
+                <option value="豫HP8853">豫HP8853</option>
+                <option value="豫HP8690">豫HP8690</option>
+                <option value="豫HP8661">豫HP8661</option>
+                <option value="豫HP8612">豫HP8612</option>
+                <option value="豫HP8371">豫HP8371</option>
+                <option value="豫HP8216">豫HP8216</option>
+                <option value="豫HP8211">豫HP8211</option>
+                <option value="豫HP8179">豫HP8179</option>
+                <option value="豫HP8063">豫HP8063</option>
+                <option value="豫HP8003">豫HP8003</option>
+                <option value="豫HP7798">豫HP7798</option>
+                <option value="豫HP7776">豫HP7776</option>
+                <option value="豫HP7708">豫HP7708</option>
+                <option value="豫HP7698">豫HP7698</option>
+                <option value="豫HP7655">豫HP7655</option>
+                <option value="豫HP7620">豫HP7620</option>
+                <option value="豫HP7618">豫HP7618</option>
+                <option value="豫HP7532">豫HP7532</option>
+                <option value="豫HP7073">豫HP7073</option>
+                <option value="豫HP7000">豫HP7000</option>
+                <option value="豫HP6963">豫HP6963</option>
+                <option value="豫HP6812">豫HP6812</option>
+                <option value="豫HP6589">豫HP6589</option>
+                <option value="豫HP6367">豫HP6367</option>
+                <option value="豫HP6299">豫HP6299</option>
+                <option value="豫HP6166">豫HP6166</option>
+                <option value="豫HP6165">豫HP6165</option>
+                <option value="豫HP6076">豫HP6076</option>
+                <option value="豫HP6003">豫HP6003</option>
+                <option value="豫HP5878">豫HP5878</option>
+                <option value="豫HP5870">豫HP5870</option>
+                <option value="豫HP5860">豫HP5860</option>
+                <option value="豫HP5637">豫HP5637</option>
+                <option value="豫HP5585">豫HP5585</option>
+                <option value="豫HP5573">豫HP5573</option>
+                <option value="豫HP5020">豫HP5020</option>
+                <option value="豫HP3763">豫HP3763</option>
+                <option value="豫HP3726">豫HP3726</option>
+                <option value="豫HP3693">豫HP3693</option>
+                <option value="豫HP3672">豫HP3672</option>
+                <option value="豫HP3630">豫HP3630</option>
+                <option value="豫HP3575">豫HP3575</option>
+                <option value="豫HP3376">豫HP3376</option>
+                <option value="豫HP3368">豫HP3368</option>
+                <option value="豫HP3328">豫HP3328</option>
+                <option value="豫HP3289">豫HP3289</option>
+                <option value="豫HP3177">豫HP3177</option>
+                <option value="豫HP3107">豫HP3107</option>
+                <option value="豫HP2983">豫HP2983</option>
+                <option value="豫HP2813">豫HP2813</option>
+                <option value="豫HP2812">豫HP2812</option>
+                <option value="豫HP2789">豫HP2789</option>
+                <option value="豫HP2762">豫HP2762</option>
+                <option value="豫HP2722">豫HP2722</option>
+                <option value="豫HP2652">豫HP2652</option>
+                <option value="豫HP2621">豫HP2621</option>
+                <option value="豫HP2183">豫HP2183</option>
+                <option value="豫HP2182">豫HP2182</option>
+                <option value="豫HP2165">豫HP2165</option>
+                <option value="豫HP2072">豫HP2072</option>
+                <option value="豫HP2015">豫HP2015</option>
+                <option value="豫HP1731">豫HP1731</option>
+                <option value="豫HP1686">豫HP1686</option>
+                <option value="豫HP1538">豫HP1538</option>
+                <option value="豫HP1172">豫HP1172</option>
+                <option value="豫HP0937">豫HP0937</option>
+                <option value="豫HP0803">豫HP0803</option>
+                <option value="豫HP0753">豫HP0753</option>
+                <option value="豫HP0653">豫HP0653</option>
+                <option value="豫HP0396">豫HP0396</option>
+                <option value="豫HP0186">豫HP0186</option>
+                <option value="豫HP0001">豫HP0001</option>
+                <option value="豫HN9975">豫HN9975</option>
+                <option value="豫HN9873">豫HN9873</option>
+                <option value="豫HN9619">豫HN9619</option>
+                <option value="豫HN9390">豫HN9390</option>
+                <option value="豫HN9333">豫HN9333</option>
+                <option value="豫HN9230">豫HN9230</option>
+                <option value="豫HN8962">豫HN8962</option>
+                <option value="豫HN8921">豫HN8921</option>
+                <option value="豫HN8831">豫HN8831</option>
+                <option value="豫HN8753">豫HN8753</option>
+                <option value="豫HN8693">豫HN8693</option>
+                <option value="豫HN8521">豫HN8521</option>
+                <option value="豫HN8250">豫HN8250</option>
+                <option value="豫HN8177">豫HN8177</option>
+                <option value="豫HN8005">豫HN8005</option>
+                <option value="豫HN7921">豫HN7921</option>
+                <option value="豫HN7868">豫HN7868</option>
+                <option value="豫HN7633">豫HN7633</option>
+                <option value="豫HN7619">豫HN7619</option>
+                <option value="豫HN7527">豫HN7527</option>
+                <option value="豫HN7279">豫HN7279</option>
+                <option value="豫HN7160">豫HN7160</option>
+                <option value="豫HN7116">豫HN7116</option>
+                <option value="豫HN6893">豫HN6893</option>
+                <option value="豫HN6702">豫HN6702</option>
+                <option value="豫HN6551">豫HN6551</option>
+                <option value="豫HN6366">豫HN6366</option>
+                <option value="豫HN6072">豫HN6072</option>
+                <option value="豫HN5972">豫HN5972</option>
+                <option value="豫HN5712">豫HN5712</option>
+                <option value="豫HN5690">豫HN5690</option>
+                <option value="豫HN5621">豫HN5621</option>
+                <option value="豫HN5121">豫HN5121</option>
+                <option value="豫HN3887">豫HN3887</option>
+                <option value="豫HN3283">豫HN3283</option>
+                <option value="豫HN3027">豫HN3027</option>
+                <option value="豫HN2972">豫HN2972</option>
+                <option value="豫HN2885">豫HN2885</option>
+                <option value="豫HN2706">豫HN2706</option>
+                <option value="豫HN2552">豫HN2552</option>
+                <option value="豫HN2366">豫HN2366</option>
+                <option value="豫HN2306">豫HN2306</option>
+                <option value="豫HN2299">豫HN2299</option>
+                <option value="豫HN1976">豫HN1976</option>
+                <option value="豫HN1878">豫HN1878</option>
+                <option value="豫HN1839">豫HN1839</option>
+                <option value="豫HN1775">豫HN1775</option>
+                <option value="豫HN1762">豫HN1762</option>
+                <option value="豫HN1730">豫HN1730</option>
+                <option value="豫HN1626">豫HN1626</option>
+                <option value="豫HN1578">豫HN1578</option>
+                <option value="豫HN1515">豫HN1515</option>
+                <option value="豫HN0909">豫HN0909</option>
+                <option value="豫HN0833">豫HN0833</option>
+                <option value="豫HN0611">豫HN0611</option>
+                <option value="豫HN0572">豫HN0572</option>
+                <option value="豫HN0376">豫HN0376</option>
+                <option value="豫HN0279">豫HN0279</option>
+                <option value="豫HN0171">豫HN0171</option>
+                <option value="豫HN0137">豫HN0137</option>
+                <option value="豫HM9851">豫HM9851</option>
+                <option value="豫HM9777">豫HM9777</option>
+                <option value="豫HM9680">豫HM9680</option>
+                <option value="豫HM9569">豫HM9569</option>
+                <option value="豫HM9365">豫HM9365</option>
+                <option value="豫HM9313">豫HM9313</option>
+                <option value="豫HM9165">豫HM9165</option>
+                <option value="豫HM9060">豫HM9060</option>
+                <option value="豫HM8795">豫HM8795</option>
+                <option value="豫HM8770">豫HM8770</option>
+                <option value="豫HM8350">豫HM8350</option>
+                <option value="豫HM8339">豫HM8339</option>
+                <option value="豫HM8273">豫HM8273</option>
+                <option value="豫HM7753">豫HM7753</option>
+                <option value="豫HM7629">豫HM7629</option>
+                <option value="豫HM7282">豫HM7282</option>
+                <option value="豫HM7203">豫HM7203</option>
+                <option value="豫HM7062">豫HM7062</option>
+                <option value="豫HM7022">豫HM7022</option>
+                <option value="豫HM6662">豫HM6662</option>
+                <option value="豫HM6202">豫HM6202</option>
+                <option value="豫HM5790">豫HM5790</option>
+                <option value="豫HM5702">豫HM5702</option>
+                <option value="豫HM5672">豫HM5672</option>
+                <option value="豫HM5565">豫HM5565</option>
+                <option value="豫HM5512">豫HM5512</option>
+                <option value="豫HM4228">豫HM4228</option>
+                <option value="豫HM3782">豫HM3782</option>
+                <option value="豫HM3499">豫HM3499</option>
+                <option value="豫HM3032">豫HM3032</option>
+                <option value="豫HM2237">豫HM2237</option>
+                <option value="豫HM2090">豫HM2090</option>
+                <option value="豫HM1803">豫HM1803</option>
+                <option value="豫HM1713">豫HM1713</option>
+                <option value="豫HM1320">豫HM1320</option>
+                <option value="豫HM0905">豫HM0905</option>
+                <option value="豫HM0723">豫HM0723</option>
+                <option value="豫HM0697">豫HM0697</option>
+                <option value="豫HM0628">豫HM0628</option>
+                <option value="豫HM0596">豫HM0596</option>
+                <option value="豫HM0579">豫HM0579</option>
+                <option value="豫HM0238">豫HM0238</option>
+                <option value="豫HM0177">豫HM0177</option>
+                <option value="豫HM0153">豫HM0153</option>
+                <option value="豫HL9516">豫HL9516</option>
+                <option value="豫HL9365">豫HL9365</option>
+                <option value="豫HL9193">豫HL9193</option>
+                <option value="豫HL8970">豫HL8970</option>
+                <option value="豫HL8919">豫HL8919</option>
+                <option value="豫HL8806">豫HL8806</option>
+                <option value="豫HL8673">豫HL8673</option>
+                <option value="豫HL8269">豫HL8269</option>
+                <option value="豫HL8089">豫HL8089</option>
+                <option value="豫HL7907">豫HL7907</option>
+                <option value="豫HL7848">豫HL7848</option>
+                <option value="豫HL7530">豫HL7530</option>
+                <option value="豫HL7503">豫HL7503</option>
+                <option value="豫HL7197">豫HL7197</option>
+                <option value="豫HL7160">豫HL7160</option>
+                <option value="豫HL6872">豫HL6872</option>
+                <option value="豫HL5827">豫HL5827</option>
+                <option value="豫HL5322">豫HL5322</option>
+                <option value="豫HL4532">豫HL4532</option>
+                <option value="豫HL4508">豫HL4508</option>
+                <option value="豫HL3801">豫HL3801</option>
+                <option value="豫HL3421">豫HL3421</option>
+                <option value="豫HL3043">豫HL3043</option>
+                <option value="豫HL2669">豫HL2669</option>
+                <option value="豫HL2438">豫HL2438</option>
+                <option value="豫HL2408">豫HL2408</option>
+                <option value="豫HL2158">豫HL2158</option>
+                <option value="豫HL2053">豫HL2053</option>
+                <option value="豫HL1888">豫HL1888</option>
+                <option value="豫HL1753">豫HL1753</option>
+                <option value="豫HL1571">豫HL1571</option>
+                <option value="豫HL1411">豫HL1411</option>
+                <option value="豫HL1346">豫HL1346</option>
+                <option value="豫HL1122">豫HL1122</option>
+                <option value="豫HL0735">豫HL0735</option>
+                <option value="豫HL0043">豫HL0043</option>
+                <option value="豫HK9873">豫HK9873</option>
+                <option value="豫HK9801">豫HK9801</option>
+                <option value="豫HK9675">豫HK9675</option>
+                <option value="豫HK9619">豫HK9619</option>
+                <option value="豫HK9374">豫HK9374</option>
+                <option value="豫HK9183">豫HK9183</option>
+                <option value="豫HK9165">豫HK9165</option>
+                <option value="豫HK8612">豫HK8612</option>
+                <option value="豫HK7796">豫HK7796</option>
+                <option value="豫HK76D7">豫HK76D7</option>
+                <option value="豫HK7607">豫HK7607</option>
+                <option value="豫HK6948">豫HK6948</option>
+                <option value="豫HK6542">豫HK6542</option>
+                <option value="豫HK6484">豫HK6484</option>
+                <option value="豫HK6387">豫HK6387</option>
+                <option value="豫HK5957">豫HK5957</option>
+                <option value="豫HK5948">豫HK5948</option>
+                <option value="豫HK5611">豫HK5611</option>
+                <option value="豫HK4918">豫HK4918</option>
+                <option value="豫HK4824">豫HK4824</option>
+                <option value="豫HK4728">豫HK4728</option>
+                <option value="豫HK4694">豫HK4694</option>
+                <option value="豫HK4675">豫HK4675</option>
+                <option value="豫HK4561">豫HK4561</option>
+                <option value="豫HK4429">豫HK4429</option>
+                <option value="豫HK3499">豫HK3499</option>
+                <option value="豫HK3436">豫HK3436</option>
+                <option value="豫HK3241">豫HK3241</option>
+                <option value="豫HK2878">豫HK2878</option>
+                <option value="豫HK2615">豫HK2615</option>
+                <option value="豫HK2455">豫HK2455</option>
+                <option value="豫HK2368">豫HK2368</option>
+                <option value="豫HK2095">豫HK2095</option>
+                <option value="豫HK1844">豫HK1844</option>
+                <option value="豫HK1691">豫HK1691</option>
+                <option value="豫HK1508">豫HK1508</option>
+                <option value="豫HK1422">豫HK1422</option>
+                <option value="豫HK1194">豫HK1194</option>
+                <option value="豫HK1037">豫HK1037</option>
+                <option value="豫HK0846">豫HK0846</option>
+                <option value="豫HK0762">豫HK0762</option>
+                <option value="豫HK0418">豫HK0418</option>
+                <option value="豫HK0285">豫HK0285</option>
+                <option value="豫HK0034">豫HK0034</option>
+                <option value="豫HJ9943">豫HJ9943</option>
+                <option value="豫HJ9661">豫HJ9661</option>
+                <option value="豫HJ9193">豫HJ9193</option>
+                <option value="豫HJ8130">豫HJ8130</option>
+                <option value="豫HJ7321">豫HJ7321</option>
+                <option value="豫HJ7127">豫HJ7127</option>
+                <option value="豫HJ6161">豫HJ6161</option>
+                <option value="豫HJ5930">豫HJ5930</option>
+                <option value="豫HJ5726">豫HJ5726</option>
+                <option value="豫HJ5385">豫HJ5385</option>
+                <option value="豫HJ3972">豫HJ3972</option>
+                <option value="豫HJ3875">豫HJ3875</option>
+                <option value="豫HJ3132">豫HJ3132</option>
+                <option value="豫HJ2655">豫HJ2655</option>
+                <option value="豫HJ1435">豫HJ1435</option>
+                <option value="豫HJ0283">豫HJ0283</option>
+                <option value="豫HJ0130">豫HJ0130</option>
+                <option value="豫HH9966">豫HH9966</option>
+                <option value="豫HH9000">豫HH9000</option>
+                <option value="豫HH7690">豫HH7690</option>
+                <option value="豫HH5301">豫HH5301</option>
+                <option value="豫HH3936">豫HH3936</option>
+                <option value="豫HH3889">豫HH3889</option>
+                <option value="豫HH1936">豫HH1936</option>
+                <option value="豫HH1188">豫HH1188</option>
+                <option value="豫HH0612">豫HH0612</option>
+                <option value="豫HG9925">豫HG9925</option>
+                <option value="豫HG9495">豫HG9495</option>
+                <option value="豫HG5285">豫HG5285</option>
+                <option value="豫HG2131">豫HG2131</option>
+                <option value="豫HG0304">豫HG0304</option>
+                <option value="豫HG0283">豫HG0283</option>
+                <option value="豫HF6291">豫HF6291</option>
+                <option value="豫HF3931">豫HF3931</option>
+                <option value="豫HE9509">豫HE9509</option>
+                <option value="豫HE58D1">豫HE58D1</option>
+                <option value="豫HE5801">豫HE5801</option>
+                <option value="豫HE55D0">豫HE55D0</option>
+                <option value="豫HE5500">豫HE5500</option>
+                <option value="豫HE3891">豫HE3891</option>
+                <option value="豫HE3692">豫HE3692</option>
+                <option value="豫HE2349">豫HE2349</option>
+                <option value="豫HE2180">豫HE2180</option>
+                <option value="豫HD2152">豫HD2152</option>
+                <option value="豫HA9619">豫HA9619</option>
+                <option value="豫HA6072">豫HA6072</option>
+                <option value="豫H8EF16">豫H8EF16</option>
+                <option value="豫H8EB56">豫H8EB56</option>
+                <option value="豫H8DW17">豫H8DW17</option>
+                <option value="豫H70588">豫H70588</option>
+                <option value="豫H3555P">豫H3555P</option>
+                <option value="豫H2396M">豫H2396M</option>
+                <option value="豫H21868">豫H21868</option>
+                <option value="豫H1EF81">豫H1EF81</option>
+                <option value="豫H1082S">豫H1082S</option>
+                <option value="豫GG1587">豫GG1587</option>
+                <option value="豫GG0661">豫GG0661</option>
+                <option value="豫GF9817">豫GF9817</option>
+                <option value="豫GF8155">豫GF8155</option>
+                <option value="豫GD1323">豫GD1323</option>
+                <option value="豫GC1672">豫GC1672</option>
+                <option value="豫GB6210">豫GB6210</option>
+                <option value="豫G83515">豫G83515</option>
+                <option value="豫F39311">豫F39311</option>
+                <option value="豫DC0387">豫DC0387</option>
+                <option value="豫D9751N">豫D9751N</option>
+                <option value="豫D93207">豫D93207</option>
+                <option value="豫D91682">豫D91682</option>
+                <option value="豫D87812">豫D87812</option>
+                <option value="豫D86381">豫D86381</option>
+                <option value="豫D33320">豫D33320</option>
+                <option value="豫D3312K">豫D3312K</option>
+                <option value="豫D29677">豫D29677</option>
+                <option value="豫D19631">豫D19631</option>
+                <option value="豫D09622">豫D09622</option>
+                <option value="豫CS9795">豫CS9795</option>
+                <option value="豫CS8999">豫CS8999</option>
+                <option value="豫CS8007">豫CS8007</option>
+                <option value="豫CS7300">豫CS7300</option>
+                <option value="豫CS5895">豫CS5895</option>
+                <option value="豫CS3981">豫CS3981</option>
+                <option value="豫CS2199">豫CS2199</option>
+                <option value="豫CS0970">豫CS0970</option>
+                <option value="豫CR9339">豫CR9339</option>
+                <option value="豫CR9256">豫CR9256</option>
+                <option value="豫CR7660">豫CR7660</option>
+                <option value="豫CR7198">豫CR7198</option>
+                <option value="豫CR5930">豫CR5930</option>
+                <option value="豫CR3700">豫CR3700</option>
+                <option value="豫CR3386">豫CR3386</option>
+                <option value="豫CR1137">豫CR1137</option>
+                <option value="豫CQ8811">豫CQ8811</option>
+                <option value="豫CQ0037">豫CQ0037</option>
+                <option value="豫CP9717">豫CP9717</option>
+                <option value="豫CP8960">豫CP8960</option>
+                <option value="豫CP8666">豫CP8666</option>
+                <option value="豫CP7532">豫CP7532</option>
+                <option value="豫CP6101">豫CP6101</option>
+                <option value="豫CP5766">豫CP5766</option>
+                <option value="豫CN9553">豫CN9553</option>
+                <option value="豫CN8196">豫CN8196</option>
+                <option value="豫CN8176">豫CN8176</option>
+                <option value="豫CN2889">豫CN2889</option>
+                <option value="豫CN1708">豫CN1708</option>
+                <option value="豫CM9719">豫CM9719</option>
+                <option value="豫CM9161">豫CM9161</option>
+                <option value="豫CM7985">豫CM7985</option>
+                <option value="豫CM3576">豫CM3576</option>
+                <option value="豫CM3129">豫CM3129</option>
+                <option value="豫CM2222">豫CM2222</option>
+                <option value="豫CM1391">豫CM1391</option>
+                <option value="豫CG6651">豫CG6651</option>
+                <option value="豫CG6360">豫CG6360</option>
+                <option value="豫CG3610">豫CG3610</option>
+                <option value="豫CF9080">豫CF9080</option>
+                <option value="豫CF3770">豫CF3770</option>
+                <option value="豫CF1389">豫CF1389</option>
+                <option value="豫CD8757">豫CD8757</option>
+                <option value="豫CC8757">豫CC8757</option>
+                <option value="豫CC5766">豫CC5766</option>
+                <option value="豫CA8112">豫CA8112</option>
+                <option value="豫C95366">豫C95366</option>
+                <option value="豫C78335">豫C78335</option>
+                <option value="豫C68133">豫C68133</option>
+                <option value="豫C34197">豫C34197</option>
+                <option value="豫BJ8053">豫BJ8053</option>
+                <option value="豫BJ3023">豫BJ3023</option>
+                <option value="豫BD8295">豫BD8295</option>
+                <option value="豫AZ5717">豫AZ5717</option>
+                <option value="豫AZ5353">豫AZ5353</option>
+                <option value="豫AZ0805">豫AZ0805</option>
+                <option value="豫AY1928">豫AY1928</option>
+                <option value="豫AY1889">豫AY1889</option>
+                <option value="豫AY1228">豫AY1228</option>
+                <option value="豫AY1122">豫AY1122</option>
+                <option value="豫AY0809">豫AY0809</option>
+                <option value="豫AY0692">豫AY0692</option>
+                <option value="豫AY0662">豫AY0662</option>
+                <option value="豫AY0658">豫AY0658</option>
+                <option value="豫AY0596">豫AY0596</option>
+                <option value="豫AY0553">豫AY0553</option>
+                <option value="豫AY0507">豫AY0507</option>
+                <option value="豫AY0369">豫AY0369</option>
+                <option value="豫AX9382">豫AX9382</option>
+                <option value="豫AW6680">豫AW6680</option>
+                <option value="豫AW5909">豫AW5909</option>
+                <option value="豫AW2633">豫AW2633</option>
+                <option value="豫AV9502">豫AV9502</option>
+                <option value="豫AV7Z72">豫AV7Z72</option>
+                <option value="豫AV5772">豫AV5772</option>
+                <option value="豫AV5769">豫AV5769</option>
+                <option value="豫AV0021">豫AV0021</option>
+                <option value="豫AU8512">豫AU8512</option>
+                <option value="豫AU2352">豫AU2352</option>
+                <option value="豫AR932E">豫AR932E</option>
+                <option value="豫AR8938">豫AR8938</option>
+                <option value="豫AR7827">豫AR7827</option>
+                <option value="豫AQ2316">豫AQ2316</option>
+                <option value="豫AN9873">豫AN9873</option>
+                <option value="豫AN5297">豫AN5297</option>
+                <option value="豫AN5260">豫AN5260</option>
+                <option value="豫AN5207">豫AN5207</option>
+                <option value="豫AN2687">豫AN2687</option>
+                <option value="豫AN2223">豫AN2223</option>
+                <option value="豫AN1969">豫AN1969</option>
+                <option value="豫AN1769">豫AN1769</option>
+                <option value="豫AM8036">豫AM8036</option>
+                <option value="豫AL7960">豫AL7960</option>
+                <option value="豫AK2918">豫AK2918</option>
+                <option value="豫AJ8336">豫AJ8336</option>
+                <option value="豫AJ5765">豫AJ5765</option>
+                <option value="豫AG9016">豫AG9016</option>
+                <option value="豫AF5876">豫AF5876</option>
+                <option value="豫AF3U26">豫AF3U26</option>
+                <option value="豫AE7026">豫AE7026</option>
+                <option value="豫AD9898">豫AD9898</option>
+                <option value="豫ACA355">豫ACA355</option>
+                <option value="豫AC3F05">豫AC3F05</option>
+                <option value="豫AC2V52">豫AC2V52</option>
+                <option value="豫AB1555">豫AB1555</option>
+                <option value="豫AA8K35">豫AA8K35</option>
+                <option value="豫AA8008">豫AA8008</option>
+                <option value="豫A9915W">豫A9915W</option>
+                <option value="豫A9836J">豫A9836J</option>
+                <option value="豫A9833H">豫A9833H</option>
+                <option value="豫A9801J">豫A9801J</option>
+                <option value="豫A9797Q">豫A9797Q</option>
+                <option value="豫A9795G85">豫A9795G85</option>
+                <option value="豫A9795G">豫A9795G</option>
+                <option value="豫A9787Z">豫A9787Z</option>
+                <option value="豫A9768A">豫A9768A</option>
+                <option value="豫A9768">豫A9768</option>
+                <option value="豫A9702A">豫A9702A</option>
+                <option value="豫A9683U">豫A9683U</option>
+                <option value="豫A9557V">豫A9557V</option>
+                <option value="豫A9506W">豫A9506W</option>
+                <option value="豫A9392R">豫A9392R</option>
+                <option value="豫A9385W">豫A9385W</option>
+                <option value="豫A9385V">豫A9385V</option>
+                <option value="豫A9323J">豫A9323J</option>
+                <option value="豫A9299P">豫A9299P</option>
+                <option value="豫A9269B">豫A9269B</option>
+                <option value="豫A9262C">豫A9262C</option>
+                <option value="豫A9229W">豫A9229W</option>
+                <option value="豫A9229M">豫A9229M</option>
+                <option value="豫A9180L">豫A9180L</option>
+                <option value="豫A9168S">豫A9168S</option>
+                <option value="豫A9159R">豫A9159R</option>
+                <option value="豫A9155S">豫A9155S</option>
+                <option value="豫A9130J">豫A9130J</option>
+                <option value="豫A9092E">豫A9092E</option>
+                <option value="豫A9086S">豫A9086S</option>
+                <option value="豫A9085F">豫A9085F</option>
+                <option value="豫A9037A">豫A9037A</option>
+                <option value="豫A8988Y">豫A8988Y</option>
+                <option value="豫A8861R">豫A8861R</option>
+                <option value="豫A8818N">豫A8818N</option>
+                <option value="豫A8808W">豫A8808W</option>
+                <option value="豫A8779Z">豫A8779Z</option>
+                <option value="豫A8756T">豫A8756T</option>
+                <option value="豫A8735J">豫A8735J</option>
+                <option value="豫A8680H">豫A8680H</option>
+                <option value="豫A8651N">豫A8651N</option>
+                <option value="豫A8608H">豫A8608H</option>
+                <option value="豫A8599Y">豫A8599Y</option>
+                <option value="豫A8528K">豫A8528K</option>
+                <option value="豫A8188N">豫A8188N</option>
+                <option value="豫A8169Y">豫A8169Y</option>
+                <option value="豫A8102M">豫A8102M</option>
+                <option value="豫A7RH61">豫A7RH61</option>
+                <option value="豫A7966D">豫A7966D</option>
+                <option value="豫A7892A">豫A7892A</option>
+                <option value="豫A7875G">豫A7875G</option>
+                <option value="豫A7839U">豫A7839U</option>
+                <option value="豫A7805Q">豫A7805Q</option>
+                <option value="豫A7626R">豫A7626R</option>
+                <option value="豫A7559R">豫A7559R</option>
+                <option value="豫A7373V">豫A7373V</option>
+                <option value="豫A7315J">豫A7315J</option>
+                <option value="豫A7196P">豫A7196P</option>
+                <option value="豫A7186N">豫A7186N</option>
+                <option value="豫A7183X">豫A7183X</option>
+                <option value="豫A7108D">豫A7108D</option>
+                <option value="豫A7038S">豫A7038S</option>
+                <option value="豫A7031S">豫A7031S</option>
+                <option value="豫A6953T">豫A6953T</option>
+                <option value="豫A683DS">豫A683DS</option>
+                <option value="豫A6830S">豫A6830S</option>
+                <option value="豫A6800A">豫A6800A</option>
+                <option value="豫A6780D">豫A6780D</option>
+                <option value="豫A6773B">豫A6773B</option>
+                <option value="豫A6727R">豫A6727R</option>
+                <option value="豫A6715K">豫A6715K</option>
+                <option value="豫A66Q6V">豫A66Q6V</option>
+                <option value="豫A6696H">豫A6696H</option>
+                <option value="豫A6629Q">豫A6629Q</option>
+                <option value="豫A6627Y">豫A6627Y</option>
+                <option value="豫A6606V">豫A6606V</option>
+                <option value="豫A6592C">豫A6592C</option>
+                <option value="豫A6271M">豫A6271M</option>
+                <option value="豫A6095B">豫A6095B</option>
+                <option value="豫A6030T">豫A6030T</option>
+                <option value="豫A5996R">豫A5996R</option>
+                <option value="豫A5983K">豫A5983K</option>
+                <option value="豫A5983A">豫A5983A</option>
+                <option value="豫A5956G">豫A5956G</option>
+                <option value="豫A5920Z">豫A5920Z</option>
+                <option value="豫A5900K">豫A5900K</option>
+                <option value="豫A5877K">豫A5877K</option>
+                <option value="豫A5857K">豫A5857K</option>
+                <option value="豫A5856K">豫A5856K</option>
+                <option value="豫A5856A">豫A5856A</option>
+                <option value="豫A5853K">豫A5853K</option>
+                <option value="豫A5831M">豫A5831M</option>
+                <option value="豫A5826N">豫A5826N</option>
+                <option value="豫A5805S">豫A5805S</option>
+                <option value="豫A5778M">豫A5778M</option>
+                <option value="豫A5757U">豫A5757U</option>
+                <option value="豫A5757T">豫A5757T</option>
+                <option value="豫A5753D">豫A5753D</option>
+                <option value="豫A5722W">豫A5722W</option>
+                <option value="豫A5717E">豫A5717E</option>
+                <option value="豫A5607T">豫A5607T</option>
+                <option value="豫A5605R">豫A5605R</option>
+                <option value="豫A5601R">豫A5601R</option>
+                <option value="豫A5579N">豫A5579N</option>
+                <option value="豫A5571R">豫A5571R</option>
+                <option value="豫A5571F">豫A5571F</option>
+                <option value="豫A5555S">豫A5555S</option>
+                <option value="豫A5533E">豫A5533E</option>
+                <option value="豫A5529F">豫A5529F</option>
+                <option value="豫A53KV0">豫A53KV0</option>
+                <option value="豫A5398Y">豫A5398Y</option>
+                <option value="豫A5397W">豫A5397W</option>
+                <option value="豫A531TY">豫A531TY</option>
+                <option value="豫A5311Y">豫A5311Y</option>
+                <option value="豫A5305Y">豫A5305Y</option>
+                <option value="豫A5291G">豫A5291G</option>
+                <option value="豫A5260B">豫A5260B</option>
+                <option value="豫A5250G">豫A5250G</option>
+                <option value="豫A5227E">豫A5227E</option>
+                <option value="豫A5227B">豫A5227B</option>
+                <option value="豫A51YT7">豫A51YT7</option>
+                <option value="豫A51SE8">豫A51SE8</option>
+                <option value="豫A5188B">豫A5188B</option>
+                <option value="豫A51777">豫A51777</option>
+                <option value="豫A5160Q">豫A5160Q</option>
+                <option value="豫A5105X">豫A5105X</option>
+                <option value="豫A5085K">豫A5085K</option>
+                <option value="豫A5007K">豫A5007K</option>
+                <option value="豫A3911J">豫A3911J</option>
+                <option value="豫A3902T">豫A3902T</option>
+                <option value="豫A3867W">豫A3867W</option>
+                <option value="豫A3867">豫A3867</option>
+                <option value="豫A3787V">豫A3787V</option>
+                <option value="豫A3775X">豫A3775X</option>
+                <option value="豫A3705S">豫A3705S</option>
+                <option value="豫A3619Y">豫A3619Y</option>
+                <option value="豫A3535S">豫A3535S</option>
+                <option value="豫A3530N">豫A3530N</option>
+                <option value="豫A3530J">豫A3530J</option>
+                <option value="豫A3398K">豫A3398K</option>
+                <option value="豫A327QV">豫A327QV</option>
+                <option value="豫A3257V">豫A3257V</option>
+                <option value="豫A3233Y">豫A3233Y</option>
+                <option value="豫A3201D">豫A3201D</option>
+                <option value="豫A3188V">豫A3188V</option>
+                <option value="豫A3182G">豫A3182G</option>
+                <option value="豫A3168N">豫A3168N</option>
+                <option value="豫A3092P">豫A3092P</option>
+                <option value="豫A3073L">豫A3073L</option>
+                <option value="豫A3037F">豫A3037F</option>
+                <option value="豫A3010X">豫A3010X</option>
+                <option value="豫A2999J">豫A2999J</option>
+                <option value="豫A2995P">豫A2995P</option>
+                <option value="豫A2959Q">豫A2959Q</option>
+                <option value="豫A2925V">豫A2925V</option>
+                <option value="豫A2868L">豫A2868L</option>
+                <option value="豫A2867G">豫A2867G</option>
+                <option value="豫A2855B">豫A2855B</option>
+                <option value="豫A2826G">豫A2826G</option>
+                <option value="豫A2807Z">豫A2807Z</option>
+                <option value="豫A2775S">豫A2775S</option>
+                <option value="豫A2721M">豫A2721M</option>
+                <option value="豫A2707S">豫A2707S</option>
+                <option value="豫A2700K">豫A2700K</option>
+                <option value="豫A2658V">豫A2658V</option>
+                <option value="豫A2652V">豫A2652V</option>
+                <option value="豫A2625S">豫A2625S</option>
+                <option value="豫A2623A">豫A2623A</option>
+                <option value="豫A2611Q">豫A2611Q</option>
+                <option value="豫A2586B">豫A2586B</option>
+                <option value="豫A2552B">豫A2552B</option>
+                <option value="豫A2531Z">豫A2531Z</option>
+                <option value="豫A2522K">豫A2522K</option>
+                <option value="豫A2399H">豫A2399H</option>
+                <option value="豫A2393Z">豫A2393Z</option>
+                <option value="豫A2363W">豫A2363W</option>
+                <option value="豫A2360K">豫A2360K</option>
+                <option value="豫A2136C">豫A2136C</option>
+                <option value="豫A2125W">豫A2125W</option>
+                <option value="豫A2079L">豫A2079L</option>
+                <option value="豫A2067P">豫A2067P</option>
+                <option value="豫A1A28U">豫A1A28U</option>
+                <option value="豫A19YL5">豫A19YL5</option>
+                <option value="豫A1997V">豫A1997V</option>
+                <option value="豫A1996V">豫A1996V</option>
+                <option value="豫A1975T">豫A1975T</option>
+                <option value="豫A19557">豫A19557</option>
+                <option value="豫A1886L">豫A1886L</option>
+                <option value="豫A1886J">豫A1886J</option>
+                <option value="豫A1877J">豫A1877J</option>
+                <option value="豫A1863P">豫A1863P</option>
+                <option value="豫A1856D">豫A1856D</option>
+                <option value="豫A1830R">豫A1830R</option>
+                <option value="豫A1825B">豫A1825B</option>
+                <option value="豫A1819R">豫A1819R</option>
+                <option value="豫A1813R">豫A1813R</option>
+                <option value="豫A1785W">豫A1785W</option>
+                <option value="豫A1782W">豫A1782W</option>
+                <option value="豫A1738J">豫A1738J</option>
+                <option value="豫A1737X">豫A1737X</option>
+                <option value="豫A1709W">豫A1709W</option>
+                <option value="豫A1702Q">豫A1702Q</option>
+                <option value="豫A1681B">豫A1681B</option>
+                <option value="豫A1618A">豫A1618A</option>
+                <option value="豫A1582Z">豫A1582Z</option>
+                <option value="豫A1569U">豫A1569U</option>
+                <option value="豫A1382T">豫A1382T</option>
+                <option value="豫A1320U">豫A1320U</option>
+                <option value="豫A1313C">豫A1313C</option>
+                <option value="豫A1273D">豫A1273D</option>
+                <option value="豫A123">豫A123</option>
+                <option value="豫A1225Z">豫A1225Z</option>
+                <option value="豫A1210H">豫A1210H</option>
+                <option value="豫A1186X">豫A1186X</option>
+                <option value="豫A1179V">豫A1179V</option>
+                <option value="豫A1157A">豫A1157A</option>
+                <option value="豫A1125Q">豫A1125Q</option>
+                <option value="豫A1123D">豫A1123D</option>
+                <option value="豫A1119Q">豫A1119Q</option>
+                <option value="豫A1119H">豫A1119H</option>
+                <option value="豫A1075H">豫A1075H</option>
+                <option value="豫A0975W">豫A0975W</option>
+                <option value="豫A0962S">豫A0962S</option>
+                <option value="豫A0909K">豫A0909K</option>
+                <option value="豫A0879U">豫A0879U</option>
+                <option value="豫A0839U">豫A0839U</option>
+                <option value="豫A082DE">豫A082DE</option>
+                <option value="豫A0825X">豫A0825X</option>
+                <option value="豫A0820E">豫A0820E</option>
+                <option value="豫A0776N">豫A0776N</option>
+                <option value="豫A0766N">豫A0766N</option>
+                <option value="豫A0685H">豫A0685H</option>
+                <option value="豫A065QU">豫A065QU</option>
+                <option value="豫A0655V">豫A0655V</option>
+                <option value="豫A0615Y">豫A0615Y</option>
+                <option value="豫A0570Y">豫A0570Y</option>
+                <option value="豫A05701">豫A05701</option>
+                <option value="豫A0535D">豫A0535D</option>
+                <option value="豫A0387V">豫A0387V</option>
+                <option value="豫A0382V">豫A0382V</option>
+                <option value="豫A0382D">豫A0382D</option>
+                <option value="豫A0332N">豫A0332N</option>
+                <option value="豫A0332M">豫A0332M</option>
+                <option value="豫A0325Q">豫A0325Q</option>
+                <option value="豫A0322N">豫A0322N</option>
+                <option value="豫A031DL">豫A031DL</option>
+                <option value="豫A0310L">豫A0310L</option>
+                <option value="豫A0233Y">豫A0233Y</option>
+                <option value="豫A0215B">豫A0215B</option>
+                <option value="豫A0156G">豫A0156G</option>
+                <option value="豫A0131P">豫A0131P</option>
+                <option value="豫A0062Y">豫A0062Y</option>
+                <option value="豫9229W">豫9229W</option>
+                <option value="豫087221">豫087221</option>
+                <option value="豫078960">豫078960</option>
+                <option value="豫029677">豫029677</option>
+                <option value="豫0271T2">豫0271T2</option>
+                <option value="豫009622">豫009622</option>
+                <option value="豫007017">豫007017</option>
+                <option value="蒙S51777">蒙S51777</option>
+                <option value="蒙B51777">蒙B51777</option>
+                <option value="蒙A7G088">蒙A7G088</option>
+                <option value="苏N38373">苏N38373</option>
+                <option value="苏MJ7738">苏MJ7738</option>
+                <option value="苏AV2449">苏AV2449</option>
+                <option value="苏AV0292">苏AV0292</option>
+                <option value="苏AU4765">苏AU4765</option>
+                <option value="苏AP0428">苏AP0428</option>
+                <option value="苏AM6308">苏AM6308</option>
+                <option value="苏AE4706">苏AE4706</option>
+                <option value="皖FB39AW">皖FB39AW</option>
+                <option value="皖C34197">皖C34197</option>
+                <option value="甘A51777">甘A51777</option>
+                <option value="湘TWW000">湘TWW000</option>
+                <option value="湘L29RNW">湘L29RNW</option>
+                <option value="津S556A1">津S556A1</option>
+                <option value="津J37355">津J37355</option>
+                <option value="晋N69081">晋N69081</option>
+                <option value="晋M69081">晋M69081</option>
+                <option value="晋M45361">晋M45361</option>
+                <option value="晋L72852">晋L72852</option>
+                <option value="晋L71068">晋L71068</option>
+                <option value="晋L70212">晋L70212</option>
+                <option value="晋L61698">晋L61698</option>
+                <option value="晋L57591">晋L57591</option>
+                <option value="晋L29750">晋L29750</option>
+                <option value="晋L25769">晋L25769</option>
+                <option value="晋ED6082">晋ED6082</option>
+                <option value="晋EC8226">晋EC8226</option>
+                <option value="晋EC6878">晋EC6878</option>
+                <option value="晋EC3882">晋EC3882</option>
+                <option value="晋E99308">晋E99308</option>
+                <option value="晋E97230">晋E97230</option>
+                <option value="晋E88627">晋E88627</option>
+                <option value="晋E86960">晋E86960</option>
+                <option value="晋E80276">晋E80276</option>
+                <option value="晋E77199">晋E77199</option>
+                <option value="晋E77193">晋E77193</option>
+                <option value="晋E76385">晋E76385</option>
+                <option value="晋E69626">晋E69626</option>
+                <option value="晋E68030">晋E68030</option>
+                <option value="晋E30667">晋E30667</option>
+                <option value="晋E26979">晋E26979</option>
+                <option value="晋E26792">晋E26792</option>
+                <option value="晋E20912">晋E20912</option>
+                <option value="晋E20715">晋E20715</option>
+                <option value="晋E20685">晋E20685</option>
+                <option value="晋E19073">晋E19073</option>
+                <option value="晋E19020">晋E19020</option>
+                <option value="晋E17807">晋E17807</option>
+                <option value="晋E17803">晋E17803</option>
+                <option value="晋E06082">晋E06082</option>
+                <option value="晋D31507">晋D31507</option>
+                <option value="晋D19631">晋D19631</option>
+                <option value="川A58Q2R">川A58Q2R</option>
+                <option value="吉Z853K1">吉Z853K1</option>
+                <option value="冀AX9650">冀AX9650</option>
+                <option value="冀APD176">冀APD176</option>
+                <option value="冀AP0176">冀AP0176</option>
+                <option value="冀A565AR">冀A565AR</option>
+                <option value="HK9374">HK9374</option>
+                <option value="E68030">E68030</option>
+                <option value="345">345</option>
+                <option value="128">128</option>
+                <option value="1234">1234</option>
+                <option value="123">123</option>
+                <option value="117">117</option>
+                <option value="1">1</option>
+                <option value="0123">0123</option>
+                <option value="00002">00002</option>
+                <option value="00001">00001</option>
+              </select>
+            </div>
+		  </div>
+		  <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">进货编号：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <input
+                type="text"
+                placeholder=""
+                name="wai_num"
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+          </div>
+          <!-- <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">开始时间：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <input
+                type="text"
+                placeholder=""
+                name="wai_num"
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+          </div> -->
+          <!-- <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">结束时间：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <input
+                type="text"
+                placeholder=""
+                name="supp_unit"
+                autocomplete="off"
+                class="layui-input bigInput"
+              />
+            </div>
+          </div> -->
+		  <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+			<label class="layui-form-label">查询时间：</label>
+			<div class="layui-input-inline" style="margin-right:5px">
+				<input type="text" id="starttime" placeholder="开始时间" autocomplete="off" class="layui-input bigInput" readonly="">
+				<span class="dateiconb" style="top:3px">
+					<i class="layui-icon layui-icon-date"></i>
+				</span>
+			</div>
+			<span>-</span>
+			<div class="layui-input-inline" style="margin-left:5px">
+				<input type="text" id="endtime" placeholder="结束时间" autocomplete="off" class="layui-input bigInput" readonly="">
+				<span class="dateiconb" style="top:3px">
+					<i class="layui-icon layui-icon-date"></i>
+				</span>
+			</div>
+		</div>
+          <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+            <label class="layui-form-label">车辆类型：</label>
+            <div class="layui-input-inline" style="float: left;">
+              <select class="select1 input-sm" name="car_type" id="car_type">
+                <option value="all" selected>全部</option>
+                <option value="inside">内部</option>
+                <option value="outside">外部</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline hcbig clearfix" style="margin-bottom:24px;">
+			<div class="layui-inline" style="float:left">
+				  <button class="hcbtn search">搜索</button>
+			</div>
+			<!-- <div class="layui-inline" style="float:left">
+				  <button class="hcbtn reloads">刷新</button>
+			</div> -->
+		</div>
+		<div class="layui-inline" style="float:right">
+			<button class="hcbtn add">添加</button>
+		</div>
+		<div class="layui-inline" style="float:right;margin-right: 24px;">
+			<button class="hcbtn export">导出</button>
+		</div>
+		
+      </div>
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+      </div>
+    </div>
+    <script type="text/html" id="barDemo">
+      <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script type="text/html" id="addContent">
+      <div class="hclit">
+            <ul class="jlul layui-form clearfix ">
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">入库单号</p>
+                            <div class="dd-value">
+                                <input type="text" autocomplete="off" name="ht_num" value="">
+                            </div>
+                        </div>
+                </li>
+                <li class="">
+                    <div class="inlists">
+                        <p class="dd-name">计量单位</p>
+                            <div class="dd-value">
+                                <select class="form-control input-sm" name="danwei">
+                                    <option value="">请选择</option>
+                                    <option value="TO">吨</option>
+      					   			<option value="KG">千克</option>
+      								<option value="G">克</option>
+      								<option value="M3">立方米</option>
+      								<option value="ML">毫升</option>
+      								<option value="L">升</option>
+      								<option value="M2">平方米</option>
+      								<option value="M">米</option>
+      								<option value="PC">片、件、个、只、支、把、根、张、块</option>
+      								<option value="BAG">袋 </option>
+      								<option value="BOT">瓶 </option>
+      								<option value="CS">箱 </option>
+      								<option value="DR">金属桶 </option>
+      								<option value="DZ">条 </option>
+      								<option value="KAN">罐 </option>
+      								<option value="KAR">纸板箱 </option>
+      								<option value="LA">辆 </option>
+      								<option value="PAA">对 </option>
+      								<option value="PAK">包 </option>
+      								<option value="PAL">托盘</option>
+      								<option value="TA">台 </option>
+      								<option value="TAO">套 </option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">是否需要我方付费</p>
+                            <div class="dd-value">
+                                <input type="radio" name="radio" value="1" title="是" checked>
+                                <input type="radio" name="radio" value="0" title="否">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">承运商代码</p>
+                            <div class="dd-value">
+      					<input type="text" autocomplete="off" name="sap_gys" >
+      					<span class="selcetsearch listAdd"  onclick="listAddDemo(1)">
+      						<i class="layui-icon layui-icon-search"></i>
+      					</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">入库状态</p>
+                            <div class="dd-value">
+                                <select class="" name="rk_status">
+                                    <option value="">请选择</option>
+                                    <option value="01">已入库</option>
+                                    <option value="02">未入库</option>
+                            	</select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">收货工厂</p>
+                            <div class="dd-value">
+                                <select class="" name="take_goods">
+      						<option value="">请选择</option>
+      						<option value="1000">恒昌建材工厂</option>
+      						<option value="1010">伟治建材工厂</option>
+      						<option value="1020">松大建材工厂</option>
+      						<option value="2000">山立建材工厂</option>
+      						<option value="3000">建筑工程工厂</option>
+      						<option value="5000">万昌运输工厂</option>
+      						<option value="6000">恒昌复配工厂</option>
+      						<option value="7000">恒昌资金工厂</option>
+      						<option value="8000">恒昌行政工厂</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">运车代码</p>
+                            <div class="dd-value">
+                                <input type="text" autocomplete="off" name="car_num" value="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">服务方式</p>
+                            <div class="dd-value">
+      					<input type="text" autocomplete="off" name="serv_type" value="9000000100">
+      					<span class="selcetsearch listAdd"  onclick="listAddDemo(2)">
+      						<i class="layui-icon layui-icon-search"></i>
+      					</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">采购合同</p>
+                            <div class="dd-value">
+      					<input type="text" autocomplete="off" name="ht_num" value="">
+      					<span class="selcetsearch listAdd"  onclick="listAddDemo(3)">
+      						<i class="layui-icon layui-icon-search"></i>
+      					</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">库存地点</p>
+                            <div class="dd-value">
+                                <select class="form-control input-sm" name="stor_place">
+                                    <option value="" selected="selected">请选择</option>
+                                    <option value="1000">河南省恒昌建材科技有限公司原材料库</option>
+                                    <option value="1001">河南省恒昌建材科技有限公司成品库</option>
+                                    <option value="1010">巩义市伟治建筑材料有限公司原材料库</option>
+                                    <option value="1011">巩义市伟治建筑材料有限公司成品库</option>
+                                    <option value="1020">河南省恒昌建材科技有限公司松大站原材料库</option>
+                                    <option value="1021">河南省恒昌建材科技有限公司松大站成品库</option>
+                                    <option value="2000">河南省山立建材科技有限公司原材料库</option>
+                                    <option value="2001">河南省山立建材科技有限公司成品库</option>
+                                    <option value="5000">巩义市万昌运输有限公司柴油总库</option>
+                                    <option value="5008">巩义市万昌运输有限公司太龙站油库</option>
+                                    <option value="5009">巩义市万昌运输有限公司山立站油库</option>
+                                    <option value="5010">巩义市万昌运输有限公司公司油库</option>
+                                    <option value="5100">巩义市万昌运输有限公司公司油库</option>
+                                    <option value="5100">太龙站油库</option>
+                                    <option value="6000">河南省恒昌商砼技术服务有限公司原材料库</option>
+                                    <option value="6001">河南省恒昌商砼技术服务有限公司半成品库</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">运费值 </p>
+                            <div class="dd-value">
+                                <input type="text" autocomplete="off" name="all_dist" value="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">内部订单</p>
+                            <div class="dd-value">
+      					<input type="text" autocomplete="off" name="sap_material" value="">
+      					<span class="selcetsearch listAdd"  onclick="listAddDemo(4)">
+      						<i class="layui-icon layui-icon-search"></i>
+      					</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">采购数量</p>
+                            <div class="dd-value">
+                                <input type="text" autocomplete="off" name="fang_count" value="">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="">
+                        <div class="inlists">
+                            <p class="dd-name">更改标识</p>
+                            <div class="dd-value">
+                                <select class="" name="card" id="changeid">
+                                    <option value="I">创建</option>
+                                    <option value="U">修改</option>
+                                    <option value="D">删除</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li>
+                        <div class="dd-value task-btnbox hcbig clearfix">
+                            <div class="layui-inline" style="float:left">
+                                <button class="hcbtn save">保存</button>
+                            </div>
+                            <div class="layui-inline" style="float:left">
+                                <button class="hcbtn reload">刷新</button>
+                            </div>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+
+     
+
+      //开始时间选择
+      laydate.render({
+        elem: "#starttime",
+        done: function (value, date) {},
+	  });
+	  //结束时间选择
+      laydate.render({
+        elem: "#endtime",
+        done: function (value, date) {},
+      });
+      // 窗口大小改变事件
+      window.onresize = function () {
+        listReisze();
+      };
+      listReisze();
+      var tableIns = tableRender({
+        elem: "#ddtest",
+        url: "http://10.0.0.9:8008/admin/mmtest/getindata",
+        cols: [
+          [
+            { type: "checkbox", fixed: "left", width: 50 },
+            { field: "in_num", title: "进货编号", fixed: "left", width: 120 },
+            { field: "ht_num", title: "供货合同", width: 100 },
+            { field: "sap_cght", title: "SAP合同编号", width: 130 },
+            { field: "sap_status", title: "SAP状态", width: 100 },
+            { field: "cz_time", title: "时间", width: 170 },
+            { field: "send_goods", title: "发货", width: 120 },
+            { field: "take_goods", title: "收货", width: 215 },
+            { field: "car_num", title: "车号", width: 100 },
+            { field: "goods_name", title: "货品名称", width: 100 },
+            { field: "goods_spec", title: "货品规格", width: 100 },
+            { field: "stor_place", title: "存放地", width: 140 },
+            { field: "fang_count", title: "方量", width: 70 },
+            { field: "station_name", title: "站名", width: 70 },
+            { field: "dist_price", title: "运价", width: 70 },
+            { field: "all_dist", title: "运费", width: 70 },
+            { field: "zf_ratio", title: "折方", width: 70 },
+            { field: "sap_back", title: "SAP返回", width: 100 },
+            {
+              title: "操作",
+              width: 70,
+              toolbar: "#barDemo",
+              fixed: "right",
+              align: "center",
+            },
+          ],
+        ],
+        even: true,
+        page: true,
+        skin: "row",
+        id: "gbrkReload",
+        done: function () {},
+      });
+
+      // 表格数据编辑
+      table.on("tool(ddtest)", function (obj) {
+        if (obj.event == "edit") {
+          //编辑
+          dataRender(obj.data);
+          form.render();
+        }
+      });
+      //   导出按钮
+      $(".export").on("click", function () {
+        table.exportFile("gbrkReload", "tableIns", "xls");
+      });
+      // 添加按钮
+      $(".add").on("click", function () {
+        console.log(111);
+        layer.open({
+          type: 1,
+          title: "编辑",
+          btn: ["确定", "取消"],
+          area: ["90%", "75%"],
+          content: $("#addContent").html(),
+          success(layero, index) {
+              form.render();
+          },
+          yes (index, layero) {
+		  }
+        });
+	  });
+	
+	 // 点击保存
+	//  $("body").on("click", ".save", function () {
+    //     var data = formData();
+    //     console.log(data);
+    //   });
+      function listAddDemo(val) {
+        switch (val) {
+          case 1:
+            title = "承运商代码";
+            laytplUrl = "./gbrk-cys.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          case 2:
+            title = "服务方式";
+            laytplUrl = "./gbrk-fwfs.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          case 3:
+            title = "采购合同";
+            laytplUrl = "./gbrk-cght.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          case 4:
+            title = "内部订单";
+            laytplUrl = "./gbrk-nbdd.html";
+            listAddtpl(title, laytplUrl);
+            break;
+          default:
+            break;
+        }
+      }
+    </script>
+  </body>
+</html>

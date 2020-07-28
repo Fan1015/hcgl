@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>出货记录</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+		<div class="hclit">
+            <p class="hctitle">出货记录（太龙，山立，伟治，松大）</p>
+            
+            <!-- <ul class="jlul layui-form clearfix">
+
+            </ul> -->
+            
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">工程名称：</label>
+                <div class="layui-input-inline" style="float:left">
+                   <input type="text" placeholder="" name="proj_name" id="proj_name" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn add">添加</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+     <script type="text/html" id="stateList">
+        {{# layui.each(d,function(index,item){}}
+        <li class="{{# if(item.type == 1){}}double{{# }}}">
+            {{# if(item.key){}}
+            <div class="inlists">
+                <p class="dd-name">{{item.key}}</p>
+                {{# if(item.zd4){}}
+                <div class="dd-value">
+                    <select name="{{item.name}}" id="">
+                        <option value="">请选择</option>
+                        {{# layui.each(item.zd4,function(i,m){}}
+                        <option value="{{m}}">{{m}}</option>
+                        {{# })}}
+                    </select>
+                </div>
+                {{# }else{}}
+                <div class="dd-value">
+                    {{# if(item.key){}}<input type="text" autocomplete="off" name="{{item.name}}" value="">{{# }}}
+                </div>
+                {{# }}}
+            </div>
+            {{# }}}
+        </li>
+        {{# })}}
+    </script>
+    <script type="text/html" id="openform">
+        <ul class="jlul layui-form clearfix">
+
+        </ul>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+		var table = layui.table;
+	    var form = layui.form;
+	    var laytpl = layui.laytpl;
+	    var laydate = layui.laydate;
+
+	    var listTpl = $('#stateList').html();
+        var stateData = [],num = 0;
+        var listData = []
+        
+
+        window.onresize = function() {
+            if(stateData.length>0){
+                var data = listDataRender(stateData);
+                tplInit(data);
+                dataRender(listData);
+            }
+        }
+
+        $('.add').click(function(){
+            layer.open({
+                area:['90%','90%'],
+                content:$('#openform').html(),
+                success (layero,index) {
+                    listRender(function(){
+                        var ele = $('.jlul>li').eq(13).find('input')[0];
+                        dateRender(ele)
+                        var ele = $('.jlul>li').eq(20).find('input')[0];
+                        dateRender(ele);
+                        form.render();
+                    });
+                }
+            })
+        })
+
+	    // // 点击保存
+	    // $('body').on('click', '.save', function() {
+	    //     var data = formData();
+	    //     console.log(data);
+	    // });
+
+	    
+        var tableIns = tableRender({
+            elem: '#ddtest',
+            // url: '../assets/api/chjldata.json',
+            url: baseUrl + '/hcms/Indata/outdata_jl',
+            where: {
+                station: '太龙,山立,伟治,松大',
+                proj_name: $('#proj_name').val()
+            },
+            cols: [
+                [
+					{field: 'id', title: '序号', fixed:"left", width:80},
+					{field: 'send_id', title: '出货编号', fixed:"left", width:130},
+					{field: 'ht_num', title: '合同编号', fixed:"left", width:100},
+					{field: 'sap_xszz', title: '销售组织',  width:100},
+					{field: 'sdf_num', title: '送达方编码',  width:120},
+					{field: 'car_num', title: '车号',  width:80},
+					{field: 'driver_name', title: '司机',width:100},
+					{field: 'gcmc', title: '工程名称',width:230},
+					{field: 'shdw', title: '委托单位', width:230},
+					{field: 'proj_area', title: '工程部位', width:180},
+					{field: 'strong_lv', title: '强度等级', width:100},
+					{field: 'pinzhong', title: '品种', width:70},
+					{field: 'tanluo_lv', title: '坍落度', width:80},
+					{field: 'jiaozhu_type', title: '浇筑方式', width:100},
+					{field: 'prod_count', title: '生产方量', width:100},
+					{field: 'send_count', title: '发货方量', width:100},			
+					{field: 'send_time', title: '发货时间', width:170},
+					{field: 'proj_addr', title: '工程地点', width:180},
+					{field: 'kangshen_lv', title: '抗渗等级', width:100},			
+					{field: 'all_weight', title: '毛重', width:80},
+					{field: 'car_weight', title: '皮重', width:80},
+					{field: 'send_weight', title: '净重', width:80},
+					{field: 'all_count', title: '累计方量', width:100},
+					{field: 'car_weight_time', title: '皮重时间', width:170},
+					{field: 'use_status', title: '状态', width:70},
+					{field: 'handle_man', title: '操作员', width:80},
+					{field: 'business_man', title: '经办人', width:80},		      
+					{field: 'station_name', title: '站名', width:70},
+					{title: '操作', width:70, toolbar:'#barDemo',fixed:"right",align:"center"}
+                ]
+            ],
+            even: true,
+            page: true,
+            skin:'row',
+            done: function() {
+                
+            }
+        });
+
+        // 表格数据编辑
+        table.on('tool(ddtest)', function(obj) {
+            listData = obj.data;
+            if (obj.event == 'edit') {
+                //编辑
+                layer.open({
+                    area:['90%','90%'],
+                    btn: ['确定','取消'],
+                    content:$('#openform').html(),
+                    success (layero,index) {
+                        listRender(function(){
+                            var ele = $('.jlul>li').eq(13).find('input')[0];
+                            dateRender(ele);
+                            var ele = $('.jlul>li').eq(20).find('input')[0];
+                            dateRender(ele);
+
+                            dataRender(obj.data);
+                            form.render();
+                        });
+                    },
+                    yes (index, layero) {
+                        var data = formData();
+                        console.log(data)
+                    }
+                })
+            }
+        });
+
+        // 初始化列表
+        function listRender(fn){
+            $.ajax({
+                url:'../assets/api/chjllist.json',
+                success: res => {
+                    stateData = res.data;
+                    var data = listDataRender(stateData);
+                    tplInit(data);
+                    fn();
+                }
+            })
+        }
+
+        function dateRender(ele){
+            laydate.render({
+                elem: ele,
+                type:'datetime'
+            });
+        }
+    </script>
+</body>
+</html>

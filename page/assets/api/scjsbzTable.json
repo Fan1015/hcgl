@@ -1,0 +1,36 @@
+{
+    "count":5,
+    "data":{
+        "0":{
+            "sb_ym":"2019-08",
+            "empl_num":"000000300",
+            "empl_name":"冯志勇",
+            "sb_money":0
+        },
+        "1":{
+            "sb_ym":"2019-08",
+            "empl_num":"000000002",
+            "empl_name":"孙春平",
+            "sb_money":0
+        },
+        "2":{
+            "sb_ym":"2019-08",
+            "empl_num":"000000214",
+            "empl_name":"李艳艳",
+            "sb_money":0
+        },
+        "3":{
+            "sb_ym":"2019-08",
+            "empl_num":"000000005",
+            "empl_name":"连娟",
+            "sb_money":0
+        },
+        "4":{
+            "sb_ym":"2019-08",
+            "empl_num":"000000186",
+            "empl_name":"郅盼盼",
+            "sb_money":0
+        }
+    },
+    "code":0
+}

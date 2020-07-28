@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>违约金维护</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">违约金维护</p>
+            <ul class="jlul layui-form clearfix">
+               
+            </ul>
+        </div>
+        <div style="margin:0 0 30px;padding-right:24px">
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">客户名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" placeholder="" name="kh_name" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">工程名称：</label>
+                <div class="layui-input-inline">
+                   <input type="text" placeholder="" name="proj_name" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <label class="layui-form-label">类型：</label>
+                <div class="layui-input-inline">
+                   <select class="form-control" name="balance_type" id="lx_type">
+                        <option value=""></option>
+	                    <option value="合同">合同</option>
+	                    <option value="结束">结束</option>
+	                    <option value="诉讼">诉讼</option>
+	                    <option value="预付款">预付款</option>
+	                </select>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">刷新</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="border:none">编辑</a>
+    </script>
+    <script type="text/html" id="stateList">
+        {{# layui.each(d,function(index,item){}}
+        <li class="{{# if(item.type == 1){}}double{{# }}}">
+            {{# if(item.key){}}
+            <div class="inlists">
+                <p class="dd-name">{{item.key}}</p>
+                {{# if(item.zd4){}}
+                <div class="dd-value">
+                    <select name="{{item.name}}" id="">
+                        <option value="">请选择</option>
+                        {{# layui.each(item.zd4,function(i,m){}}
+                        <option value="{{m}}">{{m}}</option>
+                        {{# })}}
+                    </select>
+                </div>
+                {{# }else{}}
+                <div class="dd-value">
+                    {{# if(item.key){}}<input type="text" name="{{item.name}}" value="">{{# }}}
+                </div>
+                {{# }}}
+            </div>
+            {{# }}}
+        </li>
+        {{# })}}
+        <li class="">
+        	<div class="inlists">
+        		<p class="dd-name">增加余额</p>
+        		<div class="dd-value">
+        			<input type="number" name="add_balance" autocomplete="off" value="">
+        		</div>
+        	</div>
+        </li>
+        <li>
+            <!-- <p class="dd-name"></p> -->
+            <div class="dd-value task-btnbox hcbig clearfix">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn save" >保存</button>
+                </div>
+            </div>
+        </li>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+
+		var table = layui.table;
+        var form = layui.form;
+        var laytpl = layui.laytpl;
+        var laydate = layui.laydate;
+        
+        var listTpl = $('#stateList').html();
+        var stateData = [],num = 0;
+        var listData = null;
+        listRender(function(){
+            dataRender(listData);
+            form.render()
+        });
+        // 点击保存
+        $('body').on('click','.save',function(){
+            var data = formData();
+            console.log(data);
+        });
+
+        // 窗口大小改变事件
+        window.onresize = function() {
+            if(stateData.length>0){
+                var data = listDataRender(stateData);
+                tplInit(data);
+                dataRender(listData);
+            }
+            
+        }
+
+        // 初始化列表
+        function listRender(fn){
+            $.ajax({
+                url:'../assets/api/wyjList.json',
+                success: res => {
+                    stateData = res.data;
+                    var data = listDataRender(stateData);
+                    tplInit(data);
+                    fn();
+                }
+            })
+        }
+
+	    var tableIns = tableRender({
+	        elem: '#ddtest',
+	        url: '../assets/api/wyjData.json',
+	        cols: [[
+				{field: 'id', title: '序号', width:70},
+                {field: 'gs_code', title: '公司代码',  width:100},
+                {field: 'sdf_num', title: '送达方编码', width:115},
+                {field: 'kh_num', title: '客户编码', width:100},
+                {field: 'kh_name', title: '客户名称'},
+                {field: 'proj_name', title: '工程名称'},
+                {field: 'balance', title: '余额', width:80},
+                {field: 'balance_type', title: '类型', width:80},
+                {field: 'jiesuan_time', title: '结算时间', width:170},
+                {title: '操作', width:70, toolbar:'#barDemo',align:"center"}
+            ]],
+	        even: true,
+	        page: true,
+	        skin:'row',
+	        done: function() {
+	            
+	        }
+	    });
+
+	    // 表格数据编辑
+	    table.on('tool(ddtest)', function(obj) {
+	        if (obj.event == 'edit') {
+	            //编辑
+	            dataRender(obj.data)
+	            form.render()
+	        }
+	    });
+	</script>
+</body>
+</html>

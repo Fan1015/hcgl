@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>车辆超速报表</title>
+    <style>
+      .operation_text {
+        font-size: 14px;
+      }
+      .operation_text > p:not(.last_text) {
+        margin: 0 0 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <h2 class="staname" style="padding: 0 0 40px 0;">车辆超速报表</h2>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 搜索类型 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">搜索类型：</label>
+          <div class="layui-input-inline">
+            <!-- <input type="text" placeholder="" id="states" autocomplete="off" class="layui-input bigInput"> -->
+            <select name="search_key" id="search_key">
+              <option value="">请选择</option>
+              <option value="car_num">车号</option>
+              <option value="driver_name">司机</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 搜索类型 -->
+        <!-- start 搜索内容 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder="请输入搜索内容"
+              id="search_val"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 搜索内容 -->
+        <!-- start 开始时间选择 -->
+        <div class="layui-inline hcbig hcbig-top" style="margin-bottom: 24px; float: left;">
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="clcsStart"
+              name="starttime"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <div class="layui-inline hcbig hcbig-top" style="margin-bottom: 24px; float: left;" >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="clcsEnd"
+              name="endtime"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <div class="layui-inline hcbig" style="margin-bottom: 24px; float: left;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="submit">导出</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn update" data-type="reload" type="button">
+              刷新
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tablebb" style="padding-right: 24px;">
+        <table class="layui-hide" id="clcsTable" lay-filter="clcstest"></table>
+      </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laydate = layui.laydate;
+
+      var alldata = [];
+      //开始时间选择
+      laydate.render({
+        elem: "#clcsStart",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#clcsEnd",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+     
+      var tableIns = tableRender({
+        elem: "#clcsTable",
+        // url: "../assets/api/clcsTable.json",
+        url: baseUrl + '/hcms/location/cs_list',
+        cols: [
+          [
+            { field: "id", title: "序号", sort: true },
+            { field: "car_num", title: "车号" },
+            { field: "driver_name", title: "司机" },
+            { field: "send_id", title: "出货编号" },
+            { field: "ht_num", title: "合同编号" },
+            {field: "status", title: "查看状态",templet:function(d){
+                if(d.status==1){
+                  return '<div style="color: green">已查看</div>';
+                }else{
+                  return '<div style="color: red">未查看</div>';
+                }
+            }},
+            { field: "speed", title: "速度(km/h)",templet:function(d){
+              return d.speed.toFixed(2)
+            }},
+            {field:'trans_status', title: '行驶状态',width:120},
+            {field:'create_time',title: '时间',fixed:'right'}
+          ],
+        ],
+        id: "clcsReload",
+        even: true,
+        page:true,
+        skin: "row",
+        limit: 10,
+        done: function (res) {
+          // console.log(res);
+          alldata = res.data
+        },
+      });
+
+      $(".search").click(function () {
+        var search_key = $("#search_key").val(); //搜索类型
+        var search_val = $("#search_val").val(); //搜索内容
+        var start_time = $("#clcsStart").val(); //开始时间
+        var end_time = $("#clcsEnd").val(); //结束时间
+        if (
+          search_key == "" ||
+          search_val == "" ||
+          start_time == "" ||
+          end_time == ""
+        ) {
+          layer.msg("请完善搜索内容！");
+        } else {
+          //执行重载
+          clcsTable.reload("clcsReload", {
+            page: {
+              curr: 1, //重新从第 1 页开始
+            },
+            where: {
+              search_key: search_key,
+              search_val: search_val,
+              start_time: start_time,
+              end_tome: end_time,
+            },
+          });
+        }
+      });
+      $(".update").on("click", function () {
+       location.reload();
+      });
+       $('.export').click(function(){
+        table.exportFile(tableIns.config.id,alldata,'xls')
+      })
+    </script>
+  </body>
+</html>

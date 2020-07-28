@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/menuicon/iconfont.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title></title>
+    <style>
+    	.hcbig{
+    		/*margin-right:20px;*/
+    	}
+        .hcbig .layui-unselect{
+            height: 25px;
+        }
+        .hcbox .layui-form-label{
+            width:6rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="alldatamsg clearfix" style="">
+    		<div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">编号：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="num" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">客户名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="client_name" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">工程名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="pro_name" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">商品名称：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="goods_name" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">强度等级：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="strong_lv" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">施工部位：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sgbw" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">品种：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="pinzhong" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">坍落度：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="tld" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">施工方式：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sg_type" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">工程地点：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="pro_site" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">使用时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="use_time" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">里程：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="legend" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">单车时间：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="yj_time" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">验收标准：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="yanshou_bz" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">工地资料：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="gongdi_zl" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label" style="width:6rem">工地负责人：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="conn_man" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">工地电话：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="cprod_phone" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">开票：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="fapiao" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">回款方式：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="hk_type" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label" style="width:6rem">现场签售人：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="signer" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">运输方式：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="ys_type" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">榜单标题：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="weight_title" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">业务费：</label>
+                <div class="layui-input-inline" style="">
+                    <input type="text" name="prof_cost" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">泵送费：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="pump_cost" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">商品数量：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="goods_num" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">备注：</label>
+                <div class="layui-input-inline" style="">
+                    <input type="text" name="remark" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">超百方：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="more_yb" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+    		    <label class="layui-form-label">客户编码：</label>
+    		    <div class="layui-input-inline">
+    		      	<input type="text" name="cust_code" readonly="" class="layui-input bigInput">
+    		    </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label" style="width:6rem">送达方编码：</label>
+                <div class="layui-input-inline" style="">
+                    <input type="text" name="sdf_num" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">公司编码：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="gs_code" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">经办人：</label>
+                <div class="layui-input-inline" style="">
+                    <input type="text" name="business_man" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">单价：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="unit_price" readonly="" class="layui-input bigInput">
+                </div>
+            </div>
+    	</div>
+    	<div class="layui-items jibd">
+            <h3 style="margin-bottom:24px">商品配比信息</h3>
+            <div class="clearfix" style="">
+    			<div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+        		    <label class="layui-form-label">配比编号：</label>
+        		    <div class="layui-input-inline">
+        		      	<input type="text" name="phb_num" subname="PHB" disabled="" class="layui-input bigInput">
+        		    </div>
+                </div>
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+        		    <label class="layui-form-label">物料编号：</label>
+        		    <div class="layui-input-inline">
+        		      	<input type="text" name="wuliao_num" subname="WLBH" disabled="" class="layui-input bigInput">
+        		    </div>
+                </div>
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+        		    <label class="layui-form-label">物料描述：</label>
+        		    <div class="layui-input-inline">
+        		      	<input type="text" name="pord_info" subname="WLMS" disabled="" class="layui-input bigInput">
+        		    </div>
+                </div>
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+        		    <label class="layui-form-label">润管砂浆：</label>
+        		    <div class="layui-input-inline">
+        		      	<input type="checkbox" name="open_rg" id="open_rg" lay-skin="switch" lay-text="开启|关闭" lay-filter="open_rg" value="0">
+        		    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-items rgsjb" style="display: none;">
+            <h3 style="margin-bottom:24px">润管砂浆配比信息</h3>
+            <div class="clearfix" style="">
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                    <label class="layui-form-label">砂浆配比：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="rg_phb_num" disabled="" subname="PHB" class="layui-input bigInput">
+                    </div>
+                </div>
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                    <label class="layui-form-label">物料编号：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="rg_wuliao_num" disabled="" subname="WLBH" class="layui-input bigInput">
+                    </div>
+                </div>
+                <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                    <label class="layui-form-label">物料信息：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="rg_pord_info" disabled="" subname="WLMS" class="layui-input bigInput">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-items clearfix" style="padding-right:24px">
+            <div class="layui-inline" style="float:right;margin-left:24px">
+                <button class="hcbtn submit">提交</button>
+            </div>
+            <div class="layui-inline" style="float:right">
+                <button class="hcbtn edit">修改</button>
+            </div>
+        </div>
+        <div class="clearfix" style="padding-right:24px">
+            <hr style="border-top:1px dashed #ccc;margin:24px 0">
+        </div>
+        <div class="seabox clearfix" style="">
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">配合比号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="PHB" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">物料编号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="WLBH" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig" style="margin-bottom:24px;float:left">
+                <label class="layui-form-label">物料描述：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="WLMS" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline" style="float:right;margin:0 24px 24px 0">
+                <button class="hcbtn search">搜索</button>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="choose">选择</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	var form = layui.form;
+    	
+
+        var datas = parent.singleData;
+        dataRender(datas, '.jibd');
+        dataRender(datas, '.alldatamsg');
+
+        // 监听提交
+        $('.submit').click(function(){
+            var url = '/hcms/order/bind_phb';
+            var data1 = formData('.jibd');
+            data1.oid = data1.id;
+            delete data1.id;
+            var data2 = formData('.rgsjb');
+            if (data1.open_rg) {
+                Object.assign(data1, data2);
+            }
+            promiseSovl(url,'post', data1).then(function(res){
+                if (res.code == 0) {
+                    layer.msg('提交成功', {time: 2000}, function () {
+                        parent.layer.closeAll()
+                    })
+                }else {
+                    layer.msg(res.msg, {time: 2000})
+                }
+            });
+        });
+
+        // 手动修改
+        $('.edit').click(function(){
+            $('.jibd').find('input').removeAttr('disabled');
+            $('.rgsjb').find('input').removeAttr('disabled');
+            layer.msg('输入状态已切换', {time:2000})
+        });
+
+
+        // 监听润管砂浆开关
+        form.on('switch(open_rg)',function(obj){;
+            $(this).parents('.layui-items').next().slideToggle();
+            if(this.checked) {
+                dataRender(datas, '.rgsjb')
+                $('#open_rg').val(1)
+            }else{
+                $('.rgsjb').find('input').val('');
+                $('#open_rg').val(0)
+            }
+        });
+
+        // 搜索
+        $('.search').click(function(){
+            var data = formData('.seabox');
+            console.log(data)
+            table.reload('editphbtable', {
+                where:data,
+                page:{
+                    curr:1
+                }
+            })
+        })
+
+        // 数据表格控件
+        var tableIns = tableRender({
+            elem:'#ddtest',
+            // url:'../assets/api/ddpb-edit.json',
+            url: baseUrl + '/hcms/basic_data/phb',
+            id: 'editphbtable',
+            cols:[[
+                {field: 'ds_key_id', title: '序号', width: 80, sort: true},
+                {field: 'PHB', title: '配合比编号', width: 130, sort: true},
+                {field: 'WLBH', title: '物料编号', width: 140, sort: true},
+                {field: 'WLMS', title: '物料描述'},
+                {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 65}
+            ]],
+            even: true,
+            page:true,
+            done:function(res){
+                
+            }
+        });
+
+        table.on('tool(ddtest)',function (obj) {
+            console.log(obj);
+            if(obj.event == 'choose') {
+                layer.open({
+                    title: '提示',
+                    content:'请选择配比类型',
+                    area:['364px'],
+                    btn: ['商品配比','润管配比','取消'],
+                    yes (index,layero) {
+                        dataSubRender(obj.data,'.jibd')
+                        layer.close(index)
+                    },
+                    btn2 (index,layero) {
+                        dataSubRender(obj.data,'.rgsjb')
+                        layer.close(index)
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+</html>

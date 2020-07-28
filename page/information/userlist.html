@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>管理系统用户管理</title>
+</head>
+<body>
+    <div class="hcbox layui-form">
+        <div class="hclit">
+            <p class="hctitle">管理系统用户管理</p>
+            
+        </div>
+        <div style="padding-right:24px">
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <!-- <div class="layui-input-inline" style="float:left">
+                    <select name="search_key" lay-verify="required" id="search_key">
+	                    <option value="">选择搜索类型</option>
+	                    <option value="title">角色</option>
+	                    <option value="username">用户名</option>
+	                </select>
+                </div> -->
+                <div class="layui-input-inline" style="float:left">
+                    <input type="text" name="username" id="username" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom:24px">
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn search">搜索</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn add">添加</button>
+                </div>
+                <div class="layui-inline" style="float:left">
+                    <button class="hcbtn export">导出</button>
+                </div>
+            </div>
+        </div>
+        <div class="tablebb" style="padding-right:24px">
+            <table class="layui-hide" id="ddtest" lay-filter="ddtest"></table>
+        </div>
+        
+    </div>
+    <script type="text/html" id="barDemo">
+        <a lay-event="edit" style="">编辑</a>
+        <a lay-event="del" style="">删除</a>
+    </script>
+    <script type="text/html" id="toolbarDemo">
+      <div class="layui-btn-container">
+      	<button class="hcbtn search layui-btn-sm" lay-event="piDelete" style="height:30px;line-height: 30px">批量删除</button>
+      </div>
+    </script>
+    <script type="text/html" id="layerTpl">
+    	<div class="layui-form layerin" style="padding:20px">
+    		<input type="hidden" name="uid">
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label">用户角色：</label>
+	            <div class="layui-input-inline" style="float:left">
+	                <select name="role" id="role"></select>
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label">辅助角色：</label>
+	            <div class="layui-input-inline" style="float:left">
+	                <input type="checkbox" lay-filter="fz_role" lay-skin="switch" lay-text="开启|关闭">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px;display: none;">
+	        	<label class="layui-form-label"></label>
+	            <div class="layui-input-inline" style="float:left">
+	            	<select name="assist_role" id="assist_role"></select>
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label">用户名：</label>
+	            <div class="layui-input-inline" style="float:left">
+	                <input type="text" name="username" autocomplete="off" class="layui-input bigInput">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label">密码：</label>
+	            <div class="layui-input-inline" style="float:left">
+	                <input type="password" name="password" autocomplete="off" class="layui-input bigInput" placeholder="">
+	            </div>
+	        </div>
+	        <div class="hcbig clearfix" style="margin-bottom:20px">
+	            <label class="layui-form-label">确认密码：</label>
+	            <div class="layui-input-inline" style="float:left">
+	                <input type="password" name="repassword" autocomplete="off" class="layui-input bigInput"placeholder="">
+	            </div>
+	        </div>
+        </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+
+
+    var allData = [];
+
+    $('.search').click(function(){
+    	tableIns.reload({
+    		where:{
+    			username:$('#username').val()
+    		},
+    		page:{
+    			curr:1
+    		}
+    	})
+    })
+
+    $('.add').click(function(){
+    	layer.open({
+    		type:1,
+    		title:'添加用户',
+    		area:['400px','600px'],
+    		btn:['确定','重置'],
+    		content: $('#layerTpl').html(),
+    		success(){
+                console.log(99)
+                roleList('#role');
+                roleList('[name=assist_role]');
+    			form.render()
+    		},
+    		btn1(index,layero){
+                var url = '/hcms/user/add_user'
+                var data = formData('.layerin');
+                if(!data.username){
+                    layer.msg('请输入用户名',{time:2000});
+                    return;
+                }
+                if(!data.role){
+                    layer.msg('请选择角色',{time:2000});
+                    return;
+                }
+                console.log(data)
+                promiseSovl(url,'post', data).then(function(res){
+                    if(res.code == 0){
+                        layer.msg('添加成功',{time:2000},function(){
+                            table.reload('user');
+                            layer.close(index)
+                        })
+                    }else {
+                        layer.msg(res.msg,{time:2000})
+                    }
+                })
+    		},
+    		btn2(index,layero){
+    			$('[name=uid]').val('');
+                $('[name=username]').val('');
+                $('[name=password]').val('');
+                $('[name=repassword]').val('')
+    			return false
+    		}
+    	})
+    })
+
+
+     // 表格数据编辑
+    table.on('tool(ddtest)', function(obj) {
+        console.log(obj)
+        if (obj.event == 'edit') {
+            //编辑
+            
+            layer.open({
+	    		type:1,
+	    		title:'编辑用户',
+	    		area:['400px','600px'],
+	    		btn:['确定','重置'],
+	    		content: $('#layerTpl').html(),
+	    		success(){
+	    			roleList('#role',obj.data.role_id);
+	    			roleList('[name=assist_role]',obj.data.assist_role_id);
+	    			$('[name=uid]').val(obj.data.id);
+	    			$('[name=username]').val(obj.data.username);
+	    			$('[name=password]').val('').attr('placeholder','不填代表原密码不变');
+	    			$('[name=repassword]').val('').attr('placeholder','不填代表原密码不变');
+	    			form.render();
+	    		},
+	    		btn1(index,layero){
+	    			var url = '/hcms/user/edit_user';
+	    			var data = formData('.layerin');
+	    		    if(!data.username){
+                        layer.msg('请输入用户名',{time:2000});
+                        return;
+                    }
+                    if(!data.role){
+                        layer.msg('请选择角色',{time:2000});
+                        return;
+                    }
+	    			promiseSovl(url,'post', data).then(function(res){
+	                    if(res.code == 0){
+	                        layer.msg('修改成功',{time:2000},function(){
+                                table.reload('user');
+	                            layer.close(index)
+	                        })
+	                    }
+	                })
+	    		},
+	    		btn2(index,layero){
+	    			console.log(0)
+                    $('[name=uid]').val(obj.data.id);
+                    $('[name=username]').val(obj.data.username);
+                    $('[name=password]').val('').attr('placeholder','不填代表原密码不变');
+                    $('[name=repassword]').val('').attr('placeholder','不填代表原密码不变');
+	    			return false
+	    		}
+	    	})
+        }else if(obj.event == 'del') {
+            layer.confirm('确认要删除吗？',function(){
+                var url = '/hcms/user/del_user';
+                var data = {
+                    uid:obj.data.id
+                }
+                promiseSovl(url,'get', data).then(function(res){
+                    if(res.code == 0){
+                        layer.msg('删除成功',{time:2000}, function(){
+                            obj.tr.remove();
+                        })
+                    } else {
+                        layer.msg(res.msg,{time:2000})
+                    }
+                })
+            })
+            
+        }
+    });
+
+
+    form.on('switch(fz_role)',function(obj){
+    	if(obj.elem.checked){
+    		$(this).parent().parent().next().show()
+    	}else{
+    		$(this).parent().parent().next().find('select').val('')
+    		$(this).parent().parent().next().hide()
+    		form.render()
+    	}
+    })
+    // 窗口大小改变事件
+    window.onresize = function() {
+        listReisze()
+    }
+
+    listReisze()
+    var tableIns = tableRender({
+        elem: '#ddtest',
+        // url: '../assets/api/userlist.json',
+        url: baseUrl + '/hcms/user/user_list',
+        toolbar: '#toolbarDemo',
+        cols: [[
+			{type:'checkbox',width:50},
+            {title: 'ID', width: 70, sort: true, templet(d){
+                    if(d.isupdatepwd == 0) return '<span style="color:#FF5722;">'+d.id+'</span>'
+                    return d.id;
+            }}, 
+            { title: '用户名', width: 80,templet(d){
+                        if(d.isupdatepwd == 0) return '<span style="color:#FF5722;">'+d.username+'</span>'
+                    return d.username;
+            }}, 
+            {field: 'role', title: '角色', minWidth: 170}, 
+            {field: 'assist_role', title: '辅助角色', minWidth: 140}, 
+            {field: 'create_time', title: '创建时间', minWidth: 170,templet(d){
+                    d.create_time = d.create_time?d.create_time:'';
+                    if(d.isupdatepwd == 0) return '<span style="color:#FF5722;">'+d.create_time+'</span>'
+                    return d.create_time;
+            }}, 
+            {field: 'last_login_time', title: '最后登录时间', minWidth: 170,templet(d){
+                    d.last_login_time = d.last_login_time?d.last_login_time:'';
+                    if(d.isupdatepwd == 0) return '<span style="color:#FF5722;">'+d.last_login_time+'</span>'
+                    return d.last_login_time;
+            }}, 
+            {field: 'last_login_ip', title: '最后登录IP', minWidth: 130,templet(d){
+                    d.last_login_ip = d.last_login_ip?d.last_login_ip:'';
+                    if(d.isupdatepwd == 0) return '<span style="color:#FF5722;">'+d.last_login_ip+'</span>'
+                    return d.last_login_ip;
+            }},
+            {title: '操作', width:120, toolbar:'#barDemo',align:"center"}
+        ]],
+        even: true,
+        page: true,
+        skin:'row',
+        done: function(res) {
+            allData = res.data
+        },
+        id:'user'
+    });
+
+
+    table.on('toolbar(ddtest)', function(obj){
+    	console.log(obj)
+    });
+    table.on('checkbox(ddtest)', function(obj){
+		console.log(obj.data); //选中行的相关数据
+		console.log(allData);
+	});
+   function roleList(dome,rid){
+   		var url = '/hcms/group/group_list';
+   		var data = {
+   			type:'all'
+   		}
+   		var roleDome  = '<option value="">请选择</option>'
+   		promiseSovl(url,'get',data).then(function(res){
+   		    if(res.code == 0){
+   		    	for(var i = 0;i < res.data.length;i++){
+   		    		if(rid == res.data[i].id)
+       		    		roleDome += '<option value="' + res.data[i].id + '" selected="">' + res.data[i].title + '</option>'
+       		    	else
+       		    		roleDome += '<option value="' + res.data[i].id + '">' + res.data[i].title + '</option>'
+   		    	}
+   		    	$(dome).html(roleDome);
+   		    	form.render();
+   		    }
+   		})
+   }
+</script>
+</body>
+</html>

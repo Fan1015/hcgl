@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>松大站1#消耗</title>
+    <style>
+      .hcbig-top {
+        margin-bottom: 32px;
+        float: left;
+      }
+      .hcbig-foot {
+        float: left;
+        margin-right: 30px;
+        margin-top: 6px;
+      }
+      .layui-form-radio {
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        松大站1#消耗
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="sdxh1Start"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="sdxh1End"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间 -->
+      </div>
+      <!-- 单选框 -->
+      <div class="clearfix" style="padding-right: 24px; line-height: 37px;">
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="1" checked="checked" />
+          <label for="">明细</label>
+        </div>
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="2" />
+          <label for="">按强度等级</label>
+        </div>
+        <div class="layui-inline hcbig hcbig-foot">
+          <input type="radio" name="radio_1" value="3" />
+          <label for="">按任务单号</label>
+        </div>
+        <!--start 搜索导出按钮 -->
+        <div class="layui-inline hcbig clearfix" style="margin: 6px 0 20px;">
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export" type="submit">导出</button>
+          </div>
+        </div>
+        <!--end 搜索导出按钮 -->
+      </div>
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="opera" lay-filter="ddtest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      var judge = 1;
+      var active = {
+        reload: function () {
+          if (judge == "1") {
+            var obj = {
+              flag: true,
+              url: "../assets/api/sdxh1MxTable.json",
+              col: [
+            {field: 'songhuodanhao', title: '送货单号', fixed:"left", width:120,sort: true},
+            {field: 'shdw', title: '客户名称', width:120},
+            {field: 'gcmc', title: '工程名称',width:170},
+            {field: 'gcbw', title: '工程部位',width:170},
+            {field: 'peibiname', title: '强度等级',width:120},
+            {field: 'gamont', title: '生产方量', width:170},
+            {field: 'dattim', title: '生产时间', width:170},
+            {field: 'l4s', title: '1-2',width:100},
+            {field: 'l3s', title: '机制砂',width:100},
+            {field: '', title: '登封52.5',width:100},
+            {field: 'tong1', title: '永安42.5',width:100},
+            {field: '', title: '金隅42.5',width:100},
+
+            {field: '', title: '金隅52.5',width:100},
+            {field: '', title: '新安42.5',width:100},
+
+            {field: 'l9s', title: '煤灰',width:100},
+            {field: 'l8s', title: '矿粉',width:100},
+            {field: 'l1s', title: '河砂',width:100},
+            {field: 'tong3', title: '减水剂',width:100},
+            {field: '', title: '0.5-1',width:100},
+            {field: 'l2s', title: '米石',width:100},
+            {field: '', title: '干河砂',width:100},
+            {field: '', title: '汝阳砂',width:100},
+            {field: '', title: '脱粉砂',width:100},
+            {field: '', title: '砂浆粉剂',width:100},
+            {field: '', title: '砂浆水剂',width:100},
+            {field: 'tong2', title: '水',width:100},
+            {field: 'l5s', title: '膨胀剂',width:100},
+           ],
+            };
+            return obj
+          }
+          if (judge == "2") {
+            var obj = {
+              flag: false,
+              url: "../assets/api/sdxh1MxTable.json",
+              col: [
+              {field: 'peibiname', title: '强度等级',width:120},
+            {field: 'number', title: '生产方量', width:170},
+            {field: 'cailiao1', title: '1-2',width:100},
+            {field: 'cailiao2', title: '机制砂',width:100},
+            {field: 'cailiao3', title: '登封52.5',width:100},
+            {field: 'cailiao4', title: '永安42.5',width:100},
+            {field: 'cailiao5', title: '金隅42.5',width:100},
+
+            {field: 'jinyu525', title: '金隅52.5',width:100},
+              {field: 'xinan425', title: '新安42.5',width:100},
+            {field: 'cailiao6', title: '煤灰',width:100},
+            {field: 'cailiao7', title: '矿粉',width:100},
+            {field: 'cailiao8', title: '河砂',width:100},
+            {field: 'cailiao9', title: '减水剂',width:100},
+            {field: 'cailiao10', title: '0.5-1',width:100},
+            {field: 'cailiao11', title: '米石',width:100},
+            {field: 'cailiao12', title: '干河砂',width:100},
+            {field: 'cailiao13', title: '汝阳砂',width:100},
+            {field: 'cailiao14', title: '脱粉砂',width:100},
+            {field: 'cailiao15', title: '砂浆粉剂',width:100},
+            {field: 'cailiao16', title: '砂浆水剂',width:100},
+            {field: 'cailiao17', title: '水',width:100},
+            {field: 'cailiao18', title: '膨胀剂',width:100},
+              ],
+            };
+            return obj;
+          }
+          if (judge == "3") {
+            var obj = {
+              flag: false,
+              url: "../assets/api/sdxh1MxTable.json",
+              col: [
+              {field: 'shdw', title: '任务单号', width:120},
+            {field: 'take_unit', title: '客户名称',width:150},
+            {field: 'Proj_name', title: '工程名称',width:120},
+            {field: 'strong_lv', title: '强度等级',width:120},
+            {field: 'number', title: '生产方量', width:170},
+            {field: 'cailiao1', title: '1-2',width:100},
+            {field: 'cailiao2', title: '机制砂',width:100},
+            {field: 'cailiao3', title: '登封52.5',width:100},
+            {field: 'cailiao4', title: '永安42.5',width:100},
+            {field: 'cailiao5', title: '金隅42.5',width:100},
+
+            {field: 'jinyu525', title: '金隅52.5',width:100},
+            {field: 'xinan425', title: '新安42.5',width:100},
+            {field: 'cailiao6', title: '煤灰',width:100},
+            {field: 'cailiao7', title: '矿粉',width:100},
+            {field: 'cailiao8', title: '河砂',width:100},
+            {field: 'cailiao9', title: '减水剂',width:100},
+            {field: 'cailiao10', title: '0.5-1',width:100},
+            {field: 'cailiao11', title: '米石',width:100},
+            {field: 'cailiao12', title: '干河砂',width:100},
+            {field: 'cailiao13', title: '汝阳砂',width:100},
+            {field: 'cailiao14', title: '脱粉砂',width:100},
+            {field: 'cailiao15', title: '砂浆粉剂',width:100},
+            {field: 'cailiao16', title: '砂浆水剂',width:100},
+            {field: 'cailiao17', title: '水',width:100},
+            {field: 'cailiao18', title: '膨胀剂',width:100},
+              ],
+            };
+            return obj;
+          }
+        },
+      };
+
+      //开始时间选择
+      laydate.render({
+        elem: "#sdxh1Start",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#sdxh1End",
+        type: "datetime",
+        done: function (value, date) {},
+      });
+
+      //查询按钮绑定事件
+      $(".search").on("click", function () {
+        judge = $('input[name="radio_1"]:checked').val();
+        tableRender(active.reload().col, active.reload().url,active.reload().flag, function () {});
+      });
+
+      var cols = active.reload().col;
+      var url = active.reload().url;
+      //   console.log(url,120120)
+      tableRender(cols, url, function (data) {
+        if (!data) return;
+        if (!url) return;
+      });
+
+      function tableRender(col, url, flag, callback) {
+        var sdxh1Table=tableRender({
+          elem: "#opera",
+          url: url,
+          cols: [col],
+          page: flag,
+          table: "sm",
+          id: "sdxh1Reload",
+          even: true,
+          skin: "row",
+          limit: 12,
+          where: {
+            starttime: $("#sdxh1Start").val(),
+            endtime: $("#sdxh1End").val(),
+          },
+          done: function (res) {
+          },
+        });
+      }
+      $(".export").click(function(){
+          table.exportFile("sdxh1Reload","sdxh1Table","xls");
+      })
+    </script>
+  </body>
+</html>

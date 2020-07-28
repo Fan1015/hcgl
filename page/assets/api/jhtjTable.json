@@ -1,0 +1,95 @@
+{
+	"code":0,
+	"count":8,
+	"data": [{
+		"goods_name": "石子",
+		"goods_spec": "1-2",
+		"send_goods": "王梦柯",
+		"volume": 188.99,
+		"weight": 302340,
+		"carnumber": 8,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "1-2",
+		"send_goods": "王东玉",
+		"volume": 163.54,
+		"weight": 261640,
+		"carnumber": 6,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "0.5-1",
+		"send_goods": "张彬",
+		"volume": 21.54,
+		"weight": 34460,
+		"carnumber": 1,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "0.5-1",
+		"send_goods": "王梦柯",
+		"volume": 95.94,
+		"weight": 153500,
+		"carnumber": 3,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "1-2",
+		"send_goods": "蒋银辉",
+		"volume": 251.9,
+		"weight": 403040,
+		"carnumber": 7,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "1-2",
+		"send_goods": "翟雅丹",
+		"volume": 453.87,
+		"weight": 726160,
+		"carnumber": 18,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "石子",
+		"goods_spec": "1-2",
+		"send_goods": "刘新玲",
+		"volume": 20.49,
+		"weight": 32780,
+		"carnumber": 1,
+		"money": 0,
+		"age": 0
+    },{
+		"goods_name": "煤灰",
+		"goods_spec": "煤灰",
+		"send_goods": "晋城市昊腾商贸有限公司",
+		"volume": 63.26,
+		"weight": 63260,
+		"carnumber": 2,
+		"money": 3760.5,
+		"age": 59.44514701233
+    },{
+		"goods_name": "水泥",
+		"goods_spec": "新安42.5",
+		"send_goods": "新安中联万基水泥有限公司",
+		"volume": 32.58,
+		"weight": 32580,
+		"carnumber": 1,
+		"money": 14335.2,
+		"age": 440
+    },{
+		"goods_name": "河砂",
+		"goods_spec": "河砂",
+		"send_goods": "张旭晖003",
+		"volume": 112.43,
+		"weight": 174260,
+		"carnumber": 6,
+		"money": 0,
+		"age": 0
+    }]
+}

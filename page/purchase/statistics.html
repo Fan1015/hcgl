@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>收料报表</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div id="receiveOne" style="width:100%;height:440px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveTwo" style="width:100%;height:430px"></div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+        
+        window.onresize = function(){
+            var resize = true
+            onXhrStore(resize);
+        }
+        
+        onXhrStore();
+        function onXhrStore(resize) {
+          var data = JSON.parse(getStore("statisData"));
+          if (data && data.length == 1 && false) {
+            receiveOne(data[0].data, resize);
+            receiveTwo(data[1].data, resize);
+          } else {
+            var oneUrl = "/hcms/purchase/station_indata"; //收料日报表
+            var twoUrl = "/hcms/purchase/m_indata"; //进货统计
+            Promise.all([
+                promiseSovl(oneUrl, "get"),
+                promiseSovl(twoUrl, "get")
+            ]).then((res) => {
+                receiveOne(res[0].data, resize);
+                receiveTwo(res[1].data, resize)
+                setStore("statisData", JSON.stringify(res));
+            });
+          }
+        }
+        function receiveOne(data,resize){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var dataAll = [];
+            // var data1 = [446439,160340,0,0,0,0,101937,0,3301.32,436025,0,0,3312,0,0,0,0,63571.5,47171.5,175241,0,0,0,0];
+            // var data2 = [613997,273108,0,0,0,0,23686,0,6199.26,683892,0,0,0,0,0,44.91,0,102634,66285,280172,0,0,2946,0];
+            // var data3 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            var data4 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+            var data1 = data.tl_data;
+            var data2 = data.sl_data;
+            var data3 = data.wz_data;
+            for(var i = 0;i < data1.length;i++){
+                dataAll[i] = data1[i] + data2[i] + data3[i] + data4[i]
+            }
+            var option = {
+                title: {
+                    text: '收料日报表',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:0,
+                    containLabel: true
+                },
+                tooltip: {
+			        trigger: 'axis'
+			    },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['太龙','山立','伟治','松大']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: data.name
+                    //data: ['1-2','0.5-1','登封52.5','永安42.5','金隅42.5','金隅52.5','新安42.5','中联42.5','减水剂','机制砂','米石','干河砂','汝阳砂','脱粉砂','砂浆粉剂','砂浆水剂','膨胀剂','煤灰','矿粉','河砂','水','砂浆砂','过筛砂','1-3']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '太龙',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        barCategoryGap:'100%', 
+                        itemStyle:{
+                            color:'#7bb0ff'
+                        },
+                        data: data1
+                    },
+                    {
+                        name: '山立',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        data: data2
+                    },
+                    {
+                        name: '伟治',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#ffbe40'
+                        },
+                        data: data3
+                    },
+                    {
+                        name: '松大',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#af87fe'
+                        },
+                        data: data4
+                    },
+                    { 
+                        name: '总计',
+                        type: 'bar',
+                        barGap: '-25%',  
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                color:'rgba(128, 128, 128, 0)'
+                            }
+                        },
+                        data: dataAll
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(data,resize){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var option = {
+                title: {
+                    text: '进货统计',
+                    left: 'left'
+                },
+                grid:{
+                    left:10,
+                    right:10,
+                    bottom:10,
+                    containLabel: true
+                },
+                tooltip: {
+			        trigger: 'axis'
+			    },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    axisLabel:{
+                        rotate:30
+                    },
+                    data:data.name
+                    //data: ['永安42.5','金隅水泥42.5','登封水泥52.5','金隅水泥52.5','矿粉','煤灰','1-2石子','0.5-1石子','1-3石子','米石','机制砂','河砂','汝阳砂','砂浆砂','脱粉砂','干河砂','矿尾砂','水','新安42.5','水洗砂','减水剂','DS-U膨胀纤维抗裂防水剂','高标号减水剂','雅居乐减水剂']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        // name: '太龙',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:20,
+                        itemStyle:{
+                            color:'#3e66f4'
+                        },
+                        label: {
+                            normal: {
+                                // offset:['50', '80'],
+                                show: true,
+                                position: 'top',
+                                // formatter:'{c}',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        data:data.send_weight
+                        //data: [4344150,0,0,0,2831780,3822682,28619580,4673750,0,229780,26845840,12358107,-555925,0,0,0,0,0,3467600,0,181360,50050,2720,0]
+                    },
+                    
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

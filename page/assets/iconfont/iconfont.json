@@ -1,0 +1,37 @@
+{
+  "id": "1814706",
+  "name": "111",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "3019998",
+      "name": "二级-工单报表",
+      "font_class": "erji-gongdanbaobiao",
+      "unicode": "ea9d",
+      "unicode_decimal": 60061
+    },
+    {
+      "icon_id": "3020013",
+      "name": "二级-资源报表",
+      "font_class": "erji-ziyuanbaobiao",
+      "unicode": "eaa5",
+      "unicode_decimal": 60069
+    },
+    {
+      "icon_id": "3020019",
+      "name": "一级-报表管理",
+      "font_class": "yiji-baobiaoguanli",
+      "unicode": "eaa7",
+      "unicode_decimal": 60071
+    },
+    {
+      "icon_id": "3878658",
+      "name": "数据",
+      "font_class": "data",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    }
+  ]
+}

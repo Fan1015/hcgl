@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>采购数据统计</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        采购数据统计
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="start1"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 5px;">
+            <input
+              type="text"
+              id="end1"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!--start 站点选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width:105px">供应商选择：</label>
+          <div class="layui-input-inline">
+            <select name="supp_id1" id="supp_id1">
+              <option value="" selected>请选择</option>
+              <option value="212">供应商1单位名称</option>
+              <option value="213">供应商2单位名称</option>
+              <option value="214">采购员报价单位</option>
+              <option value="217">赵志勇-济源</option>
+              <option value="183">赵海军</option>
+              <option value="240">赵艳峰</option>
+              <option value="239">李博</option>
+              <option value="219">孙振江</option>
+              <option value="220">王亚彬</option>
+              <option value="221">李璐璐</option>
+              <option value="223">康银苹</option>
+              <option value="224">沈力</option>
+              <option value="226">王东玉</option>
+              <option value="227">郅国晨</option>
+              <option value="228">张旭晖</option>
+              <option value="229">张彬</option>
+              <option value="230">李晨丽</option>
+              <option value="231">张志强</option>
+              <option value="232">张平阳</option>
+              <option value="233">邵敬超</option>
+              <option value="234">杨冰润</option>
+              <option value="235">郝晓龙</option>
+              <option value="236">杨明辉</option>
+              <option value="237">马亚举</option>
+              <option value="260">济源市国泰微粉科技有限公司</option>
+              <option value="185">赵志勇</option>
+              <option value="255">登封中联登电水泥有限公司</option>
+              <option value="246">新安中联万基水泥有限公司</option>
+              <option value="247">北京金隅水泥经贸有限公司焦作分公司</option>
+              <option value="248">河南永安水泥有限责任公司</option>
+              <option value="249">朱哮鸣</option>
+              <option value="250">阳城县鑫颖商贸有限公司</option>
+              <option value="251">李建伟</option>
+              <option value="252">晋城市昊腾商贸有限公司</option>
+              <option value="256">赵志勇河砂</option>
+              <option value="259">赵志勇汝阳砂</option>
+              <option value="169">冯燕燕</option>
+              <option value="189">赵 彪</option>
+              <option value="262">美孚机油（陈支辉）</option>
+              <option value="263">生活物资供应-公司（彭增付）</option>
+              <option value="264">生活物资供应-山立（冯冠华）</option>
+              <option value="265">生活物资供应-太龙（孟建军）</option>
+              <option value="266">对讲机（李峰）</option>
+              <option value="267">一名信办公</option>
+              <option value="268">江苏苏博特新材料科技有限公司</option>
+              <option value="269">河南科子杰新材料有限公司</option>
+              <option value="270">兰考县安第商贸有限公司</option>
+              <option value="271">郑州翔迪商贸有限公司</option>
+              <option value="272">安微砼辉特种建材有限责任公司</option>
+              <option value="273">济宁市兖州区百盛生物制品销售有限公司</option>
+              <option value="274">新乡市中信化工有限公司</option>
+              <option value="275">河南荣恒环保科技有限公司</option>
+              <option value="276">车辆备件-配件（张喜磊）</option>
+              <option value="277">油类润滑油（王志通）</option>
+              <option value="278"
+                >中国石化销售有限公司河南郑州巩义石油分公司</option
+              >
+              <option value="279">生产工具（张田增）</option>
+              <option value="280">生产工具（张永福）</option>
+              <option value="281">柴帅飞</option>
+              <option value="282">生产工具-五金电料（张雅琳）</option>
+              <option value="283">高小可</option>
+              <option value="284">生产备件-制砂机类（刘志军）</option>
+              <option value="285">生产备件-制砂机类（邵帅）</option>
+              <option value="286">仕高码集团有限公司</option>
+              <option value="287">中联中科</option>
+              <option value="288">鑫路商贸有限公司</option>
+              <option value="289">老吴汽配</option>
+              <option value="290">车辆备件-配件（张红召）</option>
+              <option value="291">车辆备件-配件（杜合欣）</option>
+              <option value="292">车辆备件-配件（赵勇）</option>
+              <option value="293">车辆备件-配件（郅守仁）</option>
+              <option value="294">车辆备件-配件（齐卫田）</option>
+              <option value="295">车辆备件-配件（刘思伟）</option>
+              <option value="296">车辆备件-配件（徐常凯）</option>
+              <option value="297">车辆备件-配件（刘春才）</option>
+              <option value="298">德隆配件</option>
+              <option value="299">车辆备件-配件（杨二威）</option>
+              <option value="300">砼泵配件（三一公司）</option>
+              <option value="301">砼泵配件（佟广涛）</option>
+              <option value="302">砼泵配件（广东）</option>
+              <option value="303">铲车钩机配件（房蒙）</option>
+              <option value="304">车辆备件-配件（文思达）</option>
+              <option value="305">卡特专修</option>
+              <option value="306">马海鹏</option>
+              <option value="307">建筑材料-钢材（张帅）</option>
+              <option value="308">王晨（铲车轮胎）</option>
+              <option value="150">李志刚</option>
+              <option value="310">张秋云</option>
+              <option value="311">李继刚（石子）</option>
+              <option value="312">李晓阳</option>
+              <option value="315">周沾峰</option>
+              <option value="316">张永安</option>
+              <option value="317">李新克</option>
+              <option value="318">马利民</option>
+              <option value="319">曹经理</option>
+              <option value="320">高飞飞</option>
+              <option value="321">曹美方</option>
+              <option value="322">湛金发</option>
+              <option value="323">王志成</option>
+              <option value="324">刘卫明</option>
+              <option value="325">李景超</option>
+              <option value="331">李虎威</option>
+              <option value="332">赵华克</option>
+              <option value="333">张海涛</option>
+              <option value="182">张建党</option>
+              <option value="334">李经现</option>
+              <option value="175">陈肖肖</option>
+              <option value="201">赵海林</option>
+              <option value="155">付朋朋</option>
+              <option value="335">赵茂</option>
+              <option value="336">李晓锋</option>
+              <option value="326">崔广超</option>
+              <option value="327">刑经理</option>
+              <option value="328">李厂长</option>
+              <option value="329">郭经理</option>
+              <option value="330">霍松梅（建材）</option>
+              <option value="337">闫潇</option>
+              <option value="338">张华</option>
+              <option value="339">王玉玺</option>
+              <option value="340">赵京超</option>
+              <option value="341">赵永杰</option>
+              <option value="342">苏国英</option>
+              <option value="343">赵大伟</option>
+              <option value="344">王安乐</option>
+              <option value="345">康璐</option>
+              <option value="346">白长明</option>
+              <option value="347">刘云辉</option>
+              <option value="348">白天基</option>
+              <option value="349">杨淑克</option>
+              <option value="350">职生辉</option>
+              <option value="351">康同亮（石子）</option>
+              <option value="352">任花超</option>
+              <option value="353">曲利花</option>
+              <option value="354">李佰万</option>
+              <option value="355">朱二兵</option>
+              <option value="356">冯雨</option>
+              <option value="359">郭明军</option>
+              <option value="360">王巧鸽</option>
+              <option value="361">五金电料（祖冰冰）</option>
+              <option value="362">翟雅丹（石子）</option>
+              <option value="363">尹朝霞（石子）</option>
+              <option value="364">王天东（石子）</option>
+              <option value="365">刘鹏（石子）</option>
+              <option value="366">冯利景（石子）</option>
+              <option value="370">冯海龙（河沙）</option>
+              <option value="371">邓和宏（主机配件）</option>
+              <option value="373">王建波（河沙）</option>
+              <option value="374">王梦柯（石子）</option>
+              <option value="375">李中华（煤灰）</option>
+              <option value="380">王尚锋（汝阳砂、脱粉砂）</option>
+              <option value="381">李浩妤（石子）</option>
+              <option value="382">柴利斌（石子）</option>
+              <option value="385">郅忠华（石子）</option>
+              <option value="386">刘新玲（石子）</option>
+              <option value="388">刘国靖（石子）</option>
+              <option value="390">张俊锋（煤灰）</option>
+              <option value="391">蒋银辉（石子）</option>
+              <option value="392">张建甫（汝阳砂）</option>
+              <option value="394">康艳华（石子）</option>
+              <option value="395">刘毅（石子）</option>
+              <option value="397">芦青伟（石子）</option>
+              <option value="398">祖卫卫（五金电料）</option>
+              <option value="399">赵志勇五金</option>
+              <option value="400">杨宝霞</option>
+              <option value="401">郝介石（五金）</option>
+              <option value="402">孟培霞（钢材）</option>
+              <option value="403">张喜会（123456）</option>
+              <option value="404">路志鑫（轮胎）</option>
+              <option value="405">葛廷峰</option>
+              <option value="407">焦占宽（石子）</option>
+              <option value="408">康明星（石子）</option>
+              <option value="409">任炯炯（石子、河砂）</option>
+              <option value="410"
+                >巩义市昌盛石料有限公司民胜开采分公司（石子）</option
+              >
+              <option value="411">昌盛石料民胜开采</option>
+              <option value="412">罗典（石子）</option>
+              <option value="413">李二国</option>
+              <option value="414">徐俊红（石子）</option>
+              <option value="415">郅国晨济源</option>
+              <option value="416">李小红（石子）</option>
+              <option value="422">李嘉萌（石子）</option>
+              <option value="159">李秀娟</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search1">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export1">导出</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="table1" lay-filter="ddtest1"></table>
+      </div>
+      <!--end 数据表格 -->
+
+
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        物质总数统计
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="start2"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 5px;">
+            <input
+              type="text"
+              id="end2"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!--start 站点选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label" style="width: 100px;">物资选择：</label>
+          <div class="layui-input-inline">
+            <select name="supp_id2" id="supp_id2">
+              <option value="17">五金电料</option>
+              <option value="20">交通工具</option>
+              <option value="21">其他类</option>
+              <option value="6">办公用品</option>
+              <option value="2">化学物品</option>
+              <option value="1">原材料</option>
+              <option value="18">工用具</option>
+              <option value="19">机器设备及生产设备</option>
+              <option value="3">油品</option>
+              <option value="4">生产工具</option>
+              <option value="7">生活物资</option>
+              <option value="16">电子设备</option>
+              <option value="5">车辆备品备件</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 站点选择 -->
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search2">搜索</button>
+          </div>
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn export2">导出</button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table 2class="layui-hide" id="table2" lay-filter="ddtest2"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+
+    <!-- <div class="hcbox layui-form">
+      
+    </div> -->
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#start1",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end1",
+        done: function (value, date) {},
+      });
+      //开始时间选择
+      laydate.render({
+        elem: "#start2",
+        done: function (value, date) {},
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#end2",
+        done: function (value, date) {},
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#table1",
+        url: "../assets/api/sjtjTable.json",
+        // cellMinWidth: 80,
+        cols: [
+          [
+            { field: "run_id", title: "流水号", sort: true, width: 120 },
+            { field: "id", title: "报价编号", width: 120 },
+            { field: "create_time", title: "创建时间", width: 170 },
+            { field: "supp_name", title: "供应商", width: 80 },
+            { field: "material_name", title: "物资名称", width: 100 },
+            { field: "spec", title: "物资规格", width: 100 },
+            { field: "supp_price", title: "单价", width: 80 },
+            { field: "promise_time", title: "交货时间", width: 170 },
+            { field: "content", title: "备注", width: 100 },
+            { field: "material_id", title: "物资编号", width: 130 },
+          ],
+        ],
+        id: "selectReload1",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 6,
+        done: function (res) {
+          
+        },
+      });
+      var active = {
+          reload: function () {
+            // var demoReload = $('#demoReload');
+            //执行重载
+            table.reload("selectReload1", {
+              page: {
+                curr: 1, //重新从第 1 页开始
+              },
+              where: {},
+            });
+          },
+        };
+      $(".search1").click(function () {
+        var start = $("#start1").val();
+        var end = $("#end1").val();
+        var content = $("#supp_id1").val();
+        if (start == "" || start == "" || content == "") {
+          alert("请完善搜索条件！");
+        } else {
+          //执行重载
+          table.reload("selectReload1", {
+            page: {
+              curr: 1, //重新从第 1 页开始
+            },
+            where: {
+              start: $("#start1").val(),
+              end: $("#end1").val(),
+              supp_id: $("#supp_id1").val(),
+              type: "search1",
+            },
+          });
+        }
+      });
+      //展示已知数据
+      tableRender({
+        elem: "#table2",
+        url:  "../assets/api/sjtjTable.json",
+        // cellMinWidth : 95,
+        page: true,
+        // height : "full-125",
+        limit:6,
+        cols: [
+          [
+            {
+              field: "run_id",
+              title: "流水号",
+              width: 120,
+            },
+            {
+              field: "material_id",
+              title: "物资编号",
+              width: 130,
+            },
+            {
+              field: "material_name",
+              title: "物资名称",
+              width: 120,
+            },
+            { field: "spec", title: "物资规格",  width: 120 },
+            { field: "counts", title: "数量", width: 80 },
+            {
+              field: "all_money",
+              title: "总金额",
+              width: 100,
+            },
+            {
+              field: "pj_price",
+              title: "平均价格",
+              width: 180,
+            },
+          ],
+        ],
+        id: "selectReload2",
+      });
+
+      var active = {
+          reload: function () {
+            // var demoReload = $('#demoReload');
+            //执行重载
+            table.reload("selectReload2", {
+              page: {
+                curr: 1, //重新从第 1 页开始
+              },
+              where: {},
+            });
+          },
+        };
+
+      $("#search2").click(function () {
+        var start = $("#start2").val();
+        var end = $("#end2").val();
+        var content = $("#supp_id2").val();
+        if (start == "" || start == "" || content == "") {
+          alert("请完善搜索条件！");
+        } else {
+          //执行重载
+          table.reload("selectReload2", {
+            page: {
+              curr: 1, //重新从第 1 页开始
+            },
+            where: {
+              start: $("#start2").val(),
+              end: $("#end2").val(),
+              category_id: $("#supp_id2").val(),
+              type: "search",
+            },
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

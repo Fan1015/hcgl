@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>订单详情</title>
+    <style>
+    
+      .main {
+        width: 100%;
+        border-radius: 2px;
+        margin: auto;
+      }
+      td {
+        border: 1px solid #e6e6e6;
+        text-align: left;
+        height: 40px;
+      }
+
+      .title {
+        width: 120px;
+        text-align: right;
+        padding-right: 10px;
+      }
+
+      .title1 {
+        padding-left: 10px;
+        width: 580px;
+       
+      }
+
+      .title2 {
+        width: 120px;
+        padding-left: 10px;
+      }
+      table > tbody > tr:nth-child(odd) {
+        background-color: rgb(246, 247, 254);
+      }
+      table > tbody > tr:hover {
+        background-color: rgb(246, 247, 254);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hcbox layui-form" style="padding: 30px !important;">
+      <div id="detail_table" ></div>
+    </div>
+    <script type="text/html" id="tabledemo">
+        <div class="main">
+          <table style="border: 1px solid;width:100%">
+            <tr>
+                <td  class="title">编号</td>
+                <td class="title1" colspan="1">{{d.num}}</td>
+            </tr>
+            <tr>
+                <td class="title">客户名称</td>
+                <td class="title1" colspan="1">{{d.client_name}}</td>
+            </tr>
+            <tr>
+                <td class="title">工程名称</td>
+                <td class="title1" colspan="1">{{d.pro_name}}</td>
+            </tr>
+            <tr>
+                <td class="title" >商品名称</td>
+                <td class="title2" colspan="1">{{d.goods_name}}</td>
+            </tr>
+            <tr>
+                <td class="title">强度等级</td>
+                <td class="title2" colspan="1">{{d.strong_lv}}</td>
+            </tr>
+            <tr>
+                <td class="title">商品数量</td>
+                <td class="title2">{{d.goods_num}}</td>
+            </tr>
+            <tr>
+                <td class="title">单位</td>
+                <td class="title2">方</td>
+            </tr>
+            <tr>
+                <td class="title">施工部位</td>
+                <td class="title2">{{d.sgbw}}</td>
+            </tr>
+            <tr>
+                <td class="title">品种</td>
+                <td class="title2">{{d.pinzhong}}</td>
+            </tr>
+            <tr>
+                <td class="title">塌落度</td>
+                <td class="title2">{{d.tld}}</td>
+            </tr>
+            <tr>
+              <td class="title">施工方式</td>
+              <td class="title2">{{d.sg_type}}</td>
+            </tr>
+            <tr>
+                <td class="title">工地负责人</td>
+                <td class="title1" colspan="1">{{d.conn_man}}</td>
+            </tr>
+            <tr>
+              <td class="title">工地电话</td>
+              <td class="title1" colspan="1">{{d.cprod_phone}}</td>
+            </tr>
+            <tr>
+              <td class="title">开票</td>
+              <td class="title1" colspan="1">{{d.fapiao}}</td>
+            </tr>
+            <tr>
+              <td class="title">回款方式</td>
+              <td class="title1" colspan="1">{{d.hk_type}}</td>
+            </tr>
+            <tr>
+              <td class="title">现场签收人</td>
+              <td class="title1" colspan="1">{{d.signer}}</td>
+            </tr>
+            <tr>
+              <td class="title">运输方式</td>
+              <td class="title1" colspan="1">{{d.ys_type}}</td>
+            </tr>
+            <tr>
+              <td class="title">磅单标题</td>
+              <td class="title1" colspan="1">{{d.weight_title}}</td>
+            </tr>
+            <tr>
+              <td class="title">备注</td>
+              <td class="title1" colspan="1">{{d.remark}}</td>
+            </tr>
+        </table>
+      </div>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      // var form = layui.form;
+      var laytpl = layui.laytpl;
+      var layer = layui.layer;
+      var tplarry = [];
+      // var listData = JSON.parse(localStorage.getItem("ddlbDetail"));
+      var listData = parent.detailObj;
+      // tplarry.push(listData);
+     
+
+      var demoTpl = $("#tabledemo").html();
+      laytpl(demoTpl).render(listData, function (html) {
+        $("#detail_table").append(html);
+      });
+    </script>
+  </body>
+</html>

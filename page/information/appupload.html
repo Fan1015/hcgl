@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>车辆APP上传日志</title>
+    <style>
+    .layui-timeline-item .layui-icon {
+        color: #3e66f4;
+    }
+
+    .layui-timeline-item:before {
+        width: 0;
+        border-left: 1px dashed #ccc;
+    }
+
+    .layui-timeline-item:last-child:before {
+        border: none;
+    }
+
+    .uploadmsg {
+        width: 830px;
+    }
+
+    .layui-timeline-title {
+        font-weight: bold;
+        margin-bottom: 25px;
+        font-size: 16px;
+    }
+
+    .uploadmsg-text {
+        background: #f6f6f6;
+        padding: 13px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 30px
+    }
+
+    .uploadmsg-text .down-addr {
+        color: #3e66f4;
+    }
+    .erwm{
+    	width:145px;
+    	/*height:130px;*/
+    	position:fixed;
+    	bottom:50px;
+    	right:50px;
+    }
+    .erwm img{
+    	width:100%;
+    	/*height:100%;*/
+    }
+    .ermwdown{
+        text-align: center;
+        color:#666;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="hcbox">
+        <p style="margin-bottom:30px"><button class="hcbtn uploadbtn">上传APP</button></p>
+        <p class="hctitle" style="margin-bottom:28px">APP更新日志</p>
+        <!-- <button class="hcbtn uploa">上传APP</button> -->
+        <ul class="layui-timeline uploadmsg">
+            
+        </ul>
+
+        <div class="erwm">
+        	<img src="../../assets/image/out_net.png" alt="">
+            <p class="ermwdown">手机浏览器扫码下载</p>
+        </div>
+    </div>
+    <script type="text/html" id="logList">
+    	{{# layui.each(d,function(index,list){}}
+    	<li class="layui-timeline-item" _id="list.id" version="{{list.version}}">
+    	    <i class="layui-icon layui-timeline-axis">&#xe643;</i>
+    	    <div class="layui-timeline-content">
+    	        <p class="layui-timeline-title">
+    	            <span>更新时间：{{list.time}}</span>
+    	            <span class="right">版本号：v{{list.version}}</span>
+    	        </p>
+    	        <div class="uploadmsg-text">
+    	            <p>{{list.log}}</p>
+					{{# if(list.url){}}
+    	            <p>下载地址：<a class="down-addr" href="{{list.url}}">{{list.url}}</a></p>
+    	            {{# }}}
+    	        </div>
+    	    </div>
+    	</li>
+    	{{# })}}
+    </script>
+    <!-- <div class="layer-child-conent" style=""> -->
+    <script type="text/html" id="uploaddome">
+    	<div class="layer-child-conent" style="">
+    		<div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <label class="layui-form-label" style="width:100px">上传：</label>
+                <div class="layui-input-inline">
+                    <button type="button" class="hcbtn" id="uploads" style="width:200px">
+                    	<i class="layui-icon" style="font-size:20px">&#xe67c;</i>
+                    	<span style="margin-left:2px">上传文件</span>
+                    </button>
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix fileNames" style="margin-bottom: 24px;display: none;">
+                <label class="layui-form-label" style="width:100px"></label>
+                <div class="layui-input-inline">
+                    <p class="namebox"></p>
+                    <input type="hidden" name="src" id="fileUrl">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px">
+                <label class="layui-form-label" style="width:100px">版本号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" placeholder="版本号，例如1.1.1" name="version" id="version" autocomplete="off" class="layui-input bigInput">
+                </div>
+            </div>
+            <div class="layui-inline hcbig clearfix" style="">
+                <label class="layui-form-label" style="width:100px">更新内容：</label>
+                <div class="layui-input-inline">
+                    <textarea name="log" id="log" style="width:200px;height:72px;line-height: 30px;padding:5px 10px;font-size:14px;resize: none;border-color:#e6e6e6;border-radius:4px"></textarea>
+                </div>
+            </div>
+        </div>
+    </script>	
+    <script src="../../assets/layui/layui.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+    	layui.use(['form','layer','laytpl','upload'],function(){
+    	var form = layui.form;
+    	var layer = layui.layer;
+    	var laytpl = layui.laytpl;
+    	var upload = layui.upload;
+
+
+    	layer.load();
+    	var listDome = $('#logList').html()
+    	var logUrl = '/hcms/car_app/app_up_log';
+    	promiseSovl(logUrl).then(function(res){
+    		// console.log(res)
+    		laytpl(listDome).render(res.data,function(html){
+    			$('.uploadmsg').html(html);
+    			layer.closeAll();
+    		})
+    	});
+    	$('#upfile').click(function(e){
+    		console.log(e)
+    	})
+    	var upindex = 0
+    	$('.uploadbtn').click(function(){
+    		var layindex = layer.open({
+    			type:1,
+    			title:'上传文件',
+    			btn:['添加','重置'],
+    			area:['405px','420px'],
+    			content: $('#uploaddome').html(),
+    			success (layero,index) {
+    				//选完文件后不自动上传
+    				var upd = upload.render({
+						elem: '#uploads',
+						url: 'https://hcisx.iwoyou.cn/hcms/upload/one_file', //改成您自己的上传接口
+						// url:'http://10.0.0.9:8008/hcms/upload/one_file',
+						data:{
+							file_name:'car_app',
+							ext:'apk',
+							dir:'',
+							size:30000000
+						},
+						// headers:{
+						// 	token:'39348548'
+						// },
+						auto: true,
+						field: 'car_app',
+						accept: 'file',
+						exts:'apk',
+						choose(obj){
+							upindex = layer.load()
+						    //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+						    obj.preview(function(index, file, result){
+						      	console.log(upd.config.data); //得到文件索引
+						      	console.log(file.size); //得到文件对象
+						      	// upd.config.data.size = file.size;
+						      	$('.fileNames').show().find('.namebox').html(file.name)
+						    });
+						},
+						done: function(res){
+							layer.close(upindex)
+							if(res.code == 0){
+								layer.msg('上传成功')
+								console.log(res)
+								$('#fileUrl').val(res.data.src)
+							}else{
+								layer.msg(res.msg)
+							}
+						},
+		    			error: function (index, upload) {
+		    				layer.close(upindex)
+		    				console.log(upload)
+		    			}
+    				});
+    			},
+    			yes (index,layero) {
+    				var data = {
+    					url: $('#fileUrl').val(),
+    					version: $('#version').val(),
+    					log: $('#log').val()
+    				}
+    				var vers = $('.uploadmsg li:eq(0)').attr('version').split('.');
+    				var newVers= data.version.split('.')
+    				// if(newVers.length == 3){
+    				// 	for(var i = 0;i < newVers.length;i++){
+    				// 		if(parseInt(newVers[i]) < parseInt(vers[i])){
+    				// 			layer.msg('输入的版本号不对',{time:2000})
+    				// 			return false
+    				// 		}
+    				// 		if(parseInt(newVers[newVers.length-1]) <= parseInt(vers[newVers.length-1])){
+    				// 			layer.msg('输入的版本号不对',{time:2000})
+    				// 			return false
+    				// 		}
+    				// 	}
+    				// }else{
+    				// 	layer.msg('输入的版本号不对',{time:2000})
+    				// 	return false
+    				// }
+    				if(!data.log){
+    					layer.msg('请输入更新日志',{time:2000})
+    					return false
+    				}
+    				var url = '/hcms/car_app/save_upload';
+    				promiseSovl(url,'post', data).then(function(res){
+    					if(res.data == 0) {
+    						layer.msg('保存成功', {time:2000}, function(){
+    							layer.closeAll()
+    						})
+    					}else {
+    						layer.msg(res.msg)
+    					}
+    					layer.closeAll()
+    				})
+    			}
+    		})
+    	})
+    	})
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+{
+    "code": 0,
+    "count": 10,
+    "data": [
+        {
+            "hcbz": "9",
+            "hcje": 10548.18,
+            "hcnum": 1172.02,
+            "slbz": "9",
+            "slje": 11204.19,
+            "slnum": 1244.91,
+            "wzbz": "10",
+            "wzje": 72.8,
+            "wznum": 7.28,
+            "xiangmu": "混凝土"
+        },
+        {
+            "hcbz": "16.2",
+            "hcje": 0,
+            "hcnum": "0",
+            "slbz": "16.2",
+            "slje": 318.654,
+            "slnum": 19.67,
+            "wzbz": "16.2",
+            "wzje": 0,
+            "wznum": "0",
+            "xiangmu": "湿拌砂浆"
+        },
+        {
+            "hcbz": "9",
+            "hcje": 0,
+            "hcnum": "0",
+            "slbz": "9",
+            "slje": 0,
+            "slnum": 0,
+            "wzbz": "9",
+            "wzje": 0,
+            "wznum": "0",
+            "xiangmu": "干混砂浆"
+        },
+        {
+            "hcbz": "8",
+            "hcje": 4002.48,
+            "hcnum": "500.31",
+            "slbz": "8",
+            "slje": 4453.92,
+            "slnum": 556.74,
+            "wzbz": "8",
+            "wzje": 25.6,
+            "wznum": 3.2,
+            "xiangmu": "机制砂"
+        },
+        {
+            "hcbz": "25",
+            "hcje": 0,
+            "hcnum": "0",
+            "slbz": "25",
+            "slje": 0,
+            "slnum": 0,
+            "wzbz": "25",
+            "wzje": 0,
+            "wznum": "0",
+            "xiangmu": "砂浆砂"
+        },
+        {
+            "hcbz": "3.5",
+            "hcje": 684.39,
+            "hcnum": "195.54",
+            "slbz": "3.5",
+            "slje": 758.73,
+            "slnum": 216.78,
+            "wzbz": "3.5",
+            "wzje": 4.2,
+            "wznum": "1.2",
+            "xiangmu": "河沙筛沙"
+        },
+        {
+            "hcbz": "3.6",
+            "hcje": 0,
+            "hcnum": 0,
+            "slbz": "3.6",
+            "slje": 70.812,
+            "slnum": 19.67,
+            "wzbz": "3.6",
+            "wzje": 0,
+            "wznum": 0,
+            "xiangmu": "砂浆罐维护"
+        },
+        {
+            "hcbz": "0.87",
+            "hcje": 15235.05,
+            "hcnum": 1172.02,
+            "slbz": "0",
+            "slje": 16806.306,
+            "slnum": 1264.58,
+            "wzbz": "0",
+            "wzje": 102.6,
+            "wznum": 7.28,
+            "xiangmu": "生产部收入小计"
+        },
+        {
+            "hcbz": "0",
+            "hcje": 0,
+            "hcnum": 1172.02,
+            "slbz": "0",
+            "slje": 0,
+            "slnum": 1264.58,
+            "wzbz": "0",
+            "wzje": 0,
+            "wznum": 7.28,
+            "xiangmu": "实验室收入小计"
+        },
+        {
+            "hcbz": "9",
+            "hcje": 15235.05,
+            "hcnum": 1172.02,
+            "slbz": "9",
+            "slje": 16806.306,
+            "slnum": 1264.58,
+            "wzbz": "10",
+            "wzje": 102.6,
+            "wznum": 7.28,
+            "xiangmu": "收入合计"
+        },
+        {
+            "hcbz": "0",
+            "hcje": 0,
+            "hcnum": 1172.02,
+            "slbz": "0.4",
+            "slje": 505.832,
+            "slnum": 1264.58,
+            "wzbz": "0.25",
+            "wzje": 1.82,
+            "wznum": 7.28,
+            "xiangmu": "水费"
+        }
+    ]
+}

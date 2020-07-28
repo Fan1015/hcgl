@@ -1,0 +1,42 @@
+{
+    "data":[
+        {
+            "time":"2020-07-08",
+            "station":"恒昌站",
+            "混凝土":345.83,
+            "干混砂浆":0,
+            "湿拌砂浆":0
+        },
+        {
+            "time":"2020-07-08",
+            "station":"山立站",
+            "混凝土":404.58,
+            "干混砂浆":0,
+            "湿拌砂浆":0
+        },
+        {
+            "time":"2020-07-08",
+            "station":"伟治站",
+            "混凝土":0,
+            "干混砂浆":0,
+            "湿拌砂浆":0
+        },
+        {
+            "time":"2020-07-08",
+            "station":"松大站",
+            "混凝土":0,
+            "干混砂浆":0,
+            "湿拌砂浆":0
+        },
+        {
+            "time":"<span style='color:orange'>总计<span>",
+            "station":"",
+            "混凝土":"<span style='color:orange'>750.41<span>",
+            "干混砂浆":"<span style='color:orange'>0<span>",
+            "湿拌砂浆":"<span style='color:orange'>0<span>"
+        }
+    ],
+    "code":0,
+    "msg":"",
+    "count":5
+}

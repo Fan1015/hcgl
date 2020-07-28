@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <title>产量统计</title>
+</head>
+<body>
+    <div class="box bg-gray">
+        <div class="echarts-box">
+            <div id="receiveOne" style="width:100%;height:430px"></div>
+        </div>
+        <div class="echarts-box mgtp20">
+            <div id="receiveTwo" style="width:30%;height:440px"></div>
+            <div id="receiveThr" style="width:69%;height:440px"></div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+        var util = layui.util;
+        window.onresize = function(){
+            var resize = true;
+            receiveOne(resize);
+            receiveTwo(resize);
+            receiveThr(resize);
+        }
+
+        // receiveOne();
+        // receiveTwo();
+        receiveThr();
+        var data = ['C15','C20','C25','C30','C35','C40','C45','C50','C60','C25细石','M15湿拌','M5.0湿拌'];
+        var data1 = [620,460,620,460,620,460,620,460,620,460,620,460];
+        var data2 = [120,100,120,100,120,100,120,100,120,100,120,100];
+        var data3 = [120,100,120,100,120,100,120,100,120,100,120,100];
+        var data4 = [120,100,120,100,120,100,120,100,120,100,120,100];
+
+
+        // onxhrstore()
+        
+        function onxhrstore(resize){
+            var datas = JSON.parse(getStore('cltjData'))
+            if(datas && datas.length == 3){
+                receiveOne(datas[0].data, resize)
+                receiveTwo(datas[1].data, resize)
+                receiveThr('', resize)
+            }else{
+                console.log(99)
+                var oneUrl = '/hcms/produce/station_produce';
+                var twoUrl = '/hcms/produce/today_produce'
+                var thrUrl = '/hcms/produce/today_produce'
+                Promise.all([promiseSovl(oneUrl),promiseSovl(twoUrl),promiseSovl(thrUrl)]).then((res) => {
+                    receiveOne(res[0].data, resize)
+                    receiveTwo('', resize)
+                    receiveThr('', resize)
+                    setStore('cltjData', JSON.stringify(res))
+                })
+            }
+           
+        }
+        // /hcms/produce/t_s_send
+        promiseSovl('/hcms/produce/t_s_send').then(res => {
+            console.log(res)
+        })
+        $.ajax({
+            type:'get',
+            url:baseUrl + '/hcms/produce/station_produce',
+            dataType:'json',
+            async:false,
+            success(res){
+                console.log(res)
+                data = res.data.strong_lv;
+                data1 = res.data.tl_data;
+                data2 = res.data.sl_data;
+                data3 = res.data.wz_data;
+                receiveOne('',data,data1,data2,data3,data4);
+                receiveTwo('',data,data1,data2,data3,data4);
+            }
+        });
+        function receiveOne(resize,data = [],data1=[],data2=[],data3=[],data4=[]){
+            var myChart = echarts.init(document.getElementById('receiveOne'));
+            var dataAll = [];
+
+            for(var i = 0;i < data1.length;i++){
+                dataAll[i] = (data1[i]*1000 + data2[i]*1000 + data3[i]*1000)/1000
+            }
+            var option = {
+                title: {
+                    text: util.toDateString(new Date(), 'MM') + '月份各站点生产量统计*',
+                    left: 'left'
+                },
+                grid:{
+                    left:50,
+                    right:10,
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['太龙','山立','伟治']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: data
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '太龙',
+                        type: 'bar',
+                        stack: 'one',
+                        barCategoryGap:'100%', 
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#7bb0ff'
+                        },
+                        data: data1
+                    },
+                    {
+                        name: '山立',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        data: data2
+                    },
+                    {
+                        name: '伟治',
+                        type: 'bar',
+                        stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#ffbe40'
+                        },
+                        data: data3
+                    },
+                    // {
+                    //     name: '松大',
+                    //     type: 'bar',
+                    //     stack: 'one',
+                    //     barWidth:10,
+                    //     itemStyle:{
+                    //         color:'#af87fe'
+                    //     },
+                    //     data: data4
+                    // },
+                    { 
+                        name: '总计',
+                        type: 'bar',
+                        barGap: '-25%',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        itemStyle:{
+                            normal:{
+                                color:'rgba(128, 128, 128, 0)'
+                            }
+                        },
+                        data: dataAll
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        function receiveTwo(resize,data = [],data1=[],data2=[],data3=[],data4=[]){
+            var myChart = echarts.init(document.getElementById('receiveTwo'));
+            var datas = [
+                // {value: 35, bfb:42, name: 'C30'},
+                // {value: 30, bfb:10, name: 'C25'},
+                // {value: 35, bfb:20, name: 'C35'},
+                // {value: 35, bfb:16, name: '其他'}
+            ]
+            for (var i in data){
+                tmb = {};
+                tmb.value = (data1[i]*1000 + data2[i]*1000 + data3[i]*1000)/1000
+                tmb.name = data[i]
+                datas.push(tmb);
+            }
+            $.ajax({
+                type:'get',
+                url:baseUrl + '/hcms/produce/station_produce',
+                dataType:'json',
+                async:false,
+                success(res){
+                    console.log(res)
+
+
+
+                }
+            });
+            console.log(datas)
+            var option = {
+                title: {
+                    text: util.toDateString(new Date(), 'MM') + '月份生产产量分析*',
+                    left: 'left'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{a} <br/>{b} : {c}'
+                },
+                legend: {
+                    left: 'left',
+                    bottom: 0,
+                    icon:'circle',
+                    orient:'vertical',
+                    formatter:function(name){
+                        for(var i = 0; i < datas.length;i++){
+                            if(name == datas[i].name){
+                                return name
+                            }
+                        }
+                    },
+                    data: data
+                },
+                color:['#af87fe','#ffbe40','#ff9580','#7bb0ff'],
+                series: [
+                    {
+                        name: '生产方量',
+                        type: 'pie',
+                        radius: [50, 100],
+                        center: ['50%', '40%'],
+                        label: {
+                            show: true,
+                            formatter:'{c}',
+                        },
+                        emphasis: {
+                            label: {
+                                show: true
+                            }
+                        },
+                        data: datas
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+        
+        function receiveThr(resize){
+            var myChart = echarts.init(document.getElementById('receiveThr'));
+            var option = {
+                title: {
+                    text: '产量TOP5成本/销售价格对比',
+                    left: 'left'
+                },
+                grid:{
+                    left:30,
+                    right:10,
+                    bottom:20
+                },
+                tooltip: {
+                    trigger: 'axis',
+                },
+                legend: {
+                    left: 'right',
+                    icon:'circle',
+                    data: ['成本','销售价格']
+                },
+                xAxis: {
+                    type:'category',
+                    nameRotate:5,
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    },
+                    data: ['C15', 'C20', 'C25', 'C30', 'C35']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine:{
+                        show:false
+                    },
+                    axisTick:{
+                        show:false
+                    }
+                },
+                series: [
+                    {
+                        name: '成本',
+                        type: 'bar',
+                        // stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#ff9580'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        data: [120,100,120,100,120]
+                    },
+                    {
+                        name: '销售价格',
+                        type: 'bar',
+                        // stack: 'one',
+                        barWidth:10,
+                        itemStyle:{
+                            color:'#17c1c1'
+                        },
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                textStyle:{ color:'#000' }
+                            }
+                        },
+                        data: [620,460,620,460,620]
+                        
+                    }
+                ]
+            };
+            if(resize)
+                myChart.resize();
+            myChart.setOption(option);
+        }
+    </script>
+</body>
+</html>

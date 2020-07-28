@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>操作日志</title>
+  </head>
+  <body>
+    <div class="hcbox layui-form">
+      <!-- title表题 -->
+      <p
+        class="staname"
+        style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;"
+      >
+        操作日志
+      </p>
+      <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 日志类型选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">日志类型：</label>
+          <div class="layui-input-inline">
+            <select name="log_type" id="log_type">
+              <option value="">请选择</option>
+              <option value="28">APP用户管理</option>
+              <option value="46">HCMS用户登陆</option>
+              <option value="5">SAP传输</option>
+              <option value="40">SAP地磅运费</option>
+              <option value="14">万昌会计报表</option>
+              <option value="42">万昌管理绩效</option>
+              <option value="34">下单利润测算表</option>
+              <option value="44">人员管理</option>
+              <option value="20">今日看板</option>
+              <option value="30">供应商报价</option>
+              <option value="7">出货管理</option>
+              <option value="32">合同管理</option>
+              <option value="38">基本工资维护</option>
+              <option value="29">基础信息维护</option>
+              <option value="37">岗位薪资管理</option>
+              <option value="21">强度等级</option>
+              <option value="33">恒昌APP</option>
+              <option value="13">恒昌会计报表</option>
+              <option value="43">恒昌会记报表</option>
+              <option value="3">技术服务报表</option>
+              <option value="9">材料管理</option>
+              <option value="39">生产</option>
+              <option value="17">生产任务单</option>
+              <option value="4">生产消耗</option>
+              <option value="45">生产管理</option>
+              <option value="2">用户登陆</option>
+              <option value="47">皮带秤数据上传</option>
+              <option value="41">考勤消费</option>
+              <option value="36">薪资项管理</option>
+              <option value="19">调度管理</option>
+              <option value="1">超速报警</option>
+              <option value="27">车辆管理</option>
+              <option value="12">车辆调度</option>
+              <option value="6">进货管理</option>
+              <option value="35">部门管理</option>
+              <option value="10">采购中心报表</option>
+              <option value="31">采购需求汇总</option>
+              <option value="15">销售中心报表</option>
+            </select>
+          </div>
+        </div>
+        <!-- end 日志类型选择 -->
+        <!-- start 开始时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">开始时间：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              id="czrzStart"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 开始时间选择 -->
+        <!-- start 结束时间选择 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">结束时间：</label>
+          <div class="layui-input-inline" style="margin-right: 24px;">
+            <input
+              type="text"
+              id="czrzEnd"
+              placeholder=""
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 结束时间选择 -->
+        <!-- start 操作人 -->
+        <div
+          class="layui-inline hcbig"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <label class="layui-form-label">操作人：</label>
+          <div class="layui-input-inline">
+            <input
+              type="text"
+              placeholder=""
+              id="username"
+              autocomplete="off"
+              class="layui-input bigInput"
+            />
+          </div>
+        </div>
+        <!-- end 操作人 -->
+
+        <!--start 搜索导出按钮 -->
+        <div
+          class="layui-inline hcbig clearfix"
+          style="margin-bottom: 24px; float: left;"
+        >
+          <div class="layui-inline" style="float: left;">
+            <button class="hcbtn search" data-type="reload" type="button">
+              搜索
+            </button>
+          </div>
+        </div>
+      </div>
+      <!--end 搜索导出按钮 -->
+      <!--start 数据表格 -->
+      <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="czrzTable" lay-filter="czrztest"></table>
+      </div>
+      <!--end 数据表格 -->
+    </div>
+    <script type="text/html" id="barDemo">
+      <a lay-event="detail" style="padding-right:15px;border-right:1px solid #ccc">详情</a>
+      <a lay-event="del" style="">删除</a>
+    </script>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script>
+      var table = layui.table;
+      var form = layui.form;
+      var laytpl = layui.laytpl;
+      var laydate = layui.laydate;
+      var layer = layui.layer;
+      //开始时间选择
+      laydate.render({
+        elem: "#czrzStart",
+        done: function (value, date) {
+          console.log(112, value);
+          console.log(113, date);
+        },
+      });
+      //结束时间选择
+      laydate.render({
+        elem: "#czrzEnd",
+        done: function (value, date) {
+          console.log(222, value);
+          console.log(223, date);
+        },
+      });
+      // 初始化表格数据
+      tableRender({
+        elem: "#czrzTable",
+        url: "../assets/api/czrzTable.json",
+        cols: [
+          [
+            {
+              field: "id",
+              title: "序号",
+              fixed: "left",
+              sort: true,
+              width: 90,
+            },
+            { field: "username", title: "操作人", fixed: "left" },
+            { field: "logtype", title: "日志类型" },
+            { field: "action", title: "操作事件" },
+            { field: "content", title: "操作内容", width: 250 },
+            { field: "ip", title: "IP地址" },
+            { field: "create_time", title: "操作时间" },
+            { title: "操作", toolbar: "#barDemo", align: "center", width: 120 },
+          ],
+        ],
+        id: "czrzReload",
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 12,
+        done: function (res) {},
+      });
+      var active = {
+          reload: function () {
+            var log_type = $("#log_type").val();
+            var start_time = $("#czrzStart").val();
+            var end_time = $("#czrzEnd").val();
+            var username = $("#username").val();
+
+            //执行重载
+            table.reload("czrzReload", {
+              page: {
+                curr: 1, //重新从第 1 页开始
+              },
+              where: {
+                log_type: log_type,
+                start_time: start_time,
+                end_time: end_time,
+                username: username,
+              },
+            });
+          },
+        };
+
+      $(".search").on("click", function () {
+        var type = $(this).data("type");
+        console.log(type);
+        active[type] ? active[type].call(this) : "";
+      });
+
+      // 表格数据编辑
+      var detailObj = null
+      table.on("tool(czrztest)", function (obj) {
+        if (obj.event == "detail") {
+        // 详情
+          localStorage.setItem("czrzDetail", JSON.stringify(obj.data));
+          detailObj = obj.data
+          layer.open({
+            type: 2,
+            title: "详情",
+            area: ["40%", "43%"],
+            maxmin: true,
+            offset: ["240px", "500px"],
+            content: "./czrz-detail.html",
+            success: (res) => {}
+          })
+        } else if (obj.event == "del") {
+          //删除
+          var _this = $(this);
+          layer.confirm("确定要删除吗？", function () {
+            obj.tr.remove();
+            layer.msg('删除成功');
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

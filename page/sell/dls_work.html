@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta
+            http-equiv="Cache-Control"
+            content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../assets/css/style.css"/>
+    <title>代理商工作日志</title>
+    <style>
+        .layui-btn {
+            display: inline-block;
+            background-color: #3e66f4;
+            color: #fff;
+            white-space: nowrap;
+            text-align: center;
+            font-size: 14px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .layui-form-checked[lay-skin="primary"] i {
+            border-color: #3e66f4 !important;
+            background-color: #3e66f4;
+            color: #fff;
+        }
+
+        .layui-table-tool {
+            background: rgb(237, 239, 248);
+            border: 1px solid rgb(230, 230, 230);
+            border-bottom: 2px solid rgb(230, 230, 230);
+        }
+
+        .layui-btn-disabled {
+            background-color: #eeeeee;
+            color: #555555;
+        }
+
+        .layui-btn-group .layui-btn {
+            margin-right: 20px !important;
+        }
+
+        .layui-btn-group .layui-btn:first-child {
+            margin-left: 10px !important;
+        }
+
+        .cs_status {
+            position: absolute;
+            top: 733px;
+        }
+    </style>
+</head>
+<body>
+<div class="hcbox layui-form">
+    <!-- title标题 -->
+    <h2 class="staname" style="padding: 0 0 40px 0;">代理商工作日志</h2>
+    <div class="clearfix" style="padding-right: 24px;">
+        <!-- start 开始时间 -->
+        <div
+                class="layui-inline hcbig"
+                style="margin-bottom: 24px; float: left;"
+        >
+            <label class="layui-form-label">开始时间：</label>
+            <div class="layui-input-inline">
+                <input
+                        type="text"
+                        id="dls_workStart"
+                        placeholder=""
+                        autocomplete="off"
+                        class="layui-input bigInput"
+                />
+            </div>
+        </div>
+        <!-- end 开始时间 -->
+        <!-- start 结束时间 -->
+        <div
+                class="layui-inline hcbig"
+                style="margin-bottom: 24px; float: left;"
+        >
+            <label class="layui-form-label">结束时间：</label>
+            <div class="layui-input-inline" style="margin-right: 24px;">
+                <input
+                        type="text"
+                        id="dls_workEnd"
+                        placeholder=""
+                        autocomplete="off"
+                        class="layui-input bigInput"
+                />
+            </div>
+        </div>
+        <!-- end 结束时间 -->
+        <!-- start 搜索导出按钮 -->
+        <div
+                class="layui-inline hcbig clearfix"
+                style="margin-bottom: 24px; float: left;"
+        >
+            <div class="layui-inline" style="float: left;">
+                <button class="hcbtn search" data-type="reload" type="button">
+                    搜索
+                </button>
+            </div>
+            <div class="layui-inline" style="float: left;">
+                <button class="hcbtn reload" data-type="reload" type="button">
+                    刷新
+                </button>
+            </div>
+			<div class="layui-inline" style="float: left;">
+                <button class="hcbtn export" data-type="reload" type="button">
+                    导出
+                </button>
+            </div>
+        </div>
+        <!-- end 搜索导出按钮-->
+    </div>
+    <div class="table" style="padding-right: 24px;">
+        <table class="layui-hide" id="dls_worktable" lay-filter="dls_worktest"></table>
+    </div>
+</div>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">批量上传</button>
+    </div>
+</script>
+<script src="../../assets/layui/layui.all.js"></script>
+<script src="../../assets/jquery/jquery.min.js"></script>
+<script src="../../assets/js/bluebirds.js"></script>
+<script src="../../assets/js/common.js"></script>
+<script>
+    var table = layui.table;
+    var form = layui.form;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+    var dd = new Date();
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time2 = y + '-' + m + '-' + d + ' 00:00:00'; // 日期选择
+    dd.setDate(dd.getDate() - 1);
+    var y = dd.getFullYear();
+    var m = dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+    var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
+    var time1 = y + '-' + m + '-' + d + ' 00:00:00'; // 日期选择
+    //开始时间选择
+    laydate.render({
+        elem: "#dls_workStart",
+        type: "datetime",
+        value:time1,
+        done: function (value, date) {
+        },
+    });
+    //   //结束时间选择
+    laydate.render({
+        elem: "#dls_workEnd",
+        type: "datetime",
+        value:time2,
+        done: function (value, date) {
+        },
+    });
+    // 初始化表格数据
+    var tableinst = tableRender({
+        elem: "#dls_worktable",
+        // toolbar: "#toolbarDemo",
+        title:'代理商工作日志',
+        defaultToolbar: false,
+        url: baseUrl + "/hcms/oa_form/dls_work_log",
+        cols: [
+            [
+                {field: "serial_num", width: 90, title: "流水号", sort: true, fixed: "left"},
+                {field: "agent", width: 120, title: "代理商"},
+                {field: "visit_time", width: 200, title: "日期"},
+                {field: "today_com_work", width: 240, title: "今日完成任务"},
+                {field: "need_work", width: 240, title: "需协调工作"},
+                {field: "today_work", width: 240, title: "今日走访区域"},
+                {field: "today_visit_cust", width: 240, title: "今日拜访客户"},
+                {field: "target_cust", title: "目标客户跟进", width: 240},
+                {field: "market_dynamic", title: "市场动态", width: 240},
+                {field: "create_time", title: "添加时间", width: 240},
+            ],
+        ],
+        even: true,
+        page: true,
+        skin: "row",
+        limit: 14,
+        id: "dls_work",
+        done: function (res) {
+        },
+    });
+    //头工具栏事件
+     table.on("toolbar(dls_work)", function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+            case "getCheckData":
+                var data = checkStatus.data;
+                let arr = "";
+                for (var i in data) {
+                    arr += data[i].id + ",";
+                }
+                if (data.length == 0) {
+                    layer.msg("请勾选需要上传的数据");
+                    return;
+                }
+                //   $.ajax({
+                //       type:'POST',
+                //       data:{ids:arr},
+                //       dataType:'json',
+                //       url:'/admin/produce/upload_to_sap.html',
+                //       success(res){
+                //           layer.msg(res.msg);
+                //           table.reload('pdcReload');
+                //       }
+                //   });
+                return;
+                break;
+        }
+    });
+    //表格重载方法
+    var $ = layui.$,
+        active = {
+            reload: function () {
+                var startTime = $("#dls_workStart");
+                var endTime = $("#dls_workEnd");
+
+                //执行重载
+                table.reload(
+                    "dls_work",
+                    {
+                        page: {
+                            curr: 1, //重新从第 1 页开始
+                        },
+                        where: {
+                            start_time: startTime.val(),
+                            end_time: endTime.val(),
+                        },
+                    },
+                    "data"
+                );
+            }
+        };
+
+    $(".search").on("click", function () {
+        var type = $(this).data("type");
+        active[type] ? active[type].call(this) : "";
+        status = "";
+        $(".layui-table tr[data-index='0'] td:eq(0)").html("");
+        //刷新底部按钮
+        $("#choose_status>.layui-btn:first-child")
+            .addClass("layui-btn-disabled")
+            .attr("disabled", true)
+            .siblings(".layui-btn")
+            .removeClass("layui-btn-disabled")
+            .attr("disabled", false);
+    });
+    //导出
+    $(".export").click(function () {
+        table.exportFile(tableinst.config.id, tableinst.data, "xls");
+    });
+    // 刷新
+    $(".reload").on("click", function () {
+        location.reload();
+    });
+
+</script>
+</body>
+</html>

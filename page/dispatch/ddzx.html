@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="">
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css">
+    <link rel="stylesheet" href="../assets/icon_font/iconfont.css">
+    <link rel="stylesheet" href="../../assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <!-- <script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=r4cKC9cFFDOBs9V4kG6gNcErki5jN7ts"></script> -->
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=E4805d16520de693a3fe707cdc962045"></script>
+    <title>调度中心</title>
+    <style>
+    	.btnbox .layui-btn{
+    		/*margin-bottom:20px;*/
+    		margin-left:0;
+    		margin-right:15px;
+    	}
+    	.chekidlit{
+    		overflow: hidden;
+    	}
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="ddzxlist">
+            <li class="">
+                <span><i class="iconfont icon-renwu"></i></span>
+                <span>
+                    <p>今日发货总量</p>
+                    <p>2427.65方</p>
+                </span>
+            </li>
+            <li class="">
+                <span><i class="iconfont icon-kongzhitai"></i></span>
+                <span>
+                    <p>未发总量</p>
+                    <p>1212.3方</p>
+                </span>
+            </li>
+            <li class="">
+                <span><i class="iconfont icon-caigoudan"></i></span>
+                <span>
+                    <p>已发总量</p>
+                    <p>54693.09</p>
+                </span>
+            </li>
+            <li class="">
+                <span><i class="iconfont icon-cheliangguanli"></i></span>
+                <span>
+                    <p>空闲车</p>
+                    <p>8</p>
+                </span>
+            </li>
+            <li class="">
+                <span><i class="iconfont icon-chuhuodanguanli"></i></span>
+                <span>
+                    <p>已发车</p>
+                    <p>34</p>
+                </span>
+            </li>
+            <li class="">
+                <span><i class="iconfont icon-jinhuoche"></i></span>
+                <span>
+                    <p>排队车</p>
+                    <p>11</p>
+                </span>
+            </li>
+        </ul>
+        <div class="mgtp20 layui-form">
+            <h3 class="staname">今日看板</h3>
+            <div class="clearfix dayboard">
+            	<div class="left">
+	                <div class="layui-inline">
+	                    <label class="layui-form-label">状态：</label>
+	                    <div class="layui-input-inline">
+	                        <select name="interest" lay-filter="state">
+						        <option value=""></option>
+						        <option value="0" selected>--生产中--</option>
+						        <option value="未使用">-- 未使用 --</option>
+                        		<option value="完工">-- 已完工 --</option>
+						    </select>
+	                    </div>
+	                </div>
+	                <div class="layui-inline">
+	                    <label class="layui-form-label">合同号：</label>
+	                    <div class="layui-input-inline">
+	                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="请输入合同编号">
+	                    </div>
+	                </div>
+	                <div class="layui-inline">
+	                    <button type="button" class="layui-btn layui-btn-sm"><i class="layui-icon layui-icon-search"></i></button>
+	                </div>
+                </div>
+                <div class="right">
+                	<div class="layui-inline">
+	                    <label class="layui-form-label">自动刷新：</label>
+	                    <div class="layui-input-inline">
+	                        <select name="interest" lay-filter="reload">
+						        <option value="1">是</option>
+						        <option value="0" selected>否</option>
+						    </select>
+	                    </div>
+	                    <button type="button" class="layui-btn layui-btn-warm layui-btn-sm">
+	                    	<i class="layui-icon layui-icon-refresh-1"></i>
+	                    </button>
+	                </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix boardmsg">
+        	<div class="boardleft" style="">
+        		<div class="boardevery" style="">
+	            	<div class="boardtile clearfix">
+		            	<div class="left">
+			                <div class="layui-inline">
+			                    <label class="layui-form-label">合同单号：</label>
+			                    <div class="layui-input-inline">
+			                        A17264
+			                    </div>
+			                </div>
+			                <div class="layui-inline">
+			                    <label class="layui-form-label">客户名称：</label>
+			                    <div class="layui-input-inline lnht30">
+			                        河南盛之佳建材有限公司工艺建业春天里4.5期
+			                    </div>
+			                </div>
+		                </div>
+		                <div class="right">
+		                	<div class="layui-inline" style="width:30px;height:30px;">
+			                	<div class="fei-box clearfix">
+									<div class="z-trigon"></div>
+									<div class="right-fei">
+										<div class="fei-kind">
+											<span>生产中</span>
+										</div>
+										<div class="b-trigon"></div>
+									</div>
+								 </div>
+			                </div>
+		                	<div class="layui-inline">
+			                	<span class="layuiud">
+			                		<i class="layui-icon layui-icon-down"></i>
+			                	</span>
+			                </div>
+		                	<div class="layui-inline">
+			                	<button type="button" class="layui-btn layui-btn-primary layui-btn-sm">完工</button>
+			                </div>
+		                	<div class="layui-inline">
+			                    <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">派车</button>
+			                </div>
+			                <div class="layui-inline">			                    	
+			                	<button type="button" class="layui-btn layui-btn-primary layui-btn-sm">备注</button>
+			                </div>
+		                </div>
+	                </div>
+					<div class="boardbody">
+						<div class="stationlit">
+							<ul class="stationame clearfix">
+								<li class="focus">太龙</li>
+								<li>伟治</li>
+								<li style="width:34%">山立<span>*</span></li>
+							</ul>
+							<div class="statbo">
+								<ul class="stamsg focus">
+									<li>生产方量<span>0</span></li>
+									<li>发货方量<span>0</span></li>
+									<li>循环循环<span>0</span></li>
+								</ul>
+								<ul class="stamsg">
+									<li>生产方量<span>0</span></li>
+									<li>发货方量<span>0</span></li>
+									<li>循环循环<span>0</span></li>
+								</ul>
+								<ul class="stamsg">
+									<li>生产方量<span>0</span></li>
+									<li>发货方量<span>0</span></li>
+									<li>循环循环<span>0</span></li>
+								</ul>
+							</div>
+						</div>
+						<div class="boamsgbdy">
+							<div class="beiz">
+								<label class="layui-form-label"><span class="beizh">备注：</span></label>
+			                    <div class="layui-input-inline">
+			                        <p class="bzneir">暂无</p>
+			                    </div>
+							</div>
+							<div class="msglit">
+	                            <div class="msgtitles">
+	                                <div class="layui-inline">
+	                                    <label class="layui-form-label">发货进度：</label>
+	                                    <div class="layui-input-inline" style="width:200px;padding:5px 0">
+	                                        <div class="layui-progress layui-progress-big" lay-showpercent="true">
+	                                            <div class="layui-progress-bar layui-bg-red" lay-percent="70%" style="width: 70%;"><span class="layui-progress-text">70%</span></div>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline">
+	                                    <label class="layui-form-label">需发：</label>
+	                                    <div class="layui-input-inline">
+	                                        <span class="shul">200</span>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline">
+	                                    <label class="layui-form-label">已发：</label>
+	                                    <div class="layui-input-inline">
+	                                        <span class="shul">164</span>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline">
+	                                    <label class="layui-form-label">剩余：</label>
+	                                    <div class="layui-input-inline">
+	                                        <span class="shul">164</span>（方）
+	                                    </div>
+	                                </div>
+	                            </div>
+	                            <div class="msglisted clearfix">
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">工程名称：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">中建7局第四建筑有限公司巩义</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">浇筑位置：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">24层梁板柱梯墙</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">产品名称：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">混凝土</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">工程地点：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">春天里5期</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">浇筑方式：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">地泵-10层以上</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">强度等级：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">c30</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">工程电话：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">15978606393</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">开工时间：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">2020-04-30 08:00:00</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">塌落度：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">230</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">业务员：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">连志伟</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">单车施工时间：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">60分钟</p>
+	                                    </div>
+	                                </div>
+	                                <div class="layui-inline" style="">
+	                                    <label class="layui-form-label">回款方式：</label>
+	                                    <div class="layui-input-inline">
+	                                        <p class="inlinelist">预付款</p>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+							<div class="msgbtm">
+								<ul class="layui-inline" style="width:15%">
+									<li>
+										<label class="layui-form-label">排队：</label>
+					                    <div class="layui-input-inline">
+					                        <p class="bzneir">无</p>
+					                    </div>
+									</li>
+									<li>
+										<label class="layui-form-label">回到：</label>
+					                    <div class="layui-input-inline">
+					                        <p class="bzneir">89</p>
+					                    </div>
+									</li>
+								</ul>
+								<ul class="layui-inline chechg" style="width:68%">
+									<li>
+										<label class="layui-form-label">首车：</label>
+					                    <div class="layui-input-inline">
+					                        <p class="bzneir">2020-04-30-08:00:00</p>
+					                    </div>
+					                    <div class="layui-input-inline">
+					                        <p class="bzneir lujineir">
+												<span>去程</span>
+												<img src="../assets/image/md0384.png" alt="">
+					                        </p>
+					                    </div>
+									</li>
+									<li>
+										<label class="layui-form-label">末车：</label>
+										<div class="layui-input-inline">
+					                        <p class="bzneir">2020-04-30-08:00:00</p>
+					                    </div>
+					                    <div class="layui-input-inline">
+					                        <p class="bzneir lujineir huineir">
+												<span>去程</span>
+												<img src="../assets/image/md0385.png" alt="">
+					                        </p>
+					                    </div>
+									</li>
+									<li class="julinum">
+										<p>距离：<span>13KM</span></p>
+									</li>
+								</ul>
+								<div class="layui-inline daodac" style="width:15%">
+									<label class="layui-form-label">到达：</label>
+										<div class="layui-input-inline ">
+					                        <img src="../assets/image/md0386.png" alt="">
+					                        <span>58</span>
+					                    </div>
+								</div>
+							</div>
+						</div>
+						<div class="chelit">
+							<ul class="stationame clearfix">
+								<li class="focus">罐车<span>2</span></li>
+								<li>泵车<span>2</span></li>
+							</ul>
+							<div class="statbo">
+								<ul class="stamsg focus">
+									<li>到达车辆<span>12</span></li>
+									<li>误时车辆<span>2</span></li>
+									<li>运出车数<span>34</span></li>
+								</ul>
+								<ul class="stamsg">
+									<li>到达车辆<span>12</span></li>
+									<li>误时车辆<span>2</span></li>
+									<li>运出车数<span>34</span></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+            <div class="boardright">
+				<div class="boardtile clearfix">
+	            	<div class="left">
+		                <div class="layui-inline">
+		                    <label class="layui-form-label">工程名称：</label>
+		                    <div class="layui-input-inline">
+		                    	[生产中]
+		                    </div>
+		                </div>
+	                </div>
+                </div>
+                <div class="boardbox">
+                	<div>
+                		<button type="button" class="layui-btn layui-btn-normal">查看全部</button>
+                	</div>
+					<ul>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+						<li>
+							<i class="layui-icon layui-anim-scaleSpring"></i>
+							<span>【A17264】 中建七局第四建筑有限公司巩义建业春天里4.6期</span>
+						</li>
+					</ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mgtp20 layui-form">
+            <h3 class="staname">车辆GPS</h3>
+			<div class="chegpsb">
+				<div class="layui-inline" style="width:69%;vertical-align: top;">
+					<div id="allmap"></div>
+				</div>
+				<div class="layui-inline" style="width:30%;vertical-align: top; float:right">
+					<div class="btnbox" style="text-align: center">
+						<div style="text-align: center;margin-bottom:20px">
+							<button type="button" id="trigger" class="layui-btn layui-btn-warm">触发</button>
+						    <button type="button" id="return" class="layui-btn layui-btn-danger">返回</button>
+						    <button type="button" id="back" class="layui-btn">回到</button>
+						    <button type="button" id="reach" class="layui-btn layui-btn-normal">到达</button>
+						</div>
+					    <div style="text-align: center">
+					        <button type="button" id="checkAll" class="layui-btn layui-btn-primary">查看全部</button>
+					        <button type="button" id="track" class="layui-btn layui-btn-primary">查看轨迹</button>
+					    </div>
+					</div>
+					
+					<div class="chekind">
+						<ul class="chekidul">
+							<li class="chekidlit">
+								<div class="chekdtl">
+									<span class="sjx"><i class="fa fa-caret-down"></i></span>
+									<span class="checktd"></span>
+									<span>行政车辆（<span class="redfont">2辆</span>）</span>
+								</div>
+								<ul class="chekidew focus">
+									<li><span class="checktde"></span> <span>新测试-1</span></li>
+									<li><span class="checktde"></span>&nbsp;<span>新测试-1</span></li>
+								</ul>
+							</li>
+							<li class="chekidlit">
+								<div class="chekdtl">
+									<span class="sjx"><i class="fa fa-caret-right"></i></span>
+									<span class="checktd"></span>
+									<span>搅拌车辆四类（<span class="redfont">20辆</span>）</span>
+								</div>
+								<ul class="chekidew">
+									<li><span class="checktde"></span><span>新测试-1</span></li>
+									<li><span class="checktde"></span><span>新测试-1</span></li>
+								</ul>
+							</li>
+							<li>
+								<div class="layui-inline">
+				                    <div class="layui-input-inline">
+				                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" placeholder="请输入车号">
+				                    </div>
+				                </div>
+				                <div class="layui-inline">
+				                    <button type="button" class="layui-btn layui-btn-sm"><i class="layui-icon layui-icon-search"></i></button>
+				                </div>
+							</li>
+						</ul>
+					</div>
+					<div class="chsubj">
+						<fieldset class="layui-elem-field layui-field-title" style="margin: 15px 0;">
+						  	<legend>超速报警</legend>
+						</fieldset>
+						<p class="clearfix"><button id="closeAll" class="right layui-btn layui-btn-sm layui-btn-danger">清空</button></p>
+						<ul class="bjboxs">
+							<li class="csbjlit">
+								<span class="redfont"><i class="layui-icon layui-icon-notice"></i></span>
+								<span>豫A1997V号车超速，时速<span class="redfont">63.62km/h</span> 2020-04-30 10:30:00</span>
+								<span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span>
+							</li>
+							<li class="csbjlit">
+								<span class=""><i class="layui-icon layui-icon-notice"></i></span>
+								<span>豫A1997V号车超速，时速<span class="redfont">63.62km/h</span> 2020-04-30 10:30:00</span>
+								<span class="closed"><i class="layui-icon layui-icon-close-fill"></i></span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+	 <script src="../../assets/js/common.js"></script>
+    <script>
+		var form = layui.form;
+		var element = layui.element;
+		var layer = layui.layer;
+
+		$('.layuiud').click(function(){
+			$(this).children().toggleClass('layui-icon-down').toggleClass('layui-icon-up')
+			$(this).parents('.boardtile').next().slideToggle()
+		})
+
+
+		//触发
+		$('#trigger').click(function(){
+			layer.msg('已触发')
+		})
+
+		//返回
+		$('#return').click(function(){
+			layer.msg('已返回')
+		})
+
+		//回到
+		$('#back').click(function(){
+			layer.msg('已回到')
+		})
+
+		//到达
+		$('#reach').click(function(){
+			layer.msg('已到达')
+		})
+
+		//查看全部
+		$('#checkAll').click(function(){
+			layer.msg('查看全部')
+		})
+
+		//查看轨迹
+		$('#track').click(function(){
+			layer.msg('查看轨迹')
+		})
+
+		// 监听状态下拉框
+		form.on('select(state)',function(obj){
+			console.log(obj)
+		})
+
+		// 监听是否自动刷新下拉框
+		form.on('select(reload)',function(obj){
+			console.log(obj)
+		});
+
+		$('.chekdtl').click(function(){
+			$(this).find('.fa').toggleClass('fa-caret-down').toggleClass('fa-caret-right');
+			if($(this).find('.fa').hasClass('fa-caret-down')){
+				$(this).parent().siblings().find('.chekidew').slideUp();
+				$(this).parent().siblings().find('.fa').removeClass('fa-caret-down').addClass('fa-caret-right');
+				$(this).next().slideDown();
+			}else{
+				$(this).next().slideUp();
+			}
+		})
+		$('.stationame>li').click(function(){
+			$(this).addClass('focus').siblings().removeClass('focus');
+			var index = $(this).index();
+			$(this).parent().next().children('.stamsg').eq(index).addClass('focus').siblings().removeClass('focus');
+		})
+
+		// 超速清空
+		$('#closeAll').click(function(){
+			$(this).parent().next().empty();
+		})
+		// 超速删除
+		$('.closed').click(function(){
+			$(this).parent().remove();
+		})
+
+
+
+	    // 创建Map实例,设置最大最小放大倍数{minZoom:4,maxZoom:16}，地图是否可点击功能{enableMapClick:false}
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(113.461582, 34.804332);   // 创建点坐标
+		var point1 = new BMap.Point(113.843326, 34.825196);   // 创建点坐标
+		var point2 = new BMap.Point(113.631129, 34.761447); // 碧沙岗          
+		// 放大倍数
+		map.centerAndZoom('郑州',15);
+		//开启鼠标滚轮缩放
+		// map.enableScrollWheelZoom();
+		// 添加控件
+        // 添加带有定位的导航控件
+        var navigationControl = new BMap.NavigationControl({
+            // 靠右上角位置
+            anchor: BMAP_ANCHOR_TOP_RIGHT,
+            // LARGE类型
+            type: BMAP_NAVIGATION_CONTROL_LARGE,
+            // 启用显示定位
+            enableGeolocation: true
+        });
+        map.addControl(navigationControl);
+        var geolocationControl = new BMap.GeolocationControl();
+        geolocationControl.addEventListener("locationSuccess", function(e){
+            // 定位成功事件
+            var address = '';
+            address += e.addressComponent.province;
+            address += e.addressComponent.city;
+            address += e.addressComponent.district;
+            address += e.addressComponent.street;
+            address += e.addressComponent.streetNumber;
+            alert("当前定位地址为：" + address);
+        }); 
+        map.addControl(geolocationControl);
+   		//点击事件
+		map.addEventListener("click", function(e){
+			alert(e.point.lng + ", " + e.point.lat);
+		});
+		// 添加覆盖物start
+		function ComplexCustomOverlay(point, text, mouseoverText){
+	      this._point = point;
+	      this._text = text;
+	      this._overText = mouseoverText;
+	    }
+	    ComplexCustomOverlay.prototype = new BMap.Overlay();
+	    ComplexCustomOverlay.prototype.initialize = function(map){
+			this._map = map;
+			var div = this._div = document.createElement("div");
+			div.style.position = "absolute";
+			div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
+			div.style.backgroundColor = "url(../assets/image/3.png) no-repeat";
+			div.style.height = "50px";
+			div.style.padding = "52px";     
+			var that = this;
+
+			var arrow = this._arrow = document.createElement("div");
+			arrow.style.background = "url(../assets/image/3.png) no-repeat";
+			arrow.style.position = "absolute";
+			arrow.style.width = "50px";
+			arrow.style.height = "52px";
+			arrow.style.top = "22px";
+			arrow.style.left = "10px";
+			arrow.style.overflow = "hidden";
+			div.appendChild(arrow);
+			map.getPanes().labelPane.appendChild(div);
+
+			return div;
+	      }
+	    ComplexCustomOverlay.prototype.draw = function(){
+			var map = this._map;
+			var pixel = map.pointToOverlayPixel(this._point);
+			this._div.style.left = pixel.x  + "px";
+			this._div.style.top  = pixel.y - 30 + "px";
+		}
+		var myCompOverlay = new ComplexCustomOverlay(point2);
+	    map.addOverlay(myCompOverlay);
+	    // 添加覆盖物end
+    </script>
+</body>
+
+</html>

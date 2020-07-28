@@ -1,0 +1,146 @@
+{
+  "code": 0,
+  "msg": "",
+  "data": {
+    "tree": [
+      {
+        "id": 9,
+        "title": "测试11111",
+        "href": "./page/produce/x1x1111zl.html",
+        "target": "_self",
+        "icon": "ss",
+        "pid": 0,
+        "status": 1,
+        "is_index": 0,
+        "create_time": "2020-06-23 21:30:15",
+        "update_time": "2020-06-24 10:20:52",
+        "sort": 0,
+        "checked": true,
+        "spread": true
+      },
+      {
+        "id": 10,
+        "title": "测试11",
+        "href": "./page/produce/x1x1zl.html",
+        "target": "_self",
+        "icon": "ss",
+        "pid": 0,
+        "status": 1,
+        "is_index": 0,
+        "create_time": "2020-06-23 21:31:17",
+        "update_time": "2020-06-24 10:20:52",
+        "sort": 0
+      },
+      {
+        "id": 4,
+        "title": "四级菜单",
+        "href": "page/404/404.html#03",
+        "target": "_self",
+        "icon": "./assets/image/icon/gl001.png",
+        "pid": 0,
+        "status": 1,
+        "is_index": 0,
+        "create_time": "2020-06-22 19:22:25",
+        "update_time": "2020-06-24 10:20:51",
+        "sort": 0,
+        "children": [
+          {
+            "id": 5,
+            "title": "三级菜单2",
+            "href": "page/404/404.html#03",
+            "target": "_self",
+            "icon": "./assets/image/icon/gl001.png",
+            "pid": 4,
+            "status": 1,
+            "is_index": 0,
+            "create_time": "2020-06-22 19:22:25",
+            "update_time": "2020-06-24 10:20:52",
+            "sort": 0
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "title": "一级菜单",
+        "href": "page/404/404.html#03",
+        "target": "_self",
+        "icon": "./assets/image/icon/gl001.png",
+        "pid": 0,
+        "status": 1,
+        "is_index": 0,
+        "create_time": "2020-06-22 19:22:25",
+        "update_time": "2020-06-24 10:20:51",
+        "sort": 0,
+        "children": [
+          {
+            "id": 6,
+            "title": "三级菜单3",
+            "href": "page/404/404.html#03",
+            "target": "_self",
+            "icon": "./assets/image/icon/gl001.png",
+            "pid": 1,
+            "status": 1,
+            "is_index": 0,
+            "create_time": "2020-06-22 19:22:25",
+            "update_time": "2020-06-24 10:20:52",
+            "sort": 0
+          },
+          {
+            "id": 7,
+            "title": "测试",
+            "href": "./page/produce/xxzl.html",
+            "target": "_self",
+            "icon": "ss",
+            "pid": 1,
+            "status": 1,
+            "is_index": 0,
+            "create_time": "2020-06-23 21:02:04",
+            "update_time": "2020-06-24 10:20:52",
+            "sort": 0
+          },
+          {
+            "id": 8,
+            "title": "测试1",
+            "href": "./page/produce/xx1zl.html",
+            "target": "_self",
+            "icon": "ss",
+            "pid": 1,
+            "status": 1,
+            "is_index": 0,
+            "create_time": "2020-06-23 21:03:22",
+            "update_time": "2020-06-24 10:20:52",
+            "sort": 0
+          },
+          {
+            "id": 2,
+            "title": "二级菜单",
+            "href": "page/404/404.html#03",
+            "target": "_self",
+            "icon": "./assets/image/icon/gl001.png",
+            "pid": 1,
+            "status": 1,
+            "is_index": 0,
+            "create_time": "2020-06-22 19:22:25",
+            "update_time": "2020-06-24 10:20:51",
+            "sort": 0,
+            "children": [
+              {
+                "id": 3,
+                "title": "三级菜单",
+                "href": "page/404/404.html#03",
+                "target": "_self",
+                "icon": "./assets/image/icon/gl001.png",
+                "pid": 2,
+                "status": 1,
+                "is_index": 0,
+                "create_time": "2020-06-22 19:22:25",
+                "update_time": "2020-06-24 10:20:51",
+                "sort": 0
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

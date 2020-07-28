@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <link rel="stylesheet" href="../../assets/layui/css/layui.css" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+    <title>收料汇总表</title>
+    <style>
+        .hcbig-top {
+        margin-bottom: 32px;
+        float: left;
+      }
+      .hcbig-foot {
+        float: left;
+        margin-right: 50px;
+      }
+      .layui-form-radio {
+        padding: 0;
+        margin: 0;
+      }
+      .qhbtn {
+        /*  width: 302px */
+        width: 227px;
+        right: 25px;
+      }
+      .qhbtn span {
+        width: 75px;
+        border-left: 1px solid #ccc;
+      }
+      .qhbtn span:first-child {
+        border: none;
+      }
+    </style>
+</head>
+
+<body>
+    <div class="hcbox layui-form">
+        <!-- title表题 -->
+        <p class="staname" style="padding: 0 0 40px 0; font-size: 24px; font-weight: 700;">
+            收料汇总表
+        </p>
+        <div class="clearfix" style="padding-right: 24px;">
+            <!-- start 开始时间选择 -->
+            <div class="layui-inline hcbig hcbig-top">
+                <label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="start" name="starttime" placeholder="" autocomplete="off" class="layui-input bigInput" />
+                </div>
+            </div>
+            <!-- end 开始时间选择 -->
+            <!-- start 结束时间选择 -->
+            <div class="layui-inline hcbig hcbig-top">
+                <label class="layui-form-label">结束时间：</label>
+                <div class="layui-input-inline" style="margin-right: 24px;">
+                    <input type="text" id="end" name="endtime" placeholder="" autocomplete="off" class="layui-input bigInput" />
+                </div>
+            </div>
+            <!-- end 结束时间选择 -->
+            <!-- start 站点选择 -->
+            <div class="layui-inline hcbig hcbig-top">
+                <label class="layui-form-label">站点：</label>
+                <div class="layui-input-inline">
+                    <select name="zhandian" id="station">
+                        <option value=""></option>
+                        <option value="0">太龙</option>
+                        <option value="1">山立</option>
+                        <option value="2">伟治</option>
+                    </select>
+                </div>
+            </div>
+            <!-- end 站点选择 -->
+        </div>
+        <!-- 单选框 -->
+        <div class="clearfix" style="padding-right: 24px; line-height: 37px;">
+            <div class="layui-inline hcbig hcbig-foot">
+                <input type="radio" name="radio_1" value="1" checked="checked" />
+                <label for="">按名称汇总</label>
+            </div>
+            <div class="layui-inline hcbig hcbig-foot">
+                <input type="radio" name="radio_1" value="2" />
+                <label for="">按供货商汇总</label>
+            </div>
+            <div class="layui-inline hcbig hcbig-foot">
+                <input type="radio" name="radio_1" value="3" />
+                <label for="">按规格汇总</label>
+            </div>
+            <div class="layui-inline hcbig hcbig-foot">
+                <input type="radio" name="radio_1" value="4" />
+                <label for="">按站点汇总</label>
+            </div>
+            <!--start 搜索导出按钮 -->
+            <div class="layui-inline hcbig clearfix" style="margin-bottom: 24px;">
+                <div class="layui-inline" style="float: left;">
+                    <button class="hcbtn search" data-type="reload" type="button">
+                        搜索
+                    </button>
+                </div>
+                <div class="layui-inline" style="float: left;">
+                    <button class="hcbtn export" type="submit">导出</button>
+                </div>
+            </div>
+            <!--end 搜索导出按钮 -->
+        </div>
+        <!--start 数据表格 -->
+        <div class="table" style="padding-right: 24px;">
+            <table 2class="layui-hide" id="opera" lay-filter="ddtest"></table>
+        </div>
+        <div class="table" style="padding-right: 24px;">
+          <ul class="clearfix mgtp20 xsqh">
+              <li id="main" class="x-body" style="width: 100%; height: 300px;box-shadow: none"></li>
+              <li class="qhbtn" style="float:right;width:auto;box-shadow: none;top:0;right:0">
+                  <span class="focus" type="volume">收货方量</span>
+                  <span type="age">均价</span>
+                  <span type="money">金额</span>
+              </li>
+          </ul>
+        </div>
+    </div>
+    <script src="../../assets/layui/layui.all.js"></script>
+    <script src="../../assets/jquery/jquery.min.js"></script>
+    <script src="../../assets/js/bluebirds.js"></script>
+    <script src="../../assets/js/common.js"></script>
+    <script src="../../assets/js/echarts.js"></script>
+    <script>
+    var table = layui.table;
+    var form = layui.form;
+    var laytpl = layui.laytpl;
+    var laydate = layui.laydate;
+    var layer = layui.layer;
+    var time;
+    var time1;
+    var judge = 1;
+    var allData = new Object();
+    var active = {
+      reload: function() {
+        if (judge == "1") {
+          var obj = {
+            btn:'<span class="focus" type="volume">收货方量</span><span type="age">均价</span><span type="money">金额</span>',
+            col:[
+              {field: "goods_name",title: "商品名称",fixed: "left",sort: true},
+              {field: "volume",title: "收货方量"},
+              {field: "age",title: "均价"},
+              {field: "money",title: "金额"},
+            ]     
+          }
+          return obj
+        }
+        if (judge == "2") {
+          var obj = {
+            btn:'<span class="focus" type="volume">数量</span><span type="age">均价</span><span type="money">金额</span>',
+            col:[
+              {field: "send_goods",title: "供货商",fixed: "left",sort: true},
+              {field: "goods_name",title: "货品名称"},
+              {field: "volume",title: "数量"},
+              {field: "age",title: "均价"},
+              {field: "money",title: "金额"},
+              {field: "zhanbi",title: "占比例"}
+            ]
+          }
+          return obj
+        }
+        if (judge == "3") {
+          var obj = {
+            btn:'<span class="focus" type="volume">数量</span><span type="age">均价</span><span type="money">金额</span>',
+            col:[
+              {field: "goods_spec",title: "货品规格",fixed: "left",sort: true},
+              {field: "goods_name",title: "货品名称"},
+              {field: "volume",title: "数量"},
+              {field: "age",title: "均价"},
+              {field: "money",title: "金额"},
+              {field: "zhanbi",title: "占比例"}
+            ]
+          }
+          return obj
+        }
+        if (judge == "4") {
+          var obj = {
+            btn:'<span class="focus" type="car_num">总车数</span><span type="weight">净重/kg</span><span type="volume">方量</span><span type="pri">单价</span><span type="money">总金额</span>',
+            col:[
+              {field: "station_name",title: "站点", fixed: "left",sort: true},
+              {field: "send_goods",title: "发货"},
+              {field: "goods_name",title: "货名"},
+              {field: "goods_spec",title: "规格"},
+              {field: "car_num",title: "总车数"},
+              {field: "weight",title: "净重/Kg"},
+              {field: "volume",title: "方量"},
+              {field: "pri",title: "单价"},
+              {field: "money",title: "总金额"}
+            ]
+          }
+          return obj
+        }
+      }
+    };
+
+    //开始时间选择
+    laydate.render({
+        elem: "#start",
+        type: "datetime",
+        done: function(value, date) {
+         
+        },
+    });
+    //结束时间选择
+    laydate.render({
+        elem: "#end",
+        type: "datetime",
+        done: function(value, date) {
+           
+        },
+    });
+
+    //查询按钮绑定事件
+    $(".search").on("click", function() {
+        judge = $('input[name="radio_1"]:checked').val();
+        $('.qhbtn').html(active.reload().btn);
+        var type = $('.qhbtn span.focus').attr("type");
+        var text = $('.qhbtn span.focus').text();
+        tableder(active.reload().col,function(){
+          txxs(allData[type],allData.send_goods,text);
+        });
+    });
+
+    var cols = active.reload().col
+    tableder(cols,function(data){
+      if(!data) return
+      for(var i = 0;i < data.length;i++){
+        for(key in data[i]){
+          if(!allData[key])
+            allData[key] = [];
+          if(!data[i][key])
+            data[i][key] = '';
+          allData[key].push(data[i][key]);
+        }
+      }
+      var text = '名称';
+      txxs(allData.volume,allData.send_goods,text);
+    });
+
+    // 30天和7天切换
+    $(".xsqh").on('click','.qhbtn span', function(e) {
+        $(this).addClass("focus").siblings().removeClass("focus");
+        var type = $(this).attr("type");
+        var text = $(this).text();
+        txxs(allData[type],allData.send_goods,text)
+    });
+
+    //图形显示数据-按名称汇总
+    function txxs(data,xAxisData,text) {
+      var myChart = echarts.init(document.getElementById("main"));
+        var option = {
+            title: {
+              text: "【全部】" + "收料汇总图形报表-按"+text+"汇总",
+              left:0
+            },
+            grid: {
+                left: 0,
+                right: 0,
+                bottom: 0,
+                containLabel: true,
+            },
+            tooltip: {
+                trigger: "axis"
+            },
+            xAxis: {
+                type: "category",
+                data: xAxisData,
+                boundaryGapL:false,
+                axisLabel: {
+                    show: true,
+                    interval: 0,
+                },
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: false,
+                }
+            },
+            yAxis: {
+                type: "value",
+                splitNumber: 6,
+                axisTick: {
+                    show: false,
+                },
+                axisLine: {
+                    show: false,
+                }
+            },
+            series: [{
+              name: "收货方量",
+              data: data,
+              type: "line",
+              itemStyle: {
+                  color: "#7bb0ff",
+              },
+              smooth:true,
+              areaStyle: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                      offset: 0,
+                      color: "#7bb0ff",
+                    },
+                    {
+                      offset: 1,
+                      color: "rgba(255,255,255,0)",
+                    },
+                ]),
+              },
+          }]
+        };
+        // 指定图表的配置项和数据
+        myChart.setOption(option);
+    }
+    function tableder(col,callback){
+      tableRender({
+          elem: "#opera",
+          url: "../assets/api/slhzTable1.json",
+          cols: [col],
+          page: false,
+          table: "sm",
+          id: "testReload",
+          even: true,
+          skin: "row",
+          limit: 6,
+          where:{
+            starttime: $("#start").val(),
+            endtime: $("#end").val(),
+            zhandian: $("#station").val(),
+          },
+          done: function(res) {
+              var station = $("#station").val();
+              callback(res.data);
+          },
+      });
+    }
+    </script>
+</body>
+
+</html>
